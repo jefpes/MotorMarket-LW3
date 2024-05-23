@@ -37,6 +37,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'user_read'],
             ['name' => 'user_update'],
             ['name' => 'user_delete'],
+            ['name' => 'brand_create'],
+            ['name' => 'brand_read'],
+            ['name' => 'brand_update'],
+            ['name' => 'brand_delete'],
         ]);
 
         $user = User::create([
@@ -55,5 +59,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $role->abilities()->sync(Ability::pluck('id')->toArray());
+
+        $this->call([BrandSeeder::class]);
     }
 }
