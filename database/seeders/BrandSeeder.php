@@ -13,25 +13,15 @@ class BrandSeeder extends Seeder
     {
         $brands = [
             'Fiat',
-            'Volkswagen',
             'Chevrolet',
             'Hyundai',
-            'Toyota',
+            'Volkswagen',
             'Jeep',
-            'Renault',
             'Honda',
+            'Renault',
+            'Toyota',
             'Nissan',
             'Ford',
-            'Caoa Chery',
-            'Peugeot',
-            'Citroën',
-            'Mitsubishi',
-            'BMW',
-            'Mercedes-Benz',
-            'Volvo',
-            'Audi',
-            'Kia',
-            'Land Rover',
         ];
 
         foreach ($brands as $brand) {
