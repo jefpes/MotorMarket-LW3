@@ -16,8 +16,6 @@ class RoleForm extends Form
 
     public ?int $hierarchy;
 
-    public bool $new = true;
-
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
