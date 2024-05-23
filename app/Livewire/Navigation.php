@@ -35,9 +35,7 @@ class Navigation extends Component
             (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => null, 'isActive' => request()->routeIs('dashboard')],
             (object)['route' => 'users', 'label' => 'Users', 'permission' => 'user_read', 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
             (object)['route' => 'roles', 'label' => 'Roles', 'permission' => 'admin', 'isActive' => request()->routeIs('roles', 'ability.role')],
-            (object)['route' => 'city', 'label' => 'Cities', 'permission' => 'city_read', 'isActive' => request()->routeIs('city')],
-            (object)['route' => 'group', 'label' => 'Groups', 'permission' => 'group_read', 'isActive' => request()->routeIs('group')],
-            (object)['route' => 'people', 'label' => 'People', 'permission' => 'people_read', 'isActive' => request()->routeIs('people', 'people.create', 'people.edit', 'people.show')],
+            (object)['route' => 'brand', 'label' => 'Brands', 'permission' => 'brand_read', 'isActive' => request()->routeIs('brand')],
         ];
     }
 
