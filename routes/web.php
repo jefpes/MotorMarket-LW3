@@ -45,11 +45,11 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified'])
         ->name('profile');
 
-    Route::get('brand', Brand\index::class)
+    Route::get('brand', Brand\Index::class)
         ->middleware(['auth', 'verified'])
         ->name('brand');
 
-    Route::get('vmodel', VehicleModel\index::class)
+    Route::get('vmodel', VehicleModel\Index::class)
         ->middleware(['auth', 'verified'])
         ->name('vmodel');
 
