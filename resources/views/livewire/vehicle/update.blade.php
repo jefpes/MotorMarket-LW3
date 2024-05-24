@@ -1,21 +1,23 @@
 <div>
-  <x-slot name="header">{{ __('Editing People') }}: <span class="text-yellow-300">{{ $form->name }}</span></x-slot>
+  <x-slot name="header">{{ __('Editing People') }}: <span class="text-yellow-300">{{ $form->plate }}</span></x-slot>
   <div class="space-y-2 mb-4">
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
-      <div class="basis-1/2">
+      <div class="basis-1/3">
         <x-form.input name="purchase_date" label="Purchase Date" type="date" placeholder="Purchase Date"
           :messages="$errors->get('form.purchase_date')" wire:model="form.purchase_date" class="w-full" />
       </div>
-      <div class="basis-1/2">
+      <div class="basis-1/3">
         <x-form.input name="year_one" label="Year" placeholder="Year" :messages="$errors->get('form.year_one')"
           wire:model="form.year_one" class="w-full" />
+      </div>
+      <div class="basis-1/3">
         <x-form.input name="year_two" label="Year" placeholder="Year" :messages="$errors->get('form.year_two')"
           wire:model="form.year_two" class="w-full" />
       </div>
     </div>
 
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
-      <div class="md:basis-1/2">
+      <div class="md:basis-1/3">
         <x-select wire:model="form.vehicle_model_id" class="w-full" label='Model' id="model_select">
           <option value=""> {{ __('Select a Model')}} </option>
           @foreach ($this->models as $data)
@@ -23,13 +25,17 @@
           @endforeach
         </x-select>
       </div>
-      <div class="md:basis-1/2">
+      <div class="md:basis-1/3">
         <x-select wire:model="form.vehicle_type_id" class="w-full" label='Type' id="type_select">
           <option value=""> {{ __('Select a Type')}} </option>
           @foreach ($this->types as $data)
           <option value="{{ $data->id }}"> {{ $data->name }} </option>
           @endforeach
         </x-select>
+      </div>
+      <div class="md:basis-1/3">
+        <x-form.file-input name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('photos')"
+          wire:model="photos" class="w-full" />
       </div>
     </div>
 

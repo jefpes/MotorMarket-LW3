@@ -15,15 +15,15 @@ class Show extends Component
 
     public bool $modal = false;
 
-    public Vehicle $people;
+    public Vehicle $vehicle;
 
     public VehiclePhoto $photo;
 
-    public string $header = 'Showing Person';
+    public string $header = 'Showing Vehicle';
 
     public function mount(int $id): void
     {
-        $this->people = Vehicle::findOrFail($id);
+        $this->vehicle = Vehicle::findOrFail($id);
     }
 
     public function render(): View

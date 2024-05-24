@@ -65,9 +65,13 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified'])
         ->name('vehicle.create');
 
-    Route::get('vehicle_edit', Vehicle\Update::class)
+    Route::get('vehicle_edit/{id}', Vehicle\Update::class)
         ->middleware(['auth', 'verified'])
         ->name('vehicle.edit');
+
+    Route::get('vehicle_show/{id}', Vehicle\Show::class)
+        ->middleware(['auth', 'verified'])
+        ->name('vehicle.show');
 
     require __DIR__ . '/auth.php';
 });

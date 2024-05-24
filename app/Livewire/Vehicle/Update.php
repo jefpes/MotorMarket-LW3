@@ -34,13 +34,13 @@ class Update extends Component
     }
 
     #[Computed()]
-    public function model(): Collection
+    public function models(): Collection
     {
         return VehicleModel::all();
     }
 
     #[Computed()]
-    public function type(): Collection
+    public function types(): Collection
     {
         return VehicleType::all();
     }
