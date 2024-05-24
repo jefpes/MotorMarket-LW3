@@ -17,7 +17,7 @@ class Navigation extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/');
     }
 
     public function setLang(string $lang): void
@@ -37,6 +37,7 @@ class Navigation extends Component
             (object)['route' => 'roles', 'label' => 'Roles', 'permission' => 'admin', 'isActive' => request()->routeIs('roles', 'ability.role')],
             (object)['route' => 'brand', 'label' => 'Brands', 'permission' => 'brand_read', 'isActive' => request()->routeIs('brand')],
             (object)['route' => 'vmodel', 'label' => 'Vehicle Model', 'permission' => 'vmodel_read', 'isActive' => request()->routeIs('vmodel')],
+            (object)['route' => 'vtype', 'label' => 'Vehicle Type', 'permission' => 'vtype_read', 'isActive' => request()->routeIs('vtype')],
         ];
     }
 

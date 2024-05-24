@@ -20,7 +20,7 @@ class VehicleModelForm extends Form
     public function rules()
     {
         return [
-            'name'     => ['required', 'min:1', 'max:100', Rule::unique('roles')->ignore($this->id)],
+            'name'     => ['required', 'min:1', 'max:100', Rule::unique('vehicle_models')->ignore($this->id)],
             'brand_id' => ['required', 'exists:brands,id', 'integer'],
         ];
     }
