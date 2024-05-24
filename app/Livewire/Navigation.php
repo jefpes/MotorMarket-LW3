@@ -17,7 +17,7 @@ class Navigation extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/');
     }
 
     public function setLang(string $lang): void
