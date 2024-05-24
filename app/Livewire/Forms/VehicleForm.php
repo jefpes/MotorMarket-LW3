@@ -97,8 +97,8 @@ class VehicleForm extends Form
         $this->color            = $vehicle->color;
         $this->plate            = $vehicle->plate;
         $this->chassi           = $vehicle->chassi;
-        // $this->renavan          = $vehicle->renavan;
-        $this->description = $vehicle->description;
+        $this->renavan          = $vehicle->renavan;
+        $this->description      = $vehicle->description;
     }
 
     public function destroy(): void
