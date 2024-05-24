@@ -24,7 +24,7 @@ class VehicleSeeder extends Seeder
                 'color'            => 'Preto',
                 'plate'            => 'ABC1234',
                 'chassi'           => '12345678901234567',
-                'renavam'          => '12345678901',
+                'renavan'          => '12345678901',
                 'description'      => 'Veículo em ótimo estado de conservação.',
             ],
             [
@@ -39,7 +39,7 @@ class VehicleSeeder extends Seeder
                 'color'            => 'Preto',
                 'plate'            => 'ABC1235',
                 'chassi'           => '12345678901234568',
-                'renavam'          => '12345678902',
+                'renavan'          => '12345678902',
                 'description'      => 'Veículo em ótimo estado de conservação.',
             ],
             [
@@ -54,7 +54,7 @@ class VehicleSeeder extends Seeder
                 'color'            => 'Azul',
                 'plate'            => 'ABC1236',
                 'chassi'           => '12345678901234566',
-                'renavam'          => '12345678900',
+                'renavan'          => '12345678900',
                 'description'      => 'Veículo em ótimo estado de conservação.',
             ],
         ];

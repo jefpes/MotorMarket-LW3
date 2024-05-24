@@ -33,7 +33,7 @@ class VehicleForm extends Form
 
     public ?string $chassi = '';
 
-    public ?string $renavam = '';
+    public ?string $renavan = '';
 
     public ?string $description = '';
 
@@ -52,7 +52,7 @@ class VehicleForm extends Form
             'color'            => ['required', 'string', 'max:255', 'min:3'],
             'plate'            => ['required', 'string', 'size:7'],
             'chassi'           => ['required', 'string', 'max:255', 'min:3'],
-            'renavam'          => ['required', 'string', 'max:255', 'min:3'],
+            'renavan'          => ['required', 'string', 'max:255', 'min:3'],
             'description'      => ['required', 'string', 'max:255', 'min:10'],
         ];
     }
@@ -74,7 +74,7 @@ class VehicleForm extends Form
                 'color'            => $this->color,
                 'plate'            => $this->plate,
                 'chassi'           => $this->chassi,
-                'renavam'          => $this->renavam,
+                'renavan'          => $this->renavan,
                 'description'      => $this->description,
             ]
         );
@@ -97,8 +97,8 @@ class VehicleForm extends Form
         $this->color            = $vehicle->color;
         $this->plate            = $vehicle->plate;
         $this->chassi           = $vehicle->chassi;
-        $this->renavam          = $vehicle->renavam;
-        $this->description      = $vehicle->description;
+        // $this->renavan          = $vehicle->renavan;
+        $this->description = $vehicle->description;
     }
 
     public function destroy(): void

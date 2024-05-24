@@ -24,7 +24,7 @@ return new class () extends Migration {
             $table->string('color');
             $table->string('plate')->unique();
             $table->string('chassi')->unique();
-            $table->string('renavam')->unique();
+            $table->string('renavan')->unique();
             $table->string('description');
 
             $table->timestamps();
