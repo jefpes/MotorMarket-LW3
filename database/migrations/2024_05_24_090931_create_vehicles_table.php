@@ -16,8 +16,8 @@ return new class () extends Migration {
             $table->date('purchase_date');
             $table->decimal('purchase_price', places: 2);
             $table->decimal('sale_price', places: 2);
-            $table->foreignIdFor(VehicleType::class)->constrained();
-            $table->foreignIdFor(VehicleModel::class)->constrained();
+            $table->foreignIdFor(VehicleType::class)->constrained(table: 'vehicle_types', column: 'id');
+            $table->foreignIdFor(VehicleModel::class)->constrained(table: 'vehicle_models', column: 'id');
             $table->year('year_one');
             $table->year('year_two');
             $table->integer('km');
