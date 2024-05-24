@@ -5,7 +5,7 @@
         @forelse ($vehicle->photos as $photo)
           <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
         @empty
-          <p class="text-center text-2xl text-red-400" >{{ __('No photos available.') }}</p>
+          <p class="text-center text-2xl text-red-400" >{{ __('No photo available') }}</p>
         @endforelse
       </div>
   <div class="p-2 border-t border-gray-200 dark:border-gray-700">
@@ -41,7 +41,7 @@
         {{ __('Download') }}
       </x-primary-button>
 
-      @can('photo_delete')
+      @can('vphoto_delete')
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>
