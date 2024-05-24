@@ -4,7 +4,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization }
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, Dashboard, Profile, User, VehicleModel};
+use App\Livewire\{Brand, Dashboard, Profile, User, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -52,6 +52,10 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('vmodel', VehicleModel\Index::class)
         ->middleware(['auth', 'verified'])
         ->name('vmodel');
+
+    Route::get('vtype', VehicleType\Index::class)
+        ->middleware(['auth', 'verified'])
+        ->name('vtype');
 
     require __DIR__ . '/auth.php';
 });
