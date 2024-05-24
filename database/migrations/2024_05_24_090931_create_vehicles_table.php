@@ -20,7 +20,7 @@ return new class () extends Migration {
             $table->foreignIdFor(VehicleModel::class)->constrained();
             $table->year('year_one');
             $table->year('year_two');
-            $table->integer('KM');
+            $table->integer('km');
             $table->string('color');
             $table->string('plate')->unique();
             $table->string('chassi')->unique();

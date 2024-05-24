@@ -1,0 +1,29 @@
+<div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <a href="{{ route('vehicle.edit', $vehicle->id) }}" wire:navigate>
+    @if ($vehicle->photos()->first() && Storage::exists("/vehicle_photos/".$vehicle->photos()->first()->photo_name))
+      <img class="rounded-t-lg max-h-72" src="{{ $vehicle->photos()->first()->path }}" alt="{{ $vehicle->surname }}"/>
+      @else
+      <x-icons.no-image class="w-full h-72" />
+    @endif
+  </a>
+  <div class="p-2">
+    <dl class="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Purchase Price') }}: </span> {{ $vehicle->purchase_price }}
+        </p>
+      </div>
+    </dl>
+  </div>
+  @canany(['vehicle_update', 'vehicle_delete'])
+    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+      @can('vehicle_update')
+        <x-primary-button :href="route('vehicle.edit', $vehicle->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
+      @endcan
+
+      @can('vehicle_delete')
+        <livewire:vehicle.delete :id="$vehicle->id" :key="$vehicle->id" />
+      @endcan
+    </div>
+  @endcanany
+</div>
