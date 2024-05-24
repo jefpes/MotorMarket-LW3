@@ -22,9 +22,9 @@ return new class () extends Migration {
             $table->year('year_two');
             $table->integer('KM');
             $table->string('color');
-            $table->string('plate');
-            $table->string('chassi');
-            $table->string('renavam');
+            $table->string('plate')->unique();
+            $table->string('chassi')->unique();
+            $table->string('renavam')->unique();
             $table->string('description');
 
             $table->timestamps();
