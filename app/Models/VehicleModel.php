@@ -10,6 +10,8 @@ class VehicleModel extends Model
 {
     use HasFactory;
 
+    protected $table = 'vehicle_models';
+
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);

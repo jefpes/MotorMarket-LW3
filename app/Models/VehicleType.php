@@ -10,6 +10,8 @@ class VehicleType extends Model
 {
     use HasFactory;
 
+    protected $table = 'vehicle_types';
+
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class);

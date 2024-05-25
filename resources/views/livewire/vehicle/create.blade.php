@@ -63,7 +63,7 @@
 
     <x-form.input name="chassi" label="Chassi" placeholder="Chassi" :messages="$errors->get('form.chassi')" wire:model="form.chassi" class="w-full" />
 
-    <x-form.input name="renavam" label="Renavam" placeholder="Renavam" :messages="$errors->get('form.renavam')" wire:model="form.renavam" class="w-full" />
+    <x-form.input name="renavan" label="Renavan" placeholder="Renavan" :messages="$errors->get('form.renavan')" wire:model="form.renavan" class="w-full" />
 
     <x-form.textarea name="description" label="Description" placeholder="Description" :messages="$errors->get('form.description')"
       wire:model="form.description" class="w-full" />
