@@ -44,10 +44,10 @@ class Show extends Component
 
     public function destroy(): void
     {
-        $this->authorize('photo_delete');
+        $this->authorize('vphoto_delete');
 
         try {
-            Storage::delete("/photos/" . $this->photo->photo_name);
+            Storage::delete("/vehicle_photos/" . $this->photo->photo_name);
             $this->photo->delete();
             $this->modal = false;
 

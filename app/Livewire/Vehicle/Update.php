@@ -47,7 +47,7 @@ class Update extends Component
 
     public function save(): void
     {
-        $this->authorize('vehicle_updated');
+        $this->authorize('vehicle_update');
         file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
 
         $vehicle = $this->form->save();
@@ -76,7 +76,6 @@ class Update extends Component
                 'path'       => $customName,
             ]);
         }
-        $this->form->reset();
 
         $this->msg  = 'Vehicle updated successfully';
         $this->icon = 'icons.success';
