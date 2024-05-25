@@ -21,6 +21,8 @@ class Update extends Component
 
     public VehicleForm $form;
 
+    public string $header = 'Editing Vehicle';
+
     /** @var array<Object> */
     public array $photos = [];
 

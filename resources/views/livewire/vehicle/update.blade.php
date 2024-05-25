@@ -1,5 +1,5 @@
 <div>
-  <x-slot name="header">{{ __('Editing People') }}: <span class="text-yellow-300">{{ $form->plate }}</span></x-slot>
+  <x-slot name="header">{{ __($header) }}: <span class="text-yellow-300">{{ $form->plate }}</span></x-slot>
   <div class="space-y-2 mb-4">
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/3">
@@ -68,8 +68,8 @@
     <x-form.input name="chassi" label="Chassi" placeholder="Chassi" :messages="$errors->get('form.chassi')"
       wire:model="form.chassi" class="w-full" />
 
-    <x-form.input name="renavam" label="Renavam" placeholder="Renavam" :messages="$errors->get('form.renavam')"
-      wire:model="form.renavam" class="w-full" />
+    <x-form.input name="renavan" label="Renavam" placeholder="Renavam" :messages="$errors->get('form.renavan')"
+      wire:model="form.renavan" class="w-full" />
 
     <x-form.textarea name="description" label="Description" placeholder="Description"
       :messages="$errors->get('form.description')" wire:model="form.description" class="w-full" />

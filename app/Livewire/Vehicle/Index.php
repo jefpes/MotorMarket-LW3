@@ -13,6 +13,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    public string $header = 'Vehicles';
+
     #[Url(except: '', as: 'name', history: true)]
     public ?string $search = '';
 
