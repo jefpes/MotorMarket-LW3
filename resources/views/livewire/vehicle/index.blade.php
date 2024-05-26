@@ -6,23 +6,23 @@
         wire:model.live.debounce.800="search" class="w-full" />
     </div>
 
-    @can('vehicle_create')
     <div class="gap-2 flex flex-0">
-        <x-select wire:model.live="vehicle_type_id" class="w-full" id="type_select">
-          <option value=""> {{ __('Type')}} </option>
-          @foreach ($types as $data)
-          <option value="{{ $data->id }}"> {{ $data->name }} </option>
-          @endforeach
-        </x-select>
-        <x-select wire:model.live="vehicle_model_id" class="w-full" id="model_select">
-          <option value=""> {{ __('Model')}} </option>
-          @foreach ($models as $data)
-          <option value="{{ $data->id }}"> {{ $data->name }} </option>
-          @endforeach
-        </x-select>
-      <x-primary-button :href="route('vehicle.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
+      <x-select wire:model.live="vehicle_type_id" class="w-full" id="type_select">
+        <option value=""> {{ __('Type')}} </option>
+        @foreach ($types as $data)
+        <option value="{{ $data->id }}"> {{ $data->name }} </option>
+        @endforeach
+      </x-select>
+      <x-select wire:model.live="vehicle_model_id" class="w-full" id="model_select">
+        <option value=""> {{ __('Model')}} </option>
+        @foreach ($models as $data)
+        <option value="{{ $data->id }}"> {{ $data->name }} </option>
+        @endforeach
+      </x-select>
+      @can('vehicle_create')
+        <x-primary-button :href="route('vehicle.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
+      @endcan
     </div>
-    @endcan
 
   </div>
 
