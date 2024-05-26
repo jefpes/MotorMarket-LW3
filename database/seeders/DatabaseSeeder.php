@@ -49,6 +49,11 @@ class DatabaseSeeder extends Seeder
             ['name' => 'vtype_read'],
             ['name' => 'vtype_update'],
             ['name' => 'vtype_delete'],
+            ['name' => 'vehicle_create'],
+            ['name' => 'vehicle_read'],
+            ['name' => 'vehicle_update'],
+            ['name' => 'vehicle_delete'],
+            ['name' => 'vphoto_delete'],
         ]);
 
         $user = User::create([
@@ -68,6 +73,6 @@ class DatabaseSeeder extends Seeder
 
         $role->abilities()->sync(Ability::pluck('id')->toArray());
 
-        $this->call([BrandSeeder::class, VehicleModelSeeder::class, VehicleTypeSeeder::class]);
+        $this->call([BrandSeeder::class, VehicleModelSeeder::class, VehicleTypeSeeder::class, VehicleSeeder::class]);
     }
 }
