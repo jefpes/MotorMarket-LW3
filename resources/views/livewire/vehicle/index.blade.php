@@ -7,6 +7,9 @@
     </div>
 
     <div class="gap-2 flex flex-0">
+      <div>
+        <x-text-input type="date" id="date_i" wire:model.live='date_i' /> {{ __('to') }} <x-text-input type="date" id="date_f" wire:model.live='date_f' />
+      </div>
       <x-select wire:model.live="vehicle_type_id" class="w-full" id="type_select">
         <option value=""> {{ __('Type')}} </option>
         @foreach ($types as $data)

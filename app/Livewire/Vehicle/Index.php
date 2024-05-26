@@ -15,6 +15,10 @@ class Index extends Component
 
     public string $header = 'Vehicles';
 
+    public string $date_i = '';
+
+    public string $date_f = '';
+
     #[Url(except: '', as: 'name', history: true)]
     public ?string $search = '';
 
