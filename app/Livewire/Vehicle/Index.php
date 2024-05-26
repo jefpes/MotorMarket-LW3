@@ -15,11 +15,13 @@ class Index extends Component
 
     public string $header = 'Vehicles';
 
+    #[Url(except: '', as: 'date-ini', history: true)]
     public string $date_i = '';
 
+    #[Url(except: '', as: 'date-end', history: true)]
     public string $date_f = '';
 
-    #[Url(except: '', as: 'name', history: true)]
+    #[Url(except: '', as: 'plate', history: true)]
     public ?string $search = '';
 
     #[Url(except: null, as: 'type', history: true)]
@@ -39,12 +41,14 @@ class Index extends Component
     {
         return Vehicle::query()
                 ->with('photos', 'type', 'model')
+                ->when($this->search, fn (Builder $q) => $q->where('plate', 'like', "%{$this->search}%"))
                 ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
                     $q->where('id', $this->vehicle_type_id);
                 }))
                 ->when($this->vehicle_model_id, fn (Builder $q) => $q->whereHas('model', function (Builder $q) {
                     $q->where('id', $this->vehicle_model_id);
                 }))
+                ->when($this->date_i && $this->date_f, fn (Builder $q) => $q->whereBetween('purchase_date', [$this->date_i, $this->date_f]))
                 ->paginate();
     }
 
