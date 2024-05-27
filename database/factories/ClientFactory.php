@@ -28,12 +28,12 @@ class ClientFactory extends Factory
             'affiliated_three' => $this->faker->name,
             'cep'              => $this->faker->numerify('#####-###'),
             'logradouro'       => $this->faker->streetName,
-            'numero'           => $this->faker->buildingNumber,
-            'complemento'      => $this->faker->optional()->secondaryAddress,
+            'number'           => $this->faker->buildingNumber,
+            'complement'       => $this->faker->optional()->secondaryAddress,
             'bairro'           => $this->faker->citySuffix,
-            'cidade'           => $this->faker->city,
-            'estado'           => $this->faker->stateAbbr,
-            'pais'             => 'Brasil',
+            'city'             => $this->faker->city,
+            'state'            => $this->faker->stateAbbr,
+            'country'          => 'Brasil',
         ];
     }
 }
