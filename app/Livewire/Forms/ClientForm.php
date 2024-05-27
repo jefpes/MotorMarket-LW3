@@ -29,8 +29,6 @@ class ClientForm extends Form
 
     public ?string $affiliated_three = '';
 
-    public ?int $km = 0;
-
     public ?string $cep = '';
 
     public ?string $logradouro = '';
