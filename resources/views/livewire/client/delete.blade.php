@@ -1,5 +1,4 @@
 <div>
-  <x-danger-button wire:click="deleting({{ $id }})" >{{ __('Delete') }}</x-danger-button>
   <x-modal wire:model="modal" name="main_modal">
     <x-slot:title>
       {{ __($title) }}: <span class="text-yellow-300">{{ $form->name }}</span>
