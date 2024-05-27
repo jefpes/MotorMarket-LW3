@@ -4,7 +4,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization }
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, Dashboard, Profile, User, Vehicle, VehicleModel, VehicleType};
+use App\Livewire\{Brand, Client, Dashboard, Profile, User, Vehicle, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -72,6 +72,22 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('vehicle_show/{id}', Vehicle\Show::class)
         ->middleware(['auth', 'verified'])
         ->name('vehicle.show');
+
+    Route::get('client', Client\Index::class)
+        ->middleware(['auth', 'verified'])
+        ->name('client');
+
+    Route::get('client_create', Client\Create::class)
+        ->middleware(['auth', 'verified'])
+        ->name('client.create');
+
+    Route::get('client_edit/{id}', Client\Update::class)
+        ->middleware(['auth', 'verified'])
+        ->name('client.edit');
+
+    Route::get('client_show/{id}', Client\Show::class)
+        ->middleware(['auth', 'verified'])
+        ->name('client.show');
 
     require __DIR__ . '/auth.php';
 });
