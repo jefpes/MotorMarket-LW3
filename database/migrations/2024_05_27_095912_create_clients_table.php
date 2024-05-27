@@ -13,23 +13,23 @@ return new class () extends Migration {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('rg')->unique();
-            $table->string('cpf')->unique();
-            $table->string('phone_one')->unique();
-            $table->string('phone_two')->nullable()->unique();
+            $table->string('rg', 20)->unique();
+            $table->string('cpf', 20)->unique();
+            $table->string('phone_one', 20)->unique();
+            $table->string('phone_two', 20)->nullable()->unique();
             $table->date('birth_date');
             $table->string('affiliated_one')->nullable();
             $table->string('affiliated_two')->nullable();
             $table->string('affiliated_three')->nullable();
 
-            $table->string('cep');
+            $table->string('cep', 20);
             $table->string('logradouro'); // Rua, Avenida, etc.
-            $table->string('numero');
-            $table->string('complemento')->nullable();
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('estado'); // Pode ser uma abreviação (SP, RJ, etc.)
-            $table->string('pais')->default('Brasil');
+            $table->integer('number');
+            $table->string('complement')->nullable();
+            $table->string('bairro', 100);
+            $table->string('city', 100);
+            $table->string('state', 100); // Pode ser uma abreviação (SP, RJ, etc.)
+            $table->string('country', 100)->default('Brasil');
 
             $table->timestamps();
         });
