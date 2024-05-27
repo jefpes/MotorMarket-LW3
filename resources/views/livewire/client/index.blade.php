@@ -6,7 +6,7 @@
         wire:model.live.debounce.800="search" class="w-full" />
     </div>
 
-    @can('people_create')
+    @can('client_create')
     <div class="gap-2 flex flex-0">
       <x-primary-button :href="route('client.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
     </div>
