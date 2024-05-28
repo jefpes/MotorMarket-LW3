@@ -30,32 +30,34 @@
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone (1)') }}: </span>
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (1): </span>
           {{ $client->phone_one }}
         </p>
       </div>
-      <div class="flex">
-        <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone (2)') }}: </span>
-          {{ $client->phone_two }}
-        </p>
-      </div>
+      @isset($client->phone_two)
+        <div class="flex">
+          <p class="text-lg font-semibold">
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (2): </span>
+            {{ $client->phone_two }}
+          </p>
+        </div>
+      @endisset
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Date Birth') }}: </span>
-          {{ $client->date_birth }}
+          {{ $client->birth_date }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Name Mother') }}: </span>
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Mother') }}: </span>
           {{ $client->mother }}
         </p>
       </div>
       @isset($client->father)
         <div class="flex">
           <p class="text-lg font-semibold">
-            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Name Father') }}: </span>
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Father') }}: </span>
             {{ $client->father }}
           </p>
         </div>
@@ -63,7 +65,7 @@
       @isset($client->affiliated_one)
         <div class="flex">
           <p class="text-lg font-semibold">
-            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated (1)') }}: </span>
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} (1): </span>
             {{ $client->affiliated_one }}
           </p>
         </div>
@@ -71,7 +73,7 @@
       @isset($client->affiliated_two)
         <div class="flex">
           <p class="text-lg font-semibold">
-            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated (2)') }}: </span>
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} (2): </span>
             {{ $client->affiliated_two }}
           </p>
         </div>

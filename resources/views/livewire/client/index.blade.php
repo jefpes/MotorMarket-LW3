@@ -40,6 +40,8 @@
         <x-table.td>
           <div class="flex flex-row gap-2 justify-center">
 
+            <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
+
             @can('client_update')
               <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
             @endcan
