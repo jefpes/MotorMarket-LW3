@@ -31,6 +31,8 @@
           wire:model="form.birth_date" class="w-full" />
       </div>
     </div>
+    <x-form.textarea name="description" label="Description" placeholder="Description"
+      :messages="$errors->get('form.description')" wire:model="form.description" class="w-full" />
 
     <div class="inline-flex items-center justify-center w-full">
       <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
@@ -50,12 +52,25 @@
         <x-select wire:model="form.state" class="w-full" label='State' id="state_select">
           <option value=""> {{ __('Select a State')}} </option>
           @foreach ($states as $data)
-          <option value="{{ $data->value }}"> {{ $data->nome() }} </option>
+          <option value="{{ $data->value }}"> {{ $data->name() }} </option>
           @endforeach
         </x-select>
       </div>
     </div>
-    <x-form.input name="logradouro" label="Logradouro" placeholder="Logradouro" :messages="$errors->get('form.logradouro')" wire:model="form.logradouro" class="w-full" />
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="md:basis-1/3">
+        <x-select wire:model="form.logradouro_type" class="w-full" label='State' id="state_select">
+          <option value=""> {{ __('Type')}} </option>
+          @foreach ($logradouroType as $data)
+          <option value="{{ $data->value }}"> {{ $data->name() }} </option>
+          @endforeach
+        </x-select>
+      </div>
+      <div class="md:basis-2/3">
+        <x-form.input name="logradouro" label="Logradouro" placeholder="Logradouro"
+          :messages="$errors->get('form.logradouro')" wire:model="form.logradouro" class="w-full" />
+      </div>
+    </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="md:basis-1/3">
         <x-form.input name="number" label="Number" placeholder="Number" :messages="$errors->get('form.number')" wire:model="form.number" class="w-full" />
@@ -67,7 +82,7 @@
         <x-form.input name="city" label="City" placeholder="City" :messages="$errors->get('form.city')" wire:model="form.city" class="w-full" />
       </div>
     </div>
-    <x-form.textarea name="complement" label="Complement" placeholder="Complement" :messages="$errors->get('form.complement')"
+    <x-form.input name="complement" label="Complement" placeholder="Complement" :messages="$errors->get('form.complement')"
       wire:model="form.complement" class="w-full" />
   </div>
 

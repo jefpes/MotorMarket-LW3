@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\States;
+use App\Enums\{LogradouroType, States};
 use App\Livewire\Forms\ClientForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -25,7 +25,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.client.create', ['states' => States::cases()]);
+        return view('livewire.client.create', ['states' => States::cases(), 'logradouroType' => LogradouroType::cases()]);
     }
 
     public function save(): void

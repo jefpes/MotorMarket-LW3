@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Client;
 
+use App\Enums\{LogradouroType, States};
 use App\Livewire\Forms\ClientForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -18,6 +19,8 @@ class Update extends Component
 
     public ClientForm $form;
 
+    public string $header = 'Update Client';
+
     /** @var array<Object> */
     public array $photos = [];
 
@@ -27,7 +30,7 @@ class Update extends Component
     }
     public function render(): View
     {
-        return view('livewire.client.update');
+        return view('livewire.client.update', ['states' => States::cases(), 'logradouroType' => LogradouroType::cases()]);
     }
 
     public function save(): void

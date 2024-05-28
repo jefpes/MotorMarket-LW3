@@ -32,7 +32,7 @@ enum States: string
     case SE = 'SE'; // Sergipe
     case TO = 'TO'; // Tocantins
 
-    public function nome(): string
+    public function name(): string
     {
         return match($this) {
             self::AC => 'Acre',

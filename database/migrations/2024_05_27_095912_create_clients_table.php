@@ -21,8 +21,10 @@ return new class () extends Migration {
             $table->string('affiliated_one')->nullable();
             $table->string('affiliated_two')->nullable();
             $table->string('affiliated_three')->nullable();
+            $table->string('description')->nullable();
 
             $table->string('cep', 20);
+            $table->string('type', 100);
             $table->string('logradouro'); // Rua, Avenida, etc.
             $table->integer('number');
             $table->string('complement')->nullable();

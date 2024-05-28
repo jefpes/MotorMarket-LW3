@@ -29,7 +29,11 @@ class ClientForm extends Form
 
     public ?string $affiliated_three = '';
 
+    public ?string $description = '';
+
     public ?string $cep = '';
+
+    public ?string $type = '';
 
     public ?string $logradouro = '';
 
@@ -58,6 +62,7 @@ class ClientForm extends Form
             'affiliated_one'   => ['min:3', 'max:255'],
             'affiliated_two'   => ['min:3', 'max:255'],
             'affiliated_three' => ['min:3', 'max:255'],
+            'description'      => ['min:3', 'max:255'],
             'cep'              => ['required', 'min:3', 'max:20'],
             'logradouro'       => ['required', 'min:3', 'max:255'],
             'number'           => ['integer', 'min:1', 'max:99999'],
@@ -84,6 +89,7 @@ class ClientForm extends Form
                 'affiliated_one'   => $this->affiliated_one,
                 'affiliated_two'   => $this->affiliated_two,
                 'affiliated_three' => $this->affiliated_three,
+                'description'      => $this->description,
                 'cep'              => $this->cep,
                 'logradouro'       => $this->logradouro,
                 'number'           => $this->number,
@@ -111,6 +117,7 @@ class ClientForm extends Form
         $this->affiliated_one   = $client->affiliated_one;
         $this->affiliated_two   = $client->affiliated_two;
         $this->affiliated_three = $client->affiliated_three;
+        $this->description      = $client->description;
         $this->cep              = $client->cep;
         $this->logradouro       = $client->logradouro;
         $this->number           = $client->number;
