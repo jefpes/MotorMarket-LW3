@@ -18,9 +18,14 @@
         <x-form.input name="phone_two" label="Phone (2)" placeholder="Phone (2)" :messages="$errors->get('form.phone_two')" wire:model="form.phone_two" class="w-full" />
       </div>
     </div>
-    <x-form.input name="affiliated_one" label="Affiliated (1)" placeholder="Affiliated (1)" :messages="$errors->get('form.affiliated_one')" wire:model="form.affiliated_one" class="w-full" />
-    <x-form.input name="affiliated_two" label="Affiliated (2)" placeholder="Affiliated (2)" :messages="$errors->get('form.affiliated_two')" wire:model="form.affiliated_two" class="w-full" />
-    <x-form.input name="affiliated_three" label="Affiliated (3)" placeholder="Affiliated (3)" :messages="$errors->get('form.affiliated_three')" wire:model="form.affiliated_three" class="w-full" />
+    <x-form.input name="father" label="Father" placeholder="Father" :messages="$errors->get('form.father')"
+      wire:model="form.father" class="w-full" />
+    <x-form.input name="mother" label="Mother" placeholder="Mother" :messages="$errors->get('form.mother')"
+      wire:model="form.mother" class="w-full" />
+    <x-form.input name="affiliated_one" label="Affiliated (1)" placeholder="Affiliated (1)"
+      :messages="$errors->get('form.affiliated_one')" wire:model="form.affiliated_one" class="w-full" />
+    <x-form.input name="affiliated_two" label="Affiliated (2)" placeholder="Affiliated (2)"
+      :messages="$errors->get('form.affiliated_two')" wire:model="form.affiliated_two" class="w-full" />
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
         <x-form.file-input name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('photos')"
@@ -58,15 +63,15 @@
       </div>
     </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
-      <div class="md:basis-1/3">
-        <x-select wire:model="form.logradouro_type" class="w-full" label='State' id="state_select">
+      <div class="md:flex-0">
+        <x-select wire:model="form.logradouro_type" class="w-full" label='Type' id="type_select">
           <option value=""> {{ __('Type')}} </option>
           @foreach ($logradouroType as $data)
           <option value="{{ $data->value }}"> {{ $data->name() }} </option>
           @endforeach
         </x-select>
       </div>
-      <div class="md:basis-2/3">
+      <div class="md:flex-1">
         <x-form.input name="logradouro" label="Logradouro" placeholder="Logradouro"
           :messages="$errors->get('form.logradouro')" wire:model="form.logradouro" class="w-full" />
       </div>
@@ -79,7 +84,12 @@
         <x-form.input name="bairro" label="Bairro" placeholder="Bairro" :messages="$errors->get('form.bairro')" wire:model="form.bairro" class="w-full" />
       </div>
       <div class="md:basis-1/3">
-        <x-form.input name="city" label="City" placeholder="City" :messages="$errors->get('form.city')" wire:model="form.city" class="w-full" />
+        <x-select wire:model="form.city_id" class="w-full" label='City' id="city_select">
+          <option value=""> {{ __('Select a City')}} </option>
+          @foreach ($cities as $data)
+          <option value="{{ $data->id }}"> {{ $data->name }} </option>
+          @endforeach
+        </x-select>
       </div>
     </div>
     <x-form.input name="complement" label="Complement" placeholder="Complement" :messages="$errors->get('form.complement')"

@@ -23,17 +23,19 @@ class ClientForm extends Form
 
     public ?string $birth_date = null;
 
+    public ?string $father = '';
+
+    public ?string $mother = '';
+
     public ?string $affiliated_one = '';
 
     public ?string $affiliated_two = '';
-
-    public ?string $affiliated_three = '';
 
     public ?string $description = '';
 
     public ?string $cep = '';
 
-    public ?string $type = '';
+    public ?string $logradouro_type = '';
 
     public ?string $logradouro = '';
 
@@ -43,7 +45,7 @@ class ClientForm extends Form
 
     public ?string $bairro = '';
 
-    public ?string $city = '';
+    public ?int $city_id = null;
 
     public ?string $state = '';
 
@@ -53,24 +55,26 @@ class ClientForm extends Form
     public function rules()
     {
         return [
-            'name'             => ['required', 'min:3', 'max:255'],
-            'rg'               => ['required', 'min:3', 'max:20'],
-            'cpf'              => ['required', 'min:3', 'max:20'],
-            'phone_one'        => ['required', 'min:3', 'max:20'],
-            'phone_two'        => ['nullable', 'min:3', 'max:20'],
-            'birth_date'       => ['required', 'date'],
-            'affiliated_one'   => ['nullable', 'min:3', 'max:255'],
-            'affiliated_two'   => ['nullable', 'min:3', 'max:255'],
-            'affiliated_three' => ['nullable', 'min:3', 'max:255'],
-            'description'      => ['nullable', 'min:3', 'max:255'],
-            'cep'              => ['required', 'min:3', 'max:20'],
-            'logradouro'       => ['required', 'min:3', 'max:255'],
-            'number'           => ['integer', 'min:1', 'max:99999'],
-            'complement'       => ['nullable', 'min:3', 'max:255'],
-            'bairro'           => ['required', 'min:3', 'max:100'],
-            'city'             => ['required', 'min:3', 'max:100'],
-            'state'            => ['required', 'min:2', 'max:100'],
-            'country'          => ['required', 'min:3', 'max:100'],
+            'name'            => ['required', 'min:3', 'max:255'],
+            'rg'              => ['required', 'min:3', 'max:20'],
+            'cpf'             => ['required', 'min:3', 'max:20'],
+            'phone_one'       => ['required', 'min:3', 'max:20'],
+            'phone_two'       => ['nullable', 'min:3', 'max:20'],
+            'birth_date'      => ['required', 'date'],
+            'father'          => ['nullable', 'min:3', 'max:255'],
+            'mother'          => ['nullable', 'min:3', 'max:255'],
+            'affiliated_one'  => ['nullable', 'min:3', 'max:255'],
+            'affiliated_two'  => ['nullable', 'min:3', 'max:255'],
+            'description'     => ['nullable', 'min:3', 'max:255'],
+            'cep'             => ['required', 'min:3', 'max:20'],
+            'logradouro_type' => ['required', 'min:2', 'max:255'], // 'required', 'in:'.implode(',', LogradouroType::cases()), // 'required', 'min:3', 'max:255
+            'logradouro'      => ['required', 'min:3', 'max:255'],
+            'number'          => ['integer', 'min:1', 'max:99999'],
+            'complement'      => ['nullable', 'min:3', 'max:255'],
+            'bairro'          => ['required', 'min:3', 'max:100'],
+            'city_id'         => ['required', 'exists:cities,id', 'integer'],
+            'state'           => ['required', 'min:2', 'max:100'],
+            'country'         => ['required', 'min:3', 'max:100'],
         ];
     }
 
@@ -80,24 +84,26 @@ class ClientForm extends Form
         $client = Client::updateOrCreate(
             ['id' => $this->id],
             [
-                'name'             => $this->name,
-                'rg'               => $this->rg,
-                'cpf'              => $this->cpf,
-                'phone_one'        => $this->phone_one,
-                'phone_two'        => $this->phone_two,
-                'birth_date'       => $this->birth_date,
-                'affiliated_one'   => $this->affiliated_one,
-                'affiliated_two'   => $this->affiliated_two,
-                'affiliated_three' => $this->affiliated_three,
-                'description'      => $this->description,
-                'cep'              => $this->cep,
-                'logradouro'       => $this->logradouro,
-                'number'           => $this->number,
-                'complement'       => $this->complement,
-                'bairro'           => $this->bairro,
-                'city'             => $this->city,
-                'state'            => $this->state,
-                'country'          => $this->country,
+                'name'            => $this->name,
+                'rg'              => $this->rg,
+                'cpf'             => $this->cpf,
+                'phone_one'       => $this->phone_one,
+                'phone_two'       => $this->phone_two,
+                'birth_date'      => $this->birth_date,
+                'father'          => $this->father,
+                'mother'          => $this->mother,
+                'affiliated_one'  => $this->affiliated_one,
+                'affiliated_two'  => $this->affiliated_two,
+                'description'     => $this->description,
+                'cep'             => $this->cep,
+                'logradouro_type' => $this->logradouro_type,
+                'logradouro'      => $this->logradouro,
+                'number'          => $this->number,
+                'complement'      => $this->complement,
+                'bairro'          => $this->bairro,
+                'city_id'         => $this->city_id,
+                'state'           => $this->state,
+                'country'         => $this->country,
             ]
         );
 
@@ -106,26 +112,28 @@ class ClientForm extends Form
 
     public function setClient(int $id): void
     {
-        $client                 = Client::find($id);
-        $this->id               = $client->id;
-        $this->name             = $client->name;
-        $this->rg               = $client->rg;
-        $this->cpf              = $client->cpf;
-        $this->phone_one        = $client->phone_one;
-        $this->phone_two        = $client->phone_two;
-        $this->birth_date       = $client->birth_date;
-        $this->affiliated_one   = $client->affiliated_one;
-        $this->affiliated_two   = $client->affiliated_two;
-        $this->affiliated_three = $client->affiliated_three;
-        $this->description      = $client->description;
-        $this->cep              = $client->cep;
-        $this->logradouro       = $client->logradouro;
-        $this->number           = $client->number;
-        $this->complement       = $client->complement;
-        $this->bairro           = $client->bairro;
-        $this->city             = $client->city;
-        $this->state            = $client->state;
-        $this->country          = $client->country;
+        $client                = Client::find($id);
+        $this->id              = $client->id;
+        $this->name            = $client->name;
+        $this->rg              = $client->rg;
+        $this->cpf             = $client->cpf;
+        $this->phone_one       = $client->phone_one;
+        $this->phone_two       = $client->phone_two;
+        $this->birth_date      = $client->birth_date;
+        $this->father          = $client->father;
+        $this->mother          = $client->mother;
+        $this->affiliated_one  = $client->affiliated_one;
+        $this->affiliated_two  = $client->affiliated_two;
+        $this->description     = $client->description;
+        $this->cep             = $client->cep;
+        $this->logradouro_type = $client->logradouro_type;
+        $this->logradouro      = $client->logradouro;
+        $this->number          = $client->number;
+        $this->complement      = $client->complement;
+        $this->bairro          = $client->bairro;
+        $this->city_id         = $client->city_id;
+        $this->state           = $client->state;
+        $this->country         = $client->country;
     }
 
     public function destroy(): void
