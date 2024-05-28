@@ -23,7 +23,7 @@ class Show extends Component
 
     public function mount(int $id): void
     {
-        $this->client = Client::findOrFail($id);
+        $this->client = Client::with('photos')->findOrFail($id);
     }
 
     public function render(): View

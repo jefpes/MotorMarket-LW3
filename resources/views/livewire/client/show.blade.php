@@ -1,8 +1,8 @@
 <div>
-  <x-slot name="header">{{ __($header) }}: <span class="text-yellow-300">{{ $people->name ?? 'People'}}</span></x-slot>
+  <x-slot name="header">{{ __($header) }}: <span class="text-yellow-300">{{ $client->name ?? 'People'}}</span></x-slot>
 
       <div class="flex overflow-x-auto pb-4">
-        @forelse ($people->photos as $photo)
+        @forelse ($client->photos as $photo)
           <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
         @empty
           <p class="text-center text-2xl text-red-400" >{{ __('No photos available.') }}</p>
@@ -13,53 +13,133 @@
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Name') }}: </span>
-          {{ $people->name }}
+          {{ $client->name }}
         </p>
       </div>
       <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Surname') }}: </span> {{ $people->surname }} </p>
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('RG') }}: </span>
+          {{ $client->rg }}
+        </p>
+      </div>
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('CPF') }}: </span>
+          {{ $client->cpf }}
+        </p>
+      </div>
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone (1)') }}: </span>
+          {{ $client->phone_one }}
+        </p>
+      </div>
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone (2)') }}: </span>
+          {{ $client->phone_two }}
+        </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Date Birth') }}: </span>
-          {{ $people->date_birth }}
+          {{ $client->date_birth }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Name Mother') }}: </span>
-          {{ $people->name_mother }}
+          {{ $client->mother }}
         </p>
       </div>
+      @isset($client->father)
+        <div class="flex">
+          <p class="text-lg font-semibold">
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Name Father') }}: </span>
+            {{ $client->father }}
+          </p>
+        </div>
+      @endisset
+      @isset($client->affiliated_one)
+        <div class="flex">
+          <p class="text-lg font-semibold">
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated (1)') }}: </span>
+            {{ $client->affiliated_one }}
+          </p>
+        </div>
+      @endisset
+      @isset($client->affiliated_two)
+        <div class="flex">
+          <p class="text-lg font-semibold">
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated (2)') }}: </span>
+            {{ $client->affiliated_two }}
+          </p>
+        </div>
+      @endisset
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Description') }}: </span>
-          {{ $people->description }}
+          {{ $client->description }}
+        </p>
+      </div>
+
+      <div class="inline-flex items-center justify-center w-full">
+        <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
+        <div class="absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-800">
+          {{ __('Address') }}
+        </div>
+      </div>
+
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Country') }}: </span>
+          {{ $client->country }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Address') }}: </span>
-          {{ $people->address }}
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('State') }}: </span>
+          {{ $client->state }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('City') }}: </span>
-          {{ $people->city->name }}
+          {{ $client->city->name }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Group') }}: </span> {{ $people->group->name }}
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Bairro') }}: </span>
+          {{ $client->bairro }}
         </p>
       </div>
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('CEP') }}: </span>
+          {{ $client->cep }}
+        </p>
+      </div>
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Logradouro') }}: </span>
+          {{ $client->logradouro_type }} {{ $client->logradouro }}, {{ $client->number }}
+        </p>
+      </div>
+      @isset($client->complement)
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Complement') }}: </span>
+          {{ $client->complement }}
+        </p>
+      </div>
+      @endisset
     </dl>
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
-    <x-secondary-button :href="route('people')" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    @can('people_update')
-      <x-primary-button :href="route('people.edit', $people->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
+    <x-secondary-button :href="route('client')" wire:navigate> {{ __('Back') }} </x-secondary-button>
+    @can('client_update')
+      <x-primary-button :href="route('client.edit', $client->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
 

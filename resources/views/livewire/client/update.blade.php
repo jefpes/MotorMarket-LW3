@@ -64,7 +64,7 @@
         <x-select wire:model="form.state" class="w-full" label='State' id="state_select">
           <option value=""> {{ __('Select a State')}} </option>
           @foreach ($states as $data)
-          <option value="{{ $data->value }}"> {{ $data->name() }} </option>
+          <option value="{{ $data->value }}"> {{ $data->value }} </option>
           @endforeach
         </x-select>
       </div>
@@ -74,7 +74,7 @@
         <x-select wire:model="form.logradouro_type" class="w-full" label='Type' id="type_select">
           <option value=""> {{ __('Type')}} </option>
           @foreach ($logradouroType as $data)
-          <option value="{{ $data->value }}"> {{ $data->name() }} </option>
+          <option value="{{ $data->value }}"> {{ $data->value }} </option>
           @endforeach
         </x-select>
       </div>
