@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\LogradouroType;
+use App\Enums\{LogradouroType, States};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -36,7 +36,7 @@ class ClientFactory extends Factory
             'complement'      => $this->faker->optional()->secondaryAddress,
             'bairro'          => $this->faker->citySuffix,
             'city_id'         => $this->faker->randomNumber(1, 10),
-            'state'           => $this->faker->stateAbbr,
+            'state'           => $this->faker->randomElement(States::cases()),
             'country'         => 'Brasil',
         ];
     }
