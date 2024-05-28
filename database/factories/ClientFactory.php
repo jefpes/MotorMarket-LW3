@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\LogradouroType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,7 +27,9 @@ class ClientFactory extends Factory
             'affiliated_one'   => $this->faker->name,
             'affiliated_two'   => $this->faker->name,
             'affiliated_three' => $this->faker->name,
+            'description'      => $this->faker->text,
             'cep'              => $this->faker->numerify('#####-###'),
+            'type'             => $this->faker->randomElement(LogradouroType::cases()),
             'logradouro'       => $this->faker->streetName,
             'number'           => $this->faker->buildingNumber,
             'complement'       => $this->faker->optional()->secondaryAddress,
