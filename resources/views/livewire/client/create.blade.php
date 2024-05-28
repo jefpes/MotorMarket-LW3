@@ -27,8 +27,8 @@
           wire:model="photos" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="date_birth" label="Date Birth" type="date" placeholder="Date Birth" :messages="$errors->get('form.date_birth')"
-          wire:model="form.date_birth" class="w-full" />
+        <x-form.input name="birth_date" label="Birth Date" type="date" placeholder="Birth Date" :messages="$errors->get('form.birth_date')"
+          wire:model="form.birth_date" class="w-full" />
       </div>
     </div>
 

@@ -64,7 +64,7 @@ class ClientForm extends Form
             'complement'       => ['min:3', 'max:255'],
             'bairro'           => ['required', 'min:3', 'max:100'],
             'city'             => ['required', 'min:3', 'max:100'],
-            'state'            => ['required', 'min:3', 'max:100'],
+            'state'            => ['required', 'min:2', 'max:100'],
             'country'          => ['required', 'min:3', 'max:100'],
         ];
     }
@@ -72,7 +72,7 @@ class ClientForm extends Form
     public function save(): Client
     {
         $this->validate();
-        $people = Client::updateOrCreate(
+        $client = Client::updateOrCreate(
             ['id' => $this->id],
             [
                 'name'             => $this->name,
@@ -95,7 +95,7 @@ class ClientForm extends Form
             ]
         );
 
-        return $people;
+        return $client;
     }
 
     public function setClient(int $id): void
