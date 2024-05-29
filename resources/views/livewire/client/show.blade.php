@@ -1,13 +1,14 @@
 <div>
   <x-slot name="header">{{ __($header) }}: <span class="text-yellow-300">{{ $client->name ?? 'People'}}</span></x-slot>
 
-      <div class="flex overflow-x-auto pb-4">
-        @forelse ($client->photos as $photo)
-          <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
-        @empty
-          <p class="text-center text-2xl text-red-400" >{{ __('No photos available.') }}</p>
-        @endforelse
-      </div>
+  <div class="flex overflow-x-auto pb-4">
+    @forelse ($client->photos as $photo)
+      <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
+    @empty
+      <p class="text-center text-2xl text-red-400" >{{ __('No photos available.') }}</p>
+    @endforelse
+  </div>
+
   <div class="p-2 border-t border-gray-200 dark:border-gray-700">
     <dl class="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
       <div class="flex">
@@ -30,18 +31,18 @@
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (1): </span>
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} @if($client->phone_two)(1)@endif: </span>
           {{ $client->phone_one }}
         </p>
       </div>
-      @isset($client->phone_two)
+      @if($client->phone_two)
         <div class="flex">
           <p class="text-lg font-semibold">
             <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (2): </span>
             {{ $client->phone_two }}
           </p>
         </div>
-      @endisset
+      @endif
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Date Birth') }}: </span>
@@ -54,30 +55,30 @@
           {{ $client->mother }}
         </p>
       </div>
-      @isset($client->father)
+      @if($client->father)
         <div class="flex">
           <p class="text-lg font-semibold">
             <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Father') }}: </span>
             {{ $client->father }}
           </p>
         </div>
-      @endisset
-      @isset($client->affiliated_one)
+      @endif
+      @if($client->affiliated_one)
         <div class="flex">
           <p class="text-lg font-semibold">
-            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} (1): </span>
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} @if($client->affiliated_two) (1) @endif: </span>
             {{ $client->affiliated_one }}
           </p>
         </div>
-      @endisset
-      @isset($client->affiliated_two)
+      @endif
+      @if($client->affiliated_two)
         <div class="flex">
           <p class="text-lg font-semibold">
             <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} (2): </span>
             {{ $client->affiliated_two }}
           </p>
         </div>
-      @endisset
+      @endif
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Description') }}: </span>
@@ -128,14 +129,14 @@
           {{ $client->logradouro_type }} {{ $client->logradouro }}, {{ $client->number }}
         </p>
       </div>
-      @isset($client->complement)
+      @if($client->complement)
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Complement') }}: </span>
           {{ $client->complement }}
         </p>
       </div>
-      @endisset
+      @endif
     </dl>
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
