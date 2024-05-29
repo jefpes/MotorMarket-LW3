@@ -63,6 +63,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'client_update'],
             ['name' => 'client_delete'],
             ['name' => 'cphoto_delete'],
+            ['name' => 'sale_create'],
+            ['name' => 'sale_read'],
+            ['name' => 'sale_update'],
+            ['name' => 'sale_delete'],
         ]);
 
         $user = User::create([
