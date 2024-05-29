@@ -39,6 +39,8 @@ class Navigation extends Component
             (object)['route' => 'vmodel', 'label' => 'Vehicle Model', 'permission' => 'vmodel_read', 'isActive' => request()->routeIs('vmodel')],
             (object)['route' => 'vtype', 'label' => 'Vehicle Type', 'permission' => 'vtype_read', 'isActive' => request()->routeIs('vtype')],
             (object)['route' => 'vehicle', 'label' => 'Vehicles', 'permission' => 'vehicle_read', 'isActive' => request()->routeIs('vehicle')],
+            (object)['route' => 'city', 'label' => 'Cities', 'permission' => 'city_read', 'isActive' => request()->routeIs('city')],
+            (object)['route' => 'client', 'label' => 'Clients', 'permission' => 'client_read', 'isActive' => request()->routeIs('client', 'client.create', 'client.edit')],
         ];
     }
 

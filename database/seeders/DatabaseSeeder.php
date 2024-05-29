@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Ability, User};
+use App\Models\{Ability, City, Client, User};
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -54,6 +54,15 @@ class DatabaseSeeder extends Seeder
             ['name' => 'vehicle_update'],
             ['name' => 'vehicle_delete'],
             ['name' => 'vphoto_delete'],
+            ['name' => 'city_create'],
+            ['name' => 'city_read'],
+            ['name' => 'city_update'],
+            ['name' => 'city_delete'],
+            ['name' => 'client_create'],
+            ['name' => 'client_read'],
+            ['name' => 'client_update'],
+            ['name' => 'client_delete'],
+            ['name' => 'cphoto_delete'],
         ]);
 
         $user = User::create([
@@ -72,6 +81,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $role->abilities()->sync(Ability::pluck('id')->toArray());
+
+        City::factory()->count(10)->create();
+
+        Client::factory()->count(10)->create();
 
         $this->call([BrandSeeder::class, VehicleModelSeeder::class, VehicleTypeSeeder::class, VehicleSeeder::class]);
     }
