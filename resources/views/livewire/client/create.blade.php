@@ -4,18 +4,18 @@
     <x-form.input name="name" label="Name" type="text" placeholder="Name" :messages="$errors->get('form.name')" wire:model="form.name" class="w-full" />
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.input name="rg" label="RG" placeholder="RG" :messages="$errors->get('form.rg')" wire:model="form.rg" class="w-full" />
+        <x-form.input x-mask="999999999999999999999" name="rg" label="RG" placeholder="RG" :messages="$errors->get('form.rg')" wire:model="form.rg" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="cpf" label="CPF" type="text" placeholder="CPF" :messages="$errors->get('form.cpf')" wire:model="form.cpf" class="w-full" />
+        <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" type="text" placeholder="CPF" :messages="$errors->get('form.cpf')" wire:model="form.cpf" class="w-full" />
       </div>
     </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.input name="phone_one" label="Phone (1)" placeholder="Phone (1)" :messages="$errors->get('form.phone_one')" wire:model="form.phone_one" class="w-full" />
+        <x-form.input x-mask="(99) 99999-9999" name="phone_one" label="Phone (1)" placeholder="Phone (1)" :messages="$errors->get('form.phone_one')" wire:model="form.phone_one" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="phone_two" label="Phone (2)" placeholder="Phone (2)" :messages="$errors->get('form.phone_two')" wire:model="form.phone_two" class="w-full" />
+        <x-form.input x-mask="(99) 99999-9999" name="phone_two" label="Phone (2)" placeholder="Phone (2)" :messages="$errors->get('form.phone_two')" wire:model="form.phone_two" class="w-full" />
       </div>
     </div>
     <x-form.input name="father" label="Father" placeholder="Father" :messages="$errors->get('form.father')"
@@ -51,7 +51,7 @@
         <x-form.input disabled name="country" label="Country" placeholder="Country" :messages="$errors->get('form.country')" wire:model="form.country" class="w-full" />
       </div>
       <div class="md:basis-1/3">
-        <x-form.input name="cep" label="CEP" placeholder="CEP" :messages="$errors->get('form.cep')" wire:model="form.cep" class="w-full" />
+        <x-form.input x-mask="99999-999" name="cep" label="CEP" placeholder="CEP" :messages="$errors->get('form.cep')" wire:model="form.cep" class="w-full" />
       </div>
       <div class="md:basis-1/3">
         <x-select wire:model="form.state" class="w-full" label='State' id="state_select">
@@ -78,7 +78,7 @@
     </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="md:basis-1/3">
-        <x-form.input name="number" label="Number" placeholder="Number" :messages="$errors->get('form.number')" wire:model="form.number" class="w-full" />
+        <x-form.input x-mask="99999" name="number" label="Number" placeholder="Number" :messages="$errors->get('form.number')" wire:model="form.number" class="w-full" />
       </div>
       <div class="md:basis-1/3">
         <x-form.input name="bairro" label="Bairro" placeholder="Bairro" :messages="$errors->get('form.bairro')" wire:model="form.bairro" class="w-full" />

@@ -5,28 +5,28 @@
       wire:model="form.name" class="w-full" />
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.input name="rg" label="RG" placeholder="RG" :messages="$errors->get('form.rg')" wire:model="form.rg"
-          class="w-full" />
+        <x-form.input x-mask="999999999999999999999" name="rg" label="RG" placeholder="RG"
+          :messages="$errors->get('form.rg')" wire:model="form.rg" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="cpf" label="CPF" type="text" placeholder="CPF" :messages="$errors->get('form.cpf')"
-          wire:model="form.cpf" class="w-full" />
+        <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" type="text" placeholder="CPF"
+          :messages="$errors->get('form.cpf')" wire:model="form.cpf" class="w-full" />
       </div>
     </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.input name="phone_one" label="Phone (1)" placeholder="Phone (1)"
+        <x-form.input x-mask="(99) 99999-9999" name="phone_one" label="Phone (1)" placeholder="Phone (1)"
           :messages="$errors->get('form.phone_one')" wire:model="form.phone_one" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="phone_two" label="Phone (2)" placeholder="Phone (2)"
+        <x-form.input x-mask="(99) 99999-9999" name="phone_two" label="Phone (2)" placeholder="Phone (2)"
           :messages="$errors->get('form.phone_two')" wire:model="form.phone_two" class="w-full" />
       </div>
     </div>
-    <x-form.input name="father" label="Father" placeholder="Father"
-      :messages="$errors->get('form.father')" wire:model="form.father" class="w-full" />
-    <x-form.input name="mother" label="Mother" placeholder="Mother"
-      :messages="$errors->get('form.mother')" wire:model="form.mother" class="w-full" />
+    <x-form.input name="father" label="Father" placeholder="Father" :messages="$errors->get('form.father')"
+      wire:model="form.father" class="w-full" />
+    <x-form.input name="mother" label="Mother" placeholder="Mother" :messages="$errors->get('form.mother')"
+      wire:model="form.mother" class="w-full" />
     <x-form.input name="affiliated_one" label="Affiliated (1)" placeholder="Affiliated (1)"
       :messages="$errors->get('form.affiliated_one')" wire:model="form.affiliated_one" class="w-full" />
     <x-form.input name="affiliated_two" label="Affiliated (2)" placeholder="Affiliated (2)"
@@ -57,8 +57,8 @@
           :messages="$errors->get('form.country')" wire:model="form.country" class="w-full" />
       </div>
       <div class="md:basis-1/3">
-        <x-form.input name="cep" label="CEP" placeholder="CEP" :messages="$errors->get('form.cep')" wire:model="form.cep"
-          class="w-full" />
+        <x-form.input x-mask="99999-999" name="cep" label="CEP" placeholder="CEP" :messages="$errors->get('form.cep')"
+          wire:model="form.cep" class="w-full" />
       </div>
       <div class="md:basis-1/3">
         <x-select wire:model="form.state" class="w-full" label='State' id="state_select">
@@ -85,8 +85,8 @@
     </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="md:basis-1/3">
-        <x-form.input name="number" label="Number" placeholder="Number" :messages="$errors->get('form.number')"
-          wire:model="form.number" class="w-full" />
+        <x-form.input x-mask="99999" name="number" label="Number" placeholder="Number"
+          :messages="$errors->get('form.number')" wire:model="form.number" class="w-full" />
       </div>
       <div class="md:basis-1/3">
         <x-form.input name="bairro" label="Bairro" placeholder="Bairro" :messages="$errors->get('form.bairro')"
@@ -101,9 +101,6 @@
         </x-select>
       </div>
     </div>
-    <x-form.input name="complement" label="Complement" placeholder="Complement"
-      :messages="$errors->get('form.complement')" wire:model="form.complement" class="w-full" />
-  </div>
 
   <div class="flex items-center mt-4 pt-2 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end">
     <x-secondary-button href="{{ route('client') }}" wire:navigate> {{ __('Back') }} </x-secondary-button>
