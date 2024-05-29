@@ -97,7 +97,7 @@ Route::middleware(Localization::class)->group(function () {
             ->middleware(['auth', 'verified'])
             ->name('sales');
 
-    Route::get('sale_create', Sales\Create::class)
+    Route::get('sale_create/{id}', Sales\Create::class)
         ->middleware(['auth', 'verified'])
         ->name('sale.create');
 
