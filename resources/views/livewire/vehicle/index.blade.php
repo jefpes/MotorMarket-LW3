@@ -2,7 +2,7 @@
   <x-slot name="header">{{ __($header) }}</x-slot>
   <div class="flex flex-col md:flex-row justify-between gap-2 pb-3">
     <div class="flex-1">
-      <x-form.input name="search" type="text" placeholder="Search" :messages="$errors->get('search')"
+      <x-form.input x-mask="aaa-9*99" name="search" type="text" placeholder="Search" :messages="$errors->get('search')"
         wire:model.live.debounce.800="search" class="w-full" />
     </div>
     <div class="flex-0 sm:flex gap-2">

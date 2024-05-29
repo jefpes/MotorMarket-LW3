@@ -50,7 +50,7 @@ class VehicleForm extends Form
             'year_two'         => ['required', 'integer', 'min:1900', 'max:2100'],
             'km'               => ['required', 'integer', 'min:0'],
             'color'            => ['required', 'string', 'max:255', 'min:3'],
-            'plate'            => ['required', 'string', 'size:7'],
+            'plate'            => ['required', 'string', 'size:8'],
             'chassi'           => ['required', 'string', 'max:255', 'min:3'],
             'renavan'          => ['required', 'string', 'max:255', 'min:3'],
             'description'      => ['required', 'string', 'max:255', 'min:10'],
