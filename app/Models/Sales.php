@@ -23,4 +23,9 @@ class Sales extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function paymentInstallments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(PaymentInstallments::class);
+    }
 }
