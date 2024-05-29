@@ -57,8 +57,8 @@ class ClientForm extends Form
         return [
             'name'            => ['required', 'min:3', 'max:255'],
             'rg'              => ['required', 'min:3', 'max:20'],
-            'cpf'             => ['required', 'min:3', 'max:20'],
-            'phone_one'       => ['required', 'min:3', 'max:20'],
+            'cpf'             => ['required', 'size:14'],
+            'phone_one'       => ['required', 'size:15'],
             'phone_two'       => ['nullable', 'min:3', 'max:20'],
             'birth_date'      => ['required', 'date'],
             'father'          => ['nullable', 'min:3', 'max:255'],
@@ -66,7 +66,7 @@ class ClientForm extends Form
             'affiliated_one'  => ['nullable', 'min:3', 'max:255'],
             'affiliated_two'  => ['nullable', 'min:3', 'max:255'],
             'description'     => ['nullable', 'min:3', 'max:255'],
-            'cep'             => ['required', 'min:3', 'max:20'],
+            'cep'             => ['required', 'size:9'],
             'logradouro_type' => ['required', 'min:2', 'max:255'], // 'required', 'in:'.implode(',', LogradouroType::cases()), // 'required', 'min:3', 'max:255
             'logradouro'      => ['required', 'min:3', 'max:255'],
             'number'          => ['integer', 'min:1', 'max:99999'],
