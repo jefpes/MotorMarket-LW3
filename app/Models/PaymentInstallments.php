@@ -11,6 +11,6 @@ class PaymentInstallments extends Model
 
     public function sale(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Sales::class);
+        return $this->belongsTo(Sale::class);
     }
 }
