@@ -22,7 +22,7 @@ class Create extends Component
 
     public ?float $surchange = 0;
 
-    public ?float $total = 0;
+    public string $type = 'discount';
 
     public ?string $header = 'New Sale';
 
@@ -32,9 +32,11 @@ class Create extends Component
             ->with('photos', 'type', 'model')
             ->find($id);
 
-        $this->originalPrice    = $this->vehicle->sale_price;
-        $this->form->vehicle_id = $this->vehicle->id;
-        $this->form->user_id    = auth()->id();
+        $this->originalPrice      = $this->vehicle->sale_price;
+        $this->form->vehicle_id   = $this->vehicle->id;
+        $this->form->date_sale    = now()->format('Y-m-d');
+        $this->form->date_payment = now()->format('Y-m-d');
+        $this->form->user_id      = auth()->id();
     }
 
     public function render(): View
@@ -46,7 +48,62 @@ class Create extends Component
     public function clients(): Collection
     {
         return Client::query()
-            ->select('id', 'name')
+            ->select('id', 'name', 'cpf')
+            ->orderBy('name')
             ->get();
+    }
+
+    public function updatedType(): void
+    {
+        $this->discount    = 0;
+        $this->surchange   = 0;
+        $this->form->total = $this->originalPrice;
+    }
+
+    public function updatedDiscount(): void
+    {
+        $this->form->total = $this->originalPrice - $this->discount;
+    }
+
+    public function updatedSurchange(): void
+    {
+        $this->form->total = $this->originalPrice + $this->surchange;
+    }
+
+    public function save(): void
+    {
+        if ($this->type === 'discount') {
+            $this->form->discount = $this->discount;
+            $this->form->total    = $this->originalPrice - $this->discount;
+        } else {
+            $this->form->surchange = $this->surchange;
+            $this->form->total     = $this->originalPrice + $this->surchange;
+        }
+
+        switch ($this->form->payment_method) {
+            case PaymentMethod::AV->value:
+            case PaymentMethod::CD->value:
+            case PaymentMethod::CC->value:
+            case PaymentMethod::DP->value:
+            case PaymentMethod::DN->value:
+            case PaymentMethod::PD->value:
+                $this->form->status = StatusPayments::PG->value;
+
+                break;
+
+            case PaymentMethod::CH->value:
+            case PaymentMethod::CP->value:
+            case PaymentMethod::BB->value:
+                $this->form->status = StatusPayments::PN->value;
+
+                break;
+        }
+
+        $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
+
+        $this->validate();
+
+        $this->form->save();
+        // $this->redirectRoute('sales', navigate: true);
     }
 }

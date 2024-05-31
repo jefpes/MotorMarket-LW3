@@ -59,9 +59,11 @@
         <livewire:vehicle.delete :id="$vehicle->id" :key="$vehicle->id" />
       @endcan
 
-      @can('sale_create')
-        <x-primary-button :href="route('sale.create', $vehicle->id)" wire:navigate>{{ __('Sell') }}</x-primary-button>
-      @endcan
+      @if(!$vehicle->sold_date)
+        @can('sale_create')
+          <x-primary-button :href="route('sale.create', $vehicle->id)" wire:navigate>{{ __('Sell') }}</x-primary-button>
+        @endcan
+      @endif
 
     </div>
   @endcanany
