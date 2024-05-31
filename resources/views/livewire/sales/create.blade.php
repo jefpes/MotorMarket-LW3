@@ -13,7 +13,7 @@
         </x-select>
       </div>
       <div class="flex-1">
-        <x-select wire:model="form.payment_method" label="Payment Method" class="w-full">
+        <x-select wire:model.live="form.payment_method" label="Payment Method" class="w-full">
           <option value="">{{ __('Select a Payment Method') }}</option>
           @foreach ($payment_method as $paymentMethod)
           <option value="{{ $paymentMethod->value }}">{{ $paymentMethod->value }}</option>
@@ -47,6 +47,19 @@
           :messages="$errors->get('form.total')" wire:model="form.total" class="w-full" />
       </div>
     </div>
+
+    @if ($form->payment_method == 'CREDIÁRIO PRÓPRIO' || $form->payment_method == 'BOLETO BANCÁRIO')
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="flex-0">
+        <x-form.input x-mask="999" name="number_installments" label="Number of Installments" placeholder="Number of Installments"
+          :messages="$errors->get('number_installments')" wire:model.live.debounce.200ms="number_installments" class="w-full" />
+      </div>
+      <div class="flex-1">
+        <x-form.input disabled name="value_installments" label="Value of Installments" placeholder="Value of Installments"
+          :messages="$errors->get('value_installments')" wire:model.live="value_installments" class="w-full" />
+      </div>
+    </div>
+    @endif
 
     <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end">
       <x-secondary-button :href="route('vehicle')" wire:navigate>

@@ -12,6 +12,8 @@ use Livewire\Component;
 
 class Create extends Component
 {
+    public ?string $header = 'New Sale';
+
     public ?Vehicle $vehicle;
 
     public ?SaleForm $form;
@@ -24,14 +26,17 @@ class Create extends Component
 
     public string $type = 'discount';
 
-    public ?string $header = 'New Sale';
+    public ?int $number_installments = 1;
+
+    public ?float $value_installments = 0;
 
     public function mount(int $id): void
     {
         $this->vehicle = Vehicle::query()
-            ->with('photos', 'type', 'model')
+            ->with('type', 'model')
             ->find($id);
 
+        $this->value_installments = $this->vehicle->sale_price;
         $this->originalPrice      = $this->vehicle->sale_price;
         $this->form->vehicle_id   = $this->vehicle->id;
         $this->form->date_sale    = now()->format('Y-m-d');
@@ -58,6 +63,11 @@ class Create extends Component
         $this->discount    = 0;
         $this->surchange   = 0;
         $this->form->total = $this->originalPrice;
+    }
+
+    public function updatednumberInstallments(): void
+    {
+        $this->value_installments = $this->form->total / $this->number_installments;
     }
 
     public function updatedDiscount(): void
