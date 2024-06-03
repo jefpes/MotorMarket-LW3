@@ -96,6 +96,7 @@ class Create extends Component
     public function updatedDownPayment(): void
     {
         $this->sale_form->down_payment = $this->down_payment;
+        $this->value_installments      = ($this->sale_form->total - $this->down_payment) / $this->number_installments;
     }
 
     public function save(): void

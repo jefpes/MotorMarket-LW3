@@ -35,8 +35,8 @@ class InstallmentForm extends Form
     public function rules(): array
     {
         return [
-            'sale_id'        => ['required', 'integer'],
-            'user_id'        => ['nullable', 'integer'],
+            'sale_id'        => ['required', 'integer', 'exists:sales,id'],
+            'user_id'        => ['nullable', 'integer', 'exists:users,id'],
             'due_date'       => ['required', 'date'],
             'value'          => ['required', 'numeric'],
             'status'         => ['required', 'string'],
