@@ -22,10 +22,6 @@ class Create extends Component
 
     public ?float $originalPrice = 0;
 
-    public ?float $discount = 0;
-
-    public ?float $surchange = 0;
-
     public string $type = 'discount';
 
     public ?int $number_installments = 1;
@@ -47,6 +43,7 @@ class Create extends Component
         $this->value_installments    = $this->vehicle->sale_price;
         $this->sale_form->total      = $this->vehicle->sale_price;
         $this->originalPrice         = $this->vehicle->sale_price;
+        $this->sale_form->discount   = 0;
         $this->sale_form->vehicle_id = $this->vehicle->id;
         $this->sale_form->date_sale  = now()->format('Y-m-d');
         $this->sale_form->user_id    = auth()->id();
@@ -68,47 +65,32 @@ class Create extends Component
 
     public function updatedType(): void
     {
-        $this->discount         = 0;
-        $this->surchange        = 0;
-        $this->down_payment     = 0;
-        $this->sale_form->total = $this->originalPrice;
+        $this->sale_form->down_payment = 0;
+        $this->sale_form->total        = $this->originalPrice;
     }
 
     public function updatednumberInstallments(): void
     {
-        if($this->down_payment > 0) {
-            $this->value_installments = ($this->sale_form->total - $this->down_payment) / $this->number_installments;
-        } else {
-            $this->value_installments = $this->sale_form->total / $this->number_installments;
-        }
+        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / $this->number_installments;
     }
 
-    public function updatedDiscount(): void
+    public function updatedSaleFormDiscount(): void
     {
-        $this->sale_form->total = $this->originalPrice - $this->discount;
+        $this->sale_form->total = $this->originalPrice - ($this->sale_form->discount ?? 0);
     }
 
-    public function updatedSurchange(): void
+    public function updatedSaleFormSurchange(): void
     {
-        $this->sale_form->total = $this->originalPrice + $this->surchange;
+        $this->sale_form->total = $this->originalPrice + ($this->sale_form->surchange ?? 0);
     }
 
-    public function updatedDownPayment(): void
+    public function updatedSaleFormDownPayment(): void
     {
-        $this->sale_form->down_payment = $this->down_payment;
-        $this->value_installments      = ($this->sale_form->total - $this->down_payment) / $this->number_installments;
+        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / ($this->number_installments ?? 1);
     }
 
     public function save(): void
     {
-        if ($this->type === 'discount') {
-            $this->sale_form->discount = $this->discount;
-            $this->sale_form->total    = $this->originalPrice - $this->discount;
-        } else {
-            $this->sale_form->surchange = $this->surchange;
-            $this->sale_form->total     = $this->originalPrice + $this->surchange;
-        }
-
         if ($this->deferred_payment) {
             $this->sale_form->status = StatusPayments::PG->value;
         } else {

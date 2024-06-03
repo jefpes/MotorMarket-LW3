@@ -36,10 +36,10 @@
       <div class="flex-1">
         @if ($type == 'discount')
           <x-form.input x-mask="9999999" name="discount" label="Discount" placeholder="Discount"
-            :messages="$errors->get('sale_form.discount')" wire:model.live="sale_form.discount" class="w-full" />
+            :messages="$errors->get('sale_form.discount')" wire:model.live.debounce.1000ms="sale_form.discount" class="w-full" />
         @else
           <x-form.input x-mask="9999999" name="surchange" label="Surchange" placeholder="Surchange"
-            :messages="$errors->get('sale_form.surchange')" wire:model.live="sale_form.surchange" class="w-full" />
+            :messages="$errors->get('sale_form.surchange')" wire:model.live.debounce.1000ms="sale_form.surchange" class="w-full" />
         @endif
       </div>
       <div class="flex-1">
@@ -55,7 +55,7 @@
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="flex-1">
         <x-form.input x-mask="9999999" name="down_payment" label="Down Payment" placeholder="Down Payment"
-          :messages="$errors->get('down_payment')" wire:model.live.debounce.1000ms="down_payment" class="w-full" />
+          :messages="$errors->get('sale_form.down_payment')" wire:model.live.debounce.1000ms="sale_form.down_payment" class="w-full" />
       </div>
       <div class="flex-0">
         <x-form.input x-mask="999" name="number_installments" label="Number of Installments" placeholder="Number of Installments"

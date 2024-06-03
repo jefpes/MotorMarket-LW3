@@ -31,6 +31,8 @@ class SaleForm extends Form
 
     public ?float $down_payment = 0;
 
+    public ?int $number_installments = 1;
+
     public ?float $total = 0;
 
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */

@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('surchange', 10, 2)->default(0);
             $table->decimal('down_payment', 10, 2)->default(0);
+            $table->integer('number_installments')->default(1);
             $table->decimal('total', 10, 2);
 
             $table->timestamps();
