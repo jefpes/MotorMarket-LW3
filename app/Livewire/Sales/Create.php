@@ -40,13 +40,14 @@ class Create extends Component
             ->with('type', 'model')
             ->find($id);
 
-        $this->value_installments    = $this->vehicle->sale_price;
-        $this->sale_form->total      = $this->vehicle->sale_price;
-        $this->originalPrice         = $this->vehicle->sale_price;
-        $this->sale_form->discount   = 0;
-        $this->sale_form->vehicle_id = $this->vehicle->id;
-        $this->sale_form->date_sale  = now()->format('Y-m-d');
         $this->sale_form->user_id    = auth()->id();
+        $this->sale_form->vehicle_id = $this->vehicle->id;
+
+        $this->value_installments   = $this->vehicle->sale_price;
+        $this->sale_form->total     = $this->vehicle->sale_price;
+        $this->originalPrice        = $this->vehicle->sale_price;
+        $this->sale_form->discount  = 0;
+        $this->sale_form->date_sale = now()->format('Y-m-d');
     }
 
     public function render(): View
@@ -91,15 +92,15 @@ class Create extends Component
 
     public function save(): void
     {
-        if ($this->deferred_payment) {
-            $this->sale_form->status = StatusPayments::PG->value;
+        if (!$this->deferred_payment) {
+            $this->sale_form->status       = StatusPayments::PG->value;
+            $this->sale_form->date_payment = now()->format('Y-m-d');
         } else {
             $this->sale_form->status = StatusPayments::PN->value;
         }
 
+        // dd($this->sale_form);
         $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
-
-        $this->validate();
 
         $this->sale_form->save();
         // $this->redirectRoute('sales', navigate: true);

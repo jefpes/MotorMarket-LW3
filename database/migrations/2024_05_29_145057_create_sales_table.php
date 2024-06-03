@@ -19,7 +19,7 @@ return new class () extends Migration {
             $table->string('payment_method');
             $table->string('status');
             $table->date('date_sale');
-            $table->date('date_payment');
+            $table->date('date_payment')->nullable();
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('surchange', 10, 2)->default(0);
             $table->decimal('down_payment', 10, 2)->default(0);
