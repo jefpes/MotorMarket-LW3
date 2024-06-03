@@ -22,6 +22,7 @@ return new class () extends Migration {
             $table->date('date_payment');
             $table->decimal('discount', 10, 2)->default(0);
             $table->decimal('surchange', 10, 2)->default(0);
+            $table->decimal('down_payment', 10, 2)->default(0);
             $table->decimal('total', 10, 2);
 
             $table->timestamps();

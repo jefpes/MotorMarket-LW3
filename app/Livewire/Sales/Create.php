@@ -3,7 +3,7 @@
 namespace App\Livewire\Sales;
 
 use App\Enums\{PaymentMethod, StatusPayments};
-use App\Livewire\Forms\SaleForm;
+use App\Livewire\Forms\{InstallmentForm, SaleForm};
 use App\Models\{Client, Vehicle};
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
@@ -16,7 +16,9 @@ class Create extends Component
 
     public ?Vehicle $vehicle;
 
-    public ?SaleForm $form;
+    public ?SaleForm $sale_form;
+
+    public ?InstallmentForm $inst_form;
 
     public ?float $originalPrice = 0;
 
@@ -30,18 +32,24 @@ class Create extends Component
 
     public ?float $value_installments = 0;
 
+    public bool $deferred_payment = false;
+
+    public ?string $date_first_installment = null;
+
+    public ?float $down_payment = 0;
+
     public function mount(int $id): void
     {
         $this->vehicle = Vehicle::query()
             ->with('type', 'model')
             ->find($id);
 
-        $this->value_installments = $this->vehicle->sale_price;
-        $this->originalPrice      = $this->vehicle->sale_price;
-        $this->form->vehicle_id   = $this->vehicle->id;
-        $this->form->date_sale    = now()->format('Y-m-d');
-        $this->form->date_payment = now()->format('Y-m-d');
-        $this->form->user_id      = auth()->id();
+        $this->value_installments    = $this->vehicle->sale_price;
+        $this->sale_form->total      = $this->vehicle->sale_price;
+        $this->originalPrice         = $this->vehicle->sale_price;
+        $this->sale_form->vehicle_id = $this->vehicle->id;
+        $this->sale_form->date_sale  = now()->format('Y-m-d');
+        $this->sale_form->user_id    = auth()->id();
     }
 
     public function render(): View
@@ -60,60 +68,57 @@ class Create extends Component
 
     public function updatedType(): void
     {
-        $this->discount    = 0;
-        $this->surchange   = 0;
-        $this->form->total = $this->originalPrice;
+        $this->discount         = 0;
+        $this->surchange        = 0;
+        $this->down_payment     = 0;
+        $this->sale_form->total = $this->originalPrice;
     }
 
     public function updatednumberInstallments(): void
     {
-        $this->value_installments = $this->form->total / $this->number_installments;
+        if($this->down_payment > 0) {
+            $this->value_installments = ($this->sale_form->total - $this->down_payment) / $this->number_installments;
+        } else {
+            $this->value_installments = $this->sale_form->total / $this->number_installments;
+        }
     }
 
     public function updatedDiscount(): void
     {
-        $this->form->total = $this->originalPrice - $this->discount;
+        $this->sale_form->total = $this->originalPrice - $this->discount;
     }
 
     public function updatedSurchange(): void
     {
-        $this->form->total = $this->originalPrice + $this->surchange;
+        $this->sale_form->total = $this->originalPrice + $this->surchange;
+    }
+
+    public function updatedDownPayment(): void
+    {
+        $this->sale_form->down_payment = $this->down_payment;
     }
 
     public function save(): void
     {
         if ($this->type === 'discount') {
-            $this->form->discount = $this->discount;
-            $this->form->total    = $this->originalPrice - $this->discount;
+            $this->sale_form->discount = $this->discount;
+            $this->sale_form->total    = $this->originalPrice - $this->discount;
         } else {
-            $this->form->surchange = $this->surchange;
-            $this->form->total     = $this->originalPrice + $this->surchange;
+            $this->sale_form->surchange = $this->surchange;
+            $this->sale_form->total     = $this->originalPrice + $this->surchange;
         }
 
-        switch ($this->form->payment_method) {
-            case PaymentMethod::AV->value:
-            case PaymentMethod::CD->value:
-            case PaymentMethod::CC->value:
-            case PaymentMethod::DP->value:
-            case PaymentMethod::DN->value:
-            case PaymentMethod::PD->value:
-                $this->form->status = StatusPayments::PG->value;
-
-                break;
-
-            case PaymentMethod::CH->value:
-            case PaymentMethod::CP->value:
-            case PaymentMethod::BB->value:
-                $this->form->status = StatusPayments::PN->value;
-
-                break;
+        if ($this->deferred_payment) {
+            $this->sale_form->status = StatusPayments::PG->value;
+        } else {
+            $this->sale_form->status = StatusPayments::PN->value;
         }
 
         $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
 
         $this->validate();
 
-        $this->form->save();
+        $this->sale_form->save();
         // $this->redirectRoute('sales', navigate: true);
     }
 }
