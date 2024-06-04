@@ -111,10 +111,15 @@ class Create extends Component
             $this->sale_form->date_payment = now()->format('Y-m-d');
         }
 
-        // dd($this->sale_form);
-        $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
-
         $sale = $this->sale_form->save();
+
+        if (!$this->deferred_payment) {
+            $this->msg  = 'Sale successfully registered';
+            $this->icon = 'icons.success';
+            $this->dispatch('show-toast');
+        }
+
+        $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
 
         if ($this->deferred_payment) {
             for ($i = 0; $i < $this->number_installments; $i++) {
@@ -128,6 +133,9 @@ class Create extends Component
                 // dd($this->inst_form);
                 $this->inst_form->save();
             }
+            $this->msg  = 'Installment sale successfully registered';
+            $this->icon = 'icons.success';
+            $this->dispatch('show-toast');
         }
 
         // $this->redirectRoute('sales', navigate: true);
