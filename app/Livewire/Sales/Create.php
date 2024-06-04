@@ -130,7 +130,6 @@ class Create extends Component
                 $this->inst_form->due_date = $date;
                 $date->addMonth()->format('Y-m-d');
 
-                // dd($this->inst_form);
                 $this->inst_form->save();
             }
             $this->msg  = 'Installment sale successfully registered';
