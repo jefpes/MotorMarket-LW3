@@ -10,7 +10,7 @@ enum PaymentMethod: string
     case DP = 'DEPÓSITO';
     case DN = 'DINHEIRO';
     case TR = 'TRANSFERÊNCIA';
-    case PD = 'PIX';
+    case PX = 'PIX';
     case CH = 'CHEQUE';
     case CP = 'CREDIÁRIO PRÓPRIO';
     case BB = 'BOLETO BANCÁRIO';
