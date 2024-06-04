@@ -11,6 +11,7 @@
           <option value="{{ $client->id }}">{{ $client->name }} - {{ $client->cpf }}</option>
           @endforeach
         </x-select>
+        <x-input-error :messages="$errors->get('sale_form.client_id')" />
       </div>
       <div class="flex-1">
         <x-select wire:model.live="sale_form.payment_method" label="Payment Method" class="w-full">
@@ -19,6 +20,7 @@
           <option value="{{ $paymentMethod->value }}">{{ $paymentMethod->value }}</option>
           @endforeach
         </x-select>
+        <x-input-error :messages="$errors->get('sale_form.payment_method')" />
       </div>
       <div class="flex-1">
         <x-form.input type="date" name="date_sale" label="Date Sale" placeholder="Date Sale"
