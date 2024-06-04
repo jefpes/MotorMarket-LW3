@@ -28,8 +28,6 @@ class Create extends Component
 
     public string $type = 'discount';
 
-    public ?int $number_installments = 1;
-
     public ?float $value_installments = 0;
 
     public bool $deferred_payment = false;
@@ -74,9 +72,9 @@ class Create extends Component
         $this->sale_form->total        = $this->originalPrice;
     }
 
-    public function updatednumberInstallments(): void
+    public function updatedSaleFormNumberInstallments(): void
     {
-        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / $this->number_installments;
+        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / $this->sale_form->number_installments;
     }
 
     public function updatedSaleFormDiscount(): void
@@ -91,7 +89,7 @@ class Create extends Component
 
     public function updatedSaleFormDownPayment(): void
     {
-        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / ($this->number_installments ?? 1);
+        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / ($this->sale_form->number_installments ?? 1);
     }
 
     public function save(): void
@@ -122,11 +120,12 @@ class Create extends Component
         $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
 
         if ($this->deferred_payment) {
-            for ($i = 0; $i < $this->number_installments; $i++) {
+            $date = Date::createFromFormat('Y-m-d', $this->date_first_installment);
+
+            for ($i = 0; $i < $this->sale_form->number_installments; $i++) {
                 $this->inst_form->sale_id  = $sale->id;
                 $this->inst_form->status   = StatusPayments::PN->value;
                 $this->inst_form->value    = $this->value_installments;
-                $date                      = Date::createFromFormat('Y-m-d', $this->date_first_installment);
                 $this->inst_form->due_date = $date;
                 $date->addMonth()->format('Y-m-d');
 

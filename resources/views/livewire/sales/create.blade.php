@@ -61,7 +61,7 @@
       </div>
       <div class="flex-0">
         <x-form.input x-mask="999" name="number_installments" label="Number of Installments" placeholder="Number of Installments"
-          :messages="$errors->get('number_installments')" wire:model.live.debounce.1000ms="number_installments" class="w-full" />
+          :messages="$errors->get('sale_form.number_installments')" wire:model.live.debounce.1000ms="sale_form.number_installments" class="w-full" />
       </div>
       <div class="flex-1">
         <x-form.input disabled name="value_installments" label="Value of Installments" placeholder="Value of Installments"
