@@ -82,5 +82,8 @@
       </x-primary-button>
     </div>
   </div>
+  <x-toast on="show-toast" :$icon>
+    {{ __( $msg ) }}
+  </x-toast>
 </div>
 

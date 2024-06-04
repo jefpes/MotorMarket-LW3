@@ -9,11 +9,11 @@ use Livewire\Form;
 class InstallmentForm extends Form
 {
     #[Locked]
-    public ?int $id;
+    public ?int $id = null;
 
-    public ?int $sale_id;
+    public ?int $sale_id = null;
 
-    public ?int $user_id;
+    public ?int $user_id = null;
 
     public ?string $due_date = null;
 
@@ -23,13 +23,13 @@ class InstallmentForm extends Form
 
     public ?string $payment_date = null;
 
-    public ?float $payment_value = 0;
+    public ?float $payment_value = null;
 
     public ?string $payment_method = null;
 
-    public ?float $discount = 0;
+    public ?float $discount = null;
 
-    public ?float $surchange = 0;
+    public ?float $surchange = null;
 
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules(): array

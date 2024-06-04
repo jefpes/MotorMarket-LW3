@@ -14,7 +14,7 @@ return new class () extends Migration {
         Schema::create('payment_installments', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained()->nullable();
             $table->foreignIdFor(Sale::class)->constrained();
             $table->date('due_date');
             $table->decimal('value', 10, 2);
@@ -22,8 +22,8 @@ return new class () extends Migration {
             $table->date('payment_date')->nullable();
             $table->decimal('payment_value', 10, 2)->nullable();
             $table->string('payment_method')->nullable();
-            $table->decimal('discount', 10, 2)->default(0);
-            $table->decimal('surchange', 10, 2)->default(0);
+            $table->decimal('discount', 10, 2)->nullable();
+            $table->decimal('surchange', 10, 2)->nullable();
 
             $table->timestamps();
         });

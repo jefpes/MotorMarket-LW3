@@ -57,7 +57,7 @@ class SaleForm extends Form
     public function save(): Sale
     {
         $this->validate();
-        $people = Sale::updateOrCreate(
+        $sale = Sale::updateOrCreate(
             ['id' => $this->id],
             [
                 'user_id'             => auth()->id(),
@@ -75,7 +75,7 @@ class SaleForm extends Form
             ]
         );
 
-        return $people;
+        return $sale;
     }
 
     public function setSale(int $id): void

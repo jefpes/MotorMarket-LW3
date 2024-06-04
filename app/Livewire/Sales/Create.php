@@ -5,13 +5,17 @@ namespace App\Livewire\Sales;
 use App\Enums\{PaymentMethod, StatusPayments};
 use App\Livewire\Forms\{InstallmentForm, SaleForm};
 use App\Models\{Client, Vehicle};
+use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Create extends Component
 {
+    use Toast;
+
     public ?string $header = 'New Sale';
 
     public ?Vehicle $vehicle;
@@ -92,17 +96,40 @@ class Create extends Component
 
     public function save(): void
     {
-        if (!$this->deferred_payment) {
+        if ($this->vehicle->sold_date) {
+            $this->icon = 'icons.fail';
+            $this->msg  = 'This vehicle has already been sold';
+            $this->dispatch('show-toast');
+
+            return;
+        }
+
+        if ($this->deferred_payment) {
+            $this->sale_form->status = StatusPayments::PN->value;
+        } else {
             $this->sale_form->status       = StatusPayments::PG->value;
             $this->sale_form->date_payment = now()->format('Y-m-d');
-        } else {
-            $this->sale_form->status = StatusPayments::PN->value;
         }
 
         // dd($this->sale_form);
         $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
 
-        $this->sale_form->save();
+        $sale = $this->sale_form->save();
+
+        if ($this->deferred_payment) {
+            for ($i = 0; $i < $this->number_installments; $i++) {
+                $this->inst_form->sale_id  = $sale->id;
+                $this->inst_form->status   = StatusPayments::PN->value;
+                $this->inst_form->value    = $this->value_installments;
+                $date                      = Date::createFromFormat('Y-m-d', $this->date_first_installment);
+                $this->inst_form->due_date = $date;
+                $date->addMonth()->format('Y-m-d');
+
+                // dd($this->inst_form);
+                $this->inst_form->save();
+            }
+        }
+
         // $this->redirectRoute('sales', navigate: true);
     }
 }
