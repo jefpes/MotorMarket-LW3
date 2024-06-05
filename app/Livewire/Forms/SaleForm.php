@@ -35,6 +35,10 @@ class SaleForm extends Form
 
     public ?float $total = 0;
 
+    public ?float $reimbursement = null;
+
+    public ?string $date_cancel = null;
+
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
@@ -51,6 +55,8 @@ class SaleForm extends Form
             'down_payment'        => ['required', 'numeric', 'min:0'],
             'number_installments' => ['required', 'integer', 'min:1'],
             'total'               => ['required', 'numeric', 'min:0'],
+            'reimbursement'       => ['nullable', 'numeric', 'min:0'],
+            'date_cancel'         => ['nullable', 'date'],
         ];
     }
 
@@ -72,6 +78,8 @@ class SaleForm extends Form
                 'down_payment'        => $this->down_payment,
                 'number_installments' => $this->number_installments,
                 'total'               => $this->total,
+                'reimbursement'       => $this->reimbursement,
+                'date_cancel'         => $this->date_cancel,
             ]
         );
 
@@ -94,6 +102,8 @@ class SaleForm extends Form
         $this->down_payment        = $sale->down_payment;
         $this->number_installments = $sale->number_installments;
         $this->total               = $sale->total;
+        $this->reimbursement       = $sale->reimbursement;
+        $this->date_cancel         = $sale->date_cancel;
     }
 
     public function destroy(): void

@@ -67,6 +67,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'sale_read'],
             ['name' => 'sale_update'],
             ['name' => 'sale_delete'],
+            ['name' => 'sale_cancel'],
         ]);
 
         $user = User::create([

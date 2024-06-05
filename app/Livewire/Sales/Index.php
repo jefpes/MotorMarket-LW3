@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sales;
 
+use App\Enums\StatusPayments;
 use App\Models\Sale;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,7 +17,7 @@ class Index extends Component
     public string $header = 'Sales';
 
     /** @var array<string> */
-    public array $theader = ['Plate', 'Client', 'Value', 'Date Sale', 'Status', 'Installments', 'Actions'];
+    public array $theader = ['Plate', 'Client', 'Date Sale', 'Value', 'Status', 'Installments', 'Actions'];
 
     public string $filter = 'plate';
 
@@ -26,13 +27,18 @@ class Index extends Component
     #[Url(except: '', as: 'client', history: true)]
     public ?string $client = '';
 
+    #[Url(except: '', as: 'sts', history: true)]
+    public ?string $status = '';
+
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 10;
 
     #[On('sales::refresh')]
     public function render(): View
     {
-        return view('livewire.sales.index');
+        return view('livewire.sales.index', [
+            'sts' => StatusPayments::cases(),
+        ]);
     }
 
     public function updatedFilter(): void
@@ -68,6 +74,7 @@ class Index extends Component
         ->when($this->client, fn (Builder $q) => $q->whereHas('client', function (Builder $q) {
             $q->where('name', 'like', "%{$this->client}%");
         }))
+        ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
         ->paginate($this->perPage);
     }
 }
