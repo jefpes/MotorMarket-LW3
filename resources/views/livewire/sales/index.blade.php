@@ -41,13 +41,13 @@
     <x-table.table>
       <x-slot name="thead">
         @foreach ($theader as $h)
-        @if ($h == 'Actions')
-        @canany(['sales_update', 'sales_delete'])
-        <x-table.th> {{ __($h) }} </x-table.th>
-        @endcanany
-        @else
-        <x-table.th> {{ __($h) }} </x-table.th>
-        @endif
+          @if ($h == 'Actions')
+            @canany(['sale_update', 'sale_delete'])
+              <x-table.th> {{ __($h) }} </x-table.th>
+            @endcanany
+          @else
+            <x-table.th> {{ __($h) }} </x-table.th>
+          @endif
         @endforeach
       </x-slot>
       <x-slot name="tbody">
@@ -60,15 +60,24 @@
           <x-table.td> {{ $s->status }} </x-table.td>
           <x-table.td> {{ $s->number_installments }} </x-table.td>
 
-          @canany(['sales_delete', 'sales_update'])
+          @canany(['sale_delete', 'sale_update'])
           <x-table.td>
             <div class="flex flex-row gap-2 justify-center">
-              @can('sales_update') <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer"
-                href="{{ route('sales.edit', $s->id) }}" id="edit-{{ $s->id }}" wire:navigate /> @endcan
+              @if ($s->number_installments > 1)
+                  <x-icons.contract class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
+                    {{-- href="{{ route('sale.installments', $s->id) }}"  --}}
+                    id="installments-{{ $s->id }}" wire:navigate />
+              @endif
+              @can('sale_update')
+                <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer"
+                  href="{{ route('sale.edit', $s->id) }}" id="edit-{{ $s->id }}" wire:navigate />
+              @endcan
 
-              @can('sales_delete') <x-icons.delete id="btn-delete-{{ $s->id }}"
-                wire:click="$dispatch('sales::deleting', { id: {{ $s->id }} })"
-                class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" /> @endcan
+              @can('sale_delete')
+              <x-icons.delete id="btn-delete-{{ $s->id }}"
+                wire:click="$dispatch('sale::deleting', { id: {{ $s->id }} })"
+                class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
+                @endcan
             </div>
           </x-table.td>
           @endcanany

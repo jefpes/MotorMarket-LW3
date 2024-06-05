@@ -4,6 +4,7 @@ namespace App\Livewire\Sales;
 
 use App\Models\Sale;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
@@ -15,7 +16,7 @@ class Index extends Component
     public string $header = 'Sales';
 
     /** @var array<string> */
-    public array $theader = ['Name', 'User', 'Register Number', 'E-Mail', 'Actions'];
+    public array $theader = ['Plate', 'Client', 'Value', 'Date Sale', 'Status', 'Installments', 'Actions'];
 
     public string $filter = 'plate';
 
@@ -56,19 +57,17 @@ class Index extends Component
         $this->resetPage();
     }
 
-    #[Computed('sales')]
+    #[Computed()]
     public function sales(): LengthAwarePaginator
     {
         return Sale::query()
         ->with('user', 'vehicle', 'client', 'paymentInstallments')
-        ->when($this->plate, function ($query, $plate) {
-            $query->whereHas('vehicle', function ($query) use ($plate) {
-                $query->where('plate', 'like', "%$plate%");
-            });
-        })->when($this->client, function ($query, $client) {
-            $query->whereHas('client', function ($query) use ($client) {
-                $query->where('name', 'like', "%$client%");
-            });
-        })->paginate($this->perPage);
+        ->when($this->plate, fn (Builder $q) => $q->whereHas('vehicle', function (Builder $q) {
+            $q->where('plate', 'like', "%{$this->plate}%");
+        }))
+        ->when($this->client, fn (Builder $q) => $q->whereHas('client', function (Builder $q) {
+            $q->where('name', 'like', "%{$this->client}%");
+        }))
+        ->paginate($this->perPage);
     }
 }

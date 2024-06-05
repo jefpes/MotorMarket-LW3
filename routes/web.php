@@ -101,5 +101,9 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified'])
         ->name('sale.create');
 
+    Route::get('sale_edit/{id}', Sales\Create::class)
+        ->middleware(['auth', 'verified'])
+        ->name('sale.edit');
+
     require __DIR__ . '/auth.php';
 });
