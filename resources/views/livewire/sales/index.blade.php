@@ -86,4 +86,6 @@
       </x-slot>
     </x-table.table>
   </div>
+
+  <livewire:sales.delete />
 </div>
