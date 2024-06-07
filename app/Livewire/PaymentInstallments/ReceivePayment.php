@@ -6,7 +6,7 @@ use App\Enums\PaymentMethod;
 use App\Livewire\Forms\InstallmentForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\On;
+use Livewire\Attributes\{On, Validate};
 use Livewire\Component;
 
 class ReceivePayment extends Component
@@ -20,6 +20,9 @@ class ReceivePayment extends Component
     public string $title = 'Receive Payment';
 
     public string $type = 'discount';
+
+    #[Validate('required')]
+    public string $payment_method = '';
 
     public function render(): View
     {
@@ -36,6 +39,8 @@ class ReceivePayment extends Component
     public function receiving(int $id): void
     {
         $this->form->setInstallment($id);
+
+        $this->payment_method = PaymentMethod::AV->value;
 
         $this->form->payment_value = $this->form->value;
 
@@ -62,8 +67,9 @@ class ReceivePayment extends Component
 
     public function save(): void
     {
-        $this->form->user_id = auth()->id();
-        $this->form->status  = 'PAGO';
+        $this->form->user_id        = auth()->id();
+        $this->form->status         = 'PAGO';
+        $this->form->payment_method = $this->payment_method;
         $this->form->save();
 
         $this->msg  = 'Payment received successfully';

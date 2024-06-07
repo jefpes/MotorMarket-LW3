@@ -18,13 +18,17 @@
         <x-table.td> {{ $loop->iteration }} </x-table.td>
         <x-table.td> {{ $i->due_date }} </x-table.td>
         <x-table.td> {{ $i->value }} </x-table.td>
+        <x-table.td> {{ $i->payment_date ?? '' }} </x-table.td>
+        <x-table.td> {{ $i->payment_value ?? '' }} </x-table.td>
         <x-table.td> {{ $i->status }} </x-table.td>
         <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
 
         @canany(['client_delete'])
         <x-table.td>
           <div class="flex flex-row gap-2">
-            @if (!$i->payment_date && $i->status != 'CANCELADO')
+            @if ($i->payment_date && $i->status != 'CANCELADO')
+              <x-icons.undo class="text-2xl flex w-8 h-8 cursor-pointer text-red-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::undo-receive', { id: {{ $i->id }} })" />
+            @else
               <x-icons.money-receive class="text-2xl flex w-8 h-8 cursor-pointer text-blue-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::receive', { id: {{ $i->id }} })" />
             @endif
           </div>
@@ -36,4 +40,5 @@
   </x-table.table>
 
   <livewire:payment-installments.receive-payment />
+  <livewire:payment-installments.undo-receive-payment />
 </div>

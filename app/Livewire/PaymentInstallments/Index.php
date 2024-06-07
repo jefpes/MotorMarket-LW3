@@ -13,7 +13,7 @@ class Index extends Component
     public string $header = 'Payment Installments';
 
     /** @var array<string> */
-    public array $theader = ['Installment', 'Due Date', 'Value', 'Status', 'Received for', 'Actions'];
+    public array $theader = ['N°', 'Due Date', 'Value', 'Payment Date', 'Value Received' , 'Status', 'Received for', 'Actions'];
 
     public ?Collection $installment;
 
