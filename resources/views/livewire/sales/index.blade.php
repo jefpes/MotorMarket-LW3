@@ -68,19 +68,15 @@
           <x-table.td> {{ $s->status }} </x-table.td>
           <x-table.td> {{ $s->number_installments }} </x-table.td>
 
-          @canany(['sale_delete', 'sale_update'])
+          @canany(['sale_cancel', 'installment_read'])
             @if (!$s->date_cancel)
               <x-table.td>
                 <div class="flex flex-row gap-2 justify-center">
                   @if ($s->number_installments > 1)
-                      <x-icons.contract class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
-                        href="{{ route('sale.installments', $s->id) }}"
-                        id="installments-{{ $s->id }}" wire:navigate />
+                    <x-icons.contract class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
+                      href="{{ route('sale.installments', $s->id) }}"
+                      id="installments-{{ $s->id }}" wire:navigate />
                   @endif
-                  @can('sale_update')
-                    <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer"
-                      href="{{ route('sale.edit', $s->id) }}" id="edit-{{ $s->id }}" wire:navigate />
-                  @endcan
 
                   @can('sale_delete')
                     <x-icons.cancel id="btn-cancel-{{ $s->id }}"

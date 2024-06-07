@@ -4,6 +4,7 @@ namespace App\Livewire\PaymentInstallments;
 
 use App\Enums\PaymentMethod;
 use App\Livewire\Forms\InstallmentForm;
+use App\Models\Sale;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{On, Validate};
@@ -73,12 +74,19 @@ class ReceivePayment extends Component
         $this->form->status  = 'PAGO';
         $this->form->save();
 
+        $sale = Sale::find($this->form->sale_id);
+        $pago = true;
+
+        foreach ($sale->paymentInstallments as $installment) {
+            if ($installment->status !== 'PAGO') {
+                continue;
+            }
+        }
+
         $this->msg  = 'Payment received successfully';
         $this->icon = 'icons.success';
 
-        $this->dispatch('show-toast');
-
-        $this->dispatch('installment::refresh');
+        $this->dispatch(['show-toast', 'installment::refresh']);
 
         $this->cancel();
     }

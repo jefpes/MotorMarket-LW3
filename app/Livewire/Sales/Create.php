@@ -138,6 +138,6 @@ class Create extends Component
             $this->dispatch('show-toast');
         }
 
-        // $this->redirectRoute('sales', navigate: true);
+        $this->redirectRoute('sales', navigate: true);
     }
 }

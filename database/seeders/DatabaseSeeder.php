@@ -65,9 +65,8 @@ class DatabaseSeeder extends Seeder
             ['name' => 'cphoto_delete'],
             ['name' => 'sale_create'],
             ['name' => 'sale_read'],
-            ['name' => 'sale_update'],
-            ['name' => 'sale_delete'],
             ['name' => 'sale_cancel'],
+            ['name' => 'installment_read'],
             ['name' => 'payment_receive'],
             ['name' => 'payment_undo'],
         ]);
