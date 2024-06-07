@@ -56,7 +56,14 @@ class Cancel extends Component
             }
 
             Vehicle::where('id', $this->sale->vehicle_id)->update(['sold_date' => null]);
-            $this->sale->update(['status' => StatusPayments::CN->value, 'date_cancel' => now()->format('Y-m-d'), 'reimbursement' => $this->reimbursement]);
+
+            if ($this->reimbursement) {
+                $this->sale->update(['status' => StatusPayments::RF->value, 'date_cancel' => now()->format('Y-m-d'), 'reimbursement' => $this->reimbursement]);
+            }
+
+            if (!$this->reimbursement) {
+                $this->sale->update(['status' => StatusPayments::CN->value, 'date_cancel' => now()->format('Y-m-d')]);
+            }
             $this->dispatch('sales::refresh');
 
             $this->dispatch('show-toast');

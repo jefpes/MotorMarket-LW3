@@ -26,6 +26,10 @@ class SaleCanceled
             return abort(403, 'Sale refunded');
         }
 
+        if ($sale->number_installments == 1) {
+            return abort(403, 'Sale not in installments');
+        }
+
         return $next($request);
     }
 }
