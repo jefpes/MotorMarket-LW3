@@ -3,6 +3,7 @@
 namespace App\Livewire\PaymentInstallments;
 
 use App\Livewire\Forms\InstallmentForm;
+use App\Models\Sale;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -39,6 +40,8 @@ class UndoReceivePayment extends Component
 
     public function undo(): void
     {
+        $this->authorize('payment_undo');
+
         $this->form->payment_value = null;
 
         $this->form->payment_date = null;
@@ -57,11 +60,15 @@ class UndoReceivePayment extends Component
 
         $this->form->save();
 
+        Sale::find($this->form->sale_id)->update(['status' => 'PENDENTE']);
+
         $this->dispatch('installment::refresh');
 
         $this->msg = 'Payment undone successfully!';
 
         $this->icon = 'icons.success';
+
+        $this->dispatch('show-toast');
 
         $this->cancel();
     }

@@ -4,12 +4,11 @@
 
     <div class="mt-4">
       <x-input-label>{{__('Payment Method')}}</x-input-label>
-      <x-select wire:model.live="payment_method">
+      <x-select wire:model="form.payment_method">
         @foreach ($payment_methods as $pm)
           <option value="{{ $pm->value }}"> {{ $pm->value }} </option>
         @endforeach
       </x-select>
-      <x-input-error :messages="$errors->get('payment_method')" />
     </div>
 
     <x-form.input name="date" label="Date Payment" type="date" :messages="$errors->get('form.payment_date')"

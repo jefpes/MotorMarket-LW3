@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization };
+use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, SaleCanceled};
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
@@ -105,9 +105,9 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified'])
         ->name('sale.edit');
 
-    Route::get('installments/{id}', PaymentInstallments\Index::class)
-        ->middleware(['auth', 'verified'])
-        ->name('installments');
+    Route::get('sale/{id}/installments', PaymentInstallments\Index::class)
+        ->middleware(['auth', 'verified', SaleCanceled::class])
+        ->name('sale.installments');
 
     require __DIR__ . '/auth.php';
 });

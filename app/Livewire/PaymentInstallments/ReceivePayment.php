@@ -40,7 +40,7 @@ class ReceivePayment extends Component
     {
         $this->form->setInstallment($id);
 
-        $this->payment_method = PaymentMethod::AV->value;
+        $this->form->payment_method = PaymentMethod::DN->value;
 
         $this->form->payment_value = $this->form->value;
 
@@ -67,9 +67,10 @@ class ReceivePayment extends Component
 
     public function save(): void
     {
-        $this->form->user_id        = auth()->id();
-        $this->form->status         = 'PAGO';
-        $this->form->payment_method = $this->payment_method;
+        $this->authorize('payment_receive');
+
+        $this->form->user_id = auth()->id();
+        $this->form->status  = 'PAGO';
         $this->form->save();
 
         $this->msg  = 'Payment received successfully';

@@ -45,11 +45,13 @@ class Create extends Component
         $this->sale_form->user_id    = auth()->id();
         $this->sale_form->vehicle_id = $this->vehicle->id;
 
-        $this->value_installments   = $this->vehicle->sale_price;
-        $this->sale_form->total     = $this->vehicle->sale_price;
-        $this->originalPrice        = $this->vehicle->sale_price;
-        $this->sale_form->discount  = 0;
-        $this->sale_form->date_sale = now()->format('Y-m-d');
+        $this->value_installments     = $this->vehicle->sale_price;
+        $this->sale_form->total       = $this->vehicle->sale_price;
+        $this->originalPrice          = $this->vehicle->sale_price;
+        $this->sale_form->discount    = 0;
+        $this->sale_form->date_sale   = now()->format('Y-m-d');
+        $this->date_first_installment = now()->addMonth()->format('Y-m-d');
+
     }
 
     public function render(): View

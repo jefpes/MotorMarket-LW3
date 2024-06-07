@@ -69,6 +69,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'sale_delete'],
             ['name' => 'sale_cancel'],
             ['name' => 'payment_receive'],
+            ['name' => 'payment_undo'],
         ]);
 
         $user = User::create([

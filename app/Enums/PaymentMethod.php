@@ -4,7 +4,6 @@ namespace App\Enums;
 
 enum PaymentMethod: string
 {
-    case AV = 'À VISTA';
     case CD = 'CARTÃO DE DÉBITO';
     case CC = 'CARTÃO DE CRÉDITO';
     case DP = 'DEPÓSITO';

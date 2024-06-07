@@ -74,7 +74,7 @@
                 <div class="flex flex-row gap-2 justify-center">
                   @if ($s->number_installments > 1)
                       <x-icons.contract class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
-                        {{-- href="{{ route('sale.installments', $s->id) }}"  --}}
+                        href="{{ route('sale.installments', $s->id) }}"
                         id="installments-{{ $s->id }}" wire:navigate />
                   @endif
                   @can('sale_update')

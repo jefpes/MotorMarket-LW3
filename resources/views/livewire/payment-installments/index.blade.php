@@ -23,13 +23,17 @@
         <x-table.td> {{ $i->status }} </x-table.td>
         <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
 
-        @canany(['client_delete'])
+        @canany(['payment_undo', 'payment_receive'])
         <x-table.td>
           <div class="flex flex-row gap-2">
             @if ($i->payment_date && $i->status != 'CANCELADO')
-              <x-icons.undo class="text-2xl flex w-8 h-8 cursor-pointer text-red-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::undo-receive', { id: {{ $i->id }} })" />
+              @can('payment_undo')
+                <x-icons.undo class="text-2xl flex w-8 h-8 cursor-pointer text-red-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::undo-receive', { id: {{ $i->id }} })" />
+              @endcan
             @else
-              <x-icons.money-receive class="text-2xl flex w-8 h-8 cursor-pointer text-blue-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::receive', { id: {{ $i->id }} })" />
+              @can('payment_receive')
+                <x-icons.money-receive class="text-2xl flex w-8 h-8 cursor-pointer text-blue-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::receive', { id: {{ $i->id }} })" />
+              @endcan
             @endif
           </div>
         </x-table.td>
