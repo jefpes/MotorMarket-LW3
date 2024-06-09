@@ -50,7 +50,7 @@
       <x-slot name="thead">
         @foreach ($theader as $h)
           @if ($h == 'Actions')
-            @canany(['sale_update', 'sale_delete'])
+            @canany(['sale_cancel'])
               <x-table.th> {{ __($h) }} </x-table.th>
             @endcanany
           @else
@@ -78,7 +78,7 @@
                       id="installments-{{ $s->id }}" wire:navigate />
                   @endif
 
-                  @can('sale_delete')
+                  @can('sale_cancel')
                     <x-icons.cancel id="btn-cancel-{{ $s->id }}"
                       wire:click="$dispatch('sale::canceling', { id: {{ $s->id }} })"
                       class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />

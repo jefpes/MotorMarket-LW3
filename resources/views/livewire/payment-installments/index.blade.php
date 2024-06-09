@@ -4,7 +4,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
       @if ($h == 'Actions')
-      @canany(['client_delete'])
+      @canany(['payment_receive', 'payment_undo'])
       <x-table.th> {{ __($h) }} </x-table.th>
       @endcanany
       @else

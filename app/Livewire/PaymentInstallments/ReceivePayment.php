@@ -4,10 +4,10 @@ namespace App\Livewire\PaymentInstallments;
 
 use App\Enums\PaymentMethod;
 use App\Livewire\Forms\InstallmentForm;
-use App\Models\Sale;
+use App\Models\{PaymentInstallments, Sale};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\{On, Validate};
+use Livewire\Attributes\{On};
 use Livewire\Component;
 
 class ReceivePayment extends Component
@@ -22,9 +22,7 @@ class ReceivePayment extends Component
 
     public string $type = 'discount';
 
-    #[Validate('required')]
-    public string $payment_method = '';
-
+    #[On('installment::refresh')]
     public function render(): View
     {
         return view('livewire.payment-installments.receive-payment', ['payment_methods' => PaymentMethod::cases()]);
@@ -74,19 +72,17 @@ class ReceivePayment extends Component
         $this->form->status  = 'PAGO';
         $this->form->save();
 
-        $sale = Sale::find($this->form->sale_id);
-        $pago = true;
+        Sale::find($this->form->sale_id);
 
-        foreach ($sale->paymentInstallments as $installment) {
-            if ($installment->status !== 'PAGO') {
-                continue;
-            }
+        if (PaymentInstallments::allPaid($this->form->sale_id)) { /* @phpstan-ignore-line */
+            Sale::find($this->form->sale_id)->update(['status' => 'PAGO']);
         }
 
         $this->msg  = 'Payment received successfully';
         $this->icon = 'icons.success';
 
-        $this->dispatch(['show-toast', 'installment::refresh']);
+        $this->dispatch('show-toast');
+        $this->dispatch('installment::refresh');
 
         $this->cancel();
     }

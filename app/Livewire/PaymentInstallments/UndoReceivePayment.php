@@ -3,7 +3,7 @@
 namespace App\Livewire\PaymentInstallments;
 
 use App\Livewire\Forms\InstallmentForm;
-use App\Models\Sale;
+use App\Models\{Sale};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -55,8 +55,6 @@ class UndoReceivePayment extends Component
         $this->form->user_id = null;
 
         $this->form->status = 'PENDENTE';
-
-        $this->form->save();
 
         $this->form->save();
 

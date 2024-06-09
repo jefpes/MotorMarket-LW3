@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Builder, Model};
 
 class PaymentInstallments extends Model
 {
@@ -17,5 +17,11 @@ class PaymentInstallments extends Model
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    // Método para verificar se todas as parcelas foram pagas
+    public function scopeAllPaid(Builder $query, int $saleId): bool
+    {
+        return $query->where('sale_id', $saleId)->where('status', '!=', 'PAGO')->doesntExist();
     }
 }
