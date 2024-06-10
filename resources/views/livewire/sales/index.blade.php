@@ -39,7 +39,7 @@
       <x-select wire:model.live="status" class="flex">
         <option value="">{{ __('All') }}</option>
         @foreach ($sts as $s)
-          <option :value="$s->value">{{ $s->value }}</option>
+          <option value="{{ $s->value }}">{{ $s->value }}</option>
         @endforeach
       </x-select>
     </div>

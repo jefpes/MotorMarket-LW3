@@ -1,6 +1,52 @@
 <div>
     <x-slot name="header">{{ __($header) }}</x-slot>
 
+      <div class="flex flex-col md:flex-row gap-2 pb-3 flex-0 sm:flex justify-between">
+        <div class="flex flex-col md:flex-row gap-2 flex-0 sm:flex">
+        <div class="flex-none">
+          <x-input-label for="due_date_i" value="{{ __('Due Date') }}" />
+          <x-text-input type="date" id="due_date_i" wire:model.live.debounce.500ms='due_date_i' />
+          {{ __('to') }} <x-text-input type="date" id="due_date_f" wire:model.live.debounce.500ms='due_date_f' />
+        </div>
+
+        <div class="flex-none">
+          <x-input-label for="pay_date_i" value="{{ __('Payment Date') }}" />
+          <x-text-input type="date" id="pay_date_i" wire:model.live.debounce.500ms='pay_date_i' />
+          {{ __('to') }} <x-text-input type="date" id="pay_date_f" wire:model.live.debounce.500ms='pay_date_f' />
+        </div>
+        </div>
+        <div class="flex justify-end gap-2">
+          <div>
+            <x-input-label for="perPage" value="{{ __('Nº') }}" />
+            <x-select wire:model.live="perPage" class="w-full" id="perPage">
+              <option value="10"> 10 </option>
+              <option value="15"> 15 </option>
+              <option value="25"> 25 </option>
+              <option value="50"> 50 </option>
+              <option value="100"> 100 </option>
+            </x-select>
+          </div>
+          <div>
+            <x-input-label for="payment_method" value="{{ __('Payment Method') }}" />
+            <x-select wire:model.live="payment_method" class="w-full" id="payment_method">
+              <option value=""> {{ __('All')}} </option>
+              @foreach ($payment_methods as $data)
+              <option value="{{ $data->value }}"> {{ $data->value }} </option>
+              @endforeach
+            </x-select>
+          </div>
+          <div>
+            <x-input-label for="sts_select" value="{{ __('Status') }}" />
+            <x-select wire:model.live="status" class="w-full" id="sts_select">
+              <option value=""> {{ __('All')}} </option>
+              @foreach ($sts as $data)
+                <option value="{{ $data->value }}"> {{ $data->value }} </option>
+              @endforeach
+            </x-select>
+          </div>
+        </div>
+      </div>
+
     <x-table.table>
       <x-slot:thead>
         @foreach ($theader as $h)
@@ -17,9 +63,11 @@
         @foreach ($this->installments as $i)
         <x-table.tr>
           <x-table.td> {{ $loop->iteration }} </x-table.td>
+          <x-table.td> {{ $i->sale->client->name }} </x-table.td>
           <x-table.td> {{ $i->due_date }} </x-table.td>
           <x-table.td> {{ $i->value }} </x-table.td>
           <x-table.td> {{ $i->payment_date ?? '' }} </x-table.td>
+          <x-table.td> {{ $i->payment_method ?? '' }} </x-table.td>
           <x-table.td> {{ $i->payment_value ?? '' }} </x-table.td>
           <x-table.td> {{ $i->status }} </x-table.td>
           <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
@@ -27,16 +75,9 @@
           @canany(['payment_undo', 'payment_receive'])
           <x-table.td>
             <div class="flex flex-row gap-2">
-              @if ($i->payment_date && $i->status != 'CANCELADO')
-              @can('payment_undo')
-              <x-icons.undo class="text-2xl flex w-8 h-8 cursor-pointer text-red-600" id="show-{{ $i->id }}"
-                wire:click="$dispatch('installment::undo-receive', { id: {{ $i->id }} })" />
-              @endcan
-              @else
-              @can('payment_receive')
-              <x-icons.money-receive class="text-2xl flex w-8 h-8 cursor-pointer text-blue-600" id="show-{{ $i->id }}"
-                wire:click="$dispatch('installment::receive', { id: {{ $i->id }} })" />
-              @endcan
+              @if ($i->status != 'CANCELADO')
+              <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer text-yellow-400" id="show-{{ $i->id }}"
+                :href="route('sale.installments', $i->sale_id)" wire:navigate />
               @endif
             </div>
           </x-table.td>
