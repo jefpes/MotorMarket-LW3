@@ -101,9 +101,13 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified'])
         ->name('sale.create');
 
-    Route::get('sale/{id}/installments', PaymentInstallments\Index::class)
+    Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
         ->middleware(['auth', 'verified', SaleCanceled::class])
         ->name('sale.installments');
+
+    Route::get('installments', PaymentInstallments\Index::class)
+        ->middleware(['auth', 'verified'])
+        ->name('installments');
 
     require __DIR__ . '/auth.php';
 });

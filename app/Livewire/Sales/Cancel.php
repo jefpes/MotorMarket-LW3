@@ -47,22 +47,29 @@ class Cancel extends Component
         }
 
         try {
-            $this->msg  = 'Sale Cancelled';
+            $this->msg  = 'Sale cancelled';
             $this->icon = 'icons.success';
 
             if ($this->sale->number_installments > 1) {
-                PaymentInstallments::where('sale_id', $this->sale->id)->update(['status' => StatusPayments::CN->value]);
-                // dd('aqui');
+                if (PaymentInstallments::anyPaid($this->sale->id)) { /* @phpstan-ignore-line */
+                    $this->msg  = 'Sale not cancelled, There are paid installments, please cancel the installments first';
+                    $this->icon = 'icons.fail';
+                    $this->dispatch('show-toast');
+                    $this->modal = false;
+
+                    return;
+                }
+                PaymentInstallments::where('sale_id', $this->sale->id)->update(['status' => StatusPayments::CN->value, 'user_id' => auth()->id()]); /* @phpstan-ignore-line */
             }
 
             Vehicle::where('id', $this->sale->vehicle_id)->update(['sold_date' => null]);
 
             if ($this->reimbursement) {
-                $this->sale->update(['status' => StatusPayments::RF->value, 'date_cancel' => now()->format('Y-m-d'), 'reimbursement' => $this->reimbursement]);
+                $this->sale->update(['status' => StatusPayments::RF->value, 'date_cancel' => now()->format('Y-m-d'), 'reimbursement' => $this->reimbursement, 'user_id' => auth()->id()]);
             }
 
             if (!$this->reimbursement) {
-                $this->sale->update(['status' => StatusPayments::CN->value, 'date_cancel' => now()->format('Y-m-d')]);
+                $this->sale->update(['status' => StatusPayments::CN->value, 'date_cancel' => now()->format('Y-m-d'), 'user_id' => auth()->id()]);
             }
             $this->dispatch('sales::refresh');
 

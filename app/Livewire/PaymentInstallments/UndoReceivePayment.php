@@ -52,7 +52,7 @@ class UndoReceivePayment extends Component
 
         $this->form->surchange = null;
 
-        $this->form->user_id = null;
+        $this->form->user_id = auth()->id();
 
         $this->form->status = 'PENDENTE';
 

@@ -4,27 +4,30 @@ namespace App\Livewire\PaymentInstallments;
 
 use App\Models\PaymentInstallments;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
-use Livewire\Attributes\On;
-use Livewire\Component;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Livewire\Attributes\{Computed, Url};
+use Livewire\{Component, WithPagination};
 
 class Index extends Component
 {
-    public string $header = 'Payment Installments';
+    use WithPagination;
+
+    #[Url(except: '', as: 'p', history: true)]
+    public ?int $perPage = 15;
 
     /** @var array<string> */
-    public array $theader = ['N°', 'Due Date', 'Value', 'Payment Date', 'Value Received' , 'Status', 'Received for', 'Actions'];
+    public array $theader = ['N°', 'Due Date', 'Value', 'Payment Date', 'Value Received' , 'Status', 'By', 'Actions'];
 
-    public ?Collection $installment;
+    public ?string $header = 'Installments';
 
-    public function mount(int $id): void
-    {
-        $this->installment = PaymentInstallments::with('sale', 'user')->where('sale_id', $id)->get();
-    }
-
-    #[On('installment::refresh')]
     public function render(): View
     {
         return view('livewire.payment-installments.index');
+    }
+
+    #[Computed()]
+    public function installments(): LengthAwarePaginator
+    {
+        return  PaymentInstallments::query()->with('sale', 'user')->paginate($this->perPage);
     }
 }

@@ -24,4 +24,10 @@ class PaymentInstallments extends Model
     {
         return $query->where('sale_id', $saleId)->where('status', '!=', 'PAGO')->doesntExist();
     }
+
+    // Método para verificar se alguma parcela foi paga
+    public function scopeAnyPaid(Builder $query, int $saleId): bool
+    {
+        return $query->where('sale_id', $saleId)->where('status', 'PAGO')->exists();
+    }
 }

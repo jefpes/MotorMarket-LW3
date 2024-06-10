@@ -67,6 +67,7 @@
           <x-table.td> {{ $s->total }} </x-table.td>
           <x-table.td> {{ $s->status }} </x-table.td>
           <x-table.td> {{ $s->number_installments }} </x-table.td>
+          <x-table.td> {{ $s->user->name }} </x-table.td>
 
           @canany(['sale_cancel', 'installment_read'])
             @if (!$s->date_cancel)
