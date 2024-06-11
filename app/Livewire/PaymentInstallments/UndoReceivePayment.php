@@ -50,7 +50,7 @@ class UndoReceivePayment extends Component
 
         $this->form->discount = null;
 
-        $this->form->surchange = null;
+        $this->form->surcharge = null;
 
         $this->form->user_id = auth()->id();
 
@@ -62,7 +62,7 @@ class UndoReceivePayment extends Component
 
         $this->dispatch('installment::refresh');
 
-        $this->msg = 'Payment undone successfully!';
+        $this->msg = 'Payment undone successfully';
 
         $this->icon = 'icons.success';
 

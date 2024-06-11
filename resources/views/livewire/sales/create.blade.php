@@ -3,7 +3,7 @@
 
 
   <div class="space-y-2 mb-4">
-    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2 space-y-2 md:space-y-0">
       <div class="flex-1">
         <x-select wire:model="sale_form.client_id" label="Client" class="w-full">
           <option value="">{{ __('Select a Client') }}</option>
@@ -23,12 +23,12 @@
         <x-input-error :messages="$errors->get('sale_form.payment_method')" />
       </div>
       <div class="flex-1">
-        <x-form.input type="date" name="date_sale" label="Date Sale" placeholder="Date Sale"
+        <x-form.input type="date" name="date_sale" label="Sale Date"
           :messages="$errors->get('sale_form.date_sale')" wire:model="sale_form.date_sale" class="w-full" />
       </div>
     </div>
 
-    <div class="flex flex-col md:flex-row justify-between md:space-x-2 items-center">
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2 space-y-2 md:space-y-0">
       <div class="flex-0">
         <x-select wire:model.live="type" class="w-full" label="Type">
           <option value="discount">{{ __('Discount') }}</option>
@@ -40,21 +40,21 @@
           <x-form.input x-mask="9999999" name="discount" label="Discount" placeholder="Discount"
             :messages="$errors->get('sale_form.discount')" wire:model.live.debounce.1000ms="sale_form.discount" class="w-full" />
         @else
-          <x-form.input x-mask="9999999" name="surchange" label="Surchange" placeholder="Surchange"
-            :messages="$errors->get('sale_form.surchange')" wire:model.live.debounce.1000ms="sale_form.surchange" class="w-full" />
+          <x-form.input x-mask="9999999" name="surcharge" label="Surcharge" placeholder="Surcharge"
+            :messages="$errors->get('sale_form.surcharge')" wire:model.live.debounce.1000ms="sale_form.surcharge" class="w-full" />
         @endif
       </div>
       <div class="flex-1">
         <x-form.input disabled x-mask="99999999999" name="plate" label="Total" placeholder="Total"
           :messages="$errors->get('sale_form.total')" wire:model="sale_form.total" class="w-full" />
       </div>
-      <div class="flex-0">
-        <x-toggle text="Deferred Payment" :ckd="$deferred_payment" wire:model.live='deferred_payment' />
+      <div class="flex-0 md:pt-6">
+        <x-toggle text="In Installments" :ckd="$inInstallments" wire:model.live='inInstallments' />
       </div>
     </div>
 
-    @if ($deferred_payment)
-    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+    @if ($inInstallments)
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2 space-y-2 md:space-y-0">
       <div class="flex-1">
         <x-form.input x-mask="9999999" name="down_payment" label="Down Payment" placeholder="Down Payment"
           :messages="$errors->get('sale_form.down_payment')" wire:model.live.debounce.1000ms="sale_form.down_payment" class="w-full" />
@@ -64,12 +64,12 @@
           :messages="$errors->get('sale_form.number_installments')" wire:model.live.debounce.1000ms="sale_form.number_installments" class="w-full" />
       </div>
       <div class="flex-1">
-        <x-form.input disabled name="value_installments" label="Value of Installments" placeholder="Value of Installments"
-        :messages="$errors->get('value_installments')" wire:model.live.debounce.1000ms="value_installments" class="w-full" />
+        <x-form.input disabled name="installment_value" label="Installment Value" placeholder="Installment Value"
+        :messages="$errors->get('installment_value')" wire:model.live.debounce.1000ms="installment_value" class="w-full" />
       </div>
       <div class="flex-1">
-      <x-form.input type="date" name="date_first_installment" label="Date First Installment"
-        :messages="$errors->get('date_first_installment')" wire:model="date_first_installment" class="w-full" />
+      <x-form.input type="date" name="first_installment_date" label="First Installment Date"
+        :messages="$errors->get('first_installment_date')" wire:model="first_installment_date" class="w-full" />
       </div>
     </div>
     @endif

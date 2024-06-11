@@ -11,7 +11,7 @@
       </x-select>
     </div>
 
-    <x-form.input name="date" label="Date Payment" type="date" :messages="$errors->get('form.payment_date')"
+    <x-form.input name="date" label="Payment Date" type="date" :messages="$errors->get('form.payment_date')"
       wire:model="form.payment_date" class="w-full" />
 
       <div class="flex flex-col md:flex-row justify-between md:space-x-2 items-center">
@@ -27,8 +27,8 @@
             :messages="$errors->get('form.discount')" wire:model.live.debounce.1000ms="form.discount"
             class="w-full" />
           @else
-          <x-form.input x-mask="9999999" name="surchange" label="Surchange" placeholder="Surchange"
-            :messages="$errors->get('form.surchange')" wire:model.live.debounce.1000ms="form.surchange"
+          <x-form.input x-mask="9999999" name="surcharge" label="Surcharge" placeholder="Surcharge"
+            :messages="$errors->get('form.surcharge')" wire:model.live.debounce.1000ms="form.surcharge"
             class="w-full" />
           @endif
         </div>
@@ -44,7 +44,7 @@
       </x-secondary-button>
 
       <x-primary-button wire:click="save" class="ms-3">
-        {{ __('Update') }}
+        {{ __('Receive') }}
       </x-primary-button>
     </x-slot:footer>
   </x-modal>

@@ -51,7 +51,7 @@ class ReceivePayment extends Component
     public function updatedType(): void
     {
         $this->form->discount  = 0;
-        $this->form->surchange = 0;
+        $this->form->surcharge = 0;
     }
 
     public function updatedFormDiscount(): void
@@ -59,9 +59,9 @@ class ReceivePayment extends Component
         $this->form->payment_value = $this->form->value - ($this->form->discount ?? 0);
     }
 
-    public function updatedFormSurchange(): void
+    public function updatedFormSurcharge(): void
     {
-        $this->form->payment_value = $this->form->value + ($this->form->surchange ?? 0);
+        $this->form->payment_value = $this->form->value + ($this->form->surcharge ?? 0);
     }
 
     public function save(): void

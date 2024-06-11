@@ -28,11 +28,11 @@ class Create extends Component
 
     public string $type = 'discount';
 
-    public ?float $value_installments = 0;
+    public ?float $installment_value = 0;
 
-    public bool $deferred_payment = false;
+    public bool $inInstallments = false;
 
-    public ?string $date_first_installment = null;
+    public ?string $first_installment_date = null;
 
     public ?float $down_payment = 0;
 
@@ -45,12 +45,12 @@ class Create extends Component
         $this->sale_form->user_id    = auth()->id();
         $this->sale_form->vehicle_id = $this->vehicle->id;
 
-        $this->value_installments     = $this->vehicle->sale_price;
+        $this->installment_value      = $this->vehicle->sale_price;
         $this->sale_form->total       = $this->vehicle->sale_price;
         $this->originalPrice          = $this->vehicle->sale_price;
         $this->sale_form->discount    = 0;
         $this->sale_form->date_sale   = now()->format('Y-m-d');
-        $this->date_first_installment = now()->addMonth()->format('Y-m-d');
+        $this->first_installment_date = now()->addMonth()->format('Y-m-d');
 
     }
 
@@ -76,7 +76,7 @@ class Create extends Component
 
     public function updatedSaleFormNumberInstallments(): void
     {
-        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / $this->sale_form->number_installments;
+        $this->installment_value = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / $this->sale_form->number_installments;
     }
 
     public function updatedSaleFormDiscount(): void
@@ -84,14 +84,14 @@ class Create extends Component
         $this->sale_form->total = $this->originalPrice - ($this->sale_form->discount ?? 0);
     }
 
-    public function updatedSaleFormSurchange(): void
+    public function updatedSaleFormSurcharge(): void
     {
-        $this->sale_form->total = $this->originalPrice + ($this->sale_form->surchange ?? 0);
+        $this->sale_form->total = $this->originalPrice + ($this->sale_form->surcharge ?? 0);
     }
 
     public function updatedSaleFormDownPayment(): void
     {
-        $this->value_installments = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / ($this->sale_form->number_installments ?? 1);
+        $this->installment_value = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / ($this->sale_form->number_installments ?? 1);
     }
 
     public function save(): void
@@ -104,30 +104,29 @@ class Create extends Component
             return;
         }
 
-        if ($this->deferred_payment) {
+        if ($this->inInstallments) {
+            $this->validate(['first_installment_date' => ['required', 'date']]);
+
             $this->sale_form->status = StatusPayments::PN->value;
         } else {
+            $this->msg  = 'Sale successfully registered';
+            $this->icon = 'icons.success';
+
             $this->sale_form->status       = StatusPayments::PG->value;
             $this->sale_form->date_payment = now()->format('Y-m-d');
         }
 
         $sale = $this->sale_form->save();
 
-        if (!$this->deferred_payment) {
-            $this->msg  = 'Sale successfully registered';
-            $this->icon = 'icons.success';
-            $this->dispatch('show-toast');
-        }
-
         $this->vehicle->update(['sold_date' => now()->format('Y-m-d')]);
 
-        if ($this->deferred_payment) {
-            $date = Date::createFromFormat('Y-m-d', $this->date_first_installment);
+        if ($this->inInstallments) {
+            $date = Date::createFromFormat('Y-m-d', $this->first_installment_date);
 
             for ($i = 0; $i < $this->sale_form->number_installments; $i++) {
                 $this->inst_form->sale_id  = $sale->id;
                 $this->inst_form->status   = StatusPayments::PN->value;
-                $this->inst_form->value    = $this->value_installments;
+                $this->inst_form->value    = $this->installment_value;
                 $this->inst_form->due_date = $date;
                 $date->addMonth()->format('Y-m-d');
 
@@ -135,8 +134,9 @@ class Create extends Component
             }
             $this->msg  = 'Installment sale successfully registered';
             $this->icon = 'icons.success';
-            $this->dispatch('show-toast');
         }
+
+        $this->dispatch('show-toast');
 
         $this->redirectRoute('sales', navigate: true);
     }

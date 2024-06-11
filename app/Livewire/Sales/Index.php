@@ -17,7 +17,7 @@ class Index extends Component
     public string $header = 'Sales';
 
     /** @var array<string> */
-    public array $theader = ['Plate', 'Client', 'Date Sale', 'Value', 'Status', 'Installments', 'By' , 'Actions'];
+    public array $theader = ['Plate', 'Client', 'Sale Date', 'Value', 'Status', 'Installments', 'By' , 'Actions'];
 
     public string $filter = 'plate';
 
