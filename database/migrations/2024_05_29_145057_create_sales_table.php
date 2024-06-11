@@ -21,7 +21,7 @@ return new class () extends Migration {
             $table->date('date_sale');
             $table->date('date_payment')->nullable();
             $table->decimal('discount', 10, 2)->default(0);
-            $table->decimal('surchange', 10, 2)->default(0);
+            $table->decimal('surcharge', 10, 2)->default(0);
             $table->decimal('down_payment', 10, 2)->default(0);
             $table->integer('number_installments')->default(1);
             $table->decimal('reimbursement', 10, 2)->nullable();

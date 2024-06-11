@@ -27,7 +27,7 @@ class SaleForm extends Form
 
     public ?float $discount = 0;
 
-    public ?float $surchange = 0;
+    public ?float $surcharge = 0;
 
     public ?float $down_payment = 0;
 
@@ -51,7 +51,7 @@ class SaleForm extends Form
             'date_sale'           => ['required', 'date'],
             'date_payment'        => ['nullable', 'date'],
             'discount'            => ['required', 'numeric', 'min:0'],
-            'surchange'           => ['required', 'numeric', 'min:0'],
+            'surcharge'           => ['required', 'numeric', 'min:0'],
             'down_payment'        => ['required', 'numeric', 'min:0'],
             'number_installments' => ['required', 'integer', 'min:1'],
             'total'               => ['required', 'numeric', 'min:0'],
@@ -74,7 +74,7 @@ class SaleForm extends Form
                 'date_sale'           => $this->date_sale,
                 'date_payment'        => $this->date_payment,
                 'discount'            => $this->discount,
-                'surchange'           => $this->surchange,
+                'surcharge'           => $this->surcharge,
                 'down_payment'        => $this->down_payment,
                 'number_installments' => $this->number_installments,
                 'total'               => $this->total,
@@ -98,7 +98,7 @@ class SaleForm extends Form
         $this->date_sale           = $sale->date_sale;
         $this->date_payment        = $sale->date_payment;
         $this->discount            = $sale->discount;
-        $this->surchange           = $sale->surchange;
+        $this->surcharge           = $sale->surcharge;
         $this->down_payment        = $sale->down_payment;
         $this->number_installments = $sale->number_installments;
         $this->total               = $sale->total;

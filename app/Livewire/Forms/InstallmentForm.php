@@ -29,7 +29,7 @@ class InstallmentForm extends Form
 
     public ?float $discount = null;
 
-    public ?float $surchange = null;
+    public ?float $surcharge = null;
 
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules(): array
@@ -44,7 +44,7 @@ class InstallmentForm extends Form
             'payment_value'  => ['nullable', 'numeric'],
             'payment_method' => ['nullable', 'string'],
             'discount'       => ['nullable', 'numeric'],
-            'surchange'      => ['nullable', 'numeric'],
+            'surcharge'      => ['nullable', 'numeric'],
         ];
     }
 
@@ -64,7 +64,7 @@ class InstallmentForm extends Form
                 'payment_value'  => $this->payment_value,
                 'payment_method' => $this->payment_method,
                 'discount'       => $this->discount,
-                'surchange'      => $this->surchange,
+                'surcharge'      => $this->surcharge,
             ]
         );
     }
@@ -83,7 +83,7 @@ class InstallmentForm extends Form
         $this->payment_value  = $installment->payment_value;
         $this->payment_method = $installment->payment_method;
         $this->discount       = $installment->discount;
-        $this->surchange      = $installment->surchange;
+        $this->surcharge      = $installment->surcharge;
     }
 
     public function destroy(): void

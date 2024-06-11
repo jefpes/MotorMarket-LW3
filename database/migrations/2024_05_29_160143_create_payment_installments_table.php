@@ -23,7 +23,7 @@ return new class () extends Migration {
             $table->decimal('payment_value', 10, 2)->nullable();
             $table->string('payment_method')->nullable();
             $table->decimal('discount', 10, 2)->nullable();
-            $table->decimal('surchange', 10, 2)->nullable();
+            $table->decimal('surcharge', 10, 2)->nullable();
 
             $table->timestamps();
         });
