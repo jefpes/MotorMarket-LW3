@@ -45,6 +45,7 @@ class VehicleModelSeeder extends Seeder
             ['name' => 'Yaris Sedan', 'brand_id' => 8],
             ['name' => 'Kicks', 'brand_id' => 9],
             ['name' => 'Ranger', 'brand_id' => 10],
+            ['name' => 'Celta', 'brand_id' => 2],
         ];
 
         foreach ($models as $model) {
