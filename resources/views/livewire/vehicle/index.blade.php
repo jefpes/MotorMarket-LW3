@@ -10,6 +10,11 @@
         <x-text-input type="date" id="date_i" wire:model.live='date_i' /> {{ __('to') }} <x-text-input type="date" id="date_f" wire:model.live='date_f' />
       </div>
 
+      <x-select wire:model.live="sold" class="w-full" id="sold">
+        <option value="0"> {{ __('Unsold') }} </option>
+        <option value="true"> {{ __('Sold') }} </option>
+      </x-select>
+
       <x-select wire:model.live="vehicle_type_id" class="w-full" id="type_select">
         <option value=""> {{ __('Type')}} </option>
         @foreach ($types as $data)

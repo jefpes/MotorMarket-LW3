@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization };
+use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, SaleCanceled};
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, City, Client, Dashboard, Profile, User, Vehicle, VehicleModel, VehicleType};
+use App\Livewire\{Brand, City, Client, Dashboard, PaymentInstallments, Profile, Sales, User, Vehicle, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -92,6 +92,22 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('client_show/{id}', Client\Show::class)
         ->middleware(['auth', 'verified'])
         ->name('client.show');
+
+    Route::get('sales', Sales\Index::class)
+            ->middleware(['auth', 'verified'])
+            ->name('sales');
+
+    Route::get('sale_create/{id}', Sales\Create::class)
+        ->middleware(['auth', 'verified'])
+        ->name('sale.create');
+
+    Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
+        ->middleware(['auth', 'verified', SaleCanceled::class])
+        ->name('sale.installments');
+
+    Route::get('installments', PaymentInstallments\Index::class)
+        ->middleware(['auth', 'verified'])
+        ->name('installments');
 
     require __DIR__ . '/auth.php';
 });

@@ -38,13 +38,13 @@ class Update extends Component
     #[Computed()]
     public function models(): Collection
     {
-        return VehicleModel::all();
+        return VehicleModel::orderBy('name')->get();
     }
 
     #[Computed()]
     public function types(): Collection
     {
-        return VehicleType::all();
+        return VehicleType::orderBy('name')->get();
     }
 
     public function save(): void

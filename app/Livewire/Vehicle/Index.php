@@ -30,6 +30,9 @@ class Index extends Component
     #[Url(except: null, as: 'model', history: true)]
     public ?int $vehicle_model_id = null;
 
+    #[Url(except: null, as: 'sold', history: true)]
+    public ?bool $sold = false;
+
     #[On('vehicle::refresh')]
     public function render(): View
     {
@@ -49,6 +52,9 @@ class Index extends Component
                     $q->where('id', $this->vehicle_model_id);
                 }))
                 ->when($this->date_i && $this->date_f, fn (Builder $q) => $q->whereBetween('purchase_date', [$this->date_i, $this->date_f]))
+                ->when($this->sold !== null, function (Builder $q) {
+                    $q->where('sold_date', $this->sold ? '!=' : '=', null);
+                })
                 ->paginate();
     }
 

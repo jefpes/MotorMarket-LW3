@@ -8,7 +8,7 @@
   <div class="flex flex-wrap pt-2 gap-y-3">
     @foreach ($abilities as $ability)
       <div class="w-1/2 md:w-1/4 lg:w-1/6" wire:key="div_{{ $ability->id }}">
-        <x-toggle :key="$ability->id" :text="__($ability->name)" wire:click="toggleAbility({{ $ability->id }})" ckd="{{$role->abilities->contains($ability->id) ? true : false}}" />
+        <x-toggle :key="$ability->id" :text="$ability->name" wire:click="toggleAbility({{ $ability->id }})" ckd="{{$role->abilities->contains($ability->id) ? true : false}}" />
       </div>
     @endforeach
   </div>

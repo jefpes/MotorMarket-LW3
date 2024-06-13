@@ -16,17 +16,17 @@
 
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
     <div class="md:basis-1/3">
-      <x-select wire:model="form.vehicle_model_id" class="w-full" label='Model' id="model_select">
-        <option value=""> {{ __('Select a Model')}} </option>
-        @foreach ($this->models as $data)
+      <x-select wire:model="form.vehicle_type_id" class="w-full" label='Type' id="type_select">
+        <option value=""> {{ __('Select a Type')}} </option>
+        @foreach ($this->types as $data)
         <option value="{{ $data->id }}"> {{ $data->name }} </option>
         @endforeach
       </x-select>
     </div>
     <div class="md:basis-1/3">
-      <x-select wire:model="form.vehicle_type_id" class="w-full" label='Type' id="type_select">
-        <option value=""> {{ __('Select a Type')}} </option>
-        @foreach ($this->types as $data)
+      <x-select wire:model="form.vehicle_model_id" class="w-full" label='Model' id="model_select">
+        <option value=""> {{ __('Select a Model')}} </option>
+        @foreach ($this->models as $data)
         <option value="{{ $data->id }}"> {{ $data->name }} </option>
         @endforeach
       </x-select>

@@ -25,6 +25,7 @@ return new class () extends Migration {
             $table->string('plate')->unique();
             $table->string('chassi')->unique();
             $table->string('renavan')->unique();
+            $table->date('sold_date')->nullable();
             $table->string('description');
 
             $table->timestamps();

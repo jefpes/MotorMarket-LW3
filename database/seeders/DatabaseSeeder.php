@@ -63,6 +63,12 @@ class DatabaseSeeder extends Seeder
             ['name' => 'client_update'],
             ['name' => 'client_delete'],
             ['name' => 'cphoto_delete'],
+            ['name' => 'sale_create'],
+            ['name' => 'sale_read'],
+            ['name' => 'sale_cancel'],
+            ['name' => 'installment_read'],
+            ['name' => 'payment_receive'],
+            ['name' => 'payment_undo'],
         ]);
 
         $user = User::create([
@@ -86,6 +92,6 @@ class DatabaseSeeder extends Seeder
 
         Client::factory()->count(10)->create();
 
-        $this->call([BrandSeeder::class, VehicleModelSeeder::class, VehicleTypeSeeder::class, VehicleSeeder::class]);
+        $this->call([BrandSeeder::class, VehicleModelSeeder::class, VehicleTypeSeeder::class, VehicleSeeder::class, SalesSeeder::class]);
     }
 }

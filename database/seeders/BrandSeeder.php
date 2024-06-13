@@ -22,6 +22,7 @@ class BrandSeeder extends Seeder
             'Toyota',
             'Nissan',
             'Ford',
+            'Yamaha',
         ];
 
         foreach ($brands as $brand) {
