@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vehicle;
+use App\Models\{Vehicle};
 use Illuminate\Database\Seeder;
 
 class VehicleSeeder extends Seeder
@@ -28,57 +28,50 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-1.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-1.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-1.webp',
             ],
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-2.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-2.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-2.webp',
             ],
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-3.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-3.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-3.webp',
             ],
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-4.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-4.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-4.webp',
             ],
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-5.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-5.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-5.webp',
             ],
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-6.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-6.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-6.webp',
             ],
             [
-                'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-branco-2014-7.webp',
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-branco-2014-7.webp',
                 'path'       => 'storage/vehicle_photos/corrola-branco-2014-7.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-04-02',
@@ -96,7 +89,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'bros-branca-2015-1.webp',
@@ -131,8 +124,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/bros-branca-2015-5.webp',
                 'path'       => 'storage/vehicle_photos/bros-branca-2015-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-05-01',
@@ -150,7 +143,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'bros-preta-2015-1.webp',
@@ -185,8 +178,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/bros-preta-2015-5.webp',
                 'path'       => 'storage/vehicle_photos/bros-preta-2015-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-05-01',
@@ -204,7 +197,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'bros-vermelha-2015-1.webp',
@@ -239,8 +232,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/bros-vermelha-2015-5.webp',
                 'path'       => 'storage/vehicle_photos/bros-vermelha-2015-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-06-01',
@@ -258,7 +251,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'celta-preto-2012-1.webp',
@@ -307,8 +300,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/celta-preto-2012-7.webp',
                 'path'       => 'storage/vehicle_photos/celta-preto-2012-7.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-04-03',
@@ -326,7 +319,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'celta-vermelho-2013-1.webp',
@@ -375,8 +368,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/celta-vermelho-2013-7.webp',
                 'path'       => 'storage/vehicle_photos/celta-vermelho-2013-7.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-03-01',
@@ -394,7 +387,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-preto-2021-1.webp',
@@ -436,8 +429,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-preto-2021-6.webp',
                 'path'       => 'storage/vehicle_photos/corrola-preto-2021-6.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-03-22',
@@ -455,7 +448,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'corrola-vermelho-2016-1.webp',
@@ -490,8 +483,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/corrola-vermelho-2016-5.webp',
                 'path'       => 'storage/vehicle_photos/corrola-vermelho-2016-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-05-01',
@@ -509,7 +502,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'crosser-branca-2020-1.webp',
@@ -544,8 +537,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/crosser-branca-2020-5.webp',
                 'path'       => 'storage/vehicle_photos/crosser-branca-2020-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2023-12-25',
@@ -557,13 +550,13 @@ class VehicleSeeder extends Seeder
             'year_two'         => 2020,
             'km'               => 20120,
             'color'            => 'Preto',
-            'plate'            => 'AAA-0009',
-            'renavan'          => '000000009',
-            'chassi'           => '000000009',
+            'plate'            => 'AAA-0025',
+            'renavan'          => '000000025',
+            'chassi'           => '000000025',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'crosser-preta-2020-1.webp',
@@ -598,8 +591,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/crosser-preta-2020-5.webp',
                 'path'       => 'storage/vehicle_photos/crosser-preta-2020-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-01-02',
@@ -617,7 +610,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'hb20-preto-2017-1.webp',
@@ -652,10 +645,10 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/hb20-preto-2017-5.webp',
                 'path'       => 'storage/vehicle_photos/hb20-preto-2017-5.webp',
-            ]
-        );
+            ],
+        ]);
 
-        Vehicle::create([
+        $vehicle = Vehicle::create([
             'purchase_date'    => '2024-01-04',
             'purchase_price'   => 28000.00,
             'sale_price'       => 35000.00,
@@ -671,7 +664,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'hb20-vermelho-2015-1.webp',
@@ -706,8 +699,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/hb20-vermelho-2015-5.webp',
                 'path'       => 'storage/vehicle_photos/hb20-vermelho-2015-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-02-04',
@@ -725,7 +718,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'hilux-preta-2017-1.webp',
@@ -760,8 +753,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/hilux-preta-2017-5.webp',
                 'path'       => 'storage/vehicle_photos/hilux-preta-2017-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-05-30',
@@ -779,7 +772,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'hilux-cereja-2022-1.webp',
@@ -821,8 +814,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/hilux-cereja-2022-6.webp',
                 'path'       => 'storage/vehicle_photos/hilux-cereja-2022-6.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-04-01',
@@ -840,7 +833,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'kwid-branco-2019-1.webp',
@@ -889,8 +882,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/kwid-branco-2019-7.webp',
                 'path'       => 'storage/vehicle_photos/kwid-branco-2019-7.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-05-08',
@@ -908,7 +901,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'kwid-vermelho-2018-1.webp',
@@ -943,8 +936,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/kwid-vermelho-2018-5.webp',
                 'path'       => 'storage/vehicle_photos/kwid-vermelho-2018-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-02-04',
@@ -962,7 +955,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'lander-azul-2020-1.webp',
@@ -983,8 +976,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/lander-azul-2020-3.webp',
                 'path'       => 'storage/vehicle_photos/lander-azul-2020-3.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-01-03',
@@ -1002,7 +995,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 's10-branco-2018-1.webp',
@@ -1037,8 +1030,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/s10-branco-2018-5.webp',
                 'path'       => 'storage/vehicle_photos/s10-branco-2018-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-02-01',
@@ -1056,7 +1049,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 's10-vermelha-2016-1.webp',
@@ -1098,8 +1091,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/s10-vermelha-2016-6.webp',
                 'path'       => 'storage/vehicle_photos/s10-vermelha-2016-6.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2023-11-12',
@@ -1117,15 +1110,29 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
-                'photo_name' => 'uno-azul-2012-1.webp',
+                'photo_name' => 'titan-azul-2012-1.webp',
                 'format'     => 'webp',
-                'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/uno-azul-2012-1.webp',
-                'path'       => 'storage/vehicle_photos/uno-azul-2012-1.webp',
-            ]
-        );
+                'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/titan-azul-2012-1.webp',
+                'path'       => 'storage/vehicle_photos/titan-azul-2012-1.webp',
+            ],
+            [
+                'vehicle_id' => $vehicle->id,
+                'photo_name' => 'titan-azul-2012-2.webp',
+                'format'     => 'webp',
+                'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/titan-azul-2012-2.webp',
+                'path'       => 'storage/vehicle_photos/titan-azul-2012-2.webp',
+            ],
+            [
+                'vehicle_id' => $vehicle->id,
+                'photo_name' => 'titan-azul-2012-3.webp',
+                'format'     => 'webp',
+                'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/titan-azul-2012-3.webp',
+                'path'       => 'storage/vehicle_photos/titan-azul-2012-3.webp',
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2023-10-01',
@@ -1143,7 +1150,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'titan-vermelha-2012-1.webp',
@@ -1171,8 +1178,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/titan-vermelha-2012-4.webp',
                 'path'       => 'storage/vehicle_photos/titan-vermelha-2012-4.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-02-03',
@@ -1190,7 +1197,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'titan-vermelha-2015-1.webp',
@@ -1225,8 +1232,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/titan-vermelha-2015-5.webp',
                 'path'       => 'storage/vehicle_photos/titan-vermelha-2015-5.webp',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-02-03',
@@ -1244,7 +1251,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'twister-prata-2020-1.jpg',
@@ -1272,8 +1279,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'jpg',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/twister-prata-2020-4.jpg',
                 'path'       => 'storage/vehicle_photos/twister-prata-2020-4.jpg',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-03-03',
@@ -1291,7 +1298,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'twister-vermelha-2020-1.jpg',
@@ -1319,8 +1326,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'jpg',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/twister-vermelha-2020-4.jpg',
                 'path'       => 'storage/vehicle_photos/twister-vermelha-2020-4.jpg',
-            ]
-        );
+            ],
+        ]);
 
         $vehicle = Vehicle::create([
             'purchase_date'    => '2024-03-01',
@@ -1338,7 +1345,7 @@ class VehicleSeeder extends Seeder
             'description'      => 'Veículo em ótimo estado de conservação.',
         ]);
 
-        $vehicle->photos()->create(
+        $vehicle->photos()->createMany([
             [
                 'vehicle_id' => $vehicle->id,
                 'photo_name' => 'xre-preta-2020-1.webp',
@@ -1366,8 +1373,8 @@ class VehicleSeeder extends Seeder
                 'format'     => 'webp',
                 'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/vehicle_photos/vehicle_photos/xre-preta-2020-4.webp',
                 'path'       => 'storage/vehicle_photos/xre-preta-2020-4.webp',
-            ]
-        );
+            ],
+        ]);
 
     }
 }
