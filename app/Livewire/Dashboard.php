@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\{PaymentMethod, StatusPayments};
 use App\Models\{Role, Sale, User, Vehicle, VehicleType};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -15,6 +16,10 @@ class Dashboard extends Component
 
     public string $date_end = '';
 
+    public string $status = '';
+
+    public string $payment_method = '';
+
     public function mount(): void
     {
         $this->date_ini = now()->subMonth()->format('Y-m-d');
@@ -23,7 +28,7 @@ class Dashboard extends Component
 
     public function render(): View
     {
-        return view('livewire.dashboard');
+        return view('livewire.dashboard', ['sts' => StatusPayments::cases(), 'payment_methods' => PaymentMethod::cases()]);
     }
 
     #[Computed()]
@@ -72,8 +77,10 @@ class Dashboard extends Component
     public function salesFilter(): Collection
     {
         return Sale::with('vehicle')
-        ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
-        ->get();
+          ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
+          ->when($this->status, fn ($q) => $q->where('sales.status', $this->status))
+          ->when($this->payment_method, fn ($q) => $q->where('sales.payment_method', $this->payment_method))
+          ->get();
     }
 
     #[Computed()]
@@ -106,6 +113,8 @@ class Dashboard extends Component
                   )
                   ->groupBy('vehicle_types.name')
                   ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('sales.date_sale', [$this->date_ini, $this->date_end]))
+                  ->when($this->status, fn ($q) => $q->where('sales.status', $this->status))
+                  ->when($this->payment_method, fn ($q) => $q->where('sales.payment_method', $this->payment_method))
                   ->get();
     }
 }
