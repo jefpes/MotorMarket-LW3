@@ -65,13 +65,20 @@
 
       <span
         class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-        {{ __('Sales') . ': ' . $this->sales->count() }}
+        {{ __('Sales') . ': ' . $this->salesFilter->count() }}
       </span>
+
+      <div class="flex-none p-2">
+        <x-input-label for="date_ini" value="{{ __('Date Sale') }}" />
+        <x-text-input type="date" id="date_ini" wire:model.live.debounce.500ms='date_ini' />
+        {{ __('to') }}
+        <x-text-input type="date" id="date_end" wire:model.live.debounce.500ms='date_end' />
+      </div>
       <ul class="max-w-md space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4">
-        @foreach ($this->salesType as $sale)
+        @foreach ($this->salesTypeFilter as $sale)
         <li>
-          {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $sale->name }}</span> {{ __('with') }}
-          <span class="font-semibold text-gray-900 dark:text-white">{{ $sale->number_of_sales }}</span> {{ __('vehicle') }}
+          {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $sale->name }}</span> :
+          <span class="font-semibold text-gray-900 dark:text-white">{{ $sale->number_of_sales }}</span>
           <div>
             {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_purchase_price }}</span> <br/>
             {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_sales }}</span> <br />

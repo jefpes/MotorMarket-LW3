@@ -11,6 +11,16 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
+    public string $date_ini = '';
+
+    public string $date_end = '';
+
+    public function mount(): void
+    {
+        $this->date_ini = now()->subMonth()->format('Y-m-d');
+        $this->date_end = now()->format('Y-m-d');
+    }
+
     public function render(): View
     {
         return view('livewire.dashboard');
@@ -59,6 +69,14 @@ class Dashboard extends Component
     }
 
     #[Computed()]
+    public function salesFilter(): Collection
+    {
+        return Sale::with('vehicle')
+        ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
+        ->get();
+    }
+
+    #[Computed()]
     public function salesType(): Collection
     {
         return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
@@ -72,6 +90,22 @@ class Dashboard extends Component
                   )
                   ->groupBy('vehicle_types.name')
                   ->get();
+    }
 
+    #[Computed()]
+    public function salesTypeFilter(): Collection
+    {
+        return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
+                  ->join('vehicle_types', 'vehicles.vehicle_type_id', '=', 'vehicle_types.id')
+                  ->select(
+                      'vehicle_types.name',
+                      DB::raw('COUNT(sales.id) as number_of_sales'),
+                      DB::raw('SUM(sales.total) as total_sales'),
+                      DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'),
+                      DB::raw('SUM(sales.total) - SUM(vehicles.purchase_price) as profit')
+                  )
+                  ->groupBy('vehicle_types.name')
+                  ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('sales.date_sale', [$this->date_ini, $this->date_end]))
+                  ->get();
     }
 }
