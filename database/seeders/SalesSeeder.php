@@ -171,6 +171,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-04-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'CARTÃO DE CRÉDITO',
+                'user_id'        => 2,
             ],
             [
                 'due_date'       => '2024-05-07',
@@ -179,6 +180,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-05-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'DINHEIRO',
+                'user_id'        => 2,
             ],
             [
                 'due_date'       => '2024-06-07',
@@ -187,6 +189,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-06-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'TRANSFERÊNCIA',
+                'user_id'        => 2,
             ],
         ]);
 
@@ -226,6 +229,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-04-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'CARTÃO DE CRÉDITO',
+                'user_id'        => 2,
             ],
             [
                 'due_date'       => '2024-05-07',
@@ -234,6 +238,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-05-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'DINHEIRO',
+                'user_id'        => 2,
             ],
             [
                 'due_date'       => '2024-06-07',
@@ -242,6 +247,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-06-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'TRANSFERÊNCIA',
+                'user_id'        => 2,
             ],
         ]);
 
@@ -281,6 +287,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-05-07',
                 'payment_value'  => 1600,
                 'payment_method' => 'CARTÃO DE CRÉDITO',
+                'user_id'        => 2,
             ],
             [
                 'due_date'       => '2024-06-07',
@@ -289,6 +296,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-06-07',
                 'payment_value'  => 1600,
                 'payment_method' => 'DINHEIRO',
+                'user_id'        => 2,
             ],
             [
                 'due_date' => '2024-07-07',
@@ -368,6 +376,7 @@ class SalesSeeder extends Seeder
                 'payment_date'   => '2024-06-07',
                 'payment_value'  => 2000,
                 'payment_method' => 'CARTÃO DE CRÉDITO',
+                'user_id'        => 2,
             ],
             [
                 'due_date' => '2024-07-07',

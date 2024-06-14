@@ -62,4 +62,29 @@ class Index extends Component
     {
         $this->resetPage();
     }
+
+    public function updatedVehicleTypeId(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedVehicleModelId(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDateI(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDateF(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSold(): void
+    {
+        $this->resetPage();
+    }
 }
