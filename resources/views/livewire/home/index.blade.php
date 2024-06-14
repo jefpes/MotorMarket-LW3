@@ -30,18 +30,21 @@
       </div>
     </nav>
 
-    @foreach ($this->vehicles as $v)
-    <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-      <a href="#">
-        <img class="hover:grow hover:shadow-lg"
-          src="{{ $v->photos->first()->path }}">
-        <div class="pt-3 flex items-center justify-between">
-          <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
+      @foreach ($this->vehicles as $v)
+        <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
+          <a href="#">
+            <img class="hover:grow hover:shadow-lg"
+              src="{{ $v->photos->first()->path }}">
+            <div class="pt-3 flex items-center justify-between">
+              <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
+            </div>
+            <p class="pt-1 text-gray-900">R$ <span>{{ $v->sale_price }}</span> </p>
+          </a>
         </div>
-        <p class="pt-1 text-gray-900">R$ <span>{{ $v->sale_price }}</span> </p>
-      </a>
+      @endforeach
     </div>
-    @endforeach
-  </div>
+    <div class="w-full container mx-auto px-2 justify-between">
+      {{ $this->vehicles->onEachSide(1)->links() }}
+    </div>
 
 </section>
