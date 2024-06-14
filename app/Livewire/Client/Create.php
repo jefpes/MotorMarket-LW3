@@ -31,6 +31,9 @@ class Create extends Component
 
     public function save(): void
     {
+
+        $this->authorize('client_create');
+
         file_exists('storage/client_photos/') ?: Storage::makeDirectory('client_photos/');
 
         $client = $this->form->save();

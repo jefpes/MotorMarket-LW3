@@ -45,6 +45,7 @@ class Create extends Component
     public function save(): void
     {
         $this->authorize('vehicle_create');
+
         file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
 
         $vehicle = $this->form->save();
