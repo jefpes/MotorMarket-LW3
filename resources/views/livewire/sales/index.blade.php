@@ -28,14 +28,17 @@
       @endif
     </div>
     <div class="flex-0">
+      <x-text-input type="date" id="date_i" wire:model.live='date_ini' /> {{ __('to') }}
+      <x-text-input type="date" id="date_f" wire:model.live='date_end' />
+    </div>
+    <div class="flex flex-0 gap-x-2">
       <x-select wire:model.live="perPage" class="flex">
         <option :value="10">10</option>
         <option :value="15">15</option>
         <option :value="25">25</option>
         <option :value="50">50</option>
       </x-select>
-    </div>
-    <div class="flex-0">
+
       <x-select wire:model.live="status" class="flex">
         <option value="">{{ __('All') }}</option>
         @foreach ($sts as $s)

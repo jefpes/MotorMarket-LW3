@@ -37,6 +37,8 @@ class ReceivePayment extends Component
     #[On('installment::receive')]
     public function receiving(int $id): void
     {
+        $this->authorize('payment_receive');
+
         $this->form->setInstallment($id);
 
         $this->form->payment_method = PaymentMethod::DN->value;

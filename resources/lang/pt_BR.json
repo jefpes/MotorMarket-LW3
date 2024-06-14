@@ -367,6 +367,20 @@
   "client_update": "Atualizar Cliente",
   "client_delete": "Apagar Cliente",
   "cphoto_delete": "Apagar Foto do Cliente",
+  "sale_create": "Criar Venda",
+  "sale_read": "Ver Venda",
+  "sale_cancel": "Cancelar Venda",
+  "payment_receive": "Receber Pagamento",
+  "payment_undo": "Desfazer Pagamento",
+  "installment_read": "Ver Parcela",
+  "role_create": "Criar Função",
+  "role_read": "Ver Função",
+  "role_update": "Atualizar Função",
+  "role_delete": "Apagar Função",
+  "city_create": "Criar Cidade",
+  "city_read": "Ver Cidade",
+  "city_update": "Atualizar Cidade",
+  "city_delete": "Apagar Cidade",
 
   "Edit Role": "Editar Função",
   "User Created": "Usuário Criado",
@@ -380,6 +394,7 @@
   "New Role": "Nova Função",
   "Attention: If this role has skills, it is necessary to remove them before deleting, otherwise deletion will not be possible.": "Atenção: Caso está função tenha habilidades é necessário retira-los antes de deletar, caso não o faça não será possivel a exclusão",
   "New": "Novo",
+  "This action is unauthorized." : "Esta ação é não autorizada.",
   "Back": "Voltar"
 
 }

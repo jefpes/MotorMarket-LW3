@@ -21,6 +21,12 @@ class Index extends Component
 
     public string $filter = 'plate';
 
+    #[Url(except: '', as: 'd_i', history: true)]
+    public string $date_ini = '';
+
+    #[Url(except: '', as: 'd_e', history: true)]
+    public string $date_end = '';
+
     #[Url(except: '', as: 'plate', history: true)]
     public ?string $plate = '';
 
@@ -46,6 +52,16 @@ class Index extends Component
         $this->resetPage();
         $this->plate  = '';
         $this->client = '';
+    }
+
+    public function updatedDateIni(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDateEnd(): void
+    {
+        $this->resetPage();
     }
 
     public function updatedPlate(): void
@@ -75,6 +91,7 @@ class Index extends Component
             $q->where('name', 'like', "%{$this->client}%");
         }))
         ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
+        ->when($this->date_ini && $this->date_end, fn (Builder $q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
         ->paginate($this->perPage);
     }
 }

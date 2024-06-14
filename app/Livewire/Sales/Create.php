@@ -96,6 +96,8 @@ class Create extends Component
 
     public function save(): void
     {
+        $this->authorize('sale_create');
+
         if ($this->vehicle->sold_date) {
             $this->icon = 'icons.fail';
             $this->msg  = 'This vehicle has already been sold';

@@ -46,67 +46,67 @@ Route::middleware(Localization::class)->group(function () {
         ->name('profile');
 
     Route::get('brand', Brand\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:brand_read'])
         ->name('brand');
 
     Route::get('vmodel', VehicleModel\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:vmodel_read'])
         ->name('vmodel');
 
     Route::get('vtype', VehicleType\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:vtype_read'])
         ->name('vtype');
 
     Route::get('vehicle', Vehicle\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:vehicle_read'])
         ->name('vehicle');
 
     Route::get('vehicle_create', Vehicle\Create::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:vehicle_create'])
         ->name('vehicle.create');
 
     Route::get('vehicle_edit/{id}', Vehicle\Update::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:vehicle_update'])
         ->name('vehicle.edit');
 
     Route::get('vehicle_show/{id}', Vehicle\Show::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:vehicle_read'])
         ->name('vehicle.show');
 
     Route::get('city', City\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:city_read'])
         ->name('city');
 
     Route::get('client', Client\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:client_read'])
         ->name('client');
 
     Route::get('client_create', Client\Create::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:client_create'])
         ->name('client.create');
 
     Route::get('client_edit/{id}', Client\Update::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:client_update'])
         ->name('client.edit');
 
     Route::get('client_show/{id}', Client\Show::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:client_read'])
         ->name('client.show');
 
     Route::get('sales', Sales\Index::class)
-            ->middleware(['auth', 'verified'])
+            ->middleware(['auth', 'verified', 'can:sale_read'])
             ->name('sales');
 
     Route::get('sale_create/{id}', Sales\Create::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:sale_create'])
         ->name('sale.create');
 
     Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
-        ->middleware(['auth', 'verified', SaleCanceled::class])
+        ->middleware(['auth', 'verified', 'can:installment_read', SaleCanceled::class])
         ->name('sale.installments');
 
     Route::get('installments', PaymentInstallments\Index::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:installment_read'])
         ->name('installments');
 
     require __DIR__ . '/auth.php';
