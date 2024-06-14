@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tailwind Starter Template - Nordic Shop: Tailwind Toolbox</title>
+    <title>{{ config('app.name','Laravel') }}</title>
   <meta name="description" content="Free open source Tailwind CSS Store template">
   <meta name="keywords"
     content="tailwind,tailwindcss,tailwind css,css,starter template,free template,store template, shop layout, minimal, monochrome, minimalistic, theme, nordic">
@@ -71,9 +71,9 @@
 </head>
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
-
+  <livewire:home.navigation />
   {{ $slot }}
-
+  <livewire:home.footer />
 </body>
 
 </html>
