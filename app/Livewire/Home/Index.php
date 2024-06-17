@@ -35,8 +35,8 @@ class Index extends Component
     {
         $this->year_ini = Vehicle::min('year_one');
         $this->year_end = Vehicle::max('year_one');
-        $this->year_min = Vehicle::min('year_one');
-        $this->year_max = Vehicle::max('year_one');
+        $this->year_min = $this->year_ini;
+        $this->year_max = $this->year_end;
     }
 
     #[Layout('components.layouts.home')]
