@@ -15,6 +15,8 @@ Route::middleware(Localization::class)->group(function () {
 
     Route::get('/index', Home\Index::class)->name('home');
 
+    Route::get('/show/{id}', Home\Show::class)->name('show.v');
+
     Route::get('dashboard', Dashboard::class)
         ->middleware(['auth', 'verified'])
         ->name('dashboard');
