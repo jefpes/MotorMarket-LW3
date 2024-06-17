@@ -60,7 +60,7 @@
 
       <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <span class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Year') }}
+          {{ __('Price') }}
         </span>
         <div class="w-full space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4">
           <x-select wire:model.live="order" class="w-full" id="sold" label="Order">
@@ -72,9 +72,9 @@
 
       <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <span class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Price Order') }}
+          {{ __('Year') }}
         </span>
-        <div class="w-full space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4">
+        <div class="w-full space-x-2 text-gray-500 dark:text-gray-400 px-2 py-4 flex">
           <x-select wire:model.live="year_ini" class="w-full" label="Year Initial">
             @for ($i = 1970; $i <= date('Y'); $i++)
               <option value="{{ $i }}"> {{ $i }} </option>
