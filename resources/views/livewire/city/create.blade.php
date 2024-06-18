@@ -12,7 +12,7 @@
         {{ __('Cancel') }}
       </x-secondary-button>
 
-     <x-primary-button wire:click="save" class="ms-3">
+    <x-primary-button wire:click="save" class="ms-3">
         {{ __('Save') }}
       </x-primary-button>
     </x-slot:footer>

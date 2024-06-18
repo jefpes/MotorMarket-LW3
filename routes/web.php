@@ -4,7 +4,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, 
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, City, Client, Dashboard, PaymentInstallments, Profile, Sales, User, Vehicle, VehicleModel, VehicleType};
+use App\Livewire\{Brand, City, Client, Dashboard, Home, PaymentInstallments, Profile, Sales, User, Vehicle, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -12,6 +12,10 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('/', function () {
         return redirect()->route('dashboard');
     });
+
+    Route::get('/index', Home\Index::class)->name('home');
+
+    Route::get('/show/{id}', Home\Show::class)->name('show.v');
 
     Route::get('dashboard', Dashboard::class)
         ->middleware(['auth', 'verified'])
