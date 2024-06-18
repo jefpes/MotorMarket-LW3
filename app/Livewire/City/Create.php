@@ -15,7 +15,7 @@ class Create extends Component
 
     public bool $modal = false;
 
-    public ?string $title = 'Create New City';
+    public ?string $title = 'Create City';
 
     public function render(): View
     {

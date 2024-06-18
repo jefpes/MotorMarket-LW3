@@ -53,7 +53,7 @@
           <div>
             {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_purchase_price }}</span> <br/>
             {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_sales }}</span> <br />
-            {{ __('Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->profit }}</span>
+            {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->profit }}</span>
           </div>
         </li>
         @endforeach
@@ -70,7 +70,7 @@
 
       <div class="w-full p-2">
         <div class="pb-2">
-          <x-input-label for="date_ini" value="{{ __('Date Sale') }}" />
+          <x-input-label for="date_ini" value="{{ __('Sale Date') }}" />
           <x-text-input type="date" id="date_ini" wire:model.live.debounce.500ms='date_ini' />
         <span class="w-2/12">  {{ __('to') }} </span>
           <x-text-input type="date" id="date_end" wire:model.live.debounce.500ms='date_end' class="w-5/12" />
@@ -102,7 +102,7 @@
           <div>
             {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_purchase_price }}</span> <br/>
             {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_sales }}</span> <br />
-            {{ __('Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->profit }}</span>
+            {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->profit }}</span>
           </div>
         </li>
         @endforeach

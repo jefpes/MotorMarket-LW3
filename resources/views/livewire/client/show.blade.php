@@ -5,7 +5,7 @@
     @forelse ($client->photos as $photo)
       <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
     @empty
-      <p class="text-center text-2xl text-red-400" >{{ __('No photos available.') }}</p>
+      <p class="text-center text-2xl text-red-400" >{{ __('No photo available') }}</p>
     @endforelse
   </div>
 
