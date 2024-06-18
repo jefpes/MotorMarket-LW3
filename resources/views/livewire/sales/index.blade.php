@@ -19,12 +19,12 @@
       @if ($filter == 'plate')
       <x-text-input class="w-full" type="search" name="search"
         wire:model.live.debounce.1000ms="plate"
-        placeholder="Search plate" />
+        placeholder="{{ __('Search plate') }}" />
       @endif
       @if ($filter == 'client')
       <x-text-input class="w-full" type="search" name="search"
         wire:model.live.debounce.1000ms="client"
-        placeholder="Search client" />
+        placeholder="{{ __('Search client') }}" />
       @endif
     </div>
     <div class="flex-0">
