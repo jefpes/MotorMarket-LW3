@@ -1,10 +1,10 @@
-<footer class="container mx-auto bg-white py-2 px-2 border-t border-gray-400">
+<footer class="container mx-auto bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-2 px-2 border-t border-gray-400">
   <div class="container flex">
     <div class="w-full mx-auto flex flex-wrap">
       <div class="flex w-full lg:w-1/2 ">
         <div class="px-3 md:px-0">
-          <h3 class="font-bold text-gray-900">About</h3>
-          <p class="py-4">
+          <h3 class="font-bold text-gray-900 dark:text-gray-200">About</h3>
+          <p class="py-4 text-gray-800 dark:text-gray-200">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id
             erat. Suspendisse consectetur dapibus velit ut lacinia.
           </p>
@@ -12,7 +12,7 @@
       </div>
       <div class="flex w-full lg:w-1/2 lg:justify-end lg:text-right mt-6 md:mt-0">
         <div class="px-3 md:px-0">
-          <h3 class="text-left font-bold text-gray-900">Social</h3>
+          <h3 class="text-left font-bold text-gray-800 dark:text-gray-200">Social</h3>
 
           <div class="w-full flex items-center py-4 mt-0">
             <a href="#" class="mx-2">
@@ -36,13 +36,13 @@
                 </path>
               </svg>
             </a>
-            <a href="#" class="mx-2">
+            {{-- <a href="#" class="mx-2">
               <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
                 <path
                   d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z">
                 </path>
               </svg>
-            </a>
+            </a> --}}
           </div>
         </div>
       </div>

@@ -70,7 +70,7 @@
 
 </head>
 
-<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900">
   <livewire:home.navigation />
   {{ $slot }}
   <livewire:home.footer />
