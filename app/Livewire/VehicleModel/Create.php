@@ -5,6 +5,8 @@ namespace App\Livewire\VehicleModel;
 use App\Livewire\Forms\VehicleModelForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Create extends Component
@@ -17,9 +19,19 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-model.create', [
-            'brands' => \App\Models\Brand::orderBy('name')->get(),
-        ]);
+        return view('livewire.vehicle-model.create');
+    }
+
+    #[Computed()]
+    public function brands(): Collection
+    {
+        return \App\Models\Brand::orderBy('name')->get();
+    }
+
+    #[Computed()]
+    public function types(): Collection
+    {
+        return \App\Models\VehicleType::orderBy('name')->get();
     }
 
     public function cancel(): void

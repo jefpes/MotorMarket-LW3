@@ -23,6 +23,7 @@ class Edit extends Component
     {
         return view('livewire.vehicle-model.edit', [
             'brands' => \App\Models\Brand::orderBy('name')->get(),
+            'types'  => \App\Models\VehicleType::orderBy('name')->get(),
         ]);
     }
 
