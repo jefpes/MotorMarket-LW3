@@ -10,11 +10,6 @@ class Vehicle extends Model
 {
     use HasFactory;
 
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(VehicleType::class, 'vehicle_type_id', 'id');
-    }
-
     public function model(): BelongsTo
     {
         return $this->belongsTo(VehicleModel::class, 'vehicle_model_id', 'id');

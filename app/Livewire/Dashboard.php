@@ -52,7 +52,7 @@ class Dashboard extends Component
     #[Computed()]
     public function stock(): Collection
     {
-        return Vehicle::where('sold_date', null)->with('type')->get();
+        return Vehicle::where('sold_date', null)->with('model')->get();
     }
 
     #[Computed()]

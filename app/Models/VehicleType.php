@@ -12,8 +12,8 @@ class VehicleType extends Model
 
     protected $table = 'vehicle_types';
 
-    public function vehicles(): HasMany
+    public function models(): HasMany
     {
-        return $this->hasMany(Vehicle::class);
+        return $this->hasMany(VehicleModel::class);
     }
 }

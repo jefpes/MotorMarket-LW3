@@ -45,9 +45,9 @@ class Index extends Component
         return Vehicle::query()
                 ->with('photos', 'type', 'model')
                 ->when($this->search, fn (Builder $q) => $q->where('plate', 'like', "%{$this->search}%"))
-                ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
-                    $q->where('id', $this->vehicle_type_id);
-                }))
+                // ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
+                //     $q->where('id', $this->vehicle_type_id);
+                // }))
                 ->when($this->vehicle_model_id, fn (Builder $q) => $q->whereHas('model', function (Builder $q) {
                     $q->where('id', $this->vehicle_model_id);
                 }))

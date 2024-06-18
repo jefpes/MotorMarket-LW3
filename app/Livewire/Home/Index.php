@@ -48,7 +48,7 @@ class Index extends Component
     #[Computed()]
     public function vehicles(): LengthAwarePaginator
     {
-        return Vehicle::with('type', 'model', 'photos')
+        return Vehicle::with('model', 'photos')
             ->orderBy('updated_at', 'desc')
             ->where('sold_date', '=', null)
             ->when(count($this->selectedBrands), fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
