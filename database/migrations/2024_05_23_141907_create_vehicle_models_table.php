@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Brand;
+use App\Models\{Brand, VehicleType};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +13,7 @@ return new class () extends Migration {
     {
         Schema::create('vehicle_models', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(VehicleType::class)->constrained(table: 'vehicle_types', column: 'id');
             $table->foreignIdFor(Brand::class)->constrained();
             $table->string('name')->unique();
             $table->timestamps();
