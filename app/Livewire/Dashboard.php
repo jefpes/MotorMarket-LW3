@@ -3,9 +3,9 @@
 namespace App\Livewire;
 
 use App\Enums\{PaymentMethod, StatusPayments};
-use App\Models\{Role, Sale, User, Vehicle, VehicleType};
+use App\Models\{Role, Sale, User, Vehicle};
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -52,19 +52,23 @@ class Dashboard extends Component
     #[Computed()]
     public function stock(): Collection
     {
-        return Vehicle::where('sold_date', null)->with('type')->get();
+        return Vehicle::where('sold_date', null)->with('model')->get();
     }
 
     #[Computed()]
     public function vType(): Collection
     {
-        return VehicleType::withCount('vehicles')->get();
-    }
-
-    #[Computed()]
-    public function vTypeCount(): Collection
-    {
-        return Vehicle::withCount('type')->get();
+        return DB::table('vehicles')
+          ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
+          ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
+          ->select(
+              'vehicle_types.name',
+              DB::raw('count(vehicles.id) as total_vehicles'),
+              DB::raw('sum(vehicles.purchase_price) as total_purchase_price'),
+              DB::raw('sum(vehicles.sale_price) as total_sale_price')
+          )
+          ->groupBy('vehicle_types.name')
+          ->get();
     }
 
     #[Computed()]
@@ -87,7 +91,8 @@ class Dashboard extends Component
     public function salesType(): Collection
     {
         return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
-                  ->join('vehicle_types', 'vehicles.vehicle_type_id', '=', 'vehicle_types.id')
+                  ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
+                  ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
                   ->select(
                       'vehicle_types.name',
                       DB::raw('COUNT(sales.id) as number_of_sales'),
@@ -103,7 +108,8 @@ class Dashboard extends Component
     public function salesTypeFilter(): Collection
     {
         return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
-                  ->join('vehicle_types', 'vehicles.vehicle_type_id', '=', 'vehicle_types.id')
+                  ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
+                  ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
                   ->select(
                       'vehicle_types.name',
                       DB::raw('COUNT(sales.id) as number_of_sales'),

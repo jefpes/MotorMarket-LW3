@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\{Vehicle, VehicleModel, VehicleType};
+use App\Models\{Brand, Vehicle, VehicleModel, VehicleType};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,12 +11,31 @@ return new class () extends Migration {
      */
     public function up(): void
     {
+        Schema::create('brands', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('vehicle_types', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
+        Schema::create('vehicle_models', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(VehicleType::class)->constrained(table: 'vehicle_types', column: 'id');
+            $table->foreignIdFor(Brand::class)->constrained();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->date('purchase_date');
             $table->decimal('purchase_price', places: 2);
             $table->decimal('sale_price', places: 2);
-            $table->foreignIdFor(VehicleType::class)->constrained(table: 'vehicle_types', column: 'id');
             $table->foreignIdFor(VehicleModel::class)->constrained(table: 'vehicle_models', column: 'id');
             $table->year('year_one');
             $table->year('year_two');
@@ -50,5 +69,8 @@ return new class () extends Migration {
     {
         Schema::dropIfExists('vehicle_photos');
         Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('vehicle_models');
+        Schema::dropIfExists('vehicle_types');
+        Schema::dropIfExists('brands');
     }
 };

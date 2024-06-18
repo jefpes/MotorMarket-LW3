@@ -13,6 +13,12 @@
             <option value="{{ $data->id }}"> {{ $data->name }} </option>
           @endforeach
       </x-select>
+      <x-select wire:model.live="vehicle_type_id" class="w-full" id="type_select">
+        <option value=""> {{ __('Select a Type')}} </option>
+          @foreach ($types as $data)
+            <option value="{{ $data->id }}"> {{ $data->name }} </option>
+          @endforeach
+      </x-select>
       <livewire:vehicle-model.create>
     </div>
   </div>
@@ -31,6 +37,7 @@
         <x-table.tr wire:key="{{ $vm->id }}">
           <x-table.td> {{ $vm->name }} </x-table.td>
           <x-table.td> {{ $vm->brand->name }} </x-table.td>
+          <x-table.td> {{ $vm->type->name }} </x-table.td>
           <x-table.td>
               <div class="flex flex-row gap-2 justify-center">
                 <x-icons.edit id="btn-edit-{{ $vm->id }}" wire:click="$dispatch('vmodel::editing', { id: {{ $vm->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />

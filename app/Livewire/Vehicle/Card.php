@@ -13,7 +13,7 @@ class Card extends Component
     public function mount(Vehicle $vehicle): void
     {
         $this->vehicle->query()
-            ->with('photos', 'type', 'model')
+            ->with('photos', 'model')
             ->find($vehicle->id);
     }
 

@@ -39,7 +39,7 @@ class Create extends Component
     public function mount(int $id): void
     {
         $this->vehicle = Vehicle::query()
-            ->with('type', 'model')
+            ->with('model')
             ->find($id);
 
         $this->sale_form->user_id    = auth()->id();

@@ -3,19 +3,9 @@
 
   <x-modal wire:model="modal" name="amodal">
     <x-slot:title> {{ __('Create New Vehicle Model') }} </x-slot:title>
-    <x-form.input name="name" label="Name" type="text" placeholder="Name" :messages="$errors->get('form.name')"
-      wire:model="form.name" class="w-full" />
 
-    <div class="mt-4">
-      <x-input-label>{{__('Brand')}}</x-input-label>
-      <x-select wire:model="form.brand_id">
-        <option value=""> {{ __('Select a Brand') }} </option>
-        @foreach ($brands as $brand)
-          <option value="{{ $brand->id }}"> {{ $brand->name }} </option>
-        @endforeach
-      </x-select>
-      <x-input-error :messages="$errors->get('form.brand_id')" />
-    </div>
+    <x-vmodel.create-update />
+
     <x-slot:footer>
       <x-secondary-button wire:click="cancel">
         {{ __('Cancel') }}

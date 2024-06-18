@@ -22,24 +22,31 @@ class Index extends Component
     #[Url(except: null, as: 'brand', history: true)]
     public ?int $brand_id = null;
 
+    #[Url(except: null, as: 'type', history: true)]
+    public ?int $vehicle_type_id = null;
+
     /** @var array<String> */
-    public array $thead = ['name', 'brand', 'actions'];
+    public array $thead = ['name', 'brand', 'type', 'actions'];
 
     #[On('vmodel::refresh')]
     public function render(): View
     {
         return view('livewire.vehicle-model.index', [
             'brands' => Brand::orderBy('name')->get(),
+            'types'  => \App\Models\VehicleType::orderBy('name')->get(),
         ]);
     }
 
     #[Computed()]
     public function vmodels(): Collection
     {
-        return VehicleModel::with('brand')
+        return VehicleModel::with('brand', 'type')
         ->orderBy('name')
         ->when($this->brand_id, fn (Builder $q) => $q->whereHas('brand', function (Builder $q) {
             $q->where('id', $this->brand_id);
+        }))
+        ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
+            $q->where('id', $this->vehicle_type_id);
         }))
         ->when($this->search, fn (Builder $q) => $q->where('name', 'like', "%{$this->search}%"))
         ->get();

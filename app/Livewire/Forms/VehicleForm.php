@@ -44,7 +44,6 @@ class VehicleForm extends Form
             'purchase_date'    => ['required', 'date'],
             'purchase_price'   => ['required', 'numeric'],
             'sale_price'       => ['required', 'numeric'],
-            'vehicle_type_id'  => ['required', 'exists:vehicle_types,id', 'integer'],
             'vehicle_model_id' => ['required', 'exists:vehicle_models,id', 'integer'],
             'year_one'         => ['required', 'integer', 'min:1900', 'max:2100'],
             'year_two'         => ['required', 'integer', 'min:1900', 'max:2100'],
@@ -66,7 +65,6 @@ class VehicleForm extends Form
                 'purchase_date'    => $this->purchase_date,
                 'purchase_price'   => $this->purchase_price,
                 'sale_price'       => $this->sale_price,
-                'vehicle_type_id'  => $this->vehicle_type_id,
                 'vehicle_model_id' => $this->vehicle_model_id,
                 'year_one'         => $this->year_one,
                 'year_two'         => $this->year_two,
@@ -89,7 +87,6 @@ class VehicleForm extends Form
         $this->purchase_date    = $vehicle->purchase_date;
         $this->purchase_price   = $vehicle->purchase_price;
         $this->sale_price       = $vehicle->sale_price;
-        $this->vehicle_type_id  = $vehicle->vehicle_type_id;
         $this->vehicle_model_id = $vehicle->vehicle_model_id;
         $this->year_one         = $vehicle->year_one;
         $this->year_two         = $vehicle->year_two;

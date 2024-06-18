@@ -43,11 +43,11 @@ class Index extends Component
     public function vehicle(): Paginator
     {
         return Vehicle::query()
-                ->with('photos', 'type', 'model')
+                ->with('photos', 'model')
                 ->when($this->search, fn (Builder $q) => $q->where('plate', 'like', "%{$this->search}%"))
-                ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
-                    $q->where('id', $this->vehicle_type_id);
-                }))
+                // ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
+                //     $q->where('id', $this->vehicle_type_id);
+                // }))
                 ->when($this->vehicle_model_id, fn (Builder $q) => $q->whereHas('model', function (Builder $q) {
                     $q->where('id', $this->vehicle_model_id);
                 }))
