@@ -58,7 +58,7 @@ class Dashboard extends Component
     #[Computed()]
     public function vType(): Collection
     {
-        return VehicleType::withCount('vehicles')->get();
+        return VehicleType::withCount('models')->get();
     }
 
     #[Computed()]
