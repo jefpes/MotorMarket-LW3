@@ -17,7 +17,7 @@ class CompanySeeder extends Seeder
             'address'   => 'Rua das Flores, 123, Bairro das Rosas, Cidade das Cores, Estado dos Sonhos, CEP: 99999-999',
             'about'     => 'Somos uma empresa de venda de veículos, na qual presamos pela qualidade e satisfação do cliente.',
             'phone'     => '(85) 99999-9999',
-            'email'     => 'google.com',
+            'email'     => 'google@gmail.com',
             'logo'      => 'company-logo.png',
             'x'         => 'x.com',
             'instagram' => 'instagram.com',
