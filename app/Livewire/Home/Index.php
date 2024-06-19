@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Home;
 
-use App\Models\{Brand, Vehicle, VehicleType};
+use App\Models\{Brand, Company, Vehicle, VehicleType};
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\{Computed, Layout};
@@ -42,7 +42,7 @@ class Index extends Component
     #[Layout('components.layouts.home')]
     public function render(): View
     {
-        return view('livewire.home.index', ['brands' => Brand::all(), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
+        return view('livewire.home.index', ['company' => Company::find(1), 'brands' => Brand::all(), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
     }
 
     #[Computed()]
