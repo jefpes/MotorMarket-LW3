@@ -9,15 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
 
-    Route::get('/', function () {
-        return redirect()->route('dashboard');
-    });
-
-    Route::get('/index', Home\Index::class)->name('home');
+    Route::get('/', Home\Index::class)->name('home');
 
     Route::get('/show/{id}', Home\Show::class)->name('show.v');
 
-    Route::get('/company', Company\Edit::class)->name('company');
+    Route::get('/company', Company\Edit::class)->middleware(['auth', 'verified', 'can:company_update'])->name('company');
 
     Route::get('dashboard', Dashboard::class)
         ->middleware(['auth', 'verified'])

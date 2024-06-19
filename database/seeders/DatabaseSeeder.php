@@ -69,6 +69,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'installment_read'],
             ['name' => 'payment_receive'],
             ['name' => 'payment_undo'],
+            ['name' => 'company_update'],
         ]);
 
         $user = User::create([

@@ -33,7 +33,7 @@ class Navigation extends Component
     {
         $this->navs = [
             (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => null, 'isActive' => request()->routeIs('dashboard')],
-            (object)['route' => 'company', 'label' => 'Company', 'permission' => null, 'isActive' => request()->routeIs('company')],
+            (object)['route' => 'company', 'label' => 'Company', 'permission' => 'company_update', 'isActive' => request()->routeIs('company')],
             (object)['route' => 'users', 'label' => 'Users', 'permission' => 'user_read', 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
             (object)['route' => 'roles', 'label' => 'Roles', 'permission' => 'admin', 'isActive' => request()->routeIs('roles', 'ability.role')],
             (object)['route' => 'brand', 'label' => 'Brands', 'permission' => 'brand_read', 'isActive' => request()->routeIs('brand')],
