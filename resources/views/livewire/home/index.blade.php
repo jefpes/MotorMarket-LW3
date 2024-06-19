@@ -9,8 +9,8 @@
         </span>
 
         <div class="flex items-center">
-          <button class="pl-3 inline-block no-underline hover:text-black" wire:click="$set('modal', true)">
-            <svg class="fill-current hover:text-black w-6 h-6" viewBox="0 0 24 24">
+          <button class="pl-3 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500" wire:click="$set('modal', true)">
+            <svg class="fill-current w-6 h-6" viewBox="0 0 24 24">
               <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
             </svg>
           </button>
