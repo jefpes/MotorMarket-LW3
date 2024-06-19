@@ -14,6 +14,7 @@ class CompanySeeder extends Seeder
         \App\Models\Company::create([
             'name'      => 'Motor Market',
             'cnpj'      => '99.999.999/9999-99',
+            'address'   => 'Rua das Flores, 123, Bairro das Rosas, Cidade das Cores, Estado dos Sonhos, CEP: 99999-999',
             'about'     => 'Somos uma empresa de venda de veículos, na qual presamos pela qualidade e satisfação do cliente.',
             'phone'     => '(85) 99999-9999',
             'email'     => 'google.com',
