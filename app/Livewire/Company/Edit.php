@@ -68,19 +68,8 @@ class Edit extends Component
     public function save(): void
     {
         $this->validate([
-            'name'      => 'required|string',
-            'email'     => 'required|email',
-            'phone'     => 'required|string',
-            'address'   => 'required|string',
-            'cnpj'      => 'required|string',
-            'about'     => 'required|string',
-            'logo'      => 'required|string',
-            'x'         => 'required|string',
-            'instagram' => 'required|string',
-            'facebook'  => 'required|string',
-            'linkedin'  => 'required|string',
-            'youtube'   => 'required|string',
-            'whatsapp'  => 'required|string',
+            'name'  => 'required|string',
+            'email' => 'email',
         ]);
 
         $this->company->update([
