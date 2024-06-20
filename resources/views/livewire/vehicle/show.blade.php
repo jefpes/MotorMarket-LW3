@@ -19,6 +19,11 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Sale Price') }}: </span> {{ $vehicle->sale_price }} </p>
       </div>
+      @if ($vehicle->expenses)
+      <div class="flex">
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Expense') }}: </span> {{ $vehicle->expenses->sum('value') }} </p>
+      </div>
+      @endif
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Type') }}: </span> {{ $vehicle->model->type->name ?? '' }} </p>
       </div>
@@ -52,6 +57,9 @@
     </dl>
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+    @can('expense_create')
+      <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}"/>
+    @endcan
     <x-secondary-button :href="route('vehicle')" wire:navigate> {{ __('Back') }} </x-secondary-button>
     @can('vehicle_update')
       <x-primary-button :href="route('vehicle.edit', $vehicle->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>

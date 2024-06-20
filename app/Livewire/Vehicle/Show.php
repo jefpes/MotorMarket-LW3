@@ -6,6 +6,7 @@ use App\Models\{Vehicle, VehiclePhoto};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -23,9 +24,10 @@ class Show extends Component
 
     public function mount(int $id): void
     {
-        $this->vehicle = Vehicle::findOrFail($id);
+        $this->vehicle = Vehicle::with('expenses', 'model')->findOrFail($id);
     }
 
+    #[On('vehicle::refresh')]
     public function render(): View
     {
         return view('livewire.vehicle.show');

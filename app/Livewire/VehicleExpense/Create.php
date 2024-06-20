@@ -32,7 +32,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->dispatch('expense::refresh');
+        $this->dispatch('vehicle::refresh');
         $this->form->vehicle_id = $this->v_id;
         $this->form->user_id    = auth()->id();
         $this->form->save();
