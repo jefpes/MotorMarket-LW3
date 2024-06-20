@@ -6,7 +6,7 @@ use App\Models\{VehicleExpense};
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\Attributes\{Computed, Url};
+use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
 
 class Index extends Component
@@ -28,6 +28,7 @@ class Index extends Component
 
     public ?string $header = 'Expenses';
 
+    #[On('expense::refresh')]
     public function render(): View
     {
         return view('livewire.vehicle-expense.index');

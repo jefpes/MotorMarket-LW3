@@ -16,14 +16,14 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Purchase Price') }}: </span> {{ $vehicle->purchase_price }} </p>
       </div>
-      <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Sale Price') }}: </span> {{ $vehicle->sale_price }} </p>
-      </div>
       @if ($vehicle->expenses)
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Expense') }}: </span> {{ $vehicle->expenses->sum('value') }} </p>
       </div>
       @endif
+      <div class="flex">
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Sale Price') }}: </span> {{ $vehicle->sale_price }} </p>
+      </div>
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Type') }}: </span> {{ $vehicle->model->type->name ?? '' }} </p>
       </div>
@@ -90,6 +90,6 @@
   </x-modal>
 
   <x-toast on="show-toast" :$icon>
-    {{ __( $msg ) }}
+    {{ __($msg) }}
   </x-toast>
 </div>

@@ -62,4 +62,7 @@
     <div class="pt-6 px-2">
       {{ $this->expenses->onEachSide(1)->links() }}
     </div>
+
+    <livewire:vehicle-expense.edit>
+    <livewire:vehicle-expense.delete>
 </div>
