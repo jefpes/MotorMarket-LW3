@@ -1,5 +1,5 @@
 <div>
-  <x-primary-button type='button' wire:click="$set('modal', true)" class="text-[1em] tracking-normal"> {{ __('Expense') }} </x-primary-button>
+  <x-primary-button type='button' wire:click="$set('modal', true)" class="text-[1em] tracking-normal"> {{ __('New Expense') }} </x-primary-button>
 
   <x-modal wire:model="modal" name="amodal">
     <x-slot:title> {{ __($title) }} </x-slot:title>
