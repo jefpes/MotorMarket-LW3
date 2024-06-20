@@ -70,6 +70,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'payment_receive'],
             ['name' => 'payment_undo'],
             ['name' => 'company_update'],
+            ['name' => 'expense_create'],
+            ['name' => 'expense_read'],
+            ['name' => 'expense_update'],
+            ['name' => 'expense_delete'],
         ]);
 
         $user = User::create([
