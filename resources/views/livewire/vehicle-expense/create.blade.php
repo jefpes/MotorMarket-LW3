@@ -17,7 +17,7 @@
     </x-slot:footer>
   </x-modal>
 
-  <x-toast on="show-toast" :$icon>
+  <x-toast on="show-toast-2" :$icon>
     {{ __($msg) }}
   </x-toast>
 </div>

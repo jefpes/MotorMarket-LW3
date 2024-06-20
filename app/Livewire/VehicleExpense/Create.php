@@ -40,7 +40,7 @@ class Create extends Component
         $this->icon = 'icons.success';
         $this->msg  = 'Expense Created';
 
-        $this->dispatch('show-toast');
+        $this->dispatch('show-toast-2');
         $this->cancel();
     }
 }
