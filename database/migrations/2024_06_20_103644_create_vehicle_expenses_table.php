@@ -17,6 +17,7 @@ return new class () extends Migration {
             $table->foreignIdFor(User::class)->constrained();
             $table->date('date');
             $table->string('description');
+            $table->decimal('value', 10, 2);
             $table->timestamps();
         });
     }
