@@ -17,6 +17,9 @@
         </div>
       @endcan
       <div class="flex">
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Expense') }}: </span> {{ $vehicle->expenses->sum('value') }} </p>
+      </div>
+      <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Sale Price') }}: </span> {{ $vehicle->sale_price }} </p>
       </div>
       <div class="flex">
@@ -32,7 +35,7 @@
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Year') }}: </span> {{ $vehicle->year_one .'-'. $vehicle->year_two }} </p>
       </div>
       <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('KM') }}: </span> {{ $vehicle->km }} </p>
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('KM') }}: </span> {{ $vehicle->km ?? 0 }} </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Color') }}: </span> {{ $vehicle->color }} </p>
@@ -52,7 +55,11 @@
     </dl>
   </div>
   @canany(['vehicle_update', 'vehicle_delete'])
-    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+    <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+      @can('expense_create')
+      <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
+      @endcan
+
       @can('vehicle_update')
         <x-secondary-button :href="route('vehicle.edit', $vehicle->id)" wire:navigate> {{ __('Edit') }} </x-secondary-button>
       @endcan

@@ -70,6 +70,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'payment_receive'],
             ['name' => 'payment_undo'],
             ['name' => 'company_update'],
+            ['name' => 'expense_create'],
+            ['name' => 'expense_read'],
+            ['name' => 'expense_update'],
+            ['name' => 'expense_delete'],
         ]);
 
         $user = User::create([
@@ -91,8 +95,8 @@ class DatabaseSeeder extends Seeder
 
         City::factory()->count(10)->create();
 
-        Client::factory()->count(10)->create();
+        // Client::factory()->count(10)->create();
 
-        $this->call([BrandSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, VehicleSeeder::class, SalesSeeder::class, CompanySeeder::class]);
+        $this->call([BrandSeeder::class, ClientSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, VehicleSeeder::class, SalesSeeder::class, CompanySeeder::class, VehicleExpenseSeeder::class]);
     }
 }

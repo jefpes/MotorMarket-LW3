@@ -55,7 +55,7 @@ class Index extends Component
             ->when($this->year_ini && $this->year_end, fn ($query) => $query->whereBetween('year_one', [$this->year_ini, $this->year_end]))
             ->when($this->order, fn ($query) => $query->orderBy('sale_price', $this->order))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
-            ->when($this->type, fn ($query) => $query->where('vehicle_type_id', $this->type))
+            ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
             ->paginate();
     }
 

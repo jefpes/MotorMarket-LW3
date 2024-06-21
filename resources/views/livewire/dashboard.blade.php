@@ -33,7 +33,9 @@
           <span class="font-semibold text-gray-900 dark:text-white">{{ $data->total_vehicles }}</span> {{ __('vehicle') }}
           <div>
             {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_purchase_price }}</span> <br/>
-            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_sale_price }}</span>
+            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_sale_price }}</span> <br/>
+            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_expense }}</span> <br />
+            {{ __('Total Stock Value') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_stock_value }}</span>
           </div>
         </li>
         @endforeach
@@ -53,6 +55,7 @@
           <div>
             {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_purchase_price }}</span> <br/>
             {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_sales }}</span> <br />
+            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_expenses }}</span> <br />
             {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->profit }}</span>
           </div>
         </li>
@@ -61,8 +64,6 @@
     </div>
 
     <div class="relative max-w-sm w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-
-
       <span
         class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
         {{ __('Sales') . ': ' . $this->salesFilter->count() }}
@@ -102,6 +103,7 @@
           <div>
             {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_purchase_price }}</span> <br/>
             {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_sales }}</span> <br />
+            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_expenses }}</span> <br />
             {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->profit }}</span>
           </div>
         </li>

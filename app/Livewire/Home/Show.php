@@ -13,7 +13,7 @@ class Show extends Component
 
     public function mount(int $id): void
     {
-        $this->vehicle = Vehicle::with('photos', 'model', 'type')->findOrFail($id);
+        $this->vehicle = Vehicle::with('photos', 'model')->findOrFail($id);
     }
 
     #[Layout('components.layouts.home')]

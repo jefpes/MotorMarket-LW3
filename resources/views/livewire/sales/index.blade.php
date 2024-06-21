@@ -1,5 +1,5 @@
 <div>
-  <x-slot name="header"> {{ $header }} </x-slot>
+  <x-slot name="header"> {{ __($header) }} </x-slot>
 
   <div class="pb-4 flex flex-col md:flex-row justify-between gap-x-2 gap-y-4 md:gap-y-0">
     <div class="flex">
