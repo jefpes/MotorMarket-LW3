@@ -30,6 +30,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
+        $this->authorize('expense_delete');
         $this->msg  = 'Expense Deleted';
         $this->icon = 'icons.success';
         $this->form->destroy();

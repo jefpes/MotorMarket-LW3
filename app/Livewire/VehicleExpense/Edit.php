@@ -35,6 +35,7 @@ class Edit extends Component
 
     public function save(): void
     {
+        $this->authorize('expense_update');
         $this->dispatch('expense::refresh');
         $this->form->user_id = auth()->id();
         $this->form->save();
