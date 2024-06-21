@@ -52,7 +52,11 @@
     </dl>
   </div>
   @canany(['vehicle_update', 'vehicle_delete'])
-    <div class="flex items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+    <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+      @can('expense_create')
+      <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
+      @endcan
+
       @can('vehicle_update')
         <x-secondary-button :href="route('vehicle.edit', $vehicle->id)" wire:navigate> {{ __('Edit') }} </x-secondary-button>
       @endcan
