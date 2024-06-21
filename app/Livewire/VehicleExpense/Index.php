@@ -23,6 +23,10 @@ class Index extends Component
 
     public ?string $date_f = '';
 
+    public ?int $value_min = null;
+
+    public ?int $value_max = null;
+
     /** @var array<string> */
     public array $theader = ['Vehicle', 'Value', 'Description', 'Date', 'By', 'Actions'];
 
@@ -41,6 +45,7 @@ class Index extends Component
         ->with('vehicle', 'user')
         ->orderBy('date', 'desc')
         ->when($this->date_i && $this->date_f, fn (Builder $q) => $q->whereBetween('date', [$this->date_i, $this->date_f]))
+        ->when($this->value_min && $this->value_max, fn (Builder $q) => $q->whereBetween('value', [$this->value_min, $this->value_max]))
         ->paginate($this->perPage);
     }
 

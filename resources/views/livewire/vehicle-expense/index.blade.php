@@ -9,6 +9,12 @@
           {{ __('to') }}
           <x-text-input type="date" id="date_f" wire:model.live.debounce.500ms='date_f' />
         </div>
+        <div class="flex-none">
+          <x-input-label for="value_min" value="{{ __('Value') }}" />
+          <x-text-input x-mask="999999999" id="value_min" wire:model.live.debounce.500ms='value_min' />
+          {{ __('to') }}
+          <x-text-input x-mask="999999999" id="value_max" wire:model.live.debounce.500ms='value_max' />
+        </div>
       </div>
 
       <div class="flex justify-end gap-2">
