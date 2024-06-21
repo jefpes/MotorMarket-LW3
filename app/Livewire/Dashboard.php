@@ -12,13 +12,13 @@ use Livewire\Component;
 
 class Dashboard extends Component
 {
-    public string $date_ini = '';
+    public ?string $date_ini = '';
 
-    public string $date_end = '';
+    public ?string $date_end = '';
 
-    public string $status = '';
+    public ?string $status = '';
 
-    public string $payment_method = '';
+    public ?string $payment_method = '';
 
     public function mount(): void
     {
@@ -52,7 +52,7 @@ class Dashboard extends Component
     #[Computed()]
     public function stock(): Collection
     {
-        return Vehicle::where('sold_date', null)->with('model')->get();
+        return Vehicle::where('sold_date', null)->with('model', 'expenses')->get();
     }
 
     #[Computed()]
@@ -60,14 +60,18 @@ class Dashboard extends Component
     {
         return DB::table('vehicles')
           ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
+          ->join('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
           ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
           ->select(
               'vehicle_types.name',
               DB::raw('count(vehicles.id) as total_vehicles'),
               DB::raw('sum(vehicles.purchase_price) as total_purchase_price'),
-              DB::raw('sum(vehicles.sale_price) as total_sale_price')
+              DB::raw('sum(vehicles.sale_price) as total_sale_price'),
+              DB::raw('sum(vehicle_expenses.value) as total_expense'),
+              DB::raw('sum(vehicles.purchase_price) + sum(vehicle_expenses.value) as total_stock_value')
           )
           ->groupBy('vehicle_types.name')
+          ->whereNull('vehicles.sold_date')
           ->get();
     }
 
@@ -90,18 +94,23 @@ class Dashboard extends Component
     #[Computed()]
     public function salesType(): Collection
     {
+
         return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
-                  ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
-                  ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
-                  ->select(
-                      'vehicle_types.name',
-                      DB::raw('COUNT(sales.id) as number_of_sales'),
-                      DB::raw('SUM(sales.total) as total_sales'),
-                      DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'),
-                      DB::raw('SUM(sales.total) - SUM(vehicles.purchase_price) as profit')
-                  )
-                  ->groupBy('vehicle_types.name')
-                  ->get();
+                      ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
+                      ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
+                      ->leftJoin('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
+                      ->select(
+                          'vehicle_types.name',
+                          DB::raw('COUNT(DISTINCT sales.id) as number_of_sales'),
+                          DB::raw('SUM(sales.total) as total_sales'),
+                          DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'),
+                          DB::raw('COALESCE(SUM(vehicle_expenses.value), 0) as total_expenses'),
+                          DB::raw('SUM(sales.total) - SUM(vehicles.purchase_price) - COALESCE(SUM(vehicle_expenses.value), 0) as profit')
+                      )
+                      ->whereNotNull('vehicles.sold_date')
+                      ->groupBy('vehicle_types.name')
+                      ->get();
+
     }
 
     #[Computed()]
@@ -110,12 +119,14 @@ class Dashboard extends Component
         return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
                   ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
                   ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
+                      ->leftJoin('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
                   ->select(
                       'vehicle_types.name',
                       DB::raw('COUNT(sales.id) as number_of_sales'),
                       DB::raw('SUM(sales.total) as total_sales'),
                       DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'),
-                      DB::raw('SUM(sales.total) - SUM(vehicles.purchase_price) as profit')
+                      DB::raw('COALESCE(SUM(vehicle_expenses.value), 0) as total_expenses'),
+                      DB::raw('SUM(sales.total) - SUM(vehicles.purchase_price) - COALESCE(SUM(vehicle_expenses.value), 0) as profit')
                   )
                   ->groupBy('vehicle_types.name')
                   ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('sales.date_sale', [$this->date_ini, $this->date_end]))
