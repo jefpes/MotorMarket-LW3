@@ -10,26 +10,25 @@
 
         <div class="flex items-center">
           <button class="pl-3 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500" wire:click="$set('modal', true)">
-            <svg class="fill-current w-6 h-6" viewBox="0 0 24 24">
-              <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
-            </svg>
+            <x-icons.filter class="w-6 h-6"/>
           </button>
         </div>
       </div>
 
     </nav>
-
-    @foreach ($this->vehicles as $v)
-      <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <a href="{{ route('show.v', $v->id) }}">
-          <img class="hover:grow hover:shadow-lg w-full sm:w-auto sm:h-60" src="{{ $v->photos->first()->path }}">
-          <div class="pt-3 flex items-center justify-between">
-            <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
-          </div>
-          <p class="pt-1">R$ {{ $v->sale_price }} </p>
-        </a>
-      </div>
-    @endforeach
+    <div class="flex flex-wrap justify-center gap-4 py-2">
+      @foreach ($this->vehicles as $v)
+        <div class="w-full sm:w-[48%] md:w-[30%] xl:w-[24%] p-1 rounded-md border-2 border-gray-300 dark:border-gray-600">
+          <a href="{{ route('show.v', $v->id) }}">
+            <img class="hover:grow hover:shadow-lg w-full sm:w-auto sm:h-60 rounded-md" src="{{ $v->photos->first()->path }}">
+            <div class="pt-3 flex items-center justify-between">
+              <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
+            </div>
+            <p class="pt-1">R$ {{ $v->sale_price }} </p>
+          </a>
+        </div>
+      @endforeach
+    </div>
   </div>
 
   <div class="w-full container mx-auto px-2 justify-between">
