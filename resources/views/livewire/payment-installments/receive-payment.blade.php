@@ -1,6 +1,6 @@
 <div>
   <x-modal wire:model="modal" name="receive_modal">
-    <x-slot:title> {{ __($title) }}: - {{ $form->value }}</x-slot:title>
+    <x-slot:title> {{ __($title) }}: R$ {{ $form->value }}</x-slot:title>
 
     <div class="mt-4">
       <x-input-label>{{__('Payment Method')}}</x-input-label>

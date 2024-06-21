@@ -13,7 +13,7 @@
 
     <x-form.input name="email" label="Email" placeholder="Email" :messages="$errors->get('email')" wire:model="email" class="w-full" />
 
-    <x-form.input type="file" name="logo" label="Logo" :messages="$errors->get('logo')" wire:model="photos" class="w-full" />
+    {{-- <x-form.input type="file" name="logo" label="Logo" :messages="$errors->get('logo')" wire:model="photos" class="w-full" /> --}}
 
     <x-form.input name="x" label="X" placeholder="X" :messages="$errors->get('x')" wire:model="x" class="w-full" />
 

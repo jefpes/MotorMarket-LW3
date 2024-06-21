@@ -32,6 +32,12 @@ class Index extends Component
 
     public ?string $header = 'Expenses';
 
+    public function mount(): void
+    {
+        $this->date_i = now()->subMonth()->format('Y-m-d');
+        $this->date_f = now()->format('Y-m-d');
+    }
+
     #[On('expense::refresh')]
     public function render(): View
     {
