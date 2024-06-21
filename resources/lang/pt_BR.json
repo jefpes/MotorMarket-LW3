@@ -430,6 +430,11 @@
   "city_read": "Ver Cidade",
   "city_update": "Atualizar Cidade",
   "city_delete": "Apagar Cidade",
+  "company_update": "Atualizar Empresa",
+  "expense_create": "Criar Despesa",
+  "expense_read": "Ver Despesa",
+  "expense_update": "Atualizar Despesa",
+  "expense_delete": "Apagar Despesa",
 
   "Edit Role": "Editar Função",
   "User Created": "Usuário Criado",
