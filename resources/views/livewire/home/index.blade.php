@@ -22,8 +22,7 @@
     @foreach ($this->vehicles as $v)
       <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
         <a href="{{ route('show.v', $v->id) }}">
-          <img class="hover:grow hover:shadow-lg"
-            src="{{ $v->photos->first()->path }}">
+          <img class="hover:grow hover:shadow-lg w-full sm:w-auto sm:h-60" src="{{ $v->photos->first()->path }}">
           <div class="pt-3 flex items-center justify-between">
             <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
           </div>
