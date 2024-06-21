@@ -60,18 +60,21 @@
         <span class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
           {{ __('Price') }}
         </span>
-        <div class="w-full space-y-1 text-gray-500 dark:text-gray-400 px-2 py-4">
-          <x-select wire:model.live="order" class="w-full" id="sold" label="Order">
-            <option value="asc"> {{ __('Growing') }} </option>
-            <option value="desc"> {{ __('Descending') }} </option>
-          </x-select>
-
-          <x-select wire:model.live="max_price" class="w-full" id="max_price" label="Max Price">
-              <option value=""> {{ __('All') }} </option>
-              @for ($i = 10000; $i <= ($max_prices+10000); $i+=10000)
-                <option value="{{ $i }}"> {{ $i }} </option>
-              @endfor
-          </x-select>
+        <div class="flex w-full text-gray-500 dark:text-gray-400 px-2 py-4 gap-x-2">
+          <div class="flex-1">
+            <x-select wire:model.live="order"  id="sold" label="Order" class="w-full">
+              <option value="asc"> {{ __('Growing') }} </option>
+              <option value="desc"> {{ __('Descending') }} </option>
+            </x-select>
+          </div>
+          <div class="flex-1">
+            <x-select wire:model.live="max_price" class="w-full" id="max_price" label="Max Price">
+                <option value=""> {{ __('All') }} </option>
+                @for ($i = 10000; $i <= ($max_prices+10000); $i+=10000)
+                  <option value="{{ $i }}"> {{ $i }} </option>
+                @endfor
+            </x-select>
+          </div>
         </div>
       </div>
 
@@ -80,12 +83,16 @@
           {{ __('Year') }}
         </span>
         <div class="w-full space-x-2 text-gray-500 dark:text-gray-400 px-2 py-4 flex">
-          <x-select wire:model.live="year_ini" class="w-full" label="Year Initial">
-            @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
-          </x-select>
-          <x-select wire:model.live="year_end" class="w-full" label="Year End">
-            @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
-          </x-select>
+          <div class="flex-1">
+            <x-select wire:model.live="year_ini" class="w-full" label="Year Initial">
+              @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
+            </x-select>
+          </div>
+          <div class="flex-1">
+            <x-select wire:model.live="year_end" class="w-full" label="Year Final">
+              @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
+            </x-select>
+          </div>
         </div>
       </div>
 
