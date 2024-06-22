@@ -8,6 +8,10 @@
           <x-application-logo class="cursor-pointer block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" :href="route('dashboard')" wire:navigate />
         </div> --}}
         <!-- Navigation Links -->
+        <div class="shrink-0 flex items-center">
+          <x-icons.home class="cursor-pointer w-auto fill-current text-gray-800 dark:text-gray-200 pr-2" :href="route('home')" wire:navigate />
+        </div>
+        <!-- Navigation Links -->
         @foreach ($navs as $nav)
           @can($nav->permission)
             <div class="hidden sm:-my-px sm:mr-2 sm:flex">

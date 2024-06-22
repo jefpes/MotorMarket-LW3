@@ -14,8 +14,7 @@ class Index extends Component
 
     public bool $modal = false;
 
-    /** @var array<int> */
-    public ?array $selectedBrands = [];
+    public ?int $brand = null;
 
     public ?string $year_ini = '';
 
@@ -51,7 +50,7 @@ class Index extends Component
         return Vehicle::with('model', 'photos')
             ->orderBy('updated_at', 'desc')
             ->where('sold_date', '=', null)
-            ->when(count($this->selectedBrands), fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
+            ->when($this->brand, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('brand_id', $this->brand)))
             ->when($this->year_ini && $this->year_end, fn ($query) => $query->whereBetween('year_one', [$this->year_ini, $this->year_end]))
             ->when($this->order, fn ($query) => $query->orderBy('sale_price', $this->order))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
