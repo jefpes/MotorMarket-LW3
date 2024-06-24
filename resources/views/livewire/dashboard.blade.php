@@ -32,10 +32,10 @@
           {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $data->name }}</span> {{ __('with') }}
           <span class="font-semibold text-gray-900 dark:text-white">{{ $data->total_vehicles }}</span> {{ __('vehicle') }}
           <div>
-            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_purchase_price_by_type }}</span> <br/>
-            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_sale_price_by_type }}</span> <br/>
-            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_expenses_by_type }}</span> <br />
-            {{ __('Total Stock Value') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_stock_by_type }}</span>
+            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_purchase_price }}</span> <br/>
+            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_sale_price }}</span> <br/>
+            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_expenses }}</span> <br />
+            {{ __('Total Stock Value') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_stock }}</span>
           </div>
         </li>
         @endforeach
