@@ -58,6 +58,22 @@ class Index extends Component
             ->paginate();
     }
 
+    #[Computed()]
+    public function brands(): \Illuminate\Support\Collection
+    {
+        return Brand::join('vehicle_models', 'brands.id', '=', 'vehicle_models.brand_id')
+              ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+              ->select('brands.*')
+              ->distinct()
+              ->where('vehicles.sold_date', '=', null)
+              ->get();
+    }
+
+    public function cancel(): void
+    {
+        $this->modal = false;
+    }
+
     public function updatedSelectedBrands(): void
     {
         $this->resetPage();
