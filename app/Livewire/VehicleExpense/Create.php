@@ -34,7 +34,7 @@ class Create extends Component
     {
         $this->authorize('expense_create');
 
-        $this->dispatch('vehicle::refresh');
+        $this->dispatch('expense::create');
         $this->form->vehicle_id = $this->v_id;
         $this->form->user_id    = auth()->id();
         $this->form->save();

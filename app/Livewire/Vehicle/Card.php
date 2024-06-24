@@ -4,6 +4,7 @@ namespace App\Livewire\Vehicle;
 
 use App\Models\Vehicle;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Card extends Component
@@ -17,6 +18,7 @@ class Card extends Component
             ->find($vehicle->id);
     }
 
+    #[On('expense::create')]
     public function render(): View
     {
         return view('livewire.vehicle.card');
