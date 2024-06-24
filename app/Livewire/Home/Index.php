@@ -14,7 +14,8 @@ class Index extends Component
 
     public bool $modal = false;
 
-    public ?int $brand = null;
+    /** @var array<int> */
+    public ?array $selectedBrands = [];
 
     public ?string $year_ini = '';
 
@@ -41,7 +42,7 @@ class Index extends Component
     #[Layout('components.layouts.home')]
     public function render(): View
     {
-        return view('livewire.home.index', ['company' => Company::find(1), 'brands' => Brand::all(), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
+        return view('livewire.home.index', ['company' => Company::find(1), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
     }
 
     #[Computed()]
@@ -50,7 +51,7 @@ class Index extends Component
         return Vehicle::with('model', 'photos')
             ->orderBy('updated_at', 'desc')
             ->where('sold_date', '=', null)
-            ->when($this->brand, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('brand_id', $this->brand)))
+            ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
             ->when($this->year_ini && $this->year_end, fn ($query) => $query->whereBetween('year_one', [$this->year_ini, $this->year_end]))
             ->when($this->order, fn ($query) => $query->orderBy('sale_price', $this->order))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
