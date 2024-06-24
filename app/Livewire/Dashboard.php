@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Enums\{PaymentMethod, StatusPayments};
-use App\Models\{Role, Sale, User, Vehicle};
+use App\Models\{Role, Sale, User, Vehicle, VehicleExpense, VehicleType};
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +53,67 @@ class Dashboard extends Component
     public function stock(): Collection
     {
         return Vehicle::where('sold_date', null)->with('model', 'expenses')->get();
+    }
+
+    #[Computed()]
+    public function getVehicleStatistics(): object
+    {
+        $totalVehicles = Vehicle::whereNull('sold_date')->count();
+
+        $totalVehiclesByType = VehicleType::join('vehicle_models', 'vehicle_types.id', '=', 'vehicle_models.vehicle_type_id')
+                ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+                ->leftJoin('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
+                ->select(
+                    DB::raw('COUNT(DISTINCT vehicles.id) as total_vehicles'),
+                    DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'),
+                    DB::raw('SUM(vehicles.sale_price) as total_sale_price'),
+                    DB::raw('SUM(vehicle_expenses.value) as total_expenses'),
+                    'vehicle_types.name',
+                    DB::raw('COUNT(vehicles.id) as total_vehicles_by_type'),
+                    DB::raw('SUM(vehicles.purchase_price) as total_purchase_price_by_type'),
+                    DB::raw('SUM(vehicles.sale_price) as total_sale_price_by_type'),
+                    DB::raw('SUM(vehicle_expenses.value) + SUM(vehicles.purchase_price) as total_stock_by_type'),
+                    DB::raw('SUM(vehicle_expenses.value) as total_expenses_by_type')
+                )
+                ->whereNull('vehicles.sold_date')
+                ->groupBy('vehicle_types.name')
+                ->get();
+
+        $totalExpensesByType = VehicleType::join('vehicle_models', 'vehicle_types.id', '=', 'vehicle_models.vehicle_type_id')
+                    ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+                    ->join('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
+                    ->select('vehicle_types.name', DB::raw('SUM(vehicle_expenses.value) as total_expenses'))
+                    ->groupBy('vehicle_types.name')
+                    ->get();
+
+        $totalPurchasePrice = Vehicle::sum('purchase_price');
+
+        $totalPurchasePriceByType = VehicleType::join('vehicle_models', 'vehicle_types.id', '=', 'vehicle_models.vehicle_type_id')
+            ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+            ->select('vehicle_types.name', DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'))
+            ->groupBy('vehicle_types.name')
+            ->get();
+
+        $totalSalePrice = Vehicle::sum('sale_price');
+
+        $totalSalePriceByType = VehicleType::join('vehicle_models', 'vehicle_types.id', '=', 'vehicle_models.vehicle_type_id')
+            ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+            ->select('vehicle_types.name', DB::raw('SUM(vehicles.sale_price) as total_sale_price'))
+            ->groupBy('vehicle_types.name')
+            ->get();
+
+        $totalExpenses = VehicleExpense::sum('value');
+
+        return (object)[
+            'totalVehicles'            => $totalVehicles,
+            'totalVehiclesByType'      => $totalVehiclesByType,
+            'totalPurchasePrice'       => $totalPurchasePrice,
+            'totalPurchasePriceByType' => $totalPurchasePriceByType,
+            'totalSalePrice'           => $totalSalePrice,
+            'totalSalePriceByType'     => $totalSalePriceByType,
+            'totalExpenses'            => $totalExpenses,
+            'totalExpensesByType'      => $totalExpensesByType,
+        ];
     }
 
     #[Computed()]
