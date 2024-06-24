@@ -5,7 +5,7 @@ namespace App\Livewire\Home;
 use App\Models\{Brand, Company, Vehicle, VehicleType};
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\Attributes\{Computed, Layout};
+use Livewire\Attributes\{Computed, Layout, Url};
 use Livewire\{Component, WithPagination};
 
 class Index extends Component
@@ -17,18 +17,23 @@ class Index extends Component
     /** @var array<int> */
     public ?array $selectedBrands = [];
 
+    #[Url(except: '', as: 'y-i', history: true)]
     public ?string $year_ini = '';
 
+    #[Url(except: '', as: 'y-e', history: true)]
     public ?string $year_end = '';
 
     public ?string $year_min = '';
 
     public ?string $year_max = '';
 
+    #[Url(except: '', as: 'order', history: true)]
     public ?string $order = 'asc';
 
+    #[Url(except: '', as: 'm-p', history: true)]
     public ?float $max_price = null;
 
+    #[Url(except: '', as: 't', history: true)]
     public ?string $type = null;
 
     public function mount(): void
@@ -67,6 +72,7 @@ class Index extends Component
               ->select('brands.*')
               ->distinct()
               ->where('vehicles.sold_date', '=', null)
+              ->orderBy('brands.name')
               ->get();
     }
 
