@@ -12,7 +12,7 @@
       </div>
 
     </nav>
-    <div class="flex flex-wrap justify-center gap-4 py-2">
+    <div class="flex flex-wrap justify-center gap-4 py-2 w-full">
       @foreach ($this->vehicles as $v)
         <div class="w-full sm:w-[48%] md:w-[30%] xl:w-[24%] p-1 rounded-md border-2 border-gray-300 dark:border-gray-600">
           <a href="{{ route('show.v', $v->id) }}">
