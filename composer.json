@@ -11,7 +11,8 @@
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
-        "livewire/volt": "^1.0"
+        "livewire/volt": "^1.0",
+        "spatie/laravel-pdf": "^1.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.13",
