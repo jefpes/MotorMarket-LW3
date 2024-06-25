@@ -16,7 +16,7 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('/company', Company\Edit::class)->middleware(['auth', 'verified', 'can:company_update'])->name('company');
 
     Route::get('dashboard', Dashboard::class)
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'can:admin'])
         ->name('dashboard');
 
     Route::get('users', User\Index::class)

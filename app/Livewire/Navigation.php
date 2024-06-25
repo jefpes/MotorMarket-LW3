@@ -32,7 +32,7 @@ class Navigation extends Component
     public function mount(): void
     {
         $this->navs = [
-            (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => null, 'isActive' => request()->routeIs('dashboard')],
+            (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => 'admin', 'isActive' => request()->routeIs('dashboard')],
             (object)['route' => 'company', 'label' => 'Company', 'permission' => 'company_update', 'isActive' => request()->routeIs('company')],
             (object)['route' => 'users', 'label' => 'Users', 'permission' => 'user_read', 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
             (object)['route' => 'roles', 'label' => 'Roles', 'permission' => 'admin', 'isActive' => request()->routeIs('roles', 'ability.role')],

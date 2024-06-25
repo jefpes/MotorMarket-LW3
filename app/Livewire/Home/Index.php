@@ -5,7 +5,7 @@ namespace App\Livewire\Home;
 use App\Models\{Brand, Company, Vehicle, VehicleType};
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\Attributes\{Computed, Layout};
+use Livewire\Attributes\{Computed, Layout, Url};
 use Livewire\{Component, WithPagination};
 
 class Index extends Component
@@ -14,20 +14,26 @@ class Index extends Component
 
     public bool $modal = false;
 
-    public ?int $brand = null;
+    /** @var array<int> */
+    public ?array $selectedBrands = [];
 
+    #[Url(except: '', as: 'y-i', history: true)]
     public ?string $year_ini = '';
 
+    #[Url(except: '', as: 'y-e', history: true)]
     public ?string $year_end = '';
 
     public ?string $year_min = '';
 
     public ?string $year_max = '';
 
+    #[Url(except: '', as: 'order', history: true)]
     public ?string $order = 'asc';
 
+    #[Url(except: '', as: 'm-p', history: true)]
     public ?float $max_price = null;
 
+    #[Url(except: '', as: 't', history: true)]
     public ?string $type = null;
 
     public function mount(): void
@@ -41,7 +47,7 @@ class Index extends Component
     #[Layout('components.layouts.home')]
     public function render(): View
     {
-        return view('livewire.home.index', ['company' => Company::find(1), 'brands' => Brand::all(), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
+        return view('livewire.home.index', ['company' => Company::find(1), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
     }
 
     #[Computed()]
@@ -50,12 +56,29 @@ class Index extends Component
         return Vehicle::with('model', 'photos')
             ->orderBy('updated_at', 'desc')
             ->where('sold_date', '=', null)
-            ->when($this->brand, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('brand_id', $this->brand)))
+            ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
             ->when($this->year_ini && $this->year_end, fn ($query) => $query->whereBetween('year_one', [$this->year_ini, $this->year_end]))
             ->when($this->order, fn ($query) => $query->orderBy('sale_price', $this->order))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
             ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
             ->paginate();
+    }
+
+    #[Computed()]
+    public function brands(): \Illuminate\Support\Collection
+    {
+        return Brand::join('vehicle_models', 'brands.id', '=', 'vehicle_models.brand_id')
+              ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+              ->select('brands.*')
+              ->distinct()
+              ->where('vehicles.sold_date', '=', null)
+              ->orderBy('brands.name')
+              ->get();
+    }
+
+    public function cancel(): void
+    {
+        $this->modal = false;
     }
 
     public function updatedSelectedBrands(): void
