@@ -6,15 +6,15 @@
     <div class="space-y-3">
       <h2 class="font-semibold">DAS PARTES</h2>
       <p >
-        <span class="font-semibold">LOJA {{ $company->name }}</span>, sediada na {{ $company->address }} @if ($company->ceo && $company->cpf && $company->ceo_address) , representada por seu
+        <span class="font-semibold">LOJA {{ $company->name }}</span>, sediada na {{ $company->address }} @if ($company->ceo && $company->cpf && $company->ceo_address)<span>, representada por seu
         , neste ato representado por seu titular ANTONIO, brasileiro, solteiro, residente e
         domiciliado na Rua: Antonio Moreira, 263, Bairro: Acampamento, CEP 62.640-000, Cidade de Pentecoste, Estado do Ceará,
-        CPF:000.000.000-98 , denominado VENDEDOR @endif.
+        CPF:000.000.000-98 , denominado VENDEDOR</span>@endif.
       </p>
       <p>
-        Do outro lado, EMANUEL, SOLTEIRO, RESIDENTE NA RUA: SAL , 0, BAIRRO: PRO, Cidade De PENTECOSTE, Estado do Ceará, Rg:
-        CPF: denominado COMPRADOR, têm entre si como justos e contratado o que segue, que se obrigam a cumprir por si, seus
-        herdeiros e sucessores.
+        Do outro lado, {{ $sale->client->name }}, {{ $sale->client->marital_status }}, residente no(a)
+        {{ $sale->client->logradouro_type . ' '. $sale->client->logradouro . ', '. $sale->client->number . ' - '. $sale->client->bairro }} - {{ $sale->client->city->name . ' - ' . $sale->client->state . ' - ' . $sale->client->cep }}
+        , RG: {{ $sale->client->rg }} , CPF: {{ $sale->client->cpf }}, denominado <span class="font-semibold">COMPRADOR</span>, têm entre si como justos e contratado o que segue, que se obrigam a cumprir por si, seus herdeiros e sucessores.
       </p>
       <p>
         As partes acima identificadas acordam com o presente Contrato de Compra e Venda com Reserva de Domínio, que se regerá
@@ -28,16 +28,14 @@
 
       <table class="w-full text-left rtl:text-right">
         <tbody>
-          @for($i = 0; $i < 7; $i++)
             <tr class="border">
               <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
-                Apple MacBook Pro 17"
+                {{ $infos[0] }}
               </th>
               <td class="px-6 py-4 border border-gray-600">
-                Silver
+                {{ $sale->vehicle->model->brand->name }}
               </td>
             </tr>
-          @endfor
         </tbody>
       </table>
     </div>

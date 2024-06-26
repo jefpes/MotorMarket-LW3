@@ -4,7 +4,7 @@ namespace App\Livewire\Reports;
 
 use App\Models\{Company, Sale};
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\Layout;
+use Livewire\Attributes\{Layout};
 use Livewire\Component;
 
 class SalesContract extends Component
@@ -12,6 +12,9 @@ class SalesContract extends Component
     public Sale $sale;
 
     public Company $company;
+
+    /** @var array<String> */
+    public array $infos = ['MARCA/MODELO', 'ESPECIE/TIPO', 'PLACA', 'COR', 'ANO/MODELO', 'RENAVAM', 'KILOMETRAGEM'];
 
     public function mount(int $id): void
     {
