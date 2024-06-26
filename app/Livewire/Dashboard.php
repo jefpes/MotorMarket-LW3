@@ -20,12 +20,6 @@ class Dashboard extends Component
 
     public ?string $payment_method = '';
 
-    public function mount(): void
-    {
-        $this->date_ini = now()->subMonth()->format('Y-m-d');
-        $this->date_end = now()->format('Y-m-d');
-    }
-
     public function render(): View
     {
         return view('livewire.dashboard', ['sts' => StatusPayments::cases(), 'payment_methods' => PaymentMethod::cases()]);
@@ -50,17 +44,11 @@ class Dashboard extends Component
     }
 
     #[Computed()]
-    public function stock(): Collection
+    public function vehicles(): object
     {
-        return Vehicle::where('sold_date', null)->with('model', 'expenses')->get();
-    }
+        $total = Vehicle::whereNull('sold_date')->count();
 
-    #[Computed()]
-    public function getVehicleStatistics(): object
-    {
-        $totalVehicles = Vehicle::whereNull('sold_date')->count();
-
-        $totalVehiclesByType = VehicleType::join('vehicle_models', 'vehicle_types.id', '=', 'vehicle_models.vehicle_type_id')
+        $totalByType = VehicleType::join('vehicle_models', 'vehicle_types.id', '=', 'vehicle_models.vehicle_type_id')
                 ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
                 ->leftJoin('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
                 ->select(
@@ -81,56 +69,24 @@ class Dashboard extends Component
         $totalExpenses = VehicleExpense::sum('value');
 
         return (object)[
-            'totalVehicles'       => $totalVehicles,
-            'totalVehiclesByType' => $totalVehiclesByType,
-            'totalPurchasePrice'  => $totalPurchasePrice,
-            'totalSalePrice'      => $totalSalePrice,
-            'totalExpenses'       => $totalExpenses,
+            'total'              => $total,
+            'totalByType'        => $totalByType,
+            'totalPurchasePrice' => $totalPurchasePrice,
+            'totalSalePrice'     => $totalSalePrice,
+            'totalExpenses'      => $totalExpenses,
         ];
     }
 
     #[Computed()]
-    public function sales(): Collection
+    public function sales(): object
     {
-        return Sale::with('vehicle')->get();
-    }
-
-    #[Computed()]
-    public function salesFilter(): Collection
-    {
-        return Sale::with('vehicle')
+        $count = Sale::with('vehicle')
           ->when($this->date_ini && $this->date_end, fn ($q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
           ->when($this->status, fn ($q) => $q->where('sales.status', $this->status))
           ->when($this->payment_method, fn ($q) => $q->where('sales.payment_method', $this->payment_method))
-          ->get();
-    }
+          ->count();
 
-    #[Computed()]
-    public function salesType(): Collection
-    {
-
-        return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
-                      ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
-                      ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
-                      ->leftJoin('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
-                      ->select(
-                          'vehicle_types.name',
-                          DB::raw('COUNT(DISTINCT sales.id) as number_of_sales'),
-                          DB::raw('SUM(sales.total) as total_sales'),
-                          DB::raw('SUM(vehicles.purchase_price) as total_purchase_price'),
-                          DB::raw('COALESCE(SUM(vehicle_expenses.value), 0) as total_expenses'),
-                          DB::raw('SUM(sales.total) - SUM(vehicles.purchase_price) - COALESCE(SUM(vehicle_expenses.value), 0) as profit')
-                      )
-                      ->whereNotNull('vehicles.sold_date')
-                      ->groupBy('vehicle_types.name')
-                      ->get();
-
-    }
-
-    #[Computed()]
-    public function salesTypeFilter(): Collection
-    {
-        return Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
+        $byType = Sale::join('vehicles', 'sales.vehicle_id', '=', 'vehicles.id')
                   ->join('vehicle_models', 'vehicles.vehicle_model_id', '=', 'vehicle_models.id')
                   ->join('vehicle_types', 'vehicle_models.vehicle_type_id', '=', 'vehicle_types.id')
                       ->leftJoin('vehicle_expenses', 'vehicles.id', '=', 'vehicle_expenses.vehicle_id')
@@ -147,5 +103,10 @@ class Dashboard extends Component
                   ->when($this->status, fn ($q) => $q->where('sales.status', $this->status))
                   ->when($this->payment_method, fn ($q) => $q->where('sales.payment_method', $this->payment_method))
                   ->get();
+
+        return (object)[
+            'count'  => $count,
+            'byType' => $byType,
+        ];
     }
 }

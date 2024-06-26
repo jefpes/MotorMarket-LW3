@@ -50,9 +50,9 @@
         @foreach ($this->expenses as $data)
         <x-table.tr>
           <x-table.td> {{ $data->vehicle->plate }} </x-table.td>
-          <x-table.td> {{ $data->value }} </x-table.td>
+          <x-table.td> <x-span-money :money="$data->value" /> </x-table.td>
           <x-table.td> {{ $data->description }} </x-table.td>
-          <x-table.td> {{ $data->date }} </x-table.td>
+          <x-table.td> <x-span-date :date="$data->date" /> </x-table.td>
           <x-table.td> {{ $data->user->name ?? '' }} </x-table.td>
 
           @canany(['expense_update', 'expense_delete'])

@@ -16,10 +16,10 @@
       @foreach ($installment as $i)
       <x-table.tr>
         <x-table.td> {{ $loop->iteration }} </x-table.td>
-        <x-table.td> {{ $i->due_date }} </x-table.td>
-        <x-table.td> {{ $i->value }} </x-table.td>
-        <x-table.td> {{ $i->payment_date ?? '' }} </x-table.td>
-        <x-table.td> {{ $i->payment_value ?? '' }} </x-table.td>
+        <x-table.td> <x-span-date :date="$i->due_date" /> </x-table.td>
+        <x-table.td> <x-span-money :money="$i->value" /> </x-table.td>
+        <x-table.td> <x-span-date :date="$i->payment_date" /> </x-table.td>
+        <x-table.td> <x-span-money :money="$i->payment_value" /> </x-table.td>
         <x-table.td> {{ $i->status }} </x-table.td>
         <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
 

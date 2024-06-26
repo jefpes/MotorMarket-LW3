@@ -66,8 +66,8 @@
         <x-table.tr>
           <x-table.td> {{ $s->vehicle->plate }} </x-table.td>
           <x-table.td> {{ $s->client->name }} </x-table.td>
-          <x-table.td> {{ $s->date_sale }} </x-table.td>
-          <x-table.td> {{ $s->total }} </x-table.td>
+          <x-table.td> <x-span-date :date="$s->date_sale" /> </x-table.td>
+          <x-table.td> <x-span-money class="py-4" :money="$s->total" /> </x-table.td>
           <x-table.td> {{ $s->status }} </x-table.td>
           <x-table.td> {{ $s->number_installments }} </x-table.td>
           <x-table.td> {{ $s->user->name }} </x-table.td>
