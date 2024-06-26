@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('name');
             $table->string('rg', 20)->unique();
             $table->string('cpf', 20)->unique();
+            $table->string('marital_status');
             $table->string('phone_one', 20)->unique();
             $table->string('phone_two', 20)->nullable()->unique();
             $table->date('birth_date');

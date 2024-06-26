@@ -21,6 +21,7 @@ class ClientFactory extends Factory
             'name'            => $this->faker->name,
             'rg'              => $this->faker->unique()->numerify('##.###.###-#'),
             'cpf'             => $this->faker->unique()->numerify('###.###.###-##'),
+            'marital_status'  => $this->faker->randomElement(['Solteiro', 'Casado', 'Divorciado', 'Viúvo']),
             'phone_one'       => $this->faker->unique()->numerify('(##) #####-####'),
             'phone_two'       => $this->faker->optional()->numerify('(##) #####-####'),
             'birth_date'      => $this->faker->date(),

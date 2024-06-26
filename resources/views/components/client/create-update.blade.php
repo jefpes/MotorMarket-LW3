@@ -2,13 +2,17 @@
   <x-form.input name="name" label="Name" type="text" placeholder="Name" :messages="$errors->get('form.name')"
     wire:model="form.name" class="w-full" />
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
-    <div class="basis-1/2">
+    <div class="basis-1/3">
       <x-form.input x-mask="999999999999999999999" name="rg" label="RG" placeholder="RG"
         :messages="$errors->get('form.rg')" wire:model="form.rg" class="w-full" />
     </div>
-    <div class="basis-1/2">
+    <div class="basis-1/3">
       <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" type="text" placeholder="CPF"
         :messages="$errors->get('form.cpf')" wire:model="form.cpf" class="w-full" />
+    </div>
+    <div class="basis-1/3">
+      <x-form.input name="marital_status" label="Marital Status" type="text" placeholder="Marital Status"
+        :messages="$errors->get('form.marital_status')" wire:model="form.marital_status" class="w-full" />
     </div>
   </div>
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
