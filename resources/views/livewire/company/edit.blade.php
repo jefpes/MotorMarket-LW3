@@ -7,6 +7,12 @@
 
     <x-form.textarea name="address" label="Address" placeholder="Address" :messages="$errors->get('address')" wire:model="address" class="w-full" />
 
+    <x-form.input name="ceo" label="CEO" placeholder="CEO" :messages="$errors->get('ceo')" wire:model="ceo" class="w-full" />
+
+    <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" placeholder="CPF" :messages="$errors->get('cpf')" wire:model="cpf" class="w-full" />
+
+    <x-form.textarea name="ceo_address" label="Ceo Address" placeholder="Ceo Address" :messages="$errors->get('ceo_address')" wire:model="ceo_address" class="w-full" />
+
     <x-form.textarea name="about" label="About" placeholder="About" :messages="$errors->get('about')" wire:model="about" class="w-full" />
 
     <x-form.input x-mask="(99) 9 9999 9999" name="phone" label="Phone" placeholder="Phone" :messages="$errors->get('phone')" wire:model="phone" class="w-full" />

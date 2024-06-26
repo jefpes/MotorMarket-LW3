@@ -1,23 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-
-  <title>{{ config('app.name', 'Laravel') }}</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-  <!-- Scripts -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-<body class="text-justify">
-  <div class="indent-2 container m-3 space-y-3">
+<div class="indent-2 container m-3 space-y-3">
     <h1 class="text-xl text-center font-bold">
       CONTRATO DE COMPRA E VENDA DE MOTOCICLETA
     </h1>
@@ -25,10 +6,10 @@
     <div class="space-y-3">
       <h2 class="font-semibold">DAS PARTES</h2>
       <p >
-        <span class="font-semibold">LOJA FELIPE VEÍCULOS</span>, sediada na Rua: Nossa Senhora de Fátima, 163, Bairro: Acampamento, CEP 62.640-000, Cidade de
-        Pentecoste, Estado do Ceará, neste ato representado por seu titular ANTONIO, brasileiro, solteiro, residente e
+        <span class="font-semibold">LOJA {{ $company->name }}</span>, sediada na {{ $company->address }} @if ($company->ceo && $company->cpf && $company->ceo_address) , representada por seu
+        , neste ato representado por seu titular ANTONIO, brasileiro, solteiro, residente e
         domiciliado na Rua: Antonio Moreira, 263, Bairro: Acampamento, CEP 62.640-000, Cidade de Pentecoste, Estado do Ceará,
-        CPF:000.000.000-98 , denominado VENDEDOR.
+        CPF:000.000.000-98 , denominado VENDEDOR @endif.
       </p>
       <p>
         Do outro lado, EMANUEL, SOLTEIRO, RESIDENTE NA RUA: SAL , 0, BAIRRO: PRO, Cidade De PENTECOSTE, Estado do Ceará, Rg:
@@ -275,5 +256,3 @@
       </div>
     </div>
   </div>
-</body>
-</html>

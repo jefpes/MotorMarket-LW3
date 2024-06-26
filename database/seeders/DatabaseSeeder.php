@@ -97,6 +97,7 @@ class DatabaseSeeder extends Seeder
 
         // Client::factory()->count(10)->create();
 
-        $this->call([BrandSeeder::class, ClientSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, VehicleSeeder::class, SalesSeeder::class, CompanySeeder::class, VehicleExpenseSeeder::class]);
+        $this->call([BrandSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, CompanySeeder::class]);
+        $this->call([ClientSeeder::class, VehicleSeeder::class, SalesSeeder::class, VehicleExpenseSeeder::class]);
     }
 }
