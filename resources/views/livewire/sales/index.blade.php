@@ -77,7 +77,11 @@
               <x-table.td>
                 <div class="flex flex-row gap-2 justify-center">
                   @if ($s->number_installments > 1)
-                    <x-icons.contract class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
+                    <a href="{{ route('contract', [$s->id, 'city' => 'Pentas', 'date' => $s->date_sale ]) }}" id="contract-{{ $s->id }}" target="blank">
+                      <x-icons.contract class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" />
+                    </a>
+
+                    <x-icons.money-receive class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
                       href="{{ route('sale.installments', $s->id) }}"
                       id="installments-{{ $s->id }}" wire:navigate />
                   @endif

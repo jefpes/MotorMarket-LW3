@@ -290,7 +290,7 @@
     </div>
 
     <div class="py-10">
-      <p class="font-semibold">PENTECOSTE, {{ \Carbon\Carbon::today()->locale('pt_BR')->isoFormat('LL') }}.</p>
+      <p class="font-semibold">{{ $city }}, {{ $date }}.</p>
     </div>
 
     <div class="grid grid-cols-2 gap-4 gap-y-20 py-20">

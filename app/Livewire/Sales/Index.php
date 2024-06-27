@@ -3,7 +3,7 @@
 namespace App\Livewire\Sales;
 
 use App\Enums\StatusPayments;
-use App\Models\Sale;
+use App\Models\{Sale};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
