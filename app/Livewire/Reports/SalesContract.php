@@ -14,7 +14,7 @@ class SalesContract extends Component
     public Company $company;
 
     /** @var array<String> */
-    public array $infos = ['MARCA/MODELO', 'ESPECIE/TIPO', 'PLACA', 'COR', 'ANO/MODELO', 'RENAVAM', 'KILOMETRAGEM'];
+    public array $infos = ['MARCA/MODELO', 'ESPECIE/TIPO', 'PLACA', 'COR', 'ANO/MODELO', 'RENAVAM', 'CHASSI' , 'KILOMETRAGEM'];
 
     public function mount(int $id): void
     {

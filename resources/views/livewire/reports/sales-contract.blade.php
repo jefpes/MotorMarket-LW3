@@ -36,6 +36,63 @@
                 {{ $sale->vehicle->model->brand->name }}
               </td>
             </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[1] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600">
+                {{ $sale->vehicle->model->type->name }}
+              </td>
+            </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[2] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600">
+                {{ $sale->vehicle->plate }}
+              </td>
+            </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[3] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600">
+                {{ $sale->vehicle->color }}
+              </td>
+            </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[4] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600">
+                {{ $sale->vehicle->year_one }}/{{ $sale->vehicle->year_two }}
+              </td>
+            </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[5] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600">
+                {{ $sale->vehicle->renavan }}
+              </td>
+            </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[6] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600">
+                {{ $sale->vehicle->chassi }}
+              </td>
+            </tr>
+            <tr class="border">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+                {{ $infos[7] }}
+              </th>
+              <td class="px-6 py-4 border border-gray-600 tracking-widest">
+                {{ number_format($sale->vehicle->km, 0, '', '.') ?? '0'  }}
+              </td>
+            </tr>
+
         </tbody>
       </table>
     </div>
