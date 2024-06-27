@@ -1,6 +1,6 @@
-<div class="indent-2 container m-3 space-y-3">
+<div class="indent-2 container m-3 space-y-3 text-justify">
     <h1 class="text-xl text-center font-bold">
-      CONTRATO DE COMPRA E VENDA DE MOTOCICLETA
+      CONTRATO DE COMPRA E VENDA DE VEÍCULO
     </h1>
 
     <div class="space-y-3">
@@ -26,69 +26,69 @@
       <h2 class="font-semibold pb-3">DO OBJETO DO CONTRATO</h2>
       <p><span class="font-semibold">Cláusulas 1ª:</span> Um veículo de:</p>
 
-      <table class="w-full text-left rtl:text-right">
+      <table class="w-auto text-left rtl:text-right">
         <tbody>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[0] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->model->brand->name }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[1] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->model->type->name }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[2] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->plate }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[3] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->color }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[4] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->year_one }}/{{ $sale->vehicle->year_two }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[5] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->renavan }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[6] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600">
+              <td class="p-2 border border-gray-600">
                 {{ $sale->vehicle->chassi }}
               </td>
             </tr>
             <tr class="border">
-              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap border border-gray-600">
+              <th scope="row" class="p-2 font-medium whitespace-nowrap border border-gray-600">
                 {{ $infos[7] }}
               </th>
-              <td class="px-6 py-4 border border-gray-600 tracking-widest">
+              <td class="p-2 border border-gray-600 tracking-widest">
                 {{ number_format($sale->vehicle->km, 0, '', '.') ?? '0'  }}
               </td>
             </tr>
@@ -126,7 +126,7 @@
 
       <p>
         <p>
-          <span class="font-semibold"> Cláusula 3ª </span> - O COMPRADOR PAGOU 9.000 (NOVE MIL REAIS ) EM FORMA DE ENTRADA. ASSUMINDO O COMPROMISSO DE PAGAR 15 PARCELAS DE R$ 350,00 REAIS, DURANTE O PERÍODO DE 05/08/24 Á 05/10/25.
+          <span class="font-semibold"> Cláusula 3ª </span> - O COMPRADOR pagou <x-span-money :money="$sale->down_payment" /> ( <x-span-number-ext :number="$sale->down_payment" /> ) em forma de entrada. Assumindo o compromisso de pagar {{ $sale->number_installments }} parcelas de <x-span-money money="{{ $sale->paymentInstallments->first()->value ?? 0 }}" /> reais, durante o período de <x-span-date :date="$sale->paymentInstallments->first()->due_date" />  à <x-span-date :date="$sale->paymentInstallments->last()->due_date" />.
         </p>
         <p>Incorrerá reajuste do valor da parcela se o índice de inflação (IPCA) acumulado dos últimos 12(doze) meses ultrapassar 10% (dez por cento), ultrapassando esse limite, a parcela será reajustada com o IPCA do último mês.</p>
       </p>
@@ -245,7 +245,7 @@
       </p>
 
       <p>
-        <span class="font-semibold">Parágrafo Terceiro:</span> Verificada a rescisão da DECLARAÇ O E CONTRATO DE COMPRA E VENDA efetivado diretamente com o
+        <span class="font-semibold">Parágrafo Terceiro:</span> Verificada a rescisão da declaração e do contrato de compra e venda efetivado diretamente com o
         vendedor por culpa do COMPRADOR ficará este responsável pelo pagamento das despesas a que o vendedor foi obrigado na
         defesa de seus direitos sendo que o deposito a que proceder ao vendedor com o preliminar da ação de reintegração de
         posse e referida na clausula anterior, não poderá ser levantado pelo COMPRADOR antes que ele pague à custa a que for
@@ -290,7 +290,7 @@
     </div>
 
     <div class="py-10">
-      <p class="font-semibold">PENTECOSTE, 25 de junho de 2024.</p>
+      <p class="font-semibold">PENTECOSTE, {{ \Carbon\Carbon::today()->locale('pt_BR')->isoFormat('LL') }}.</p>
     </div>
 
     <div class="grid grid-cols-2 gap-4 gap-y-20 py-20">
