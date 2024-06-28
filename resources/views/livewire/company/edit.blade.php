@@ -11,7 +11,9 @@
 
     <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" placeholder="CPF" :messages="$errors->get('cpf')" wire:model="cpf" class="w-full" />
 
-    <x-form.textarea name="ceo_address" label="Ceo Address" placeholder="Ceo Address" :messages="$errors->get('ceo_address')" wire:model="ceo_address" class="w-full" />
+    <x-form.input name="ceo_marital_status" label="CEO Marital Status" placeholder="CEO Marital Status" :messages="$errors->get('ceo_marital_status')" wire:model="ceo_marital_status" class="w-full" />
+
+    <x-form.textarea name="ceo_address" label="CEO Address" placeholder="CEO Address" :messages="$errors->get('ceo_address')" wire:model="ceo_address" class="w-full" />
 
     <x-form.textarea name="about" label="About" placeholder="About" :messages="$errors->get('about')" wire:model="about" class="w-full" />
 

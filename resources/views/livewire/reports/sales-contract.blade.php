@@ -7,7 +7,7 @@
       <h2 class="font-semibold">DAS PARTES</h2>
       <p >
         <span class="font-semibold">LOJA {{ $company->name }}</span>, sediada na {{ $company->address }} @if ($company->ceo && $company->cpf && $company->ceo_address)<span>, representada por seu
-        , neste ato representado por seu titular {{ $company->ceo }}, brasileiro, solteiro, residente e
+        , neste ato representado por seu titular {{ $company->ceo }}, brasileiro, {{ $company->ceo_marital_status }}, residente e
         domiciliado no(a) {{ $company->ceo_address }},
         {{ $company->cpf }} , denominado VENDEDOR</span>@endif.
       </p>
