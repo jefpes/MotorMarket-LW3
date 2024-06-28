@@ -103,7 +103,9 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:sale_create'])
         ->name('sale.create');
 
-    Route::get('sale/{id}/contract', Reports\SalesContract::class)->name('contract');
+    Route::get('sale/{id}/contract', Reports\SalesContract::class)
+        ->middleware(['auth', 'verified', 'can:sale_create', SaleCanceled::class])
+        ->name('contract');
 
     Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
         ->middleware(['auth', 'verified', 'can:installment_read', SaleCanceled::class])
