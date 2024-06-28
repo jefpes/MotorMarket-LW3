@@ -14,9 +14,9 @@ class SalesContract extends Component
 
     public Company $company;
 
-    public string $city = 'Pentecoste/CE';
+    public string $city = '';
 
-    public string $date = '';
+    public ?string $date = null;
 
     /** @var array<String> */
     public array $infos = ['MARCA/MODELO', 'ESPECIE/TIPO', 'PLACA', 'COR', 'ANO/MODELO', 'RENAVAM', 'CHASSI' , 'KILOMETRAGEM'];
