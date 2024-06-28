@@ -7,9 +7,9 @@
       <h2 class="font-semibold">DAS PARTES</h2>
       <p >
         <span class="font-semibold">LOJA {{ $company->name }}</span>, sediada na {{ $company->address }} @if ($company->ceo && $company->cpf && $company->ceo_address)<span>, representada por seu
-        , neste ato representado por seu titular ANTONIO, brasileiro, solteiro, residente e
-        domiciliado na Rua: Antonio Moreira, 263, Bairro: Acampamento, CEP 62.640-000, Cidade de Pentecoste, Estado do Ceará,
-        CPF:000.000.000-98 , denominado VENDEDOR</span>@endif.
+        , neste ato representado por seu titular {{ $company->ceo }}, brasileiro, solteiro, residente e
+        domiciliado no(a) {{ $company->ceo_address }},
+        {{ $company->cpf }} , denominado VENDEDOR</span>@endif.
       </p>
       <p>
         Do outro lado, {{ $sale->client->name }}, {{ $sale->client->marital_status }}, residente no(a)
