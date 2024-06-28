@@ -18,8 +18,8 @@ class SalesContract extends Component
 
     public ?string $date = null;
 
-    /** @var array<String> */
-    public array $infos = ['MARCA/MODELO', 'ESPECIE/TIPO', 'PLACA', 'COR', 'ANO/MODELO', 'RENAVAM', 'CHASSI' , 'KILOMETRAGEM'];
+    /** @var array<object> */
+    public array $data;
 
     public function mount(int $id): void
     {
@@ -27,6 +27,16 @@ class SalesContract extends Component
         $this->city    = request('city');
         $this->sale    = Sale::find($id);
         $this->company = Company::first();
+        $this->data    = [
+            (object) ['label' => 'MARCA/MODELO', 'value' => $this->sale->vehicle->model->brand->name],
+            (object) ['label' => 'ESPECIE/TIPO', 'value' => $this->sale->vehicle->model->type->name],
+            (object) ['label' => 'PLACA', 'value' => $this->sale->vehicle->plate],
+            (object) ['label' => 'COR', 'value' => $this->sale->vehicle->color],
+            (object) ['label' => 'ANO/MODELO', 'value' => $this->sale->vehicle->year_one . '/' . $this->sale->vehicle->year_two],
+            (object) ['label' => 'RENAVAM', 'value' => $this->sale->vehicle->renavan],
+            (object) ['label' => 'CHASSI', 'value' => $this->sale->vehicle->chassi],
+            (object) ['label' => 'KILOMETRAGEM', 'value' => number_format($this->sale->vehicle->km, 0, '', '.')],
+        ];
     }
 
     #[Layout('components.layouts.pdf')]
