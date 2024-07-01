@@ -20,6 +20,11 @@ return new class () extends Migration {
             $table->string('salary')->nullable();
             $table->string('rg');
             $table->string('cpf');
+            $table->string('birth_date');
+            $table->string('father')->nullable();
+            $table->string('mother');
+            $table->string('marital_status');
+            $table->string('spouse')->nullable();
             $table->timestamps();
         });
 
@@ -34,7 +39,6 @@ return new class () extends Migration {
             $table->string('state');
             $table->string('country');
             $table->string('complement')->nullable();
-            $table->boolean('main')->default(false);
             $table->timestamps();
         });
 
