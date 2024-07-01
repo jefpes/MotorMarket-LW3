@@ -30,7 +30,6 @@ class EmployeesSeeder extends Seeder
             'state'        => 'CE',
             'country'      => 'Brasil',
             'complement'   => 'Complement',
-            'main'         => true,
         ]);
     }
 }
