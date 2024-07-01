@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Livewire\Reports;
+
+use App\Models\{Company, Sale};
+use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
+use Livewire\Attributes\{Layout};
+use Livewire\Component;
+
+class SalesContract extends Component
+{
+    public Sale $sale;
+
+    public Company $company;
+
+    public string $city = '';
+
+    public ?string $date = null;
+
+    /** @var array<object> */
+    public array $data;
+
+    public function mount(int $id): void
+    {
+        $this->date    = Carbon::create(request('date'))->locale('pt_BR')->isoFormat('LL');
+        $this->city    = request('city');
+        $this->sale    = Sale::find($id);
+        $this->company = Company::first();
+        $this->data    = [
+            (object) ['label' => 'MARCA/MODELO', 'value' => $this->sale->vehicle->model->brand->name],
+            (object) ['label' => 'ESPECIE/TIPO', 'value' => $this->sale->vehicle->model->type->name],
+            (object) ['label' => 'PLACA', 'value' => $this->sale->vehicle->plate],
+            (object) ['label' => 'COR', 'value' => $this->sale->vehicle->color],
+            (object) ['label' => 'ANO/MODELO', 'value' => $this->sale->vehicle->year_one . '/' . $this->sale->vehicle->year_two],
+            (object) ['label' => 'RENAVAM', 'value' => $this->sale->vehicle->renavan],
+            (object) ['label' => 'CHASSI', 'value' => $this->sale->vehicle->chassi],
+            (object) ['label' => 'KILOMETRAGEM', 'value' => number_format($this->sale->vehicle->km, 0, '', '.')],
+        ];
+    }
+
+    #[Layout('components.layouts.pdf')]
+    public function render(): View
+    {
+        return view('livewire.reports.sales-contract');
+    }
+}

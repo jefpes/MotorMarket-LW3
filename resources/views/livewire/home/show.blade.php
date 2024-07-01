@@ -34,7 +34,7 @@
       </div>
       <div>
         <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Value') }}:</span>
-        <span class="py-4">R$ {{ $vehicle->sale_price }}</span>
+        <x-span-money class="py-4" :money="$vehicle->sale_price" />
       </div>
     </div>
 

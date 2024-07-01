@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Ability, City, Client, User};
+use App\Models\{Ability, City, User};
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -95,8 +95,7 @@ class DatabaseSeeder extends Seeder
 
         City::factory()->count(10)->create();
 
-        // Client::factory()->count(10)->create();
-
-        $this->call([BrandSeeder::class, ClientSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, VehicleSeeder::class, SalesSeeder::class, CompanySeeder::class, VehicleExpenseSeeder::class]);
+        $this->call([BrandSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, CompanySeeder::class]);
+        $this->call([ClientSeeder::class, VehicleSeeder::class, SalesSeeder::class, VehicleExpenseSeeder::class]);
     }
 }

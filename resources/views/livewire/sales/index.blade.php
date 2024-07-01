@@ -66,8 +66,8 @@
         <x-table.tr>
           <x-table.td> {{ $s->vehicle->plate }} </x-table.td>
           <x-table.td> {{ $s->client->name }} </x-table.td>
-          <x-table.td> {{ $s->date_sale }} </x-table.td>
-          <x-table.td> {{ $s->total }} </x-table.td>
+          <x-table.td> <x-span-date :date="$s->date_sale" /> </x-table.td>
+          <x-table.td> <x-span-money class="py-4" :money="$s->total" /> </x-table.td>
           <x-table.td> {{ $s->status }} </x-table.td>
           <x-table.td> {{ $s->number_installments }} </x-table.td>
           <x-table.td> {{ $s->user->name }} </x-table.td>
@@ -77,7 +77,9 @@
               <x-table.td>
                 <div class="flex flex-row gap-2 justify-center">
                   @if ($s->number_installments > 1)
-                    <x-icons.contract class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
+                    <x-icons.contract class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" wire:click="issueContract({{ $s->id }})" />
+
+                    <x-icons.money-receive class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
                       href="{{ route('sale.installments', $s->id) }}"
                       id="installments-{{ $s->id }}" wire:navigate />
                   @endif
@@ -98,4 +100,28 @@
   </div>
 
   <livewire:sales.cancel />
+
+  <x-modal wire:model="modal" name="amodal">
+    <x-slot:title> {{ __('Issue Contract') }} </x-slot:title>
+    <div class="w-full flex gap-2">
+      <div class="flex-1">
+        <x-form.input class="w-full" name="city" label="City" type="text" placeholder="City" :messages="$errors->get('city')"
+          wire:model.live="city"/>
+      </div>
+
+      <div class="flex-0">
+        <x-form.input type="date" class="w-full" name="city" label="Data" :messages="$errors->get('date')" wire:model.live="date" />
+      </div>
+    </div>
+
+    <x-slot:footer>
+      <x-secondary-button wire:click="$set('modal', false)">
+        {{ __('Cancel') }}
+      </x-secondary-button>
+
+      <a href="{{ route('contract', [$sale_id, 'city' => $city, 'date' => $date ]) }}" id="contract-{{ $s->id }}" target="blank">
+        <x-primary-button class="ms-3"> {{ __('Issue') }} </x-primary-button>
+      </a>
+    </x-slot:footer>
+  </x-modal>
 </div>

@@ -19,6 +19,14 @@ class Edit extends Component
 
     public ?string $email;
 
+    public ?string $ceo;
+
+    public ?string $cpf;
+
+    public ?string $ceo_marital_status;
+
+    public ?string $ceo_address;
+
     public ?string $phone;
 
     public ?string $address;
@@ -45,19 +53,23 @@ class Edit extends Component
     {
         $this->company = Company::find(1);
 
-        $this->name      = $this->company->name;
-        $this->email     = $this->company->email;
-        $this->phone     = $this->company->phone;
-        $this->address   = $this->company->address;
-        $this->cnpj      = $this->company->cnpj;
-        $this->about     = $this->company->about;
-        $this->logo      = $this->company->logo;
-        $this->x         = $this->company->x;
-        $this->instagram = $this->company->instagram;
-        $this->facebook  = $this->company->facebook;
-        $this->linkedin  = $this->company->linkedin;
-        $this->youtube   = $this->company->youtube;
-        $this->whatsapp  = $this->company->whatsapp;
+        $this->name               = $this->company->name;
+        $this->email              = $this->company->email;
+        $this->phone              = $this->company->phone;
+        $this->address            = $this->company->address;
+        $this->cnpj               = $this->company->cnpj;
+        $this->ceo                = $this->company->ceo;
+        $this->cpf                = $this->company->cpf;
+        $this->ceo_marital_status = $this->company->ceo_marital_status;
+        $this->ceo_address        = $this->company->ceo_address;
+        $this->about              = $this->company->about;
+        $this->logo               = $this->company->logo;
+        $this->x                  = $this->company->x;
+        $this->instagram          = $this->company->instagram;
+        $this->facebook           = $this->company->facebook;
+        $this->linkedin           = $this->company->linkedin;
+        $this->youtube            = $this->company->youtube;
+        $this->whatsapp           = $this->company->whatsapp;
     }
 
     public function render(): View
@@ -73,19 +85,23 @@ class Edit extends Component
         ]);
 
         $this->company->update([
-            'name'      => $this->name,
-            'email'     => $this->email,
-            'phone'     => $this->phone,
-            'address'   => $this->address,
-            'cnpj'      => $this->cnpj,
-            'about'     => $this->about,
-            'logo'      => $this->logo,
-            'x'         => $this->x,
-            'instagram' => $this->instagram,
-            'facebook'  => $this->facebook,
-            'linkedin'  => $this->linkedin,
-            'youtube'   => $this->youtube,
-            'whatsapp'  => $this->whatsapp,
+            'name'               => $this->name,
+            'email'              => $this->email,
+            'phone'              => $this->phone,
+            'address'            => $this->address,
+            'ceo'                => $this->ceo,
+            'cpf'                => $this->cpf,
+            'ceo_marital_status' => $this->ceo_marital_status,
+            'ceo_address'        => $this->ceo_address,
+            'cnpj'               => $this->cnpj,
+            'about'              => $this->about,
+            'logo'               => $this->logo,
+            'x'                  => $this->x,
+            'instagram'          => $this->instagram,
+            'facebook'           => $this->facebook,
+            'linkedin'           => $this->linkedin,
+            'youtube'            => $this->youtube,
+            'whatsapp'           => $this->whatsapp,
         ]);
 
         $this->msg  = 'Company updated successfully!';

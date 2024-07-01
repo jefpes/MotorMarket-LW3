@@ -24,18 +24,18 @@
     <div class="relative max-w-sm w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
       <span
         class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-        {{ __('Stock') . ': ' . $this->getVehicleStatistics->totalVehicles }}
+        {{ __('Stock') . ': ' . $this->vehicles->total }}
       </span>
       <ul class="max-w-md space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4">
-        @foreach ($this->getVehicleStatistics->totalVehiclesByType as $data)
+        @foreach ($this->vehicles->totalByType as $data)
         <li>
           {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $data->name }}</span> {{ __('with') }}
           <span class="font-semibold text-gray-900 dark:text-white">{{ $data->total_vehicles }}</span> {{ __('vehicle') }}
           <div>
-            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_purchase_price }}</span> <br/>
-            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_sale_price }}</span> <br/>
-            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_expenses }}</span> <br />
-            {{ __('Total Stock Value') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $data->total_stock }}</span>
+            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($data->total_purchase_price, 2, ',', '.') }}</span> <br/>
+            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($data->total_sale_price, 2, ',', '.') }}</span> <br/>
+            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($data->total_expenses, 2, ',', '.') }}</span> <br />
+            {{ __('Total Stock Value') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($data->total_stock, 2, ',', '.') }}</span>
           </div>
         </li>
         @endforeach
@@ -45,28 +45,7 @@
     <div class="relative max-w-sm w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
       <span
         class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-        {{ __('Sales') . ': ' . $this->sales->count() }}
-      </span>
-      <ul class="max-w-md space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4">
-        @foreach ($this->salesType as $sale)
-        <li>
-          {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $sale->name }}</span> {{ __('with') }}
-          <span class="font-semibold text-gray-900 dark:text-white">{{ $sale->number_of_sales }}</span> {{ __('vehicle') }}
-          <div>
-            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_purchase_price }}</span> <br/>
-            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_sales }}</span> <br />
-            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_expenses }}</span> <br />
-            {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->profit }}</span>
-          </div>
-        </li>
-        @endforeach
-      </ul>
-    </div>
-
-    <div class="relative max-w-sm w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-      <span
-        class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-        {{ __('Sales') . ': ' . $this->salesFilter->count() }}
+        {{ __('Sales') . ': ' . $this->sales->count }}
       </span>
 
       <div class="w-full p-2">
@@ -96,15 +75,15 @@
         </div>
       </div>
       <ul class="max-w-md space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4">
-        @foreach ($this->salesTypeFilter as $sale)
+        @foreach ($this->sales->byType as $sale)
         <li>
-          {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $sale->name }}</span> :
-          <span class="font-semibold text-gray-900 dark:text-white">{{ $sale->number_of_sales }}</span>
+          {{ __('Type') . ': ' }}<span class="font-semibold text-gray-900 dark:text-white">{{ $sale->name }}</span> {{ __('with') }}
+          <span class="font-semibold text-gray-900 dark:text-white">{{ $sale->number_of_sales }}</span> {{ __('vehicle') }}
           <div>
-            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_purchase_price }}</span> <br/>
-            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->total_sales }}</span> <br />
-            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">R$ {{ $sale->total_expenses }}</span> <br />
-            {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white">{{ ' R$ '.$sale->profit }}</span>
+            {{ __('Total Purchase Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($sale->total_purchase_price, 2, ',', '.') }}</span> <br/>
+            {{ __('Total Sale Price') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($sale->total_sales, 2, ',', '.') }}</span> <br />
+            {{ __('Total Expense') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($sale->total_expenses, 2, ',', '.') }}</span> <br />
+            {{ __('Total Profit') . ': ' }} <span class="font-semibold text-gray-900 dark:text-white tracking-[0.10rem]">R$ {{ number_format($sale->profit, 2, ',', '.') }}</span>
           </div>
         </li>
         @endforeach

@@ -3,11 +3,11 @@
 namespace App\Livewire\Sales;
 
 use App\Enums\StatusPayments;
-use App\Models\Sale;
+use App\Models\{Sale};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Livewire\Attributes\{Computed, On, Url};
+use Livewire\Attributes\{Computed, On, Url, Validate};
 use Livewire\{Component, WithPagination};
 
 class Index extends Component
@@ -15,6 +15,16 @@ class Index extends Component
     use WithPagination;
 
     public string $header = 'Sales';
+
+    public bool $modal = false;
+
+    public ?int $sale_id = 1;
+
+    #[Validate('required|string|max:100')]
+    public ?string $city = null;
+
+    #[Validate('required|date')]
+    public ?string $date = null;
 
     /** @var array<string> */
     public array $theader = ['Plate', 'Client', 'Sale Date', 'Value', 'Status', 'Installments', 'By' , 'Actions'];
@@ -93,5 +103,11 @@ class Index extends Component
         ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
         ->when($this->date_ini && $this->date_end, fn (Builder $q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
         ->paginate($this->perPage);
+    }
+
+    public function issueContract(int $id): void
+    {
+        $this->modal   = true;
+        $this->sale_id = $id;
     }
 }

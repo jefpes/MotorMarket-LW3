@@ -4,7 +4,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, 
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, City, Client, Company, Dashboard, Home, PaymentInstallments, Profile, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
+use App\Livewire\{Brand, City, Client, Company, Dashboard, Home, PaymentInstallments, Profile, Reports, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -102,6 +102,10 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('sale_create/{id}', Sales\Create::class)
         ->middleware(['auth', 'verified', 'can:sale_create'])
         ->name('sale.create');
+
+    Route::get('sale/{id}/contract', Reports\SalesContract::class)
+        ->middleware(['auth', 'verified', 'can:sale_create', SaleCanceled::class])
+        ->name('contract');
 
     Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
         ->middleware(['auth', 'verified', 'can:installment_read', SaleCanceled::class])

@@ -64,11 +64,11 @@
         <x-table.tr>
           <x-table.td> {{ $loop->iteration }} </x-table.td>
           <x-table.td> {{ $i->sale->client->name }} </x-table.td>
-          <x-table.td> {{ $i->due_date }} </x-table.td>
-          <x-table.td> {{ $i->value }} </x-table.td>
-          <x-table.td> {{ $i->payment_date ?? '' }} </x-table.td>
+          <x-table.td> <x-span-date :date="$i->due_date" /> </x-table.td>
+          <x-table.td> <x-span-money class="py-4" :money="$i->value" /> </x-table.td>
+          <x-table.td> <x-span-date :date="$i->payment_date" /> </x-table.td>
           <x-table.td> {{ $i->payment_method ?? '' }} </x-table.td>
-          <x-table.td> {{ $i->payment_value ?? '' }} </x-table.td>
+          <x-table.td> <x-span-money class="py-4" :money="$i->payment_value" /> </x-table.td>
           <x-table.td> {{ $i->status }} </x-table.td>
           <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
 
