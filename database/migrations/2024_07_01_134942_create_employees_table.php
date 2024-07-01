@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Employees;
+use App\Models\{City, Employees};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +17,7 @@ return new class () extends Migration {
             $table->string('email')->unique();
             $table->string('phone_one');
             $table->string('phone_two')->nullable();
-            $table->string('salary')->nullable();
+            $table->float('salary')->nullable();
             $table->string('rg');
             $table->string('cpf');
             $table->string('birth_date');
@@ -35,7 +35,7 @@ return new class () extends Migration {
             $table->string('street');
             $table->string('number');
             $table->string('neighborhood');
-            $table->string('city');
+            $table->foreignIdFor(City::class)->constrained()->cascadeOnDelete();
             $table->string('state');
             $table->string('country');
             $table->string('complement')->nullable();

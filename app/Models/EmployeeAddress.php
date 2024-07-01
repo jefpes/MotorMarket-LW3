@@ -14,4 +14,9 @@ class EmployeeAddress extends Model
     {
         return $this->belongsTo(Employees::class);
     }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
 }

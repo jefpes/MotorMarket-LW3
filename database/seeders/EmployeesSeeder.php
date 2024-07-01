@@ -26,7 +26,7 @@ class EmployeesSeeder extends Seeder
             'street'       => 'Street',
             'number'       => '123',
             'neighborhood' => 'Neighborhood',
-            'city'         => 'City',
+            'city_id'      => 1,
             'state'        => 'CE',
             'country'      => 'Brasil',
             'complement'   => 'Complement',
