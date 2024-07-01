@@ -34,6 +34,7 @@ return new class () extends Migration {
             $table->string('state');
             $table->string('country');
             $table->string('complement')->nullable();
+            $table->boolean('main')->default(false);
             $table->timestamps();
         });
 
