@@ -6,9 +6,9 @@
         wire:model.live.debounce.800="search" class="w-full" />
     </div>
 
-    @can('client_create')
+    @can('employee_create')
     <div class="gap-2 flex flex-0">
-      <x-primary-button :href="route('client.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
+      <x-primary-button :href="route('employee.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
     </div>
     @endcan
 
@@ -18,7 +18,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
         @if ($h == 'Actions')
-          @canany(['client_update', 'client_delete'])
+          @canany(['employee_update', 'employee_delete'])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
           @else
@@ -27,27 +27,26 @@
       @endforeach
     </x-slot:thead>
     <x-slot:tbody>
-      @foreach ($this->clients->items() as $c)
+      @foreach ($this->employees->items() as $data)
       <x-table.tr>
-        <x-table.td> {{ $c->name }} </x-table.td>
-        <x-table.td> {{ $c->rg }} </x-table.td>
-        <x-table.td> {{ $c->cpf }} </x-table.td>
-        <x-table.td> {{ $c->phone_one }} </x-table.td>
-        <x-table.td> {{ $c->birth_date }} </x-table.td>
+        <x-table.td> {{ $data->name }} </x-table.td>
+        <x-table.td> {{ $data->rg }} </x-table.td>
+        <x-table.td> {{ $data->cpf }} </x-table.td>
+        <x-table.td> {{ $data->phone_one }} </x-table.td>
+        <x-table.td> {{ $data->birth_date }} </x-table.td>
 
-
-        @canany(['client_delete', 'client_update'])
+        @canany(['employee_delete', 'employee_update'])
         <x-table.td>
           <div class="flex flex-row gap-2 justify-center">
 
-            <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
+            <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $data->id }}" href="{{ route('client.show', $data->id) }}" wire:navigate />
 
-            @can('client_update')
-              <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
+            @can('employee_update')
+              <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}" href="{{ route('client.edit', $data->id) }}" wire:navigate />
             @endcan
 
-            @can('client_delete')
-              <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $c->id }}" wire:click="$dispatch('client::deleting', { id: {{ $c->id }}})" />
+            @can('employee_delete')
+              <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}" wire:click="$dispatch('client::deleting', { id: {{ $data->id }}})" />
             @endcan
           </div>
         </x-table.td>
@@ -57,8 +56,8 @@
     </x-slot:tbody>
   </x-table.table>
   <div class="pt-6 px-2">
-    {{ $this->clients->onEachSide(1)->links() }}
+    {{ $this->employees->onEachSide(1)->links() }}
   </div>
 
-  <livewire:client.delete />
+  <livewire:employee.delete />
 </div>

@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Employee;
 
-use App\Models\{Client};
+use App\Models\{Employee};
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -13,7 +13,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    public string $header = 'Clients';
+    public string $header = 'Employees';
 
     /** @var array<string> */
     public array $theader = ['Name', 'RG', 'CPF', 'Phone', 'Birth Date', 'Actions'];
@@ -21,16 +21,16 @@ class Index extends Component
     #[Url(except: '', as: 'name', history: true)]
     public ?string $search = '';
 
-    #[On('client::refresh')]
+    #[On('data::refresh')]
     public function render(): View
     {
         return view('livewire.employee.index');
     }
 
     #[Computed()]
-    public function clients(): Paginator
+    public function employees(): Paginator
     {
-        return Client::when($this->search, fn (Builder $q) => $q->where('name', 'like', "%{$this->search}%"))
+        return Employee::when($this->search, fn (Builder $q) => $q->where('name', 'like', "%{$this->search}%"))
                 ->paginate();
     }
 

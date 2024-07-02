@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Employee;
 
-use App\Enums\{LogradouroType, States};
-use App\Livewire\Forms\ClientForm;
-use App\Models\City;
+use App\Enums\{States};
+use App\Livewire\Forms\EmployeeForm;
+use App\Models\{City, EmployeeAddress, EmployeePhotos};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -17,26 +17,37 @@ class Create extends Component
     use WithFileUploads;
     use Toast;
 
-    public ClientForm $form;
+    public EmployeeForm $employee;
 
-    public string $header = 'Create Client';
+    public EmployeePhotos $employeePhotos;
+
+    public EmployeeAddress $employeeAddress;
+
+    public string $header = 'Create Employee';
 
     /** @var array<Object> */
     public array $photos;
 
     public function render(): View
     {
-        return view('livewire.employee.create', ['states' => States::cases(), 'logradouroType' => LogradouroType::cases(), 'cities' => City::all()]);
+        return view('livewire.employee.create', ['states' => States::cases(), 'cities' => City::all()]);
     }
 
     public function save(): void
     {
+        $this->authorize('employee_create');
 
-        $this->authorize('client_create');
+        file_exists('storage/employee_photos/') ?: Storage::makeDirectory('employee_photos/');
 
-        file_exists('storage/client_photos/') ?: Storage::makeDirectory('client_photos/');
+        try {
+            $employee = $this->employee->save();
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->msg  = 'Employee not created';
+            $this->icon = 'icons.error';
+            $this->dispatch('show-toast');
 
-        $client = $this->form->save();
+            return;
+        }
 
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
@@ -49,22 +60,22 @@ class Create extends Component
             // resize image proportionally to 300px width
             $image->scale(height: 1240);
 
-            $path       = 'storage/client_photos/';
-            $customName = $path . str_replace(' ', '_', $client->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+            $path       = 'storage/employee_photos/';
+            $customName = $path . str_replace(' ', '_', $employee->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
 
             // Save image
             $image->save($customName);
 
-            $client->photos()->create([
+            $employee->photos()->create([
                 'photo_name' => str_replace($path, '', $customName),
                 'format'     => $photo->getClientOriginalExtension(),
                 'full_path'  => storage_path('app/public/') . str_replace('storage/', '', $customName),
                 'path'       => $customName,
             ]);
         }
-        $this->form->reset();
+        $this->employee->reset();
 
-        $this->msg  = 'Client created successfully';
+        $this->msg  = 'Employee created successfully';
         $this->icon = 'icons.success';
         $this->dispatch('show-toast');
     }
