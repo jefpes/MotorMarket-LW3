@@ -42,6 +42,7 @@ class Navigation extends Component
             (object)['route' => 'vehicle', 'label' => 'Vehicles', 'permission' => 'vehicle_read', 'isActive' => request()->routeIs('vehicle')],
             (object)['route' => 'city', 'label' => 'Cities', 'permission' => 'city_read', 'isActive' => request()->routeIs('city')],
             (object)['route' => 'client', 'label' => 'Clients', 'permission' => 'client_read', 'isActive' => request()->routeIs('client', 'client.create', 'client.edit')],
+            (object)['route' => 'employee', 'label' => 'Employee', 'permission' => 'employee_read', 'isActive' => request()->routeIs('employee', 'employee.create', 'employee.edit')],
             (object)['route' => 'sales', 'label' => 'Sales', 'permission' => 'sale_read', 'isActive' => request()->routeIs('sales', 'sales.create')],
             (object)['route' => 'installments', 'label' => 'Installments', 'permission' => 'installment_read', 'isActive' => request()->routeIs('installments')],
             (object)['route' => 'vehicle-expense', 'label' => 'Expenses', 'permission' => 'expense_read', 'isActive' => request()->routeIs('vehicle-expense')],

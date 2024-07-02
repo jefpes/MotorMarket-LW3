@@ -4,7 +4,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, 
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, City, Client, Company, Dashboard, Home, PaymentInstallments, Profile, Reports, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
+use App\Livewire\{Brand, City, Client, Company, Dashboard, Employee, Home, PaymentInstallments, Profile, Reports, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -94,6 +94,22 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('client_show/{id}', Client\Show::class)
         ->middleware(['auth', 'verified', 'can:client_read'])
         ->name('client.show');
+
+    Route::get('employee', Employee\Index::class)
+        ->middleware(['auth', 'verified', 'can:client_read'])
+        ->name('employee');
+
+    Route::get('employee_create', Employee\Create::class)
+        ->middleware(['auth', 'verified', 'can:employee_create'])
+        ->name('employee.create');
+
+    Route::get('employee_edit/{id}', Employee\Update::class)
+        ->middleware(['auth', 'verified', 'can:employee_update'])
+        ->name('employee.edit');
+
+    Route::get('employee_show/{id}', Employee\Show::class)
+        ->middleware(['auth', 'verified', 'can:employee_read'])
+        ->name('employee.show');
 
     Route::get('sales', Sales\Index::class)
             ->middleware(['auth', 'verified', 'can:sale_read'])

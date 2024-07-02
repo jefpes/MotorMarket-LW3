@@ -74,6 +74,10 @@ class DatabaseSeeder extends Seeder
             ['name' => 'expense_read'],
             ['name' => 'expense_update'],
             ['name' => 'expense_delete'],
+            ['name' => 'employee_create'],
+            ['name' => 'employee_read'],
+            ['name' => 'employee_update'],
+            ['name' => 'employee_delete'],
         ]);
 
         $user = User::create([
