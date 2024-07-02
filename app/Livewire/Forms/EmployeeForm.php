@@ -40,12 +40,12 @@ class EmployeeForm extends Form
     {
         return [
             'name'           => ['required', 'min:3', 'max:255'],
-            'email'          => ['required', 'email', 'unique:Employee,email,' . $this->id],
+            'email'          => ['required', 'email', 'unique:employees,email,' . $this->id],
             'phone_one'      => ['required'],
             'phone_two'      => ['nullable'],
             'salary'         => ['nullable', 'numeric'],
-            'rg'             => ['required', 'unique:Employee,rg,' . $this->id],
-            'cpf'            => ['required', 'unique:Employee,cpf,' . $this->id],
+            'rg'             => ['required', 'unique:employees,rg,' . $this->id],
+            'cpf'            => ['required', 'unique:employees,cpf,' . $this->id],
             'birth_date'     => ['required', 'date'],
             'father'         => ['nullable', 'min:3', 'max:255'],
             'mother'         => ['required', 'min:3', 'max:255'],
@@ -61,21 +61,24 @@ class EmployeeForm extends Form
             ['id' => $this->id],
             [
                 'name'           => $this->name,
-                'rg'             => $this->rg,
-                'cpf'            => $this->cpf,
-                'marital_status' => $this->marital_status,
+                'email'          => $this->email,
                 'phone_one'      => $this->phone_one,
                 'phone_two'      => $this->phone_two,
+                'salary'         => $this->salary,
+                'rg'             => $this->rg,
+                'cpf'            => $this->cpf,
                 'birth_date'     => $this->birth_date,
                 'father'         => $this->father,
                 'mother'         => $this->mother,
+                'marital_status' => $this->marital_status,
+                'spouse'         => $this->spouse,
             ]
         );
 
         return $employee;
     }
 
-    public function setClient(int $id): void
+    public function setEmployee(int $id): void
     {
         $employee             = Employee::find($id);
         $this->id             = $employee->id;

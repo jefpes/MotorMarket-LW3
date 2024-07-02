@@ -33,7 +33,7 @@ class EmployeeAddressForm extends Form
     public function rules()
     {
         return [
-            'employee_id'  => ['required', 'exists:Employee,id', 'integer'], // 'exists' => 'Employee,id'
+            'employee_id'  => ['required', 'exists:employees,id', 'integer'], // 'exists' => 'Employee,id'
             'zip_code'     => ['required', 'size:9'],
             'street'       => ['required', 'min:3', 'max:255'],
             'number'       => ['required', 'integer'],
