@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Employee;
 
-use App\Enums\{States};
+use App\Enums\{MaritalStatus, States};
 use App\Livewire\Forms\EmployeeForm;
 use App\Models\{City, EmployeeAddress, EmployeePhotos};
 use App\Traits\Toast;
@@ -30,7 +30,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.employee.create', ['states' => States::cases(), 'cities' => City::all()]);
+        return view('livewire.employee.create', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
     }
 
     public function save(): void
@@ -39,15 +39,7 @@ class Create extends Component
 
         file_exists('storage/employee_photos/') ?: Storage::makeDirectory('employee_photos/');
 
-        try {
-            $employee = $this->employee->save();
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            $this->msg  = 'Employee not created';
-            $this->icon = 'icons.error';
-            $this->dispatch('show-toast');
-
-            return;
-        }
+        $employee = $this->employee->save();
 
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());

@@ -170,6 +170,16 @@ return [
 
     'attributes' => [
         'address'               => 'endereço',
+        'mother'                => 'mãe',
+        'father'                => 'pai',
+        'spouse'                => 'cônjuge',
+        'salary'                => 'salário',
+        'phone'                 => 'telefone',
+        'phone_one'             => 'telefone 1',
+        'phone_two'             => 'telefone 2',
+        'plate'                 => 'placa',
+        'cpf'                   => 'CPF',
+        'rg'                    => 'RG',
         'age'                   => 'idade',
         'body'                  => 'conteúdo',
         'cell'                  => 'célula',

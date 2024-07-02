@@ -37,7 +37,6 @@ return new class () extends Migration {
             $table->string('neighborhood');
             $table->foreignIdFor(City::class)->constrained()->cascadeOnDelete();
             $table->string('state');
-            $table->string('country');
             $table->string('complement')->nullable();
             $table->timestamps();
         });

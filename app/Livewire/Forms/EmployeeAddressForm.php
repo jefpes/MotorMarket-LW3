@@ -27,8 +27,6 @@ class EmployeeAddressForm extends Form
 
     public ?string $state = '';
 
-    public ?string $country = 'Brasil';
-
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
@@ -41,7 +39,6 @@ class EmployeeAddressForm extends Form
             'complement'   => ['nullable', 'min:3', 'max:255'],
             'city_id'      => ['required', 'exists:cities,id', 'integer'],
             'state'        => ['required', 'min:2', 'max:100'],
-            'country'      => ['required', 'min:3', 'max:100'],
         ];
     }
 
@@ -58,7 +55,6 @@ class EmployeeAddressForm extends Form
                 'complement'   => $this->complement,
                 'city_id'      => $this->city_id,
                 'state'        => $this->state,
-                'country'      => $this->country,
             ]
         );
     }
@@ -75,6 +71,5 @@ class EmployeeAddressForm extends Form
         $this->complement   = $address->complement; /* @phpstan-ignore-line */
         $this->city_id      = $address->city_id; /* @phpstan-ignore-line */
         $this->state        = $address->state; /* @phpstan-ignore-line */
-        $this->country      = $address->country; /* @phpstan-ignore-line */
     }
 }

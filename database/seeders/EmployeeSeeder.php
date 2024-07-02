@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Employee;
-use App\Models\Employees;
+use App\Models\{Employee};
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -29,7 +28,6 @@ class EmployeeSeeder extends Seeder
             'neighborhood' => 'Neighborhood',
             'city_id'      => 1,
             'state'        => 'CE',
-            'country'      => 'Brasil',
             'complement'   => 'Complement',
         ]);
     }
