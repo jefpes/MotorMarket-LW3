@@ -17,10 +17,10 @@ return new class () extends Migration {
             $table->string('email')->unique();
             $table->string('phone_one');
             $table->string('phone_two')->nullable();
-            $table->float('salary')->nullable();
-            $table->string('rg');
-            $table->string('cpf');
-            $table->string('birth_date');
+            $table->decimal('salary', places: 2);
+            $table->string('rg', 20)->unique();
+            $table->string('cpf', 20)->unique();
+            $table->date('birth_date');
             $table->string('father')->nullable();
             $table->string('mother');
             $table->string('marital_status');
@@ -28,7 +28,7 @@ return new class () extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('employee_address', function (Blueprint $table) {
+        Schema::create('employee_addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained()->cascadeOnDelete();
             $table->string('zip_code');

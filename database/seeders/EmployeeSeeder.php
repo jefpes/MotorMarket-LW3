@@ -2,17 +2,18 @@
 
 namespace Database\Seeders;
 
+use App\Models\Employee;
 use App\Models\Employees;
 use Illuminate\Database\Seeder;
 
-class EmployeesSeeder extends Seeder
+class EmployeeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $employee = Employees::factory()->count(1)->create();
+        $employee = Employee::factory()->create();
 
         $employee->photos()->create([
             'photo_name' => 'photo',

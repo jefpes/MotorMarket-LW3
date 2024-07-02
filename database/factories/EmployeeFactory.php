@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employees>
  */
-class EmployeesFactory extends Factory
+class EmployeeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,15 +18,16 @@ class EmployeesFactory extends Factory
     {
         return [
             'name'           => $this->faker->name,
-            'email'          => $this->faker->unique()->safeEmail,
-            'phone_one'      => $this->faker->phoneNumber,
-            'phone_two'      => $this->faker->optional()->phoneNumber,
+            'email'          => fake()->unique()->safeEmail(),
             'salary'         => $this->faker->randomFloat(2, 1000, 10000),
-            'rg'             => $this->faker->unique()->numerify('########-#'),
+            'rg'             => $this->faker->unique()->numerify('##.###.###-#'),
             'cpf'            => $this->faker->unique()->numerify('###.###.###-##'),
+            'marital_status' => $this->faker->randomElement(['Solteiro', 'Casado', 'Divorciado', 'Viúvo']),
+            'phone_one'      => $this->faker->unique()->numerify('(##) #####-####'),
+            'phone_two'      => $this->faker->optional()->numerify('(##) #####-####'),
             'birth_date'     => $this->faker->date(),
-            'father'         => $this->faker->optional()->name,
-            'mother'         => $this->faker,
+            'father'         => $this->faker->optional()->name('male'),
+            'mother'         => $this->faker->name('female'),
             'marital_status' => $this->faker->randomElement(['Solteiro', 'Casado', 'Divorciado', 'Viúvo']),
             'spouse'         => $this->faker->optional()->name,
         ];
