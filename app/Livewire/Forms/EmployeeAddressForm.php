@@ -2,14 +2,16 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\{EmployeeAddress, Employees};
+use App\Models\{Employee, EmployeeAddress};
 use Livewire\Attributes\{Locked};
 use Livewire\Form;
 
-class ClientForm extends Form
+class EmployeeAddressForm extends Form
 {
     #[Locked]
     public ?int $id = null;
+
+    public ?int $employee_id = null;
 
     public ?string $zip_code = '';
 
@@ -31,6 +33,7 @@ class ClientForm extends Form
     public function rules()
     {
         return [
+            'employee_id'  => ['required', 'exists:Employee,id', 'integer'], // 'exists' => 'Employee,id'
             'zip_code'     => ['required', 'size:9'],
             'street'       => ['required', 'min:3', 'max:255'],
             'number'       => ['required', 'integer'],
@@ -42,12 +45,13 @@ class ClientForm extends Form
         ];
     }
 
-    public function save(Employees $employee): void
+    public function save(Employee $employee): void
     {
         $this->validate();
         $employee->address()->updateOrCreate(
             ['id' => $this->id],
             [
+                'employee_id'  => $this->employee_id,
                 'zip_code'     => $this->zip_code,
                 'street'       => $this->street,
                 'number'       => $this->number,
@@ -62,8 +66,9 @@ class ClientForm extends Form
 
     public function setEmployeeAddress(int $id): void
     {
-        $address            = EmployeeAddress::find($id);
-        $this->id           = $address->id;
+        $address            = EmployeeAddress::where('employee_id', $id);
+        $this->id           = $address->id; /* @phpstan-ignore-line */
+        $this->employee_id  = $address->employee_id; /* @phpstan-ignore-line */
         $this->zip_code     = $address->zip_code; /* @phpstan-ignore-line */
         $this->street       = $address->street; /* @phpstan-ignore-line */
         $this->number       = $address->number; /* @phpstan-ignore-line */

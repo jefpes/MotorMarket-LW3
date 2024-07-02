@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\{City, Employees};
+use App\Models\{City, Employee};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -30,7 +30,7 @@ return new class () extends Migration {
 
         Schema::create('employee_address', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employees::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Employee::class)->constrained()->cascadeOnDelete();
             $table->string('zip_code');
             $table->string('street');
             $table->string('number');
@@ -44,7 +44,7 @@ return new class () extends Migration {
 
         Schema::create('employee_photos', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employees::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Employee::class)->constrained()->cascadeOnDelete();
             $table->string('photo_name', 255);
             $table->string('format', 5);
             $table->string('full_path', 255);
@@ -61,6 +61,6 @@ return new class () extends Migration {
     {
         Schema::dropIfExists('employee_photos');
         Schema::dropIfExists('employee_address');
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('employee');
     }
 };

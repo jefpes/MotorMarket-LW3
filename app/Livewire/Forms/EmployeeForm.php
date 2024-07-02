@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\{Employees};
+use App\Models\{Employee};
 use Livewire\Attributes\{Locked};
 use Livewire\Form;
 
@@ -40,12 +40,12 @@ class EmployeeForm extends Form
     {
         return [
             'name'           => ['required', 'min:3', 'max:255'],
-            'email'          => ['required', 'email', 'unique:employees,email,' . $this->id],
+            'email'          => ['required', 'email', 'unique:Employee,email,' . $this->id],
             'phone_one'      => ['required'],
             'phone_two'      => ['nullable'],
             'salary'         => ['nullable', 'numeric'],
-            'rg'             => ['required', 'unique:employees,rg,' . $this->id],
-            'cpf'            => ['required', 'unique:employees,cpf,' . $this->id],
+            'rg'             => ['required', 'unique:Employee,rg,' . $this->id],
+            'cpf'            => ['required', 'unique:Employee,cpf,' . $this->id],
             'birth_date'     => ['required', 'date'],
             'father'         => ['nullable', 'min:3', 'max:255'],
             'mother'         => ['required', 'min:3', 'max:255'],
@@ -54,10 +54,10 @@ class EmployeeForm extends Form
         ];
     }
 
-    public function save(): Employees
+    public function save(): Employee
     {
         $this->validate();
-        $employee = Employees::updateOrCreate(
+        $employee = Employee::updateOrCreate(
             ['id' => $this->id],
             [
                 'name'           => $this->name,
@@ -77,7 +77,7 @@ class EmployeeForm extends Form
 
     public function setClient(int $id): void
     {
-        $employee             = Employees::find($id);
+        $employee             = Employee::find($id);
         $this->id             = $employee->id;
         $this->name           = $employee->name;
         $this->email          = $employee->email;
@@ -95,6 +95,6 @@ class EmployeeForm extends Form
 
     public function destroy(): void
     {
-        Employees::find($this->id)->delete();
+        Employee::find($this->id)->delete();
     }
 }
