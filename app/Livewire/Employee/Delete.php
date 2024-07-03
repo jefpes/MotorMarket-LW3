@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Employee;
 
-use App\Livewire\Forms\ClientForm;
-use App\Models\Client;
+use App\Livewire\Forms\{EmployeeForm};
+use App\Models\{Employee};
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\{Locked, On};
@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Delete extends Component
 {
-    public ClientForm $form;
+    public EmployeeForm $form;
 
     #[Locked]
     public int $id;
@@ -20,37 +20,37 @@ class Delete extends Component
 
     public ?string $icon = 'icons.success';
 
-    public ?string $msg = 'Client Deleted';
+    public ?string $msg = 'Employee Deleted';
 
-    public ?string $title = 'Deleting Client';
+    public ?string $title = 'Deleting Employee';
 
     public function render(): View
     {
         return view('livewire.employee.delete');
     }
 
-    #[On('client::deleting')]
+    #[On('data::deleting')]
     public function deleting(int $id): void
     {
-        $this->form->setClient($id);
+        $this->form->setEmployee(Employee::find($id));
         $this->modal = true;
     }
 
     public function destroy(): void
     {
-        $this->authorize('client_delete');
-        $client = Client::find($this->form->id);
+        $this->authorize('employee_delete');
+        $data = Employee::find($this->form->id);
 
-        if($client->photos->isNotEmpty()) {
-            foreach ($client->photos as $photo) {
-                Storage::delete("/client_photos/" . $photo->photo_name);
+        if($data->photos->isNotEmpty()) {
+            foreach ($data->photos as $photo) {
+                Storage::delete("/employee_photos/" . $photo->photo_name);
             }
         }
 
         $this->form->destroy();
         $this->modal = false;
 
-        $this->dispatch('client::refresh');
+        $this->dispatch('data::refresh');
 
         $this->dispatch('show-toast');
     }
