@@ -43,10 +43,7 @@ class Update extends Component
 
     private function deleteOldPhotos(Employee $employee): void
     {
-        // Supondo que você tenha um relacionamento entre employee e employeePhotos
-        $oldPhotos = $employee->photos;
-
-        foreach ($oldPhotos as $photo) {
+        foreach ($employee->photos as $photo) {
             if (Storage::exists("/employee_photos/" . $photo->photo_name)) {
                 Storage::delete("/employee_photos/" . $photo->photo_name);
             }
