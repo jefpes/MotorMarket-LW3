@@ -7,7 +7,7 @@ use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotosForm};
 use App\Models\{City};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\{DB, Storage};
+use Illuminate\Support\Facades\{Storage};
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Livewire\{Component, WithFileUploads};
@@ -35,59 +35,48 @@ class Create extends Component
 
     public function save(): void
     {
-        // dd($this->employee, $this->employeePhotos, $this->employeeAddress);
         $this->authorize('employee_create');
 
         file_exists('storage/employee_photos/') ?: Storage::makeDirectory('employee_photos/');
 
-        DB::beginTransaction();
+        $this->employee->validate();
+        $this->employeeAddress->validate();
 
-        try {
-            $employee = $this->employee->save();
-            $this->employeeAddress->save($employee);
+        $employee = $this->employee->save();
 
-            if($this->photos) {
-                // create image manager with desired driver
-                $manager = new ImageManager(new Driver());
+        // Salva o endereço do funcionário
+        $this->employeeAddress->employee_id = $employee->id;
+        $this->employeeAddress->save($employee);
 
-                foreach ($this->photos as $photo) {
-                    // read image from file system
+        // Processa e salva as fotos, se houver
+        if ($this->photos) {
+            $manager = new ImageManager(new Driver());
 
-                    $image = $manager->read($photo);
+            foreach ($this->photos as $photo) {
+                $image = $manager->read($photo);
+                $image->scale(height: 1240);
 
-                    // resize image proportionally to 300px width
-                    $image->scale(height: 1240);
+                $path       = 'storage/employee_photos/';
+                $customName = $path . str_replace(' ', '_', $employee->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
 
-                    $path = 'storage/employee_photos/';
+                $image->save($customName);
 
-                    $customName = $path . str_replace(' ', '_', $employee->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+                $this->employeePhotos->employee_id = $employee->id;
+                $this->employeePhotos->photo_name  = str_replace($path, '', $customName);
+                $this->employeePhotos->format      = $photo->getClientOriginalExtension();
+                $this->employeePhotos->full_path   = storage_path('app/public/') . str_replace('storage/', '', $customName);
+                $this->employeePhotos->path        = $customName;
 
-                    // Save image
-                    $image->save($customName);
-
-                    $this->employeePhotos->employee_id = $employee->id;
-                    $this->employeePhotos->photo_name  = str_replace($path, '', $customName);
-                    $this->employeePhotos->format      = $photo->getClientOriginalExtension();
-                    $this->employeePhotos->full_path   = storage_path('app/public/') . str_replace('storage/', '', $customName);
-                    $this->employeePhotos->path        = $customName;
-
-                    $this->employeePhotos->save($employee);
-                }
+                $this->employeePhotos->save($employee);
             }
-
-            DB::commit();
-
-            $this->employee->reset();
-            $this->employeeAddress->reset();
-            $this->employeePhotos->reset();
-
-            $this->msg  = 'Employee created successfully';
-            $this->icon = 'icons.success';
-            $this->dispatch('show-toast');
-        } catch(\Exception $e) {
-            DB::rollBack();
-
-            return;
         }
+
+        $this->employee->reset();
+        $this->employeeAddress->reset();
+        $this->employeePhotos->reset();
+
+        $this->msg  = 'Employee updated successfully';
+        $this->icon = 'icons.success';
+        $this->dispatch('show-toast');
     }
 }
