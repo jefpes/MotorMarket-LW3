@@ -42,7 +42,7 @@
             <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $data->id }}" href="{{ route('client.show', $data->id) }}" wire:navigate />
 
             @can('employee_update')
-              <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}" href="{{ route('client.edit', $data->id) }}" wire:navigate />
+              <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}" href="{{ route('employee.edit', $data->id) }}" wire:navigate />
             @endcan
 
             @can('employee_delete')

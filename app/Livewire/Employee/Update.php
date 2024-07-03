@@ -2,73 +2,102 @@
 
 namespace App\Livewire\Employee;
 
-use App\Enums\{LogradouroType, States};
-use App\Livewire\Forms\ClientForm;
-use App\Models\City;
+use App\Enums\{MaritalStatus, States};
+use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotosForm};
+use App\Models\{City, Employee};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\{Storage};
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use Livewire\Component;
-use Livewire\Features\SupportFileUploads\WithFileUploads;
+use Livewire\{Component, WithFileUploads};
 
 class Update extends Component
 {
     use WithFileUploads;
     use Toast;
 
-    public ClientForm $form;
+    public EmployeeForm $employee;
 
-    public string $header = 'Update Client';
+    public EmployeePhotosForm $employeePhoto;
+
+    public EmployeeAddressForm $employeeAddress;
+
+    public string $header = 'Edit Employee';
 
     /** @var array<Object> */
-    public array $photos = [];
+    public array $photos;
 
     public function mount(int $id): void
     {
-        $this->form->setClient($id);
+        $employee = Employee::findOrFail($id);
+        $this->employee->setEmployee($employee);
+        $this->employeeAddress->setEmployeeAddress($employee);
+        $this->employeePhoto->setEmployeePhotos($employee);
     }
+
     public function render(): View
     {
-        return view('livewire.employee.update', ['states' => States::cases(), 'logradouroType' => LogradouroType::cases(), 'cities' => City::all()]);
+        return view('livewire.employee.update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
+    }
+
+    private function deleteOldPhotos(Employee $employee): void
+    {
+        // Supondo que você tenha um relacionamento entre employee e employeePhotos
+        $oldPhotos = $employee->photos;
+
+        foreach ($oldPhotos as $photo) {
+            if (Storage::exists("/employee_photos/" . $photo->photo_name)) {
+                Storage::delete("/employee_photos/" . $photo->photo_name);
+            }
+            $photo->delete();
+        }
     }
 
     public function save(): void
     {
-        $this->authorize('client_update');
+        $this->authorize('employee_update');
 
-        file_exists('storage/client_photos/') ?: Storage::makeDirectory('client_photos/');
+        file_exists('storage/employee_photos/') ?: Storage::makeDirectory('employee_photos/');
 
-        $client = $this->form->save();
+        $this->employee->validate();
+        $this->employeeAddress->validate();
 
-        // create image manager with desired driver
-        $manager = new ImageManager(new Driver());
+        $employee = $this->employee->save();
 
-        foreach ($this->photos as $photo) {
-            // read image from file system
-            $image = $manager->read($photo);
+        // Salva o endereço do funcionário
+        $this->employeeAddress->employee_id = $employee->id;
+        $this->employeeAddress->save($employee);
 
-            // resize image proportionally to 300px width
-            $image->scale(height: 1240);
+        // Processa e salva as fotos, se houver
+        if ($this->photos) {
+            // Deleta as fotos antigas
+            $this->deleteOldPhotos($employee);
 
-            $path       = 'storage/client_photos/';
-            $customName = $path . str_replace(' ', '_', $client->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+            $manager = new ImageManager(new Driver());
 
-            // Save image
-            $image->save($customName);
+            foreach ($this->photos as $photo) {
+                $image = $manager->read($photo);
+                $image->scale(height: 1240);
 
-            $client->photos()->create([
-                'photo_name' => str_replace($path, '', $customName),
-                'format'     => $photo->getClientOriginalExtension(),
-                'full_path'  => storage_path('app/public/') . $customName,
-                'path'       => $customName,
-            ]);
+                $path       = 'storage/employee_photos/';
+                $customName = $path . str_replace(' ', '_', $employee->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
+
+                $image->save($customName);
+
+                $this->employeePhoto->employee_id = $employee->id;
+                $this->employeePhoto->photo_name  = str_replace($path, '', $customName);
+                $this->employeePhoto->format      = $photo->getClientOriginalExtension();
+                $this->employeePhoto->full_path   = storage_path('app/public/') . str_replace('storage/', '', $customName);
+                $this->employeePhoto->path        = $customName;
+
+                $this->employeePhoto->save($employee);
+            }
         }
 
-        $this->msg  = 'Client updated successfully';
+        $this->msg  = 'Employee updated successfully';
         $this->icon = 'icons.success';
-
         $this->dispatch('show-toast');
+        $this->redirectRoute('employee.edit', $employee->id);
     }
 }

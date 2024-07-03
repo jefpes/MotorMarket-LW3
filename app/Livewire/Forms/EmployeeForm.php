@@ -43,12 +43,12 @@ class EmployeeForm extends Form
     {
         return [
             'name'           => ['required', 'min:3', 'max:255'],
-            'email'          => ['required', 'email', 'unique:employees,email,', Rule::unique('employees')->ignore($this->employee?->id)],
+            'email'          => ['required', 'email', Rule::unique('employees')->ignore($this->employee?->id)],
             'phone_one'      => ['required'],
             'phone_two'      => ['nullable'],
             'salary'         => ['nullable', 'numeric'],
-            'rg'             => ['required', 'unique:employees,rg,', Rule::unique('employees')->ignore($this->employee?->id)],
-            'cpf'            => ['required', 'unique:employees,cpf,', Rule::unique('employees')->ignore($this->employee?->id)],
+            'rg'             => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
+            'cpf'            => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
             'birth_date'     => ['required', 'date'],
             'father'         => ['nullable', 'min:3', 'max:255'],
             'mother'         => ['required', 'min:3', 'max:255'],
