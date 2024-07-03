@@ -3,11 +3,14 @@
 namespace App\Livewire\Forms;
 
 use App\Models\{Employee};
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\{Locked};
 use Livewire\Form;
 
 class EmployeeForm extends Form
 {
+    public ?Employee $employee = null;
+
     #[Locked]
     public ?int $id = null;
 
@@ -40,12 +43,12 @@ class EmployeeForm extends Form
     {
         return [
             'name'           => ['required', 'min:3', 'max:255'],
-            'email'          => ['required', 'email', 'unique:employees,email,' . $this->id],
+            'email'          => ['required', 'email', 'unique:employees,email,', Rule::unique('employees')->ignore($this->employee?->id)],
             'phone_one'      => ['required'],
             'phone_two'      => ['nullable'],
             'salary'         => ['nullable', 'numeric'],
-            'rg'             => ['required', 'unique:employees,rg,' . $this->id],
-            'cpf'            => ['required', 'unique:employees,cpf,' . $this->id],
+            'rg'             => ['required', 'unique:employees,rg,', Rule::unique('employees')->ignore($this->employee?->id)],
+            'cpf'            => ['required', 'unique:employees,cpf,', Rule::unique('employees')->ignore($this->employee?->id)],
             'birth_date'     => ['required', 'date'],
             'father'         => ['nullable', 'min:3', 'max:255'],
             'mother'         => ['required', 'min:3', 'max:255'],
@@ -57,6 +60,7 @@ class EmployeeForm extends Form
     public function save(): Employee
     {
         $this->validate();
+
         $employee = Employee::updateOrCreate(
             ['id' => $this->id],
             [
@@ -78,22 +82,22 @@ class EmployeeForm extends Form
         return $employee;
     }
 
-    public function setEmployee(int $id): void
+    public function setEmployee(Employee $e): void
     {
-        $employee             = Employee::find($id);
-        $this->id             = $employee->id;
-        $this->name           = $employee->name;
-        $this->email          = $employee->email;
-        $this->phone_one      = $employee->phone_one;
-        $this->phone_two      = $employee->phone_two;
-        $this->salary         = $employee->salary;
-        $this->rg             = $employee->rg;
-        $this->cpf            = $employee->cpf;
-        $this->birth_date     = $employee->birth_date;
-        $this->father         = $employee->father;
-        $this->mother         = $employee->mother;
-        $this->marital_status = $employee->marital_status;
-        $this->spouse         = $employee->spouse;
+        $this->employee       = $e;
+        $this->id             = $this->employee->id;
+        $this->name           = $this->employee->name;
+        $this->email          = $this->employee->email;
+        $this->phone_one      = $this->employee->phone_one;
+        $this->phone_two      = $this->employee->phone_two;
+        $this->salary         = $this->employee->salary;
+        $this->rg             = $this->employee->rg;
+        $this->cpf            = $this->employee->cpf;
+        $this->birth_date     = $this->employee->birth_date;
+        $this->father         = $this->employee->father;
+        $this->mother         = $this->employee->mother;
+        $this->marital_status = $this->employee->marital_status;
+        $this->spouse         = $this->employee->spouse;
     }
 
     public function destroy(): void

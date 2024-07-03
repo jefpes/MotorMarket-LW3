@@ -33,7 +33,7 @@ class EmployeeAddressForm extends Form
     public function rules()
     {
         return [
-            'employee_id'  => ['required', 'exists:employees,id', 'integer'], // 'exists' => 'Employee,id'
+            'employee_id'  => ['required', 'exists:employees,id', 'integer'], // 'exists' => 'employees,id'
             'zip_code'     => ['required', 'size:9'],
             'street'       => ['required', 'min:3', 'max:255'],
             'number'       => ['required', 'integer'],
@@ -47,6 +47,7 @@ class EmployeeAddressForm extends Form
     public function save(Employee $employee): void
     {
         $this->validate();
+
         $employee->address()->updateOrCreate(
             ['id' => $this->id],
             [
@@ -61,9 +62,9 @@ class EmployeeAddressForm extends Form
         );
     }
 
-    public function setEmployeeAddress(EmployeeAddress $employeeAddress): void
+    public function setEmployeeAddress(Employee $employee): void
     {
-        $this->employeeAddress = $employeeAddress;
+        $this->employeeAddress = EmployeeAddress::where('employee_id', $employee->id)->first();
         $this->id              = $this->employeeAddress->id;
         $this->employee_id     = $this->employeeAddress->employee_id;
         $this->zip_code        = $this->employeeAddress->zip_code;

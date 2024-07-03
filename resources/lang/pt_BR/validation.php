@@ -184,6 +184,8 @@ return [
         'body'                  => 'conteúdo',
         'cell'                  => 'célula',
         'city'                  => 'cidade',
+        'city_id'               => 'cidade',
+        'zip_code'              => 'CEP',
         'country'               => 'país',
         'date'                  => 'data',
         'day'                   => 'dia',

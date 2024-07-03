@@ -11,16 +11,29 @@
         :messages="$errors->get('employee.cpf')" wire:model="employee.cpf" class="w-full" />
     </div>
     <div class="basis-1/3">
-      <x-select wire:model="employee.marital_status" class="w-full" label='Marital Status' id="marital_status">
+      <x-form.input x-mask="9999999999999" name="salary" label="Salary" type="text" placeholder="Salary" :messages="$errors->get('employee.salary')"
+        wire:model="employee.salary" class="w-full" />
+    </div>
+  </div>
+
+  <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+    <div class="flex-0">
+      <x-select :messages="$errors->get('employee.marital_status')" wire:model="employee.marital_status" class="w-full"
+        label='Marital Status' id="marital_status">
         <option value=""> {{ __('Select')}} </option>
         @foreach ($maritalStatus as $data)
         <option value="{{ $data->value }}"> {{ $data->value }} </option>
         @endforeach
       </x-select>
     </div>
+    <div class="flex-1">
+      <x-form.input name="spouse" label="Spouse" placeholder="Spouse" :messages="$errors->get('employee.spouse')"
+        wire:model="employee.spouse" class="w-full" />
+    </div>
   </div>
-  <x-form.input name="spouse" label="Spouse" placeholder="Spouse" :messages="$errors->get('employee.spouse')"
-    wire:model="employee.spouse" class="w-full" />
+
+  <x-form.input name="email" label="Email" placeholder="Email" :messages="$errors->get('employee.email')"
+    wire:model="employee.email" class="w-full" />
 
   <x-form.input name="father" label="Father" placeholder="Father" :messages="$errors->get('employee.father')"
     wire:model="employee.father" class="w-full" />
@@ -39,7 +52,7 @@
 
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
     <div class="basis-1/2">
-      <x-form.file-input name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('photos')"
+      <x-form.file-input-single name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('photos')"
         wire:model="photos" class="w-full" />
     </div>
     <div class="basis-1/2">
@@ -61,7 +74,7 @@
         wire:model="employeeAddress.zip_code" class="w-full" />
     </div>
     <div class="md:basis-1/3">
-      <x-select wire:model="employeeAddress.city_id" class="w-full" label='City' id="city_select">
+      <x-select wire:model="employeeAddress.city_id" class="w-full" label='City' id="city_select" :messages="$errors->get('employeeAddress.city_id')">
         <option value=""> {{ __('Select a City')}} </option>
         @foreach ($cities as $data)
         <option value="{{ $data->id }}"> {{ $data->name }} </option>
@@ -69,7 +82,7 @@
       </x-select>
     </div>
     <div class="md:basis-1/3">
-      <x-select wire:model="employeeAddress.state" class="w-full" label='State' id="state_select">
+      <x-select wire:model="employeeAddress.state" class="w-full" label='State' id="state_select" :messages="$errors->get('employeeAddress.state')">
         <option value=""> {{ __('Select a State')}} </option>
         @foreach ($states as $data)
         <option value="{{ $data->value }}"> {{ $data->value }} </option>

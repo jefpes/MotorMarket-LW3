@@ -6,8 +6,10 @@ use App\Models\{Employee, EmployeePhotos};
 use Livewire\Attributes\{Locked};
 use Livewire\Form;
 
-class EmployeeAddressForm extends Form
+class EmployeePhotosForm extends Form
 {
+    public ?EmployeePhotos $employeePhotos = null;
+
     #[Locked]
     public ?int $id = null;
 
@@ -25,7 +27,7 @@ class EmployeeAddressForm extends Form
     public function rules()
     {
         return [
-            'employee_id' => ['required', 'exists:employees,id', 'integer'], // 'exists' => 'Employee,id'
+            'employee_id' => ['required', 'exists:employees,id', 'integer'], // 'exists' => 'employees,id'
             'photo_name'  => ['required', 'min:3', 'max:255'],
             'format'      => ['required', 'max:255'],
             'full_path'   => ['required', 'min:3', 'max:255'],
@@ -47,13 +49,13 @@ class EmployeeAddressForm extends Form
         );
     }
 
-    public function setEmployeePhotos(int $id): void
+    public function setEmployeePhotos(Employee $ep): void
     {
-        $photos            = EmployeePhotos::where('employee_id', $id);
-        $this->id          = $photos->id; /* @phpstan-ignore-line */
-        $this->employee_id = $photos->employee_id; /* @phpstan-ignore-line */
-        $this->photo_name  = $photos->photo_name; /* @phpstan-ignore-line */
-        $this->format      = $photos->format; /* @phpstan-ignore-line */
-        $this->full_path   = $photos->full_path; /* @phpstan-ignore-line */
+        $this->employeePhotos = $ep->photos()->first();
+        $this->id             = $this->employeePhotos->id;
+        $this->employee_id    = $this->employeePhotos->employee_id;
+        $this->photo_name     = $this->employeePhotos->photo_name;
+        $this->format         = $this->employeePhotos->format;
+        $this->full_path      = $this->employeePhotos->full_path;
     }
 }
