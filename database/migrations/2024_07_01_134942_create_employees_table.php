@@ -33,7 +33,7 @@ return new class () extends Migration {
             $table->foreignIdFor(Employee::class)->constrained()->cascadeOnDelete();
             $table->string('zip_code');
             $table->string('street');
-            $table->string('number');
+            $table->integer('number');
             $table->string('neighborhood');
             $table->foreignIdFor(City::class)->constrained()->cascadeOnDelete();
             $table->string('state');

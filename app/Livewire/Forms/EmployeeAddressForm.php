@@ -8,6 +8,8 @@ use Livewire\Form;
 
 class EmployeeAddressForm extends Form
 {
+    public ?EmployeeAddress $employeeAddress = null;
+
     #[Locked]
     public ?int $id = null;
 
@@ -59,17 +61,17 @@ class EmployeeAddressForm extends Form
         );
     }
 
-    public function setEmployeeAddress(int $id): void
+    public function setEmployeeAddress(EmployeeAddress $employeeAddress): void
     {
-        $address            = EmployeeAddress::where('employee_id', $id);
-        $this->id           = $address->id; /* @phpstan-ignore-line */
-        $this->employee_id  = $address->employee_id; /* @phpstan-ignore-line */
-        $this->zip_code     = $address->zip_code; /* @phpstan-ignore-line */
-        $this->street       = $address->street; /* @phpstan-ignore-line */
-        $this->number       = $address->number; /* @phpstan-ignore-line */
-        $this->neighborhood = $address->neighborhood; /* @phpstan-ignore-line */
-        $this->complement   = $address->complement; /* @phpstan-ignore-line */
-        $this->city_id      = $address->city_id; /* @phpstan-ignore-line */
-        $this->state        = $address->state; /* @phpstan-ignore-line */
+        $this->employeeAddress = $employeeAddress;
+        $this->id              = $this->employeeAddress->id;
+        $this->employee_id     = $this->employeeAddress->employee_id;
+        $this->zip_code        = $this->employeeAddress->zip_code;
+        $this->street          = $this->employeeAddress->street;
+        $this->neighborhood    = $this->employeeAddress->neighborhood;
+        $this->number          = $this->employeeAddress->number;
+        $this->complement      = $this->employeeAddress->complement;
+        $this->city_id         = $this->employeeAddress->city_id;
+        $this->state           = $this->employeeAddress->state;
     }
 }
