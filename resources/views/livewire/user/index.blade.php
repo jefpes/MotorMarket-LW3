@@ -48,7 +48,7 @@
 
                 @can('user_update') <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" href="{{ route('users.edit', $u->id) }}" id="edit-{{ $u->id }}" wire:navigate /> @endcan
 
-                @can('user_delete') <x-icons.delete id="btn-delete-{{ $u->id }}" wire:click="$dispatch('user::deleting', { id: {{ $u->id }}})" class="cursor-pointer text-2xl flex text-red-600 w-8 h-8"/> @endcan
+                @can('user_delete') <x-icons.delete id="btn-delete-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})" class="cursor-pointer text-2xl flex text-red-600 w-8 h-8"/> @endcan
               </div>
             @endif
           </x-table.td>
@@ -65,5 +65,5 @@
     {{ $this->users->onEachSide(1)->links() }}
   </div>
 
-  <livewire:user.delete />
+  <livewire:user.deactivate />
 </div>

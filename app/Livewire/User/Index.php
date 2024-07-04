@@ -24,7 +24,7 @@ class Index extends Component
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 10;
 
-    #[On('user::deleted')]
+    #[On('user::refresh')]
     public function render(): View
     {
         return view('livewire.user.index');
