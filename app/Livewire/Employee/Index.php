@@ -21,7 +21,7 @@ class Index extends Component
     #[Url(except: '', as: 'name', history: true)]
     public ?string $search = '';
 
-    #[On('data::refresh')]
+    #[On('employee::refresh')]
     public function render(): View
     {
         return view('livewire.employee.index');

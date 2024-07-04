@@ -29,7 +29,7 @@ class Delete extends Component
         return view('livewire.employee.delete');
     }
 
-    #[On('data::deleting')]
+    #[On('employee::deleting')]
     public function deleting(int $id): void
     {
         $this->form->setEmployee(Employee::find($id));
@@ -50,7 +50,7 @@ class Delete extends Component
         $this->form->destroy();
         $this->modal = false;
 
-        $this->dispatch('data::refresh');
+        $this->dispatch('employee::refresh');
 
         $this->dispatch('show-toast');
     }

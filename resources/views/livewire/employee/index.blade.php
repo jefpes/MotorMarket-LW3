@@ -49,7 +49,7 @@
 
               @can('employee_delete')
               <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}"
-                wire:click="$dispatch('data::deleting', { id: {{ $data->id }}})" />
+                wire:click="$dispatch('employee::deleting', { id: {{ $data->id }}})" />
               @endcan
             </div>
           </x-table.td>
