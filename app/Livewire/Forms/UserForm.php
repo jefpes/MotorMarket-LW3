@@ -28,8 +28,9 @@ class UserForm extends Form
     public function rules()
     {
         $rules = [
-            'name'  => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->id)],
+            'name'        => ['required', 'min:3', 'max:255'],
+            'email'       => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->id)],
+            'employee_id' => ['required', 'integer', 'exists:employees,id', Rule::unique(User::class)->ignore($this->id)],
         ];
 
         if (!$this->id) {

@@ -21,6 +21,10 @@ class Create extends Component
 
     public function save(): void
     {
+        $this->form->validateOnly('employee_id');
+        $employee          = Employee::findOrFail($this->form->employee_id);
+        $this->form->name  = $employee->name;
+        $this->form->email = $employee->email;
         $this->form->save();
 
         $this->icon = 'icons.success';

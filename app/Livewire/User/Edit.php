@@ -3,7 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
-use App\Models\User;
+use App\Models\{Employee, User};
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
@@ -18,7 +18,7 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.user.edit');
+        return view('livewire.user.edit', ['employees' => Employee::orderBy('name')->get()]);
     }
 
     public function save(): void
