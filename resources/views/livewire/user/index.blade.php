@@ -44,11 +44,24 @@
           <x-table.td>
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
-                @can('admin') <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}" id="roles-{{ $u->id }}" wire:navigate/> @endcan
+                @if ($u->status)
+                  @can('admin')
+                  <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
+                    id="roles-{{ $u->id }}" wire:navigate />
+                  @endcan
 
-                @can('user_update') <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" href="{{ route('users.edit', $u->id) }}" id="edit-{{ $u->id }}" wire:navigate /> @endcan
+                  @can('user_update')
+                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" href="{{ route('users.edit', $u->id) }}"
+                    id="edit-{{ $u->id }}" wire:navigate />
+                  @endcan
 
-                @can('user_delete') <x-icons.delete id="btn-delete-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})" class="cursor-pointer text-2xl flex text-red-600 w-8 h-8"/> @endcan
+                  @can('user_delete')
+                  <x-icons.delete id="deactive-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})"
+                    class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
+                  @endcan
+                @else
+                  <x-icons.recycle class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" id="active-{{ $u->id }}" wire:click="$dispatch('user::activating', { id: {{ $u->id }} })"/>
+                @endif
               </div>
             @endif
           </x-table.td>
@@ -66,4 +79,5 @@
   </div>
 
   <livewire:user.deactivate />
+  <livewire:user.activate />
 </div>

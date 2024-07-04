@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{On};
 use Livewire\Component;
 
-class Deactivate extends Component
+class Activate extends Component
 {
     public UserForm $form;
 
@@ -20,17 +20,17 @@ class Deactivate extends Component
 
     public function render(): View
     {
-        return view('livewire.user.deactivate');
+        return view('livewire.user.activate');
     }
 
-    #[On('user::deactivating')]
-    public function deactivating(int $id): void
+    #[On('user::activating')]
+    public function activating(int $id): void
     {
         $this->form->setUser($id);
         $this->modal = true;
     }
 
-    public function deactive(): void
+    public function active(): void
     {
         $this->authorize('user_delete');
 
@@ -42,16 +42,16 @@ class Deactivate extends Component
         if ($user->hierarchy($userAction->id)) {
             $userAction->roles()->detach();
             $this->icon = 'icons.success';
-            $this->msg  = 'User Deactivate';
+            $this->msg  = 'User Activate';
             $this->dispatch('show-toast')->to(self::class);
-            $userAction->update(['status' => false]);
+            $userAction->update(['status' => true]);
             $this->dispatch('user::refresh')->to(Index::class);
             $this->modal = false;
 
             return;
         }
 
-        $this->msg  = 'You have not permission for deactivating this register';
+        $this->msg  = 'You have not permission for activating this register';
         $this->icon = 'icons.fail';
 
         $this->dispatch('show::toast');
