@@ -17,7 +17,7 @@
 
     <div class="flex-1">
       @if ($filter == 'plate')
-      <x-text-input class="w-full" type="search" name="search"
+      <x-form.plate-input class="w-full" type="search" name="search"
         wire:model.live.debounce.1000ms="plate"
         placeholder="{{ __('Search plate') }}" />
       @endif
@@ -62,7 +62,7 @@
         @endforeach
       </x-slot>
       <x-slot name="tbody">
-        @foreach ($this->sales->items() as $s)
+        @forelse ($this->sales->items() as $s)
         <x-table.tr>
           <x-table.td> {{ $s->vehicle->plate }} </x-table.td>
           <x-table.td> {{ $s->client->name }} </x-table.td>
@@ -94,7 +94,11 @@
             @endif
           @endcanany
         </x-table.tr>
-        @endforeach
+        @empty
+        <x-table.tr>
+          <x-table.td colspan="{{ count($theader) }}" class="text-center text-4xl"> {{ __('No records found') }} </x-table.td>
+        </x-table.tr>
+        @endforelse
       </x-slot>
     </x-table.table>
   </div>
