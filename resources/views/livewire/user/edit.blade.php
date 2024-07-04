@@ -1,7 +1,7 @@
 <div>
   <x-slot name="header"> {{__('Edit user')}}: {{ $form->name }} </x-slot>
 
-  <x-user.create-update />
+  <x-user.create-update :$employees />
 
   <div class="flex justify-end border-t pt-4">
 

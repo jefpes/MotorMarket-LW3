@@ -170,6 +170,7 @@ return [
 
     'attributes' => [
         'address'               => 'endereço',
+        'employee_id'           => 'funcionário',
         'mother'                => 'mãe',
         'father'                => 'pai',
         'spouse'                => 'cônjuge',

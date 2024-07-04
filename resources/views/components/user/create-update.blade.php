@@ -1,12 +1,11 @@
 <div class="space-y-2 pb-4">
-  <x-form.input name="name" label="Name" type="text" placeholder="Name" :messages="$errors->get('form.name')"
-    wire:model="form.name" class="w-full" />
-
-  <x-form.input name="email" label="E-mail" type="email" placeholder="E-mail" :messages="$errors->get('form.email')"
-    wire:model="form.email" class="w-full" />
-
-  <x-form.input name="user_name" label="User Name" type="text" placeholder="User Name"
-    :messages="$errors->get('form.user_name')" wire:model="form.user_name" class="w-full" />
+  <x-select name="employee_id" label="Employee" :messages="$errors->get('form.employee_id')"
+    wire:model="form.employee_id" class="w-full" >
+    <option value="">{{ __('Select') }}</option>
+    @foreach ($employees as $employee)
+      <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+    @endforeach
+  </x-select>
 
   <x-form.input name="password" label="Password" type="password" placeholder="Password"
     :messages="$errors->get('form.password')" wire:model="form.password" class="w-full" />

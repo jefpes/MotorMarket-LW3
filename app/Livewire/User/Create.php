@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
+use App\Models\Employee;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -15,7 +16,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.user.create');
+        return view('livewire.user.create', ['employees' => Employee::orderBy('name')->get()]);
     }
 
     public function save(): void

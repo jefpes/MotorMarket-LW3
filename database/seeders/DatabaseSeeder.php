@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'name'              => 'master',
-            'user_name'         => 'master',
             'email'             => 'master@admin.com',
             'email_verified_at' => now(),
             'password'          => Hash::make('admin'),
@@ -82,7 +81,6 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'name'              => 'admin',
-            'user_name'         => 'admin',
             'email'             => 'admin@admin.com',
             'email_verified_at' => now(),
             'password'          => Hash::make('admin'),
