@@ -37,6 +37,16 @@ class LoginForm extends Form
             ]);
         }
 
+        if (!auth()->user()->status) {
+            RateLimiter::hit($this->throttleKey());
+
+            Auth::logout(); // Deslogar o usuário se o status for inválido
+
+            throw ValidationException::withMessages([
+                'form.email' => trans('auth.desactive'),
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 
