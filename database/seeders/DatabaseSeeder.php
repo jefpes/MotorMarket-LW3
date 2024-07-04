@@ -78,6 +78,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'employee_read'],
             ['name' => 'employee_update'],
             ['name' => 'employee_delete'],
+            ['name' => 'ephoto_delete'],
         ]);
 
         $user = User::create([

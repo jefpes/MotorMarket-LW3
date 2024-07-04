@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Employee;
 
-use App\Models\{Client, ClientPhoto};
+use App\Models\{Employee, EmployeePhotos};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -15,15 +15,15 @@ class Show extends Component
 
     public bool $modal = false;
 
-    public Client $client;
+    public Employee $employee;
 
-    public ClientPhoto $photo;
+    public EmployeePhotos $photo;
 
-    public string $header = 'Showing Client';
+    public string $header = 'Showing Employee';
 
     public function mount(int $id): void
     {
-        $this->client = Client::with('photos')->findOrFail($id);
+        $this->employee = Employee::with('photos')->findOrFail($id);
     }
 
     public function render(): View
@@ -38,16 +38,16 @@ class Show extends Component
 
     public function actions(int $id): void
     {
-        $this->photo = ClientPhoto::findOrFail($id);
+        $this->photo = EmployeePhotos::findOrFail($id);
         $this->modal = true;
     }
 
     public function destroy(): void
     {
-        $this->authorize('cphoto_delete');
+        $this->authorize('ephoto_delete');
 
         try {
-            Storage::delete("/client_photos/" . $this->photo->photo_name);
+            Storage::delete("/employee_photos/" . $this->photo->photo_name);
             $this->photo->delete();
             $this->modal = false;
 

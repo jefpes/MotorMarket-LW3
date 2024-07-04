@@ -31,22 +31,8 @@
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} @if($client->phone_two)(1)@endif: </span>
-          {{ $client->phone_one }}
-        </p>
-      </div>
-      @if($client->phone_two)
-        <div class="flex">
-          <p class="text-lg font-semibold">
-            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (2): </span>
-            {{ $client->phone_two }}
-          </p>
-        </div>
-      @endif
-      <div class="flex">
-        <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Date Birth') }}: </span>
-          {{ $client->birth_date }}
+          <x-span-date :date="$client->birth_date" />
         </p>
       </div>
       <div class="flex">
@@ -85,6 +71,29 @@
           {{ $client->description }}
         </p>
       </div>
+
+      <div class="inline-flex items-center justify-center w-full">
+        <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
+        <div class="absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-800">
+          {{ __('Contacts') }}
+        </div>
+      </div>
+
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }}
+            @if($client->phone_two)(1)@endif: </span>
+          {{ $client->phone_one }}
+        </p>
+      </div>
+      @if($client->phone_two)
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (2): </span>
+          {{ $client->phone_two }}
+        </p>
+      </div>
+      @endif
 
       <div class="inline-flex items-center justify-center w-full">
         <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">

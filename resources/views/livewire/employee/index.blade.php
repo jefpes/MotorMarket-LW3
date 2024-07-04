@@ -40,7 +40,7 @@
             <div class="flex flex-row gap-2 justify-center">
 
               <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $data->id }}"
-                href="{{ route('client.show', $data->id) }}" wire:navigate />
+                href="{{ route('employee.show', $data->id) }}" wire:navigate />
 
               @can('employee_update')
               <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}"
