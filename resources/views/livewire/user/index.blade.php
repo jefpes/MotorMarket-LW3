@@ -34,7 +34,7 @@
       @endforeach
     </x-slot:thead>
     <x-slot:tbody>
-      @foreach ($this->users->items() as $u)
+      @forelse ($this->users->items() as $u)
       <x-table.tr>
         <x-table.td> {{ $u->name }} </x-table.td>
         <x-table.td> {{ $u->user_name }} </x-table.td>
@@ -54,7 +54,11 @@
           </x-table.td>
         @endcanany
       </x-table.tr>
-      @endforeach
+      @empty
+        <x-table.tr>
+          <x-table.td colspan="{{ count($theader) }}" class="text-center text-4xl"> {{ __('No records found') }} </x-table.td>
+        </x-table.tr>
+      @endforelse
     </x-slot:tbody>
   </x-table.table>
   <div class="pt-6 px-2">

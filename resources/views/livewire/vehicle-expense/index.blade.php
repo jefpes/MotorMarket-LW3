@@ -47,7 +47,7 @@
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
-        @foreach ($this->expenses as $data)
+        @forelse ($this->expenses as $data)
         <x-table.tr>
           <x-table.td> {{ $data->vehicle->plate }} </x-table.td>
           <x-table.td> <x-span-money :money="$data->value" /> </x-table.td>
@@ -65,7 +65,11 @@
           </x-table.td>
           @endcanany
         </x-table.tr>
-        @endforeach
+        @empty
+          <x-table.tr>
+            <x-table.td colspan="{{ count($theader) }}" class="text-center text-4xl"> {{ __('No records found') }} </x-table.td>
+          </x-table.tr>
+        @endforelse
       </x-slot:tbody>
     </x-table.table>
     <div class="pt-6 px-2">
