@@ -16,7 +16,7 @@ class Index extends Component
     public UserForm $form;
 
     /** @var array<string> */
-    public array $theader = ['Name', 'User', 'Register Number', 'E-Mail', 'Actions'];
+    public array $theader = ['Name', 'User', 'E-Mail', 'Status', 'Actions'];
 
     #[Url(except: '', as: 's', history: true)]
     public ?string $search = '';
