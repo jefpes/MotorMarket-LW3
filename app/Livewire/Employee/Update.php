@@ -62,6 +62,11 @@ class Update extends Component
 
         $employee = $this->employee->save();
 
+        // Modifica o email do usuário, se houver
+        if($employee->user()->exists()) {
+            $employee->user->update(['email' => $this->employee->email]);
+        }
+
         // Salva o endereço do funcionário
         $this->employeeAddress->employee_id = $employee->id;
         $this->employeeAddress->save($employee);
