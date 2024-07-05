@@ -40,8 +40,8 @@
         <x-table.td> {{ $u->user_name }} </x-table.td>
         <x-table.td> {{ $u->email }} </x-table.td>
         <x-table.td> <span
-          class="{{ $u->status ? 'bg-green-100 text-green-800 me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'
-            : 'bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'}}"> {{ $u->status ? __('Active') : __('Inactive') }} </span> </x-table.td>
+          class="{{ $u->active ? 'bg-green-100 text-green-800 me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'
+            : 'bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'}}"> {{ $u->active ? __('Active') : __('Inactive') }} </span> </x-table.td>
         @canany(['user_delete', 'user_update'])
           <x-table.td>
             @if(auth()->user()->hierarchy($u->id))

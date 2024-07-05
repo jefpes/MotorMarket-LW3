@@ -91,8 +91,7 @@
         </ul>
       </div>
     </div>
-  @endcan
-  @cannot('admin')
+  @else
     {{ __('You are logged in!') }}
   @endcannot
 </div>
