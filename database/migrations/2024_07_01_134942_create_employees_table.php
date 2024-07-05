@@ -25,6 +25,8 @@ return new class () extends Migration {
             $table->string('mother');
             $table->string('marital_status');
             $table->string('spouse')->nullable();
+            $table->date('hiring_date');
+            $table->date('resignation_date')->nullable();
             $table->timestamps();
         });
 
