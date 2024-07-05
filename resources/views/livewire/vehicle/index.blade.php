@@ -37,7 +37,7 @@
     @forelse ($this->vehicle as $v)
       <livewire:vehicle.card :vehicle="$v" :key="$v->id">
     @empty
-      <div class="text-center text-4xl"> {{ __('No records found') }} </div>
+      <div class="w-full text-center text-4xl"> {{ __('No records found') }} </div>
     @endforelse
   </div>
 

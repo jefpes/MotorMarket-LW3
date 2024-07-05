@@ -25,7 +25,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
         @if ($h == 'Actions')
-          @canany(['user_update', 'user_delete'])
+          @canany([$this->permissions->update, $this->permissions->delete])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
         @else
@@ -47,22 +47,24 @@
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
                 @if ($u->status)
-                  @can('admin')
+                  @can($this->permissions->admin)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />
                   @endcan
 
-                  @can('user_update')
+                  @can($this->permissions->update)
                   <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" href="{{ route('users.edit', $u->id) }}"
                     id="edit-{{ $u->id }}" wire:navigate />
                   @endcan
 
-                  @can('user_delete')
+                  @can($this->permissions->delete)
                   <x-icons.delete id="deactive-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})"
                     class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
                 @else
-                  <x-icons.recycle class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" id="active-{{ $u->id }}" wire:click="$dispatch('user::activating', { id: {{ $u->id }} })"/>
+                  @can($this->permissions->delete)
+                    <x-icons.recycle class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" id="active-{{ $u->id }}" wire:click="$dispatch('user::activating', { id: {{ $u->id }} })"/>
+                  @endcan
                 @endif
               </div>
             @endif
@@ -70,9 +72,7 @@
         @endcanany
       </x-table.tr>
       @empty
-        <x-table.tr>
-          <x-table.td colspan="{{ count($theader) }}" class="text-center text-4xl"> {{ __('No records found') }} </x-table.td>
-        </x-table.tr>
+        <x-table.tr-no-register :cols="count($theader)"/>
       @endforelse
     </x-slot:tbody>
   </x-table.table>

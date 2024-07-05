@@ -66,9 +66,7 @@
           @endcanany
         </x-table.tr>
         @empty
-          <x-table.tr>
-            <x-table.td colspan="{{ count($theader) }}" class="text-center text-4xl"> {{ __('No records found') }} </x-table.td>
-          </x-table.tr>
+          <x-table.tr-no-register :cols="count($theader)" />
         @endforelse
       </x-slot:tbody>
     </x-table.table>

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
+use stdClass;
 
 class Index extends Component
 {
@@ -44,4 +45,18 @@ class Index extends Component
     {
         $this->resetPage();
     }
+
+    #[Computed]
+    public function permissions(): stdClass
+    {
+        $permission         = new stdClass();
+        $permission->create = 'user_create';
+        $permission->read   = 'user_read';
+        $permission->update = 'user_update';
+        $permission->delete = 'user_delete';
+        $permission->admin  = 'admin';
+
+        return $permission;
+    }
+
 }
