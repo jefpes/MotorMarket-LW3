@@ -23,14 +23,6 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'can:user_read', 'verified'])
         ->name('users');
 
-    Route::get('users-create', User\Create::class)
-        ->middleware(['auth', 'can:user_create', 'verified'])
-        ->name('users.create');
-
-    Route::get('users-edit/{id}', User\Edit::class)
-        ->middleware(['auth', 'can:user_update', 'verified', CheckUserHierarchy::class])
-        ->name('users.edit');
-
     Route::get('user-roles/{id}', UserRole::class)
         ->middleware(['auth', 'can:admin', 'verified', CheckUserHierarchy::class])
         ->name('user.roles');

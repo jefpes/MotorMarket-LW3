@@ -14,6 +14,10 @@ class Create extends Component
 
     public UserForm $form;
 
+    public bool $modal = false;
+
+    public string $title = 'Create new user';
+
     public function render(): View
     {
         return view('livewire.user.create', ['employees' => Employee::orderBy('name')->get()]);
@@ -31,5 +35,11 @@ class Create extends Component
         $this->msg  = 'User Created';
         $this->dispatch('show-toast');
         $this->form->reset();
+    }
+
+    public function cancel(): void
+    {
+        $this->form->reset();
+        $this->modal = false;
     }
 }

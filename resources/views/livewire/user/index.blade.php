@@ -8,7 +8,7 @@
     </div>
     <div class="w-full md:5/12 lg:w-5/12 flex justify-end gap-x-2">
       @can('user_create')
-        <x-primary-button href="{{route('users.create')}}" wire:navigate> {{__('New')}} </x-primary-button>
+        <livewire:user.create />
       @endcan
 
       <x-select wire:model.live="perPage" class="flex">
@@ -46,15 +46,15 @@
           <x-table.td>
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
-                @if ($u->status)
+                @if ($u->active)
                   @can($this->permissions->admin)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />
                   @endcan
 
                   @can($this->permissions->update)
-                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" href="{{ route('users.edit', $u->id) }}"
-                    id="edit-{{ $u->id }}" wire:navigate />
+                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" wire:click="$dispatch('user::editing', { id: {{ $u->id }}})"
+                    id="edit-{{ $u->id }}"/>
                   @endcan
 
                   @can($this->permissions->delete)
@@ -82,4 +82,5 @@
 
   <livewire:user.deactivate />
   <livewire:user.activate />
+  <livewire:user.edit />
 </div>

@@ -1,12 +1,28 @@
 <div>
-  <x-slot name="header"> {{__('Edit user')}}: {{ $form->name }} </x-slot>
+  <x-modal wire:model="modal" name="group_modal">
+    <x-slot:title> {{ __($title) }}: <span class="text-yellow-300">{{ $form->name ?? '' }}</span> </x-slot:title>
 
-  <x-user.create-update :$employees />
+    <x-select name="employee_id" label="Employee" :messages="$errors->get('form.employee_id')" wire:model="form.employee_id"
+      class="w-full">
+      <option value="">{{ __('Select') }}</option>
+      @foreach ($employees as $employee)
+      <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+      @endforeach
+    </x-select>
 
-  <div class="flex justify-end border-t pt-4">
+    <x-slot:footer>
+      <x-secondary-button type="button" wire:click="cancel">
+        {{ __('Cancel') }}
+      </x-secondary-button>
 
-    <x-secondary-button href="{{ route('users') }}" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    <x-primary-button wire:click="save" class="ms-3"> {{ __('Save') }} </x-primary-button>
+      <x-primary-button wire:click="save" class="ms-3">
+        {{ __('Update') }}
+      </x-primary-button>
 
-  </div>
+    </x-slot:footer>
+  </x-modal>
+
+  <x-toast on="show-toast" :$icon>
+    {{ __( $msg ) }}
+  </x-toast>
 </div>
