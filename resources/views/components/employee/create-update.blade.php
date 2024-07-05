@@ -61,6 +61,18 @@
     </div>
   </div>
 
+  <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+    <div class="basis-1/2">
+      <x-form.input name="hiring_date" label="Hiring Date" type="date" placeholder="Hiring Date"
+        :messages="$errors->get('employee.hiring_date')" wire:model="employee.hiring_date" class="w-full" />
+    </div>
+    <div class="basis-1/2">
+      <x-form.input disabled name="resignation_date" label="Resignation Date" type="date" placeholder="Resignation Date"
+        :messages="$errors->get('employee.resignation_date')" wire:model="employee.resignation_date" class="w-full" />
+    </div>
+  </div>
+
+
   <div class="inline-flex items-center justify-center w-full">
     <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">
     <div class="absolute px-4 -translate-x-1/2 bg-white left-1/2 dark:bg-gray-800">

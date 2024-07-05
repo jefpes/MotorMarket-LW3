@@ -3,11 +3,6 @@
     <x-slot:title>
       {{ __($title) }}: <span class="text-yellow-300">{{ $form->name }}</span>
     </x-slot:title>
-    <div class="w-full">
-      <p>
-        {{__('This operation cannot be undone.')}}
-      </p>
-    </div>
 
     <x-slot:footer>
       <x-secondary-button wire:click="cancel">
@@ -15,9 +10,16 @@
       </x-secondary-button>
 
       @can('client_delete')
-        <x-danger-button wire:click="destroy" class="ms-3">
-          {{ __('Delete') }}
-        </x-danger-button>
+        @if ($form->resignation_date)
+          <x-primary-button wire:click="dismissRetain(false)" class="ms-3">
+            {{ __('Retain') }}
+          </x-primary-button>
+        @else
+          <x-danger-button wire:click="dismissRetain(true)" class="ms-3">
+            {{ __('Dismiss') }}
+          </x-danger-button>
+        @endif
+
       @endcan
     </x-slot:footer>
   </x-modal>

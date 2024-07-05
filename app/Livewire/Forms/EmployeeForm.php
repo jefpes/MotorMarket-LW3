@@ -38,22 +38,28 @@ class EmployeeForm extends Form
 
     public ?string $spouse = '';
 
+    public ?string $hiring_date = null;
+
+    public ?string $resignation_date = null;
+
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
         return [
-            'name'           => ['required', 'min:3', 'max:255'],
-            'email'          => ['required', 'email', Rule::unique('employees')->ignore($this->employee?->id)],
-            'phone_one'      => ['required'],
-            'phone_two'      => ['nullable'],
-            'salary'         => ['nullable', 'numeric'],
-            'rg'             => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
-            'cpf'            => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
-            'birth_date'     => ['required', 'date'],
-            'father'         => ['nullable', 'min:3', 'max:255'],
-            'mother'         => ['required', 'min:3', 'max:255'],
-            'marital_status' => ['required', 'min:3', 'max:50'],
-            'spouse'         => ['nullable', 'min:3', 'max:255'],
+            'name'             => ['required', 'min:3', 'max:255'],
+            'email'            => ['required', 'email', Rule::unique('employees')->ignore($this->employee?->id)],
+            'phone_one'        => ['required'],
+            'phone_two'        => ['nullable'],
+            'salary'           => ['nullable', 'numeric'],
+            'rg'               => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
+            'cpf'              => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
+            'birth_date'       => ['required', 'date'],
+            'father'           => ['nullable', 'min:3', 'max:255'],
+            'mother'           => ['required', 'min:3', 'max:255'],
+            'marital_status'   => ['required', 'min:3', 'max:50'],
+            'spouse'           => ['nullable', 'min:3', 'max:255'],
+            'hiring_date'      => ['required', 'date'],
+            'resignation_date' => ['nullable', 'date'],
         ];
     }
 
@@ -64,18 +70,20 @@ class EmployeeForm extends Form
         $employee = Employee::updateOrCreate(
             ['id' => $this->id],
             [
-                'name'           => $this->name,
-                'email'          => $this->email,
-                'phone_one'      => $this->phone_one,
-                'phone_two'      => $this->phone_two,
-                'salary'         => $this->salary,
-                'rg'             => $this->rg,
-                'cpf'            => $this->cpf,
-                'birth_date'     => $this->birth_date,
-                'father'         => $this->father,
-                'mother'         => $this->mother,
-                'marital_status' => $this->marital_status,
-                'spouse'         => $this->spouse,
+                'name'             => $this->name,
+                'email'            => $this->email,
+                'phone_one'        => $this->phone_one,
+                'phone_two'        => $this->phone_two,
+                'salary'           => $this->salary,
+                'rg'               => $this->rg,
+                'cpf'              => $this->cpf,
+                'birth_date'       => $this->birth_date,
+                'father'           => $this->father,
+                'mother'           => $this->mother,
+                'marital_status'   => $this->marital_status,
+                'spouse'           => $this->spouse,
+                'hiring_date'      => $this->hiring_date,
+                'resignation_date' => $this->resignation_date,
             ]
         );
 
@@ -84,20 +92,22 @@ class EmployeeForm extends Form
 
     public function setEmployee(Employee $e): void
     {
-        $this->employee       = $e;
-        $this->id             = $this->employee->id;
-        $this->name           = $this->employee->name;
-        $this->email          = $this->employee->email;
-        $this->phone_one      = $this->employee->phone_one;
-        $this->phone_two      = $this->employee->phone_two;
-        $this->salary         = $this->employee->salary;
-        $this->rg             = $this->employee->rg;
-        $this->cpf            = $this->employee->cpf;
-        $this->birth_date     = $this->employee->birth_date;
-        $this->father         = $this->employee->father;
-        $this->mother         = $this->employee->mother;
-        $this->marital_status = $this->employee->marital_status;
-        $this->spouse         = $this->employee->spouse;
+        $this->employee         = $e;
+        $this->id               = $this->employee->id;
+        $this->name             = $this->employee->name;
+        $this->email            = $this->employee->email;
+        $this->phone_one        = $this->employee->phone_one;
+        $this->phone_two        = $this->employee->phone_two;
+        $this->salary           = $this->employee->salary;
+        $this->rg               = $this->employee->rg;
+        $this->cpf              = $this->employee->cpf;
+        $this->birth_date       = $this->employee->birth_date;
+        $this->father           = $this->employee->father;
+        $this->mother           = $this->employee->mother;
+        $this->marital_status   = $this->employee->marital_status;
+        $this->spouse           = $this->employee->spouse;
+        $this->hiring_date      = $this->employee->hiring_date;
+        $this->resignation_date = $this->employee->resignation_date;
     }
 
     public function destroy(): void

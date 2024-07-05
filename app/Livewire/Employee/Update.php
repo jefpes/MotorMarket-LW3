@@ -67,6 +67,11 @@ class Update extends Component
             $employee->user->update(['email' => $this->employee->email, 'email_verified_at' => null]);
         }
 
+        // Verifica a data de demissão e desativa o usuário, se houver
+        if ($this->employee->resignation_date && $employee->user()->exists()) {
+            $employee->user->update(['active' => false]);
+        }
+
         // Salva o endereço do funcionário
         $this->employeeAddress->employee_id = $employee->id;
         $this->employeeAddress->save($employee);

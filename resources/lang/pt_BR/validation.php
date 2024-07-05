@@ -171,6 +171,7 @@ return [
     'attributes' => [
         'address'               => 'endereço',
         'employee_id'           => 'funcionário',
+        'hiring_date'           => 'data de contratação',
         'mother'                => 'mãe',
         'father'                => 'pai',
         'spouse'                => 'cônjuge',

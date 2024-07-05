@@ -48,8 +48,13 @@
               @endcan
 
               @can('employee_delete')
-              <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}"
-                wire:click="$dispatch('employee::deleting', { id: {{ $data->id }}})" />
+                @if ($data->resignation_date)
+                  <x-icons.recycle class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-dismiss-{{ $data->id }}"
+                    wire:click="$dispatch('employee::deleting', { id: {{ $data->id }} })" />
+                  @else
+                  <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}"
+                    wire:click="$dispatch('employee::deleting', { id: {{ $data->id }}})" />
+                @endif
               @endcan
             </div>
           </x-table.td>
