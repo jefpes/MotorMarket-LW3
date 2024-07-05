@@ -16,7 +16,7 @@ class Activate extends Component
 
     public ?string $icon = 'icons.success';
 
-    public ?string $msg = 'User Deleted';
+    public ?string $msg = 'User Activated';
 
     public function render(): View
     {
@@ -44,7 +44,7 @@ class Activate extends Component
             $this->icon = 'icons.success';
             $this->msg  = 'User Activate';
             $this->dispatch('show-toast')->to(self::class);
-            $userAction->update(['status' => true]);
+            $userAction->update(['active' => true]);
             $this->dispatch('user::refresh')->to(Index::class);
             $this->modal = false;
 

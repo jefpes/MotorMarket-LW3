@@ -12,7 +12,7 @@ return new class () extends Migration {
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Employee::class)->nullable()->after('id');
-            $table->boolean('status')->default(1)->after('email_verified_at');
+            $table->boolean('active')->default(1)->after('email_verified_at');
         });
     }
 
@@ -23,7 +23,7 @@ return new class () extends Migration {
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('employee_id');
-            $table->dropColumn('status');
+            $table->dropColumn('active');
         });
     }
 };

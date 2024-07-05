@@ -37,7 +37,7 @@ class LoginForm extends Form
             ]);
         }
 
-        if (!auth()->user()->status) {
+        if (!auth()->user()->active) {
             RateLimiter::hit($this->throttleKey());
 
             Auth::logout(); // Deslogar o usuário se o status for inválido

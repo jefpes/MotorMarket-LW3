@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Livewire\Profile;
 
 use App\Models\User;
@@ -44,6 +46,10 @@ class UpdateProfileInformationForm extends Component
         }
 
         $this->user->save();
+
+        if ($this->user->employee) {
+            $this->user->employee()->update(['email' => $this->email]);
+        }
 
         $this->dispatch('profile-updated', name: $this->user->name);
     }
