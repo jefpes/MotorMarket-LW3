@@ -37,7 +37,7 @@
       </div>
       <div class="flex-1">
         @if ($type == 'discount')
-          <x-form.input x-mask="9999999" name="discount" label="Discount" placeholder="Discount"
+          <x-form.money-input name="discount" label="Discount" placeholder="Discount"
             :messages="$errors->get('sale_form.discount')" wire:model.live.debounce.1000ms="sale_form.discount" class="w-full" />
         @else
           <x-form.input x-mask="9999999" name="surcharge" label="Surcharge" placeholder="Surcharge"

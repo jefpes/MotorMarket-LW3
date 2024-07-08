@@ -25,7 +25,7 @@ class SaleForm extends Form
 
     public ?string $date_payment = null;
 
-    public ?float $discount = 0;
+    public ?string $discount;
 
     public ?float $surcharge = 0;
 
@@ -97,7 +97,7 @@ class SaleForm extends Form
         $this->status              = $sale->status;
         $this->date_sale           = $sale->date_sale;
         $this->date_payment        = $sale->date_payment;
-        $this->discount            = $sale->discount;
+        $this->discount            = (string) $sale->discount;
         $this->surcharge           = $sale->surcharge;
         $this->down_payment        = $sale->down_payment;
         $this->number_installments = $sale->number_installments;
