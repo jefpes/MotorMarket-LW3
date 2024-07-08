@@ -18,7 +18,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
         @if ($h == 'Actions')
-          @canany(['client_update', 'client_delete'])
+          @canany([$this->permission->update, $this->permission->delete])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
           @else
@@ -36,17 +36,17 @@
           <x-table.td> <x-span-date :date="$c->birth_date" /> </x-table.td>
 
 
-          @canany(['client_delete', 'client_update'])
+          @canany([$this->permission->delete, $this->permission->update])
           <x-table.td>
             <div class="flex flex-row gap-2 justify-center">
 
               <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
 
-              @can('client_update')
+              @can($this->permission->update)
                 <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
               @endcan
 
-              @can('client_delete')
+              @can($this->permission->delete)
                 <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $c->id }}" wire:click="$dispatch('client::deleting', { id: {{ $c->id }}})" />
               @endcan
             </div>

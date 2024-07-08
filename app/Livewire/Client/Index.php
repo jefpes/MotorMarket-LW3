@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
+use stdClass;
 
 class Index extends Component
 {
@@ -37,5 +38,17 @@ class Index extends Component
     public function updatedSearch(): void
     {
         $this->resetPage();
+    }
+
+    #[Computed]
+    public function permission(): stdClass
+    {
+        $permission         = new stdClass();
+        $permission->create = 'client_create';
+        $permission->read   = 'client_read';
+        $permission->update = 'client_update';
+        $permission->delete = 'client_delete';
+
+        return $permission;
     }
 }
