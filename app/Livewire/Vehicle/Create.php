@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Helpers\MoneyField;
 use App\Livewire\Forms\VehicleForm;
 use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
@@ -47,6 +48,9 @@ class Create extends Component
         $this->authorize('vehicle_create');
 
         file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
+
+        $this->form->purchase_price = MoneyField::convertToFloat($this->form->purchase_price);
+        $this->form->sale_price     = MoneyField::convertToFloat($this->form->sale_price);
 
         $vehicle = $this->form->save();
 

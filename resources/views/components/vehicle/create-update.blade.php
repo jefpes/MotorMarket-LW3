@@ -31,12 +31,12 @@
 
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
     <div class="basis-1/2">
-      <x-form.input x-mask="9999999" name="purchase_price" label="Purchase Price"
+      <x-form.money-input name="purchase_price" label="Purchase Price"
         placeholder="Purchase Price" :messages="$errors->get('form.purchase_price')" wire:model="form.purchase_price"
         class="w-full" />
     </div>
     <div class="basis-1/2">
-      <x-form.input x-mask="9999999" name="sale_price" label="Sale Price"
+      <x-form.money-input name="sale_price" label="Sale Price"
         placeholder="Sale Price" :messages="$errors->get('form.sale_price')" wire:model="form.sale_price"
         class="w-full" />
     </div>

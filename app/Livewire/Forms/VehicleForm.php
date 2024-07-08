@@ -13,9 +13,9 @@ class VehicleForm extends Form
 
     public ?string $purchase_date = null;
 
-    public ?float $purchase_price = null;
+    public ?string $purchase_price = null;
 
-    public ?float $sale_price = null;
+    public ?string $sale_price = null;
 
     public ?int $vehicle_type_id = null;
 
@@ -85,8 +85,8 @@ class VehicleForm extends Form
         $vehicle                = Vehicle::find($id);
         $this->id               = $vehicle->id;
         $this->purchase_date    = $vehicle->purchase_date;
-        $this->purchase_price   = $vehicle->purchase_price;
-        $this->sale_price       = $vehicle->sale_price;
+        $this->purchase_price   = (string) $vehicle->purchase_price;
+        $this->sale_price       = (string) $vehicle->sale_price;
         $this->vehicle_model_id = $vehicle->vehicle_model_id;
         $this->year_one         = $vehicle->year_one;
         $this->year_two         = $vehicle->year_two;
