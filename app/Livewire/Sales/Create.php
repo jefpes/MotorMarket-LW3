@@ -3,7 +3,6 @@
 namespace App\Livewire\Sales;
 
 use App\Enums\{PaymentMethod, StatusPayments};
-use App\Helpers\MoneyField;
 use App\Livewire\Forms\{InstallmentForm, SaleForm};
 use App\Models\{Client, Vehicle};
 use App\Traits\Toast;
@@ -82,8 +81,7 @@ class Create extends Component
 
     public function updatedSaleFormDiscount(): void
     {
-        $this->sale_form->discount = MoneyField::convertToFloat($this->sale_form->discount);
-        $this->sale_form->total    = $this->originalPrice - ($this->sale_form->discount ?? 0);
+        $this->sale_form->total = $this->originalPrice - ($this->sale_form->discount ?? 0);
     }
 
     public function updatedSaleFormSurcharge(): void
