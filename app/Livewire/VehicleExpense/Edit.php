@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleExpense;
 
+use App\Helpers\MoneyField;
 use App\Livewire\Forms\VehicleExpenseForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -35,8 +36,11 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->authorize('expense_update');
+        $this->authorize('vexpense_update');
         $this->dispatch('expense::refresh');
+
+        $this->form->value = MoneyField::convertToFloat($this->form->value);
+
         $this->form->user_id = auth()->id();
         $this->form->save();
 

@@ -56,8 +56,8 @@
   </div>
   @canany(['vehicle_update', 'vehicle_delete'])
     <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
-      @can('expense_create')
-      <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
+      @can('vexpense_create')
+        <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
       @endcan
 
       @can('vehicle_update')

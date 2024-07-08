@@ -13,7 +13,7 @@ class VehicleExpenseForm extends Form
 
     public ?string $date;
 
-    public ?float $value;
+    public ?string $value;
 
     public ?int $vehicle_id;
 
@@ -58,7 +58,7 @@ class VehicleExpenseForm extends Form
         $expense           = VehicleExpense::find($id);
         $this->id          = $expense->id;
         $this->date        = $expense->date;
-        $this->value       = $expense->value;
+        $this->value       = (string) $expense->value;
         $this->vehicle_id  = $expense->vehicle_id;
         $this->user_id     = $expense->user_id;
         $this->description = $expense->description;

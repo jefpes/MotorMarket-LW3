@@ -10,12 +10,12 @@
           <x-text-input type="date" id="date_f" wire:model.live.debounce.500ms='date_f' />
         </div>
         <div class="flex-none">
-          <x-input-label for="value_min" value="{{ __('Value') }}" />
           <div class="flex w-full gap-x-2">
-
-            <x-text-input x-mask="99999" id="value_min" wire:model.live.debounce.500ms='value_min' />
-            <span>{{ __('to') }}</span>
-            <x-text-input x-mask="99999" id="value_max" wire:model.live.debounce.500ms='value_max' />
+            <x-form.money-input name="value_min" label="Value" placeholder="Value" :messages="$errors->get('value_min')"
+              wire:model.live.debounce.500ms="value_min" class="w-full" />
+            <div class="flex items-center pt-3">{{ __('to') }}</div>
+            <x-form.money-input name="value_max" label="Value" placeholder="Value" :messages="$errors->get('value_max')"
+              wire:model.live.debounce.500ms="value_max" class="w-full" />
           </div>
         </div>
       </div>
@@ -38,9 +38,9 @@
       <x-slot:thead>
         @foreach ($theader as $h)
         @if ($h == 'Actions')
-        @canany(['expense_update', 'expense_delete'])
-        <x-table.th> {{ __($h) }} </x-table.th>
-        @endcanany
+          @canany([$this->permission->update, $this->permission->delete])
+            <x-table.th> {{ __($h) }} </x-table.th>
+          @endcanany
         @else
         <x-table.th> {{ __($h) }} </x-table.th>
         @endif
@@ -55,7 +55,7 @@
           <x-table.td> <x-span-date :date="$data->date" /> </x-table.td>
           <x-table.td> {{ $data->user->name ?? '' }} </x-table.td>
 
-          @canany(['expense_update', 'expense_delete'])
+          @canany([$this->permission->update, $this->permission->delete])
           <x-table.td>
             <div class="flex flex-row gap-2">
               <x-icons.edit id="btn-edit-{{ $data->id }}" wire:click="$dispatch('expense::editing', { id: {{ $data->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />

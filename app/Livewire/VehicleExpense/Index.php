@@ -2,12 +2,14 @@
 
 namespace App\Livewire\VehicleExpense;
 
+use App\Helpers\MoneyField;
 use App\Models\{VehicleExpense};
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
+use stdClass;
 
 class Index extends Component
 {
@@ -23,9 +25,9 @@ class Index extends Component
 
     public ?string $date_f = '';
 
-    public ?int $value_min = null;
+    public ?string $value_min = null;
 
-    public ?int $value_max = null;
+    public ?string $value_max = null;
 
     /** @var array<string> */
     public array $theader = ['Vehicle', 'Value', 'Description', 'Date', 'By', 'Actions'];
@@ -50,13 +52,49 @@ class Index extends Component
         return  VehicleExpense::query()
         ->with('vehicle', 'user')
         ->orderBy('date', 'desc')
-        ->when($this->date_i && $this->date_f, fn (Builder $q) => $q->whereBetween('date', [$this->date_i, $this->date_f]))
-        ->when($this->value_min && $this->value_max, fn (Builder $q) => $q->whereBetween('value', [$this->value_min, $this->value_max]))
+        ->when($this->date_i, fn (Builder $q) => $q->where('date', '>=', $this->date_i))
+        ->when($this->date_f, fn (Builder $q) => $q->where('date', '<=', $this->date_f))
+        ->when($this->value_min, fn (Builder $q) => $q->where('value', '>=', $this->value_min))
+        ->when($this->value_max, fn (Builder $q) => $q->where('value', '<=', $this->value_max))
         ->paginate($this->perPage);
     }
 
     public function updatedPerPage(): void
     {
         $this->resetPage();
+    }
+
+    public function updatedDateI(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDateF(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedValueMin(): void
+    {
+        $this->value_min = MoneyField::convertToFloat($this->value_min);
+        $this->resetPage();
+    }
+
+    public function updatedValueMax(): void
+    {
+        $this->value_max = MoneyField::convertToFloat($this->value_max);
+        $this->resetPage();
+    }
+
+    #[Computed]
+    public function permission(): stdClass
+    {
+        $permission         = new stdClass();
+        $permission->create = 'vexpense_create';
+        $permission->read   = 'vexpense_read';
+        $permission->update = 'vexpense_update';
+        $permission->delete = 'vexpense_delete';
+
+        return $permission;
     }
 }

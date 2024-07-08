@@ -124,7 +124,7 @@ Route::middleware(Localization::class)->group(function () {
         ->name('installments');
 
     Route::get('vehicle-expense', VehicleExpense\Index::class)
-        ->middleware(['auth', 'verified', 'can:expense_read'])
+        ->middleware(['auth', 'verified', 'can:vexpense_read'])
         ->name('vehicle-expense');
 
     require __DIR__ . '/auth.php';
