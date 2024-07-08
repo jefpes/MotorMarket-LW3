@@ -27,33 +27,36 @@
       @endforeach
     </x-slot:thead>
     <x-slot:tbody>
-      @foreach ($this->clients->items() as $c)
-      <x-table.tr>
-        <x-table.td> {{ $c->name }} </x-table.td>
-        <x-table.td> {{ $c->rg }} </x-table.td>
-        <x-table.td> {{ $c->cpf }} </x-table.td>
-        <x-table.td> {{ $c->phone_one }} </x-table.td>
-        <x-table.td> {{ $c->birth_date }} </x-table.td>
+      @forelse ($this->clients->items() as $c)
+        <x-table.tr>
+          <x-table.td> {{ $c->name }} </x-table.td>
+          <x-table.td> {{ $c->rg }} </x-table.td>
+          <x-table.td> {{ $c->cpf }} </x-table.td>
+          <x-table.td> {{ $c->phone_one }} </x-table.td>
+          <x-table.td> {{ $c->birth_date }} </x-table.td>
 
 
-        @canany(['client_delete', 'client_update'])
-        <x-table.td>
-          <div class="flex flex-row gap-2 justify-center">
+          @canany(['client_delete', 'client_update'])
+          <x-table.td>
+            <div class="flex flex-row gap-2 justify-center">
 
-            <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
+              <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
 
-            @can('client_update')
-              <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
-            @endcan
+              @can('client_update')
+                <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
+              @endcan
 
-            @can('client_delete')
-              <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $c->id }}" wire:click="$dispatch('client::deleting', { id: {{ $c->id }}})" />
-            @endcan
-          </div>
-        </x-table.td>
-        @endcanany
-      </x-table.tr>
-      @endforeach
+              @can('client_delete')
+                <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $c->id }}" wire:click="$dispatch('client::deleting', { id: {{ $c->id }}})" />
+              @endcan
+            </div>
+          </x-table.td>
+          @endcanany
+        </x-table.tr>
+      @empty
+        <x-table.tr-no-register :cols="count($theader)" />
+      @endforelse
+
     </x-slot:tbody>
   </x-table.table>
   <div class="pt-6 px-2">

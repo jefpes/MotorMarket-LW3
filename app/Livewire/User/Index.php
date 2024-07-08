@@ -8,6 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
+use stdClass;
 
 class Index extends Component
 {
@@ -16,7 +17,7 @@ class Index extends Component
     public UserForm $form;
 
     /** @var array<string> */
-    public array $theader = ['Name', 'User', 'Register Number', 'E-Mail', 'Actions'];
+    public array $theader = ['Name', 'User', 'E-Mail', 'Status', 'Actions'];
 
     #[Url(except: '', as: 's', history: true)]
     public ?string $search = '';
@@ -24,7 +25,7 @@ class Index extends Component
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 10;
 
-    #[On('user::deleted')]
+    #[On('user::refresh')]
     public function render(): View
     {
         return view('livewire.user.index');
@@ -44,4 +45,18 @@ class Index extends Component
     {
         $this->resetPage();
     }
+
+    #[Computed]
+    public function permissions(): stdClass
+    {
+        $permission         = new stdClass();
+        $permission->create = 'user_create';
+        $permission->read   = 'user_read';
+        $permission->update = 'user_update';
+        $permission->delete = 'user_delete';
+        $permission->admin  = 'admin';
+
+        return $permission;
+    }
+
 }

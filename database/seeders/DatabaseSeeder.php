@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'name'              => 'master',
-            'user_name'         => 'master',
-            'regist_number'     => '00000001',
             'email'             => 'master@admin.com',
             'email_verified_at' => now(),
             'password'          => Hash::make('admin'),
@@ -74,12 +72,15 @@ class DatabaseSeeder extends Seeder
             ['name' => 'expense_read'],
             ['name' => 'expense_update'],
             ['name' => 'expense_delete'],
+            ['name' => 'employee_create'],
+            ['name' => 'employee_read'],
+            ['name' => 'employee_update'],
+            ['name' => 'employee_delete'],
+            ['name' => 'ephoto_delete'],
         ]);
 
         $user = User::create([
             'name'              => 'admin',
-            'user_name'         => 'admin',
-            'regist_number'     => '00000000',
             'email'             => 'admin@admin.com',
             'email_verified_at' => now(),
             'password'          => Hash::make('admin'),
@@ -96,6 +97,6 @@ class DatabaseSeeder extends Seeder
         City::factory()->count(10)->create();
 
         $this->call([BrandSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, CompanySeeder::class]);
-        $this->call([ClientSeeder::class, VehicleSeeder::class, SalesSeeder::class, VehicleExpenseSeeder::class]);
+        $this->call([ClientSeeder::class, VehicleSeeder::class, SalesSeeder::class, VehicleExpenseSeeder::class, EmployeeSeeder::class]);
     }
 }

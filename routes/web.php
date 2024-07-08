@@ -4,7 +4,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, 
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, City, Client, Company, Dashboard, Home, PaymentInstallments, Profile, Reports, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
+use App\Livewire\{Brand, City, Client, Company, Dashboard, Employee, Home, PaymentInstallments, Profile, Reports, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -16,20 +16,12 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('/company', Company\Edit::class)->middleware(['auth', 'verified', 'can:company_update'])->name('company');
 
     Route::get('dashboard', Dashboard::class)
-        ->middleware(['auth', 'verified', 'can:admin'])
+        ->middleware(['auth', 'verified'])
         ->name('dashboard');
 
     Route::get('users', User\Index::class)
         ->middleware(['auth', 'can:user_read', 'verified'])
         ->name('users');
-
-    Route::get('users-create', User\Create::class)
-        ->middleware(['auth', 'can:user_create', 'verified'])
-        ->name('users.create');
-
-    Route::get('users-edit/{id}', User\Edit::class)
-        ->middleware(['auth', 'can:user_update', 'verified', CheckUserHierarchy::class])
-        ->name('users.edit');
 
     Route::get('user-roles/{id}', UserRole::class)
         ->middleware(['auth', 'can:admin', 'verified', CheckUserHierarchy::class])
@@ -94,6 +86,22 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('client_show/{id}', Client\Show::class)
         ->middleware(['auth', 'verified', 'can:client_read'])
         ->name('client.show');
+
+    Route::get('employee', Employee\Index::class)
+        ->middleware(['auth', 'verified', 'can:client_read'])
+        ->name('employee');
+
+    Route::get('employee_create', Employee\Create::class)
+        ->middleware(['auth', 'verified', 'can:employee_create'])
+        ->name('employee.create');
+
+    Route::get('employee_edit/{id}', Employee\Update::class)
+        ->middleware(['auth', 'verified', 'can:employee_update'])
+        ->name('employee.edit');
+
+    Route::get('employee_show/{id}', Employee\Show::class)
+        ->middleware(['auth', 'verified', 'can:employee_read'])
+        ->name('employee.show');
 
     Route::get('sales', Sales\Index::class)
             ->middleware(['auth', 'verified', 'can:sale_read'])

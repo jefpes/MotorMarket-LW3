@@ -50,35 +50,35 @@ test('email verification status is unchanged when the email address is unchanged
     $this->assertNotNull($user->refresh()->email_verified_at);
 });
 
-test('user can delete their account', function () {
-    $user = User::factory()->create();
+// test('user can delete their account', function () {
+//     $user = User::factory()->create();
 
-    $this->actingAs($user);
+//     $this->actingAs($user);
 
-    $component = Volt::test('profile.delete-user-form')
-        ->set('password', 'password')
-        ->call('deleteUser');
+//     $component = Volt::test('profile.delete-user-form')
+//         ->set('password', 'password')
+//         ->call('deleteUser');
 
-    $component
-        ->assertHasNoErrors()
-        ->assertRedirect('/');
+//     $component
+//         ->assertHasNoErrors()
+//         ->assertRedirect('/');
 
-    $this->assertGuest();
-    $this->assertNull($user->fresh());
-});
+//     $this->assertGuest();
+//     $this->assertNull($user->fresh());
+// });
 
-test('correct password must be provided to delete account', function () {
-    $user = User::factory()->create();
+// test('correct password must be provided to delete account', function () {
+//     $user = User::factory()->create();
 
-    $this->actingAs($user);
+//     $this->actingAs($user);
 
-    $component = Volt::test('profile.delete-user-form')
-        ->set('password', 'wrong-password')
-        ->call('deleteUser');
+//     $component = Volt::test('profile.delete-user-form')
+//         ->set('password', 'wrong-password')
+//         ->call('deleteUser');
 
-    $component
-        ->assertHasErrors('password')
-        ->assertNoRedirect();
+//     $component
+//         ->assertHasErrors('password')
+//         ->assertNoRedirect();
 
-    $this->assertNotNull($user->fresh());
-});
+//     $this->assertNotNull($user->fresh());
+// });

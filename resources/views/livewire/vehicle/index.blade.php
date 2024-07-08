@@ -34,9 +34,11 @@
   </div>
 
   <div class="flex flex-wrap mx-auto gap-2">
-    @foreach ($this->vehicle as $v)
+    @forelse ($this->vehicle as $v)
       <livewire:vehicle.card :vehicle="$v" :key="$v->id">
-    @endforeach
+    @empty
+      <div class="w-full text-center text-4xl"> {{ __('No records found') }} </div>
+    @endforelse
   </div>
 
   <div class="mt-4"> {{ $this->vehicle->links() }} </div>

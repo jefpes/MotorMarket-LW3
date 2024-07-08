@@ -48,7 +48,7 @@
         wire:model="form.km" class="w-full" />
     </div>
     <div class="basis-1/3">
-      <x-form.input x-mask="aaa-9*99" name="plate" label="Plate" placeholder="Plate"
+      <x-form.plate-input name="plate" label="Plate" placeholder="Plate"
         :messages="$errors->get('form.plate')" wire:model="form.plate" class="w-full" />
     </div>
     <div class="basis-1/3">

@@ -60,7 +60,7 @@
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
-        @foreach ($this->installments as $i)
+        @forelse ($this->installments as $i)
         <x-table.tr>
           <x-table.td> {{ $loop->iteration }} </x-table.td>
           <x-table.td> {{ $i->sale->client->name }} </x-table.td>
@@ -83,7 +83,9 @@
           </x-table.td>
           @endcanany
         </x-table.tr>
-        @endforeach
+        @empty
+          <x-table.tr-no-register :cols="count($theader)" />
+        @endforelse
       </x-slot:tbody>
     </x-table.table>
     <div class="pt-6 px-2">

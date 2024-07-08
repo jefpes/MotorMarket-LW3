@@ -17,7 +17,7 @@
 
     <div class="flex-1">
       @if ($filter == 'plate')
-      <x-text-input class="w-full" type="search" name="search"
+      <x-form.plate-input class="w-full" type="search" name="search"
         wire:model.live.debounce.1000ms="plate"
         placeholder="{{ __('Search plate') }}" />
       @endif
@@ -62,7 +62,7 @@
         @endforeach
       </x-slot>
       <x-slot name="tbody">
-        @foreach ($this->sales->items() as $s)
+        @forelse ($this->sales->items() as $s)
         <x-table.tr>
           <x-table.td> {{ $s->vehicle->plate }} </x-table.td>
           <x-table.td> {{ $s->client->name }} </x-table.td>
@@ -94,7 +94,9 @@
             @endif
           @endcanany
         </x-table.tr>
-        @endforeach
+        @empty
+          <x-table.tr-no-register :cols="count($theader)" />
+        @endforelse
       </x-slot>
     </x-table.table>
   </div>
@@ -119,9 +121,11 @@
         {{ __('Cancel') }}
       </x-secondary-button>
 
+      @if ($modal)
       <a href="{{ route('contract', [$sale_id, 'city' => $city, 'date' => $date ]) }}" id="contract-{{ $s->id }}" target="blank">
         <x-primary-button class="ms-3"> {{ __('Issue') }} </x-primary-button>
       </a>
+      @endif
     </x-slot:footer>
   </x-modal>
 </div>

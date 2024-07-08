@@ -33,7 +33,7 @@
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
-        @foreach ($this->vmodels as $vm)
+        @forelse ($this->vmodels as $vm)
         <x-table.tr wire:key="{{ $vm->id }}">
           <x-table.td> {{ $vm->name }} </x-table.td>
           <x-table.td> {{ $vm->brand->name }} </x-table.td>
@@ -46,7 +46,9 @@
               </div>
           </x-table.td>
         </x-table.tr>
-        @endforeach
+        @empty
+          <x-table.tr-no-register :cols="count($theader)" />
+        @endforelse
       </x-slot:tbody>
     </x-table.table>
   </div>

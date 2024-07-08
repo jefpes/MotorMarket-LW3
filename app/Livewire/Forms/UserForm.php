@@ -16,24 +16,21 @@ class UserForm extends Form
 
     public ?string $name = null;
 
-    public ?string $user_name = null;
-
     public ?string $email = null;
-
-    public ?string $regist_number = null;
 
     public ?string $password = null;
 
     public ?string $password_confirmation = null;
 
+    public ?int $employee_id = null;
+
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
         $rules = [
-            'name'          => ['required', 'min:3', 'max:255'],
-            'user_name'     => ['required', 'min:3', 'max:30', Rule::unique(User::class)->ignore($this->id)],
-            'email'         => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->id)],
-            'regist_number' => ['required', 'size:8', Rule::unique(User::class)->ignore($this->id)],
+            'name'        => ['required', 'min:3', 'max:255'],
+            'email'       => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->id)],
+            'employee_id' => ['required', 'integer', 'exists:employees,id', Rule::unique(User::class)->ignore($this->id)],
         ];
 
         if (!$this->id) {
@@ -46,13 +43,12 @@ class UserForm extends Form
 
     public function setUser(int $id): void
     {
-        $u                   = User::find($id);
-        $this->id            = $u->id;
-        $this->name          = $u->name;
-        $this->user_name     = $u->user_name;
-        $this->email         = $u->email;
-        $this->regist_number = $u->regist_number;
-        $this->password      = $u->password;
+        $u                 = User::find($id);
+        $this->id          = $u->id;
+        $this->name        = $u->name;
+        $this->email       = $u->email;
+        $this->password    = $u->password;
+        $this->employee_id = $u->employee_id;
     }
 
     public function save(): void
@@ -63,39 +59,12 @@ class UserForm extends Form
             ['id' => $this->id],
             [
                 'name'           => $this->name,
-                'user_name'      => $this->user_name,
                 'email'          => $this->email,
-                'regist_number'  => $this->regist_number,
                 'password'       => $this->password,
                 'remember_token' => Str::random(10),
+                'employee_id'    => $this->employee_id,
             ]
         );
-
-        //         if($this->id) {
-        //     User::create(
-        //         [
-        //         'name'           => $this->name,
-        //         'user_name'      => $this->user_name,
-        //         'email'          => $this->email,
-        //         'regist_number'  => $this->regist_number,
-        //         'password'       => Hash::make($this->password),
-        //         'remember_token' => Str::random(10),
-        //         ]
-        //     );
-        // } else {
-        //     User::updateOrCreate(
-        //         ['id' => $this->id],
-        //         [
-        //         'name'           => $this->name,
-        //         'user_name'      => $this->user_name,
-        //         'email'          => $this->email,
-        //         'regist_number'  => $this->regist_number,
-        //         'password'       => $this->password,
-        //         'remember_token' => Str::random(10),
-        //             ]
-        //     );
-        // }
-
     }
 
     public function destroy(): void
