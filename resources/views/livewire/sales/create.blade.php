@@ -1,5 +1,5 @@
 <div>
-  <x-slot name="header"> {{ __($header) . ': ' . $vehicle->plate . ' - ' . $vehicle->model->name . ' - ' . $vehicle->model->type->name . ' - ' . __('Price') . ': ' . $originalPrice}} </x-slot>
+  <x-slot name="header"> {{ __($header) . ': ' . $vehicle->plate . ' - ' . $vehicle->model->name . ' - ' . $vehicle->model->type->name . ' - ' . __('Price') . ': '}} <x-span-money :money="$vehicle->sale_price" /> </x-slot>
 
 
   <div class="space-y-2 mb-4">
