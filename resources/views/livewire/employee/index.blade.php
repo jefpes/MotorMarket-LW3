@@ -43,8 +43,10 @@
                 href="{{ route('employee.show', $data->id) }}" wire:navigate />
 
               @can('employee_update')
-              <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}"
-                href="{{ route('employee.edit', $data->id) }}" wire:navigate />
+                @if (!$data->resignation_date)
+                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}"
+                    href="{{ route('employee.edit', $data->id) }}" wire:navigate />
+                @endif
               @endcan
 
               @can('employee_delete')
