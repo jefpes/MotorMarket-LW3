@@ -11,7 +11,7 @@
         :messages="$errors->get('employee.cpf')" wire:model="employee.cpf" class="w-full" />
     </div>
     <div class="basis-1/3">
-      <x-form.input x-mask="9999999999999" name="salary" label="Salary" type="text" placeholder="Salary" :messages="$errors->get('employee.salary')"
+      <x-form.money-input name="salary" label="Salary" type="text" placeholder="Salary" :messages="$errors->get('employee.salary')"
         wire:model="employee.salary" class="w-full" />
     </div>
   </div>

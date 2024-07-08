@@ -22,7 +22,7 @@ class EmployeeForm extends Form
 
     public ?string $phone_two = null;
 
-    public ?float $salary = null;
+    public ?string $salary = null;
 
     public ?string $rg = null;
 
@@ -98,7 +98,7 @@ class EmployeeForm extends Form
         $this->email            = $this->employee->email;
         $this->phone_one        = $this->employee->phone_one;
         $this->phone_two        = $this->employee->phone_two;
-        $this->salary           = $this->employee->salary;
+        $this->salary           = (string) $this->employee->salary;
         $this->rg               = $this->employee->rg;
         $this->cpf              = $this->employee->cpf;
         $this->birth_date       = $this->employee->birth_date;
