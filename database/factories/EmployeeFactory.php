@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\MaritalStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,13 +23,12 @@ class EmployeeFactory extends Factory
             'salary'           => $this->faker->randomFloat(2, 1000, 10000),
             'rg'               => $this->faker->unique()->numerify('##.###.###-#'),
             'cpf'              => $this->faker->unique()->numerify('###.###.###-##'),
-            'marital_status'   => $this->faker->randomElement(['Solteiro', 'Casado', 'Divorciado', 'Viúvo']),
+            'marital_status'   => $this->faker->randomElement(array_map(fn ($case) => $case->value, MaritalStatus::cases())),
             'phone_one'        => $this->faker->unique()->numerify('(##) #####-####'),
             'phone_two'        => $this->faker->optional()->numerify('(##) #####-####'),
             'birth_date'       => $this->faker->date(),
             'father'           => $this->faker->optional()->name('male'),
             'mother'           => $this->faker->name('female'),
-            'marital_status'   => $this->faker->randomElement(['Solteiro', 'Casado', 'Divorciado', 'Viúvo']),
             'spouse'           => $this->faker->optional()->name,
             'hiring_date'      => $this->faker->date(),
             'resignation_date' => $this->faker->optional()->date(),

@@ -71,6 +71,20 @@
           <x-span-money :money="$employee->salary" />
         </p>
       </div>
+      <div class="flex">
+        <p class="text-lg font-semibold">
+          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Hiring Date') }}: </span>
+          <x-span-date :date="$employee->hiring_date" />
+        </p>
+      </div>
+      @if ($employee->resignation_date)
+        <div class="flex">
+          <p class="text-lg font-semibold">
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Resignation Date') }}: </span>
+            <x-span-date :date="$employee->resignation_date" />
+          </p>
+        </div>
+      @endif
 
       <div class="inline-flex items-center justify-center w-full">
         <hr class="w-full h-1 my-8 bg-gray-200 border-0 rounded dark:bg-gray-700">

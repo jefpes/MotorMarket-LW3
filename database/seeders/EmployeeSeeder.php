@@ -28,7 +28,7 @@ class EmployeeSeeder extends Seeder
                 'number'       => '123',
                 'neighborhood' => 'Neighborhood',
                 'city_id'      => 1,
-                'state'        => 'CE',
+                'state'        => 'Ceará',
                 'complement'   => 'Complement',
             ]);
         }
