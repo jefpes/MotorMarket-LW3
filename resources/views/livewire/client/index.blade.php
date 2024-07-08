@@ -33,7 +33,7 @@
           <x-table.td> {{ $c->rg }} </x-table.td>
           <x-table.td> {{ $c->cpf }} </x-table.td>
           <x-table.td> {{ $c->phone_one }} </x-table.td>
-          <x-table.td> {{ $c->birth_date }} </x-table.td>
+          <x-table.td> <x-span-date :date="$c->birth_date" /> </x-table.td>
 
 
           @canany(['client_delete', 'client_update'])
