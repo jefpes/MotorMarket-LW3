@@ -33,7 +33,7 @@
           <x-table.td> {{ $data->rg }} </x-table.td>
           <x-table.td> {{ $data->cpf }} </x-table.td>
           <x-table.td> {{ $data->phone_one }} </x-table.td>
-          <x-table.td> {{ $data->birth_date }} </x-table.td>
+          <x-table.td> <x-span-date :date="$data->birth_date" /></x-table.td>
 
           @canany(['employee_delete', 'employee_update'])
           <x-table.td>
@@ -49,7 +49,7 @@
 
               @can('employee_delete')
                 @if ($data->resignation_date)
-                  <x-icons.recycle class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-dismiss-{{ $data->id }}"
+                  <x-icons.recycle class="cursor-pointer text-2xl flex text-green-600 w-8 h-8" id="btn-dismiss-{{ $data->id }}"
                     wire:click="$dispatch('employee::deleting', { id: {{ $data->id }} })" />
                   @else
                   <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}"
