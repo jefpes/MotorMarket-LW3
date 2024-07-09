@@ -73,15 +73,14 @@
           <x-table.td> {{ $s->user->name }} </x-table.td>
 
           @canany(['sale_cancel', 'installment_read'])
-            @if (!$s->date_cancel)
-              <x-table.td>
-                <div class="flex flex-row gap-2 justify-center">
+            <x-table.td>
+              <div class="flex flex-row gap-2 justify-center">
+                @if (!$s->date_cancel)
                   @if ($s->number_installments > 1)
                     <x-icons.contract class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" wire:click="issueContract({{ $s->id }})" />
 
                     <x-icons.money-receive class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
-                      href="{{ route('sale.installments', $s->id) }}"
-                      id="installments-{{ $s->id }}" wire:navigate />
+                      href="{{ route('sale.installments', $s->id) }}" id="installments-{{ $s->id }}" wire:navigate />
                   @endif
 
                   @can('sale_cancel')
@@ -89,9 +88,11 @@
                       wire:click="$dispatch('sale::canceling', { id: {{ $s->id }} })"
                       class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
-                </div>
-              </x-table.td>
-            @endif
+                @else
+                  <x-icons.fail class="text-2xl flex text-red-600 w-8 h-8" />
+                @endif
+              </div>
+            </x-table.td>
           @endcanany
         </x-table.tr>
         @empty
