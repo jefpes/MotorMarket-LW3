@@ -69,8 +69,9 @@ class Create extends Component
 
     public function updatedType(): void
     {
-        $this->updatedSaleFormDownPayment();
-        $this->sale_form->total = $this->originalPrice;
+        $this->sale_form->discount  = 0;
+        $this->sale_form->surcharge = 0;
+        $this->updateInstallmentValue();
     }
 
     public function updatedSaleFormNumberInstallments(): void
