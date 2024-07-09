@@ -3,7 +3,6 @@
 namespace App\Livewire\Employee;
 
 use App\Enums\{MaritalStatus, States};
-use App\Helpers\{MoneyField};
 use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotosForm};
 use App\Models\{City, Employee};
 use App\Traits\Toast;
@@ -55,7 +54,6 @@ class Update extends Component
     public function save(): void
     {
         $this->authorize('employee_update');
-        $this->employee->salary = MoneyField::convertToFloat($this->employee->salary);
 
         file_exists('storage/employee_photos/') ?: Storage::makeDirectory('employee_photos/');
 

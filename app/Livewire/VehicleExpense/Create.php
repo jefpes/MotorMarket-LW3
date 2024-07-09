@@ -2,7 +2,6 @@
 
 namespace App\Livewire\VehicleExpense;
 
-use App\Helpers\MoneyField;
 use App\Livewire\Forms\VehicleExpenseForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -34,8 +33,6 @@ class Create extends Component
     public function save(): void
     {
         $this->authorize('vexpense_create');
-
-        $this->form->value = MoneyField::convertToFloat($this->form->value);
 
         $this->dispatch('expense::create');
         $this->form->vehicle_id = $this->v_id;

@@ -2,7 +2,6 @@
 
 namespace App\Livewire\VehicleExpense;
 
-use App\Helpers\MoneyField;
 use App\Models\{VehicleExpense};
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
@@ -76,13 +75,11 @@ class Index extends Component
 
     public function updatedValueMin(): void
     {
-        $this->value_min = MoneyField::convertToFloat($this->value_min);
         $this->resetPage();
     }
 
     public function updatedValueMax(): void
     {
-        $this->value_max = MoneyField::convertToFloat($this->value_max);
         $this->resetPage();
     }
 
