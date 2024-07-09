@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\City;
+use App\Models\{City, Client};
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -26,16 +26,29 @@ return new class () extends Migration {
             $table->string('affiliated_two')->nullable();
             $table->string('description')->nullable();
 
-            $table->string('cep', 20);
-            $table->string('logradouro_type', 100);
-            $table->string('logradouro'); // Rua, Avenida, etc.
-            $table->integer('number');
-            $table->string('complement')->nullable();
-            $table->string('bairro', 100);
-            $table->foreignIdFor(City::class)->constrained(table: 'cities', column: 'id');
-            $table->string('state', 100); // Pode ser uma abreviação (SP, RJ, etc.)
-            $table->string('country', 100)->default('Brasil');
+            $table->timestamps();
+        });
 
+        Schema::create('client_addresses', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Client::class)->constrained()->cascadeOnDelete();
+            $table->string('zip_code');
+            $table->string('street');
+            $table->integer('number');
+            $table->string('neighborhood');
+            $table->foreignIdFor(City::class)->constrained()->cascadeOnDelete();
+            $table->string('state');
+            $table->string('complement')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('client_photos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Client::class)->constrained()->cascadeOnDelete();
+            $table->string('photo_name', 255);
+            $table->string('format', 5);
+            $table->string('full_path', 255);
+            $table->string('path', 255);
             $table->timestamps();
         });
     }
@@ -45,6 +58,8 @@ return new class () extends Migration {
      */
     public function down(): void
     {
+        Schema::dropIfExists('client_photos');
+        Schema::dropIfExists('client_addresses');
         Schema::dropIfExists('clients');
     }
 };
