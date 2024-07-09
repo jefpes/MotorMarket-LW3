@@ -99,6 +99,9 @@
         @endforelse
       </x-slot>
     </x-table.table>
+    <div class="pt-6 px-2">
+      {{ $this->sales->onEachSide(1)->links() }}
+    </div>
   </div>
 
   <livewire:sales.cancel />

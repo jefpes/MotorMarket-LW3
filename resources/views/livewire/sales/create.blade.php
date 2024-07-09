@@ -37,15 +37,15 @@
       </div>
       <div class="flex-1">
         @if ($type == 'discount')
-          <x-form.input x-mask="9999999" name="discount" label="Discount" placeholder="Discount"
+          <x-form.money-input name="discount" label="Discount" placeholder="Discount"
             :messages="$errors->get('sale_form.discount')" wire:model.live.debounce.1000ms="sale_form.discount" class="w-full" />
         @else
-          <x-form.input x-mask="9999999" name="surcharge" label="Surcharge" placeholder="Surcharge"
+          <x-form.money-input name="surcharge" label="Surcharge" placeholder="Surcharge"
             :messages="$errors->get('sale_form.surcharge')" wire:model.live.debounce.1000ms="sale_form.surcharge" class="w-full" />
         @endif
       </div>
       <div class="flex-1">
-        <x-form.input disabled x-mask="99999999999" name="plate" label="Total" placeholder="Total"
+        <x-form.money-input name="plate" label="Total" placeholder="Total"
           :messages="$errors->get('sale_form.total')" wire:model="sale_form.total" class="w-full" />
       </div>
       <div class="flex-0 md:pt-6">
@@ -56,15 +56,15 @@
     @if ($inInstallments)
     <div class="flex flex-col md:flex-row justify-between md:space-x-2 space-y-2 md:space-y-0">
       <div class="flex-1">
-        <x-form.input x-mask="9999999" name="down_payment" label="Down Payment" placeholder="Down Payment"
+        <x-form.money-input name="down_payment" label="Down Payment" placeholder="Down Payment"
           :messages="$errors->get('sale_form.down_payment')" wire:model.live.debounce.1000ms="sale_form.down_payment" class="w-full" />
       </div>
       <div class="flex-0">
-        <x-form.input x-mask="999" name="number_installments" label="Number of Installments" placeholder="Number of Installments"
+        <x-form.input type="number" min="1" max="50" name="number_installments" label="Number of Installments" placeholder="Number of Installments"
           :messages="$errors->get('sale_form.number_installments')" wire:model.live.debounce.1000ms="sale_form.number_installments" class="w-full" />
       </div>
       <div class="flex-1">
-        <x-form.input disabled name="installment_value" label="Installment Value" placeholder="Installment Value"
+        <x-form.money-input disabled name="installment_value" label="Installment Value" placeholder="Installment Value"
         :messages="$errors->get('installment_value')" wire:model.live.debounce.1000ms="installment_value" class="w-full" />
       </div>
       <div class="flex-1">

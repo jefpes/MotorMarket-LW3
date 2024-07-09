@@ -51,7 +51,6 @@ class Create extends Component
         $this->sale_form->discount    = 0;
         $this->sale_form->date_sale   = now()->format('Y-m-d');
         $this->first_installment_date = now()->addMonth()->format('Y-m-d');
-
     }
 
     public function render(): View
@@ -70,26 +69,46 @@ class Create extends Component
 
     public function updatedType(): void
     {
-        $this->sale_form->down_payment = 0;
-        $this->sale_form->total        = $this->originalPrice;
+        $this->updatedSaleFormDownPayment();
+        $this->sale_form->total = $this->originalPrice;
     }
 
     public function updatedSaleFormNumberInstallments(): void
     {
-        $this->installment_value = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / $this->sale_form->number_installments;
+        $this->updateInstallmentValue();
     }
 
     public function updatedSaleFormDiscount(): void
     {
         $this->sale_form->total = $this->originalPrice - ($this->sale_form->discount ?? 0);
+
+        if ($this->inInstallments) {
+            $this->updateInstallmentValue();
+        }
     }
 
     public function updatedSaleFormSurcharge(): void
     {
         $this->sale_form->total = $this->originalPrice + ($this->sale_form->surcharge ?? 0);
+
+        if ($this->inInstallments) {
+            $this->updateInstallmentValue();
+        }
     }
 
     public function updatedSaleFormDownPayment(): void
+    {
+        $this->updateInstallmentValue();
+    }
+
+    public function updatedInInstallments(): void
+    {
+        if ($this->inInstallments) {
+            $this->updateInstallmentValue();
+        }
+    }
+
+    private function updateInstallmentValue(): void
     {
         $this->installment_value = ($this->sale_form->total - ($this->sale_form->down_payment ?? 0)) / ($this->sale_form->number_installments ?? 1);
     }
