@@ -2,7 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\{LogradouroType, States};
+use App\Enums\{MaritalStatus};
+use App\Models\{Client, ClientAddress};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,27 +19,25 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'            => $this->faker->name,
-            'rg'              => $this->faker->unique()->numerify('##.###.###-#'),
-            'cpf'             => $this->faker->unique()->numerify('###.###.###-##'),
-            'marital_status'  => $this->faker->randomElement(['Solteiro', 'Casado', 'Divorciado', 'Viúvo']),
-            'phone_one'       => $this->faker->unique()->numerify('(##) #####-####'),
-            'phone_two'       => $this->faker->optional()->numerify('(##) #####-####'),
-            'birth_date'      => $this->faker->date(),
-            'father'          => $this->faker->optional()->name('male'),
-            'mother'          => $this->faker->name('female'),
-            'affiliated_one'  => $this->faker->name,
-            'affiliated_two'  => $this->faker->name,
-            'description'     => $this->faker->text,
-            'cep'             => $this->faker->numerify('#####-###'),
-            'logradouro_type' => $this->faker->randomElement(LogradouroType::cases()),
-            'logradouro'      => $this->faker->streetName,
-            'number'          => $this->faker->buildingNumber,
-            'complement'      => $this->faker->optional()->secondaryAddress,
-            'bairro'          => $this->faker->citySuffix,
-            'city_id'         => $this->faker->randomNumber(1, 10),
-            'state'           => $this->faker->randomElement(States::cases()),
-            'country'         => 'Brasil',
+            'name'           => $this->faker->name,
+            'rg'             => $this->faker->unique()->numerify('##.###.###-#'),
+            'cpf'            => $this->faker->unique()->numerify('###.###.###-##'),
+            'marital_status' => $this->faker->randomElement(array_map(fn ($case) => $case->value, MaritalStatus::cases())),
+            'phone_one'      => $this->faker->unique()->numerify('(##) #####-####'),
+            'phone_two'      => $this->faker->optional()->numerify('(##) #####-####'),
+            'birth_date'     => $this->faker->date(),
+            'father'         => $this->faker->optional()->name('male'),
+            'mother'         => $this->faker->name('female'),
+            'affiliated_one' => $this->faker->name,
+            'affiliated_two' => $this->faker->name,
+            'description'    => $this->faker->text,
         ];
+    }
+
+    public function withAddress()
+    {
+        return $this->afterCreating(function (Client $client) {
+            ClientAddress::factory()->create(['client_id' => $client->id]);
+        });
     }
 }
