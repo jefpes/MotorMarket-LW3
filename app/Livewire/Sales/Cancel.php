@@ -3,7 +3,7 @@
 namespace App\Livewire\Sales;
 
 use App\Enums\StatusPayments;
-use App\Models\{PaymentInstallments, Sale, Vehicle};
+use App\Models\{Sale, Vehicle};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -27,7 +27,7 @@ class Cancel extends Component
     #[On('sale::canceling')]
     public function canceling(int $id): void
     {
-        $this->sale  = Sale::find($id);
+        $this->sale  = Sale::with('paymentInstallments')->find($id);
         $this->modal = true;
     }
 
@@ -51,15 +51,9 @@ class Cancel extends Component
             $this->icon = 'icons.success';
 
             if ($this->sale->number_installments > 1) {
-                if (PaymentInstallments::anyPaid($this->sale->id)) { /* @phpstan-ignore-line */
-                    $this->msg  = 'Sale not cancelled, There are paid installments, please cancel the installments first';
-                    $this->icon = 'icons.fail';
-                    $this->dispatch('show-toast');
-                    $this->modal = false;
-
-                    return;
-                }
-                PaymentInstallments::where('sale_id', $this->sale->id)->update(['status' => StatusPayments::CN->value, 'user_id' => auth()->id()]); /* @phpstan-ignore-line */
+                $this->sale->paymentInstallments->each(function ($installment) {
+                    $installment->update(['status' => StatusPayments::CN->value, 'user_id' => auth()->id()]);
+                });
             }
 
             Vehicle::where('id', $this->sale->vehicle_id)->update(['sold_date' => null]);
