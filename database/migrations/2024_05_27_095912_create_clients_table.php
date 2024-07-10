@@ -17,13 +17,17 @@ return new class () extends Migration {
             $table->string('rg', 20)->unique();
             $table->string('cpf', 20)->unique();
             $table->string('marital_status');
-            $table->string('phone_one', 20)->unique();
-            $table->string('phone_two', 20)->nullable()->unique();
+            $table->string('phone_one', 20);
+            $table->string('phone_two', 20)->nullable();
             $table->date('birth_date');
             $table->string('father')->nullable();
+            $table->string('father_phone', 20)->nullable();
             $table->string('mother')->nullable();
+            $table->string('mother_phone', 20)->nullable();
             $table->string('affiliated_one')->nullable();
+            $table->string('affiliated_one_phone')->nullable();
             $table->string('affiliated_two')->nullable();
+            $table->string('affiliated_two_phone')->nullable();
             $table->string('description')->nullable();
 
             $table->timestamps();

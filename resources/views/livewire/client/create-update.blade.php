@@ -5,16 +5,19 @@
     <x-form.input name="name" label="Name" type="text" placeholder="Name" :messages="$errors->get('client.name')"
       wire:model="client.name" class="w-full" />
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
-      <div class="basis-1/3">
+      <div class="flex-1">
         <x-form.input x-mask="999999999999999999999" name="rg" label="RG" placeholder="RG"
           :messages="$errors->get('client.rg')" wire:model="client.rg" class="w-full" />
       </div>
-      <div class="basis-1/3">
+      <div class="flex-1">
         <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" type="text" placeholder="CPF"
           :messages="$errors->get('client.cpf')" wire:model="client.cpf" class="w-full" />
       </div>
-      <div class="basis-1/3">
-        <x-select :messages="$errors->get('employee.marital_status')" wire:model="employee.marital_status" class="w-full"
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="flex-0">
+        <x-select :messages="$errors->get('client.marital_status')" wire:model="client.marital_status" class="w-full"
           label='Marital Status' id="marital_status">
           <option value=""> {{ __('Select')}} </option>
           @foreach ($maritalStatus as $data)
@@ -22,7 +25,12 @@
           @endforeach
         </x-select>
       </div>
+      <div class="flex-1">
+        <x-form.input name="spouse" label="Spouse" placeholder="Spouse" :messages="$errors->get('client.spouse')"
+          wire:model="client.spouse" class="w-full" />
+      </div>
     </div>
+
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
         <x-form.input x-mask="(99) 99999-9999" name="phone_one" label="Phone (1)" placeholder="Phone (1)"
@@ -33,14 +41,51 @@
           :messages="$errors->get('client.phone_two')" wire:model="client.phone_two" class="w-full" />
       </div>
     </div>
-    <x-form.input name="father" label="Father" placeholder="Father" :messages="$errors->get('client.father')"
-      wire:model="client.father" class="w-full" />
-    <x-form.input name="mother" label="Mother" placeholder="Mother" :messages="$errors->get('client.mother')"
-      wire:model="client.mother" class="w-full" />
-    <x-form.input name="affiliated_one" label="Affiliated (1)" placeholder="Affiliated (1)"
-      :messages="$errors->get('client.affiliated_one')" wire:model="client.affiliated_one" class="w-full" />
-    <x-form.input name="affiliated_two" label="Affiliated (2)" placeholder="Affiliated (2)"
-      :messages="$errors->get('client.affiliated_two')" wire:model="client.affiliated_two" class="w-full" />
+
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="flex-1">
+        <x-form.input name="father" label="Father" placeholder="Father" :messages="$errors->get('client.father')"
+          wire:model="client.father" class="w-full" />
+      </div>
+      <div class="flex-0">
+        <x-form.phone-input name="father_phone" label="Father Phone" placeholder="Phone"
+          :messages="$errors->get('client.father_phone')" wire:model="client.father_phone" class="w-full" />
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="flex-1">
+        <x-form.input name="mother" label="Mother" placeholder="Mother" :messages="$errors->get('client.mother')"
+          wire:model="client.mother" class="w-full" />
+      </div>
+      <div class="flex-0">
+        <x-form.phone-input name="mother_phone" label="Mother Phone" placeholder="Phone"
+          :messages="$errors->get('client.mother_phone')" wire:model="client.mother_phone" class="w-full" />
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="flex-1">
+        <x-form.input name="affiliated_one" label="Affiliated (1)" placeholder="Affiliated (1)"
+          :messages="$errors->get('client.affiliated_one')" wire:model="client.affiliated_one" class="w-full" />
+      </div>
+      <div class="flex-0">
+        <x-form.phone-input name="affiliated_one_phone" label="Affiliated Phone (1)" placeholder="Phone"
+          :messages="$errors->get('client.affiliated_one_phone')" wire:model="client.affiliated_one_phone" class="w-full" />
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2">
+      <div class="flex-1">
+        <x-form.input name="affiliated_two" label="Affiliated (2)" placeholder="Affiliated (2)"
+          :messages="$errors->get('client.affiliated_one')" wire:model="client.affiliated_two" class="w-full" />
+      </div>
+      <div class="flex-0">
+        <x-form.phone-input name="affiliated_two_phone" label="Affiliated Phone (2)" placeholder="Phone"
+          :messages="$errors->get('client.affiliated_two_phone')" wire:model="client.affiliated_two_phone" class="w-full" />
+      </div>
+    </div>
+
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
         <x-form.file-input name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('clientPhoto.photos')"

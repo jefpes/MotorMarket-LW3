@@ -19,18 +19,22 @@ class ClientFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'           => $this->faker->name,
-            'rg'             => $this->faker->unique()->numerify('##.###.###-#'),
-            'cpf'            => $this->faker->unique()->numerify('###.###.###-##'),
-            'marital_status' => $this->faker->randomElement(array_map(fn ($case) => $case->value, MaritalStatus::cases())),
-            'phone_one'      => $this->faker->unique()->numerify('(##) #####-####'),
-            'phone_two'      => $this->faker->optional()->numerify('(##) #####-####'),
-            'birth_date'     => $this->faker->date(),
-            'father'         => $this->faker->optional()->name('male'),
-            'mother'         => $this->faker->name('female'),
-            'affiliated_one' => $this->faker->name,
-            'affiliated_two' => $this->faker->name,
-            'description'    => $this->faker->text,
+            'name'                 => $this->faker->name,
+            'rg'                   => $this->faker->unique()->numerify('##.###.###-#'),
+            'cpf'                  => $this->faker->unique()->numerify('###.###.###-##'),
+            'marital_status'       => $this->faker->randomElement(array_map(fn ($case) => $case->value, MaritalStatus::cases())),
+            'phone_one'            => $this->faker->unique()->numerify('(##) #####-####'),
+            'phone_two'            => $this->faker->optional()->numerify('(##) #####-####'),
+            'birth_date'           => $this->faker->date(),
+            'father'               => $this->faker->optional()->name('male'),
+            'father_phone'         => $this->faker->optional()->numerify('(##) #####-####'),
+            'mother'               => $this->faker->name('female'),
+            'mother_phone'         => $this->faker->numerify('(##) #####-####'),
+            'affiliated_one'       => $this->faker->name,
+            'affiliated_one_phone' => $this->faker->numerify('(##) #####-####'),
+            'affiliated_two'       => $this->faker->name,
+            'affiliated_two_phone' => $this->faker->numerify('(##) #####-####'),
+            'description'          => $this->faker->text,
         ];
     }
 
