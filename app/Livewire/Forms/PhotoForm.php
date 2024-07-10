@@ -27,8 +27,6 @@ abstract class PhotoForm extends Form
     /** @var array<Object> */
     public array $photos;
 
-    public ?string $directory = '';
-
     abstract protected function getPhotoModel(): Model;
 
     abstract protected function getEntityField(): string;
@@ -43,7 +41,8 @@ abstract class PhotoForm extends Form
             $manager = new ImageManager(new Driver());
 
             foreach ($this->photos as $photo) {
-                $image = $manager->read($photo->getRealPath())->scale(height: 1240);
+                // read image from file system and resize image proportionally to 300px width
+                $image = $manager->read($photo)->scale(height: 1240);
 
                 $path       = 'storage/' . $this->getDirectory();
                 $customName = $path . str_replace(' ', '_', $entity->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension(); // @phpstan-ignore-line
