@@ -52,8 +52,8 @@
 
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
     <div class="basis-1/2">
-      <x-form.file-input-single name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('photos')"
-        wire:model="photos" class="w-full" />
+      <x-form.file-input-single name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('employeePhoto.photos')"
+        wire:model="employeePhoto.photos" class="w-full" />
     </div>
     <div class="basis-1/2">
       <x-form.input name="birth_date" label="Birth Date" type="date" placeholder="Birth Date"

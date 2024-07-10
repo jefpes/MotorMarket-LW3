@@ -15,4 +15,9 @@ class EmployeePhotoForm extends PhotoForm
     {
         return 'employee_id';
     }
+
+    protected function getDirectory(): string
+    {
+        return 'employee_photos/';
+    }
 }
