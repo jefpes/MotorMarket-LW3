@@ -3,9 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Models\ClientAddress;
-use Livewire\Form;
 
-class ClientAddressForm extends Form
+class ClientAddressForm extends AddressForm
 {
     protected function getAddressModel(): ClientAddress
     {

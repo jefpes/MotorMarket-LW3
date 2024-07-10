@@ -32,7 +32,7 @@ class Delete extends Component
     #[On('client::deleting')]
     public function deleting(int $id): void
     {
-        $this->form->setClient($id);
+        $this->form->setClient(Client::find($id));
         $this->modal = true;
     }
 

@@ -22,9 +22,6 @@ class Create extends Component
 
     public string $header = 'Create Employee';
 
-    /** @var array<Object> */
-    public array $photos;
-
     public function render(): View
     {
         return view('livewire.employee.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);

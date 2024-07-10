@@ -104,45 +104,39 @@
 
       <div class="flex">
         <p class="text-lg font-semibold">
-          <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Country') }}: </span>
-          {{ $client->country }}
-        </p>
-      </div>
-      <div class="flex">
-        <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('State') }}: </span>
-          {{ $client->state }}
+          {{ $client->address->state ?? ''}}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('City') }}: </span>
-          {{ $client->city->name }}
+          {{ $client->address->city->name ?? '' }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Bairro') }}: </span>
-          {{ $client->bairro }}
+          {{ $client->address->neighborhood ?? ''}}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('CEP') }}: </span>
-          {{ $client->cep }}
+          {{ $client->address->zip_code ?? ''}}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Logradouro') }}: </span>
-          {{ $client->logradouro_type }} {{ $client->logradouro }}, {{ $client->number }}
+          {{ $client->address->street }}, {{ $client->address->number }}
         </p>
       </div>
-      @if($client->complement)
+      @if($client->address->complement)
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Complement') }}: </span>
-          {{ $client->complement }}
+          {{ $client->address->complement }}
         </p>
       </div>
       @endif
@@ -170,7 +164,7 @@
         {{ __('Download') }}
       </x-primary-button>
 
-      @can('photo_delete')
+      @can('cphoto_delete')
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>

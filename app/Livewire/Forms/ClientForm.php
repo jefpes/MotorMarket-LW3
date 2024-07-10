@@ -8,6 +8,8 @@ use Livewire\Form;
 
 class ClientForm extends Form
 {
+    public Client $client;
+
     #[Locked]
     public ?int $id = null;
 
@@ -78,9 +80,10 @@ class ClientForm extends Form
         return $client;
     }
 
-    public function setClient(int $id): void
+    public function setClient(Client $client): void
     {
-        $this->fill(Client::find($id));
+        $this->fill($client);
+        $this->client = $client;
     }
 
     public function destroy(): void

@@ -3,9 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Models\ClientPhoto;
-use Livewire\Form;
 
-class ClientPhotoForm extends Form
+class ClientPhotoForm extends PhotoForm
 {
     protected function getPhotoModel(): ClientPhoto
     {
