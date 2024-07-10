@@ -75,7 +75,7 @@ class Create extends Component
         $this->employeeAddress->reset();
         $this->employeePhotos->reset();
 
-        $this->msg  = 'Employee updated successfully';
+        $this->msg  = 'Employee created successfully';
         $this->icon = 'icons.success';
         $this->dispatch('show-toast');
     }
