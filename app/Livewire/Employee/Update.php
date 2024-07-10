@@ -33,7 +33,7 @@ class Update extends Component
         $employee = Employee::findOrFail($id);
         $this->employee->setEmployee($employee);
         $this->employeeAddress->setAddress($employee);
-        $this->employeePhoto->setPhotos($employee);
+        $this->employeePhoto->setPhoto($employee);
     }
 
     public function render(): View

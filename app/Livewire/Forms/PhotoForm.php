@@ -45,7 +45,7 @@ abstract class PhotoForm extends Form
         );
     }
 
-    public function setPhotos(Model $entity): void
+    public function setPhoto(Model $entity): void
     {
         $photo = $this->getPhotoModel()->where($this->getEntityField(), $entity->id)->first(); // @phpstan-ignore-line
 
