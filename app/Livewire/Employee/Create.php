@@ -45,8 +45,8 @@ class Create extends Component
         $employee = $this->employee->save();
 
         // Salva o endereço do funcionário
-        $this->employeeAddress->employee_id = $employee->id;
-        $this->employeeAddress->save($employee);
+        $this->employeeAddress->entity_id = $employee->id;
+        $this->employeeAddress->save($employee); // @phpstan-ignore-line
 
         // Processa e salva as fotos, se houver
         if ($this->photos) {

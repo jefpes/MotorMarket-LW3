@@ -32,7 +32,7 @@ class Update extends Component
     {
         $employee = Employee::findOrFail($id);
         $this->employee->setEmployee($employee);
-        $this->employeeAddress->setEmployeeAddress($employee);
+        $this->employeeAddress->setAddress($employee);
         $this->employeePhoto->setEmployeePhotos($employee);
     }
 
@@ -73,8 +73,8 @@ class Update extends Component
         }
 
         // Salva o endereço do funcionário
-        $this->employeeAddress->employee_id = $employee->id;
-        $this->employeeAddress->save($employee);
+        $this->employeeAddress->entity_id = $employee->id;
+        $this->employeeAddress->save($employee); // @phpstan-ignore-line
 
         // Processa e salva as fotos, se houver
         if ($this->photos) {
@@ -84,8 +84,7 @@ class Update extends Component
             $manager = new ImageManager(new Driver());
 
             foreach ($this->photos as $photo) {
-                $image = $manager->read($photo);
-                $image->scale(height: 1240);
+                $image = $manager->read($photo->getRealPath())->scale(height: 1240);
 
                 $path       = 'storage/employee_photos/';
                 $customName = $path . str_replace(' ', '_', $employee->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
