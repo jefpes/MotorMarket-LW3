@@ -32,7 +32,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.employee.update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
+        return view('livewire.employee.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
     }
 
     public function save(): void
