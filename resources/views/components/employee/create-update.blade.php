@@ -1,4 +1,4 @@
-<div class="space-y-2 mb-4">
+<div class="space-y-2">
   <x-form.input name="name" label="Name" type="text" placeholder="Name" :messages="$errors->get('employee.name')"
     wire:model="employee.name" class="w-full" />
   <div class="flex flex-col md:flex-row justify-between md:space-x-2">
@@ -122,5 +122,11 @@
       <x-form.input name="complement" label="Complement" placeholder="Complement"
         :messages="$errors->get('employeeAddress.complement')" wire:model="employeeAddress.complement" class="w-full" />
     </div>
+  </div>
+
+  <div class="flex items-center mt-4 pt-2 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end">
+    <x-secondary-button href="{{ route('employee') }}" wire:navigate> {{ __('Back') }} </x-secondary-button>
+
+    <x-primary-button wire:click="save" class="ms-3"> {{ __('Save') }} </x-primary-button>
   </div>
 </div>
