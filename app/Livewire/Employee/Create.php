@@ -16,7 +16,7 @@ class Create extends Component
 
     public EmployeeForm $employee;
 
-    public EmployeePhotoForm $employeePhotos;
+    public EmployeePhotoForm $employeePhoto;
 
     public EmployeeAddressForm $employeeAddress;
 
@@ -34,28 +34,21 @@ class Create extends Component
     {
         $this->authorize('employee_create');
 
-        $this->authorize('employee_update');
-
         $this->employee->validate();
         $this->employeeAddress->validate();
 
         $employee = $this->employee->save();
-
-        // Modifica o email do usuário, se houver
-        if($employee->user()->exists() && $employee->user->email !== $this->employee->email) {
-            $employee->user->update(['email' => $this->employee->email, 'email_verified_at' => null]);
-        }
 
         // Salva o endereço do funcionário
         $this->employeeAddress->entity_id = $employee->id;
         $this->employeeAddress->save($employee); // @phpstan-ignore-line
 
         // Processa e salva as fotos, se houver
-        $this->employeePhoto->save($employee); // @phpstan-ignore-line
+        $this->employeePhoto->save($employee);
 
         $this->employee->reset();
         $this->employeeAddress->reset();
-        $this->employeePhotos->reset();
+        $this->employeePhotos->reset(); // @phpstan-ignore-line
 
         $this->msg  = 'Employee created successfully';
         $this->icon = 'icons.success';

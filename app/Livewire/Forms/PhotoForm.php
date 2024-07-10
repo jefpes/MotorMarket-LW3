@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\{Storage};
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
-use Livewire\Attributes\{Locked, Validate};
+use Livewire\Attributes\{Locked};
 use Livewire\Form;
 
 abstract class PhotoForm extends Form
@@ -16,16 +16,12 @@ abstract class PhotoForm extends Form
 
     public ?int $entity_id = null;
 
-    #[Validate('required', 'min:3', 'max:255')]
     public ?string $photo_name = '';
 
-    #[Validate('required', 'max:25')]
     public ?string $format = '';
 
-    #[Validate('required', 'min:3', 'max:255')]
     public ?string $full_path = '';
 
-    #[Validate('required', 'min:3', 'max:255')]
     public ?string $path = '';
 
     /** @var array<Object> */
@@ -41,8 +37,6 @@ abstract class PhotoForm extends Form
 
     public function save(Model $entity): void
     {
-        $this->validate();
-
         file_exists('storage/' . $this->getDirectory()) ?: Storage::makeDirectory($this->getDirectory());
 
         if (!empty($this->photos)) {
@@ -86,7 +80,14 @@ abstract class PhotoForm extends Form
     {
         $photo = $this->getPhotoModel()->where($this->getEntityField(), $entity->id)->first(); // @phpstan-ignore-line
 
-        $this->fill($photo);
+        if ($photo) {
+            $this->id         = $photo->id; // @phpstan-ignore-line
+            $this->entity_id  = $photo->{$this->getEntityField()};
+            $this->photo_name = $photo->photo_name; // @phpstan-ignore-line
+            $this->format     = $photo->format; // @phpstan-ignore-line
+            $this->full_path  = $photo->full_path; // @phpstan-ignore-line
+            $this->path       = $photo->path; // @phpstan-ignore-line
+        }
     }
 
     public function setPhotos(Model $entity): void
