@@ -40,9 +40,7 @@ class BrandForm extends Form
 
     public function setBrand(int $id): void
     {
-        $brand      = Brand::find($id);
-        $this->name = $brand->name;
-        $this->id   = $brand->id;
+        $this->fill(Brand::find($id));
     }
 
     public function cancel(): void

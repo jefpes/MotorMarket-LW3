@@ -82,20 +82,7 @@ class VehicleForm extends Form
 
     public function setVehicle(int $id): void
     {
-        $vehicle                = Vehicle::find($id);
-        $this->id               = $vehicle->id;
-        $this->purchase_date    = $vehicle->purchase_date;
-        $this->purchase_price   = $vehicle->purchase_price;
-        $this->sale_price       = $vehicle->sale_price;
-        $this->vehicle_model_id = $vehicle->vehicle_model_id;
-        $this->year_one         = $vehicle->year_one;
-        $this->year_two         = $vehicle->year_two;
-        $this->km               = $vehicle->km;
-        $this->color            = $vehicle->color;
-        $this->plate            = $vehicle->plate;
-        $this->chassi           = $vehicle->chassi;
-        $this->renavan          = $vehicle->renavan;
-        $this->description      = $vehicle->description;
+        $this->fill(Vehicle::find($id));
     }
 
     public function destroy(): void

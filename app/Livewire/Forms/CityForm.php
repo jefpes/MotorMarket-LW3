@@ -42,9 +42,7 @@ class CityForm extends Form
 
     public function setCity(int $id): void
     {
-        $city       = City::find($id);
-        $this->name = $city->name;
-        $this->id   = $city->id;
+        $this->fill(City::find($id));
     }
 
     public function cancel(): void

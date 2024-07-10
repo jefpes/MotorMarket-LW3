@@ -63,15 +63,6 @@ class EmployeeAddressForm extends Form
 
     public function setEmployeeAddress(Employee $employee): void
     {
-        $this->employeeAddress = EmployeeAddress::where('employee_id', $employee->id)->first();
-        $this->id              = $this->employeeAddress->id;
-        $this->employee_id     = $this->employeeAddress->employee_id;
-        $this->zip_code        = $this->employeeAddress->zip_code;
-        $this->street          = $this->employeeAddress->street;
-        $this->neighborhood    = $this->employeeAddress->neighborhood;
-        $this->number          = $this->employeeAddress->number;
-        $this->complement      = $this->employeeAddress->complement;
-        $this->city_id         = $this->employeeAddress->city_id;
-        $this->state           = $this->employeeAddress->state;
+        $this->fill(EmployeeAddress::where('employee_id', $employee->id)->first());
     }
 }

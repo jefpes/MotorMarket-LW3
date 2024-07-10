@@ -43,12 +43,7 @@ class UserForm extends Form
 
     public function setUser(int $id): void
     {
-        $u                 = User::find($id);
-        $this->id          = $u->id;
-        $this->name        = $u->name;
-        $this->email       = $u->email;
-        $this->password    = $u->password;
-        $this->employee_id = $u->employee_id;
+        $this->fill(User::find($id));
     }
 
     public function save(): void

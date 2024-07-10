@@ -55,13 +55,7 @@ class VehicleExpenseForm extends Form
 
     public function setExpense(int $id): void
     {
-        $expense           = VehicleExpense::find($id);
-        $this->id          = $expense->id;
-        $this->date        = $expense->date;
-        $this->value       = $expense->value;
-        $this->vehicle_id  = $expense->vehicle_id;
-        $this->user_id     = $expense->user_id;
-        $this->description = $expense->description;
+        $this->fill(VehicleExpense::find($id));
     }
 
     public function cancel(): void

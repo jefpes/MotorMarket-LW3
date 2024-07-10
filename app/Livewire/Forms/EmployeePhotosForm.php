@@ -51,11 +51,6 @@ class EmployeePhotosForm extends Form
 
     public function setEmployeePhotos(Employee $ep): void
     {
-        $this->employeePhotos = $ep->photos()->first();
-        $this->id             = $this->employeePhotos->id;
-        $this->employee_id    = $this->employeePhotos->employee_id;
-        $this->photo_name     = $this->employeePhotos->photo_name;
-        $this->format         = $this->employeePhotos->format;
-        $this->full_path      = $this->employeePhotos->full_path;
+        $this->fill($ep->photos()->first());
     }
 }

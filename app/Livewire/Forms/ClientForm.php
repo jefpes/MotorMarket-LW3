@@ -80,20 +80,7 @@ class ClientForm extends Form
 
     public function setClient(int $id): void
     {
-        $client               = Client::find($id);
-        $this->id             = $client->id;
-        $this->name           = $client->name;
-        $this->rg             = $client->rg;
-        $this->cpf            = $client->cpf;
-        $this->marital_status = $client->marital_status;
-        $this->phone_one      = $client->phone_one;
-        $this->phone_two      = $client->phone_two;
-        $this->birth_date     = $client->birth_date;
-        $this->father         = $client->father;
-        $this->mother         = $client->mother;
-        $this->affiliated_one = $client->affiliated_one;
-        $this->affiliated_two = $client->affiliated_two;
-        $this->description    = $client->description;
+        $this->fill(Client::find($id));
     }
 
     public function destroy(): void
