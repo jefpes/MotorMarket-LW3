@@ -40,6 +40,8 @@ return new class () extends Migration {
             $table->year('year_one');
             $table->year('year_two');
             $table->integer('km');
+            $table->string('fuel');
+            $table->string('engine_power');
             $table->string('color');
             $table->string('plate')->unique();
             $table->string('chassi')->unique();
