@@ -27,6 +27,10 @@ class VehicleForm extends Form
 
     public ?int $km = 0;
 
+    public ?string $fuel = '';
+
+    public ?string $engine_power = '';
+
     public ?string $color = '';
 
     public ?string $plate = '';
@@ -48,6 +52,8 @@ class VehicleForm extends Form
             'year_one'         => ['required', 'integer', 'min:1900', 'max:2100'],
             'year_two'         => ['required', 'integer', 'min:1900', 'max:2100'],
             'km'               => ['required', 'integer', 'min:0'],
+            'fuel'             => ['required', 'string', 'max:40', 'min:2'],
+            'engine_power'     => ['required', 'string', 'max:10', 'min:1'],
             'color'            => ['required', 'string', 'max:255', 'min:3'],
             'plate'            => ['required', 'string', 'size:8'],
             'chassi'           => ['required', 'string', 'max:255', 'min:3'],
@@ -59,7 +65,8 @@ class VehicleForm extends Form
     public function save(): Vehicle
     {
         $this->validate();
-        $people = Vehicle::updateOrCreate(
+
+        return Vehicle::updateOrCreate(
             ['id' => $this->id],
             [
                 'purchase_date'    => $this->purchase_date,
@@ -69,6 +76,8 @@ class VehicleForm extends Form
                 'year_one'         => $this->year_one,
                 'year_two'         => $this->year_two,
                 'km'               => $this->km,
+                'fuel'             => $this->fuel,
+                'engine_power'     => $this->engine_power,
                 'color'            => $this->color,
                 'plate'            => $this->plate,
                 'chassi'           => $this->chassi,
@@ -76,8 +85,6 @@ class VehicleForm extends Form
                 'description'      => $this->description,
             ]
         );
-
-        return $people;
     }
 
     public function setVehicle(int $id): void

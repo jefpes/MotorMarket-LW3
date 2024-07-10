@@ -3,12 +3,11 @@
 namespace App\Livewire\Vehicle;
 
 use App\Enums\FuelType;
-use App\Livewire\Forms\VehicleForm;
+use App\Livewire\Forms\{VehicleForm, VehiclePhotoForm};
 use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Livewire\Attributes\{Computed};
@@ -19,12 +18,11 @@ class Create extends Component
     use WithFileUploads;
     use Toast;
 
-    public VehicleForm $form;
+    public VehicleForm $vechicle;
+
+    public VehiclePhotoForm $vechiclePhoto;
 
     public string $header = 'Create Vehicle';
-
-    /** @var array<Object> */
-    public array $photos;
 
     public function render(): View
     {
@@ -47,16 +45,13 @@ class Create extends Component
     {
         $this->authorize('vehicle_create');
 
-        file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
-
-        $vehicle = $this->form->save();
+        $vehicle = $this->vechicle->save();
 
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
 
-        foreach ($this->photos as $photo) {
+        foreach ($this->vechiclePhoto->photos as $photo) {
             // read image from file system
-
             $image = $manager->read($photo);
 
             // resize image proportionally to 300px width
@@ -75,7 +70,8 @@ class Create extends Component
                 'path'       => $customName,
             ]);
         }
-        $this->form->reset();
+
+        $this->vechicle->reset();
 
         $this->msg  = 'Vehicle created successfully';
         $this->icon = 'icons.success';

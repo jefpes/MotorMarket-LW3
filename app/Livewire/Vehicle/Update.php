@@ -3,8 +3,8 @@
 namespace App\Livewire\Vehicle;
 
 use App\Enums\FuelType;
-use App\Livewire\Forms\VehicleForm;
-use App\Models\{ VehicleModel, VehicleType};
+use App\Livewire\Forms\{VehicleForm, VehiclePhotoForm};
+use App\Models\{Vehicle, VehicleModel, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -20,16 +20,16 @@ class Update extends Component
     use WithFileUploads;
     use Toast;
 
-    public VehicleForm $form;
+    public VehicleForm $vehicle;
+
+    public VehiclePhotoForm $vechiclePhoto;
 
     public string $header = 'Editing Vehicle';
 
-    /** @var array<Object> */
-    public array $photos = [];
-
     public function mount(int $id): void
     {
-        $this->form->setVehicle($id);
+        $this->vehicle->setVehicle($id);
+        $this->vechiclePhoto->setPhoto(Vehicle::findOrFail($id));
     }
     public function render(): View
     {
@@ -51,16 +51,16 @@ class Update extends Component
     public function save(): void
     {
         $this->authorize('vehicle_update');
+
         file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
 
-        $vehicle = $this->form->save();
+        $vehicle = $this->vehicle->save();
 
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
 
-        foreach ($this->photos as $photo) {
+        foreach ($this->vechiclePhoto->photos as $photo) {
             // read image from file system
-
             $image = $manager->read($photo);
 
             // resize image proportionally to 300px width
