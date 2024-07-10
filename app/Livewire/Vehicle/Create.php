@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Enums\FuelType;
 use App\Livewire\Forms\VehicleForm;
 use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
@@ -27,7 +28,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle.create');
+        return view('livewire.vehicle.create-update', ['fuelTypes' => FuelType::cases()]);
     }
 
     #[Computed()]
