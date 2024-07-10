@@ -26,7 +26,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.client.create', ['states' => States::cases(), 'logradouroType' => LogradouroType::cases(), 'cities' => City::all()]);
+        return view('livewire.client.create-update', ['states' => States::cases(), 'logradouroType' => LogradouroType::cases(), 'cities' => City::all()]);
     }
 
     public function save(): void
