@@ -3,7 +3,7 @@
 namespace App\Livewire\Employee;
 
 use App\Enums\{MaritalStatus, States};
-use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotosForm};
+use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotoForm};
 use App\Models\{City, Employee};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -19,7 +19,7 @@ class Update extends Component
 
     public EmployeeForm $employee;
 
-    public EmployeePhotosForm $employeePhoto;
+    public EmployeePhotoForm $employeePhoto;
 
     public EmployeeAddressForm $employeeAddress;
 
@@ -33,7 +33,7 @@ class Update extends Component
         $employee = Employee::findOrFail($id);
         $this->employee->setEmployee($employee);
         $this->employeeAddress->setAddress($employee);
-        $this->employeePhoto->setEmployeePhotos($employee);
+        $this->employeePhoto->setPhotos($employee);
     }
 
     public function render(): View
@@ -91,13 +91,13 @@ class Update extends Component
 
                 $image->save($customName);
 
-                $this->employeePhoto->employee_id = $employee->id;
-                $this->employeePhoto->photo_name  = str_replace($path, '', $customName);
-                $this->employeePhoto->format      = $photo->getClientOriginalExtension();
-                $this->employeePhoto->full_path   = storage_path('app/public/') . str_replace('storage/', '', $customName);
-                $this->employeePhoto->path        = $customName;
+                $this->employeePhoto->entity_id  = $employee->id;
+                $this->employeePhoto->photo_name = str_replace($path, '', $customName);
+                $this->employeePhoto->format     = $photo->getClientOriginalExtension();
+                $this->employeePhoto->full_path  = storage_path('app/public/') . str_replace('storage/', '', $customName);
+                $this->employeePhoto->path       = $customName;
 
-                $this->employeePhoto->save($employee);
+                $this->employeePhoto->save($employee); // @phpstan-ignore-line
             }
         }
 

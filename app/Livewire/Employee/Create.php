@@ -3,7 +3,7 @@
 namespace App\Livewire\Employee;
 
 use App\Enums\{MaritalStatus, States};
-use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotosForm};
+use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotoForm};
 use App\Models\{City};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -19,7 +19,7 @@ class Create extends Component
 
     public EmployeeForm $employee;
 
-    public EmployeePhotosForm $employeePhotos;
+    public EmployeePhotoForm $employeePhotos;
 
     public EmployeeAddressForm $employeeAddress;
 
@@ -61,13 +61,13 @@ class Create extends Component
 
                 $image->save($customName);
 
-                $this->employeePhotos->employee_id = $employee->id;
-                $this->employeePhotos->photo_name  = str_replace($path, '', $customName);
-                $this->employeePhotos->format      = $photo->getClientOriginalExtension();
-                $this->employeePhotos->full_path   = storage_path('app/public/') . str_replace('storage/', '', $customName);
-                $this->employeePhotos->path        = $customName;
+                $this->employeePhotos->entity_id  = $employee->id;
+                $this->employeePhotos->photo_name = str_replace($path, '', $customName);
+                $this->employeePhotos->format     = $photo->getClientOriginalExtension();
+                $this->employeePhotos->full_path  = storage_path('app/public/') . str_replace('storage/', '', $customName);
+                $this->employeePhotos->path       = $customName;
 
-                $this->employeePhotos->save($employee);
+                $this->employeePhotos->save($employee); // @phpstan-ignore-line
             }
         }
 
