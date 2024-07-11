@@ -47,6 +47,7 @@ class Index extends Component
         return  VehicleExpense::query()
         ->with('vehicle', 'user')
         ->orderBy($this->sortColumn, $this->sortDirection)
+        ->when($this->plate, fn (Builder $q) => $q->whereHas('vehicle', fn (Builder $q) => $q->where('plate', 'like', "%$this->plate%")))
         ->when($this->date_i, fn (Builder $q) => $q->where('date', '>=', $this->date_i))
         ->when($this->date_f, fn (Builder $q) => $q->where('date', '<=', $this->date_f))
         ->when($this->value_min, fn (Builder $q) => $q->where('value', '>=', $this->value_min))

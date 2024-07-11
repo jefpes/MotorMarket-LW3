@@ -3,6 +3,8 @@
 
     <div class="flex flex-col md:flex-row gap-2 pb-3 flex-0 sm:flex justify-between">
       <div class="flex flex-col md:flex-row gap-2 flex-0 sm:flex">
+        <x-form.input x-mask="aaa-9*99" name="search" label="Plate" placeholder="Search" :messages="$errors->get('search')"
+          wire:model.live.debounce.800="plate" class="w-full" />
         <div class="flex-none">
           <x-input-label for="date_i" value="{{ __('Date') }}" />
           <x-text-input type="date" id="date_i" wire:model.live.debounce.500ms='date_i' />
