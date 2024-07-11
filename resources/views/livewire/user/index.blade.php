@@ -24,7 +24,7 @@
   <x-table.table>
     <x-slot:thead>
       @foreach ($theader as $h)
-        @if ($h == 'Actions')
+        @if ($h == 'actions')
           @canany([$this->permissions->update, $this->permissions->delete])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
@@ -37,7 +37,6 @@
       @forelse ($this->users->items() as $u)
       <x-table.tr>
         <x-table.td> {{ $u->name }} </x-table.td>
-        <x-table.td> {{ $u->user_name }} </x-table.td>
         <x-table.td> {{ $u->email }} </x-table.td>
         <x-table.td> <span
           class="{{ $u->active ? 'bg-green-100 text-green-800 me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'

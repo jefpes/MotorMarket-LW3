@@ -46,11 +46,11 @@ class UserForm extends Form
         $this->fill(User::find($id));
     }
 
-    public function save(): void
+    public function save(): User
     {
         $this->validate();
 
-        User::updateOrCreate(
+        return User::updateOrCreate(
             ['id' => $this->id],
             [
                 'name'           => $this->name,

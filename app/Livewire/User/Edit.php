@@ -35,9 +35,24 @@ class Edit extends Component
             abort(403, 'you not have permission for this action');
         }
 
-        $this->form->save();
+        $employee = Employee::findOrFail($this->form->employee_id);
+
+        $this->form->name  = $employee->name;
+        $this->form->email = $employee->email;
+
+        $this->form->validate();
+        User::findOrFail($this->form->id)->update(
+            [
+                'name'              => $this->form->name,
+                'email'             => $this->form->email,
+                'employee_id'       => $this->form->employee_id,
+                'email_verified_at' => null,
+            ]
+        ); // reset email_verified_at to send email verification
+
         $this->toastSuccess('User updated successfully');
         $this->dispatch('user::refresh');
+        $this->cancel();
     }
 
     #[On('user::editing')]
