@@ -119,9 +119,7 @@ class Create extends Component
         $this->authorize('sale_create');
 
         if ($this->vehicle->sold_date) {
-            $this->icon = 'icons.fail';
-            $this->msg  = 'This vehicle has already been sold';
-            $this->dispatch('show-toast');
+            $this->toastFail('This vehicle has already been sold');
 
             return;
         }
@@ -154,11 +152,9 @@ class Create extends Component
 
                 $this->inst_form->save();
             }
-            $this->msg  = 'Installment sale successfully registered';
-            $this->icon = 'icons.success';
         }
 
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Installment sale successfully registered');
 
         $this->redirectRoute('sales', navigate: true);
     }

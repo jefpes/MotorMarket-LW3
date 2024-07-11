@@ -4,22 +4,21 @@ namespace App\Livewire\Employee;
 
 use App\Livewire\Forms\{EmployeeForm};
 use App\Models\{Employee};
+use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Locked, On};
 use Livewire\Component;
 
 class Delete extends Component
 {
+    use Toast;
+
     public EmployeeForm $form;
 
     #[Locked]
     public int $id;
 
     public bool $modal = false;
-
-    public ?string $icon = 'icons.success';
-
-    public ?string $msg = 'Dismissed Employee';
 
     public ?string $title = 'Dismissing Employee';
 
@@ -62,42 +61,8 @@ class Delete extends Component
         $this->modal = false;
 
         $this->dispatch('employee::refresh');
-        $this->dispatch('show-toast');
+        $this->toastSuccess($this->msg);
     }
-
-    // public function dismiss(): void
-    // {
-    //     $this->authorize('employee_delete');
-
-    //     $data = Employee::find($this->form->id)->update(['resignation_date' => now()]);
-
-    //     if($data->user) {
-    //         $data->user->update(['active' => false]);
-    //     }
-
-    //     $this->modal = false;
-
-    //     $this->dispatch('employee::refresh');
-
-    //     $this->dispatch('show-toast');
-    // }
-
-    // public function retain(): void
-    // {
-    //     $this->authorize('employee_delete');
-
-    //     $data = Employee::find($this->form->id)->update(['resignation_date' => null]);
-
-    //     if($data->user) {
-    //         $data->user->update(['active' => true]);
-    //     }
-
-    //     $this->modal = false;
-
-    //     $this->dispatch('employee::refresh');
-
-    //     $this->dispatch('show-toast');
-    // }
 
     public function cancel(): void
     {

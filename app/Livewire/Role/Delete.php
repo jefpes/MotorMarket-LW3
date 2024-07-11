@@ -40,19 +40,13 @@ class Delete extends Component
         }
 
         try {
-            $this->msg  = 'Role Deleted';
-            $this->icon = 'icons.success';
             $this->form->destroy();
             $this->dispatch('role::refresh');
-
-            $this->dispatch('show-toast');
+            $this->toastSuccess('Role Deleted');
 
             $this->modal = false;
         } catch (\Throwable $th) {
-            $this->msg  = 'Role Not Deleted';
-            $this->icon = 'icons.fail';
-
-            $this->dispatch('show-toast');
+            $this->toastFail('Role not deleted');
 
             $this->modal = false;
         }

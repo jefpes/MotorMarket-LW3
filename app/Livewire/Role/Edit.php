@@ -46,11 +46,7 @@ class Edit extends Component
         $this->dispatch('role::refresh');
         $this->form->save();
 
-        $this->icon = 'icons.success';
-
-        $this->msg = 'Role Updated';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Role updated successfully');
         $this->reset('modal');
     }
 }

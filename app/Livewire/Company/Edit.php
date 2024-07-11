@@ -104,8 +104,6 @@ class Edit extends Component
             'whatsapp'           => $this->whatsapp,
         ]);
 
-        $this->msg  = 'Company updated successfully!';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Company updated successfully');
     }
 }

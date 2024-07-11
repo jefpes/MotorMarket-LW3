@@ -17,10 +17,6 @@ class Activate extends Component
 
     public bool $modal = false;
 
-    public ?string $icon = 'icons.success';
-
-    public ?string $msg = 'User Activated';
-
     public function render(): View
     {
         return view('livewire.user.activate');
@@ -43,10 +39,15 @@ class Activate extends Component
         $user = auth()->user();
 
         if ($user->hierarchy($userAction->id)) {
+
             $userAction->roles()->detach();
-            $this->toastSuccess('User Activated');
+
             $userAction->update(['active' => true]);
+
             $this->dispatch('user::refresh')->to(Index::class);
+
+            $this->toastSuccess('User Activated');
+
             $this->modal = false;
 
             return;

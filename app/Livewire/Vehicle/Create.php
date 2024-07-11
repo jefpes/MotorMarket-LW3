@@ -49,8 +49,6 @@ class Create extends Component
 
         $this->vehicle->reset();
 
-        $this->msg  = 'Vehicle created successfully';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle created successfully');
     }
 }

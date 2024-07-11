@@ -53,8 +53,6 @@ class Update extends Component
 
         $this->vehiclePhoto->save($vehicle->id, $vehicle->plate);
 
-        $this->msg  = 'Vehicle updated successfully';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle updated successfully');
     }
 }

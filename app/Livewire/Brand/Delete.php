@@ -38,17 +38,11 @@ class Delete extends Component
             $this->form->destroy();
             $this->dispatch('brand::refresh');
 
-            $this->icon = 'icons.success';
-            $this->msg  = 'Brand Deleted';
-            $this->dispatch('show-toast');
+            $this->toastSuccess('Brand Deleted');
 
             $this->cancel();
         } catch (\Throwable $th) {
-            $this->msg  = 'Brand Not Deleted';
-            $this->icon = 'icons.fail';
-
-            $this->dispatch('show-toast');
-
+            $this->toastFail('Brand not deleted');
             $this->cancel();
         }
     }

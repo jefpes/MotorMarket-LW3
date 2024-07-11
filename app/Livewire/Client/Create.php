@@ -47,8 +47,6 @@ class Create extends Component
         $this->clientAddress->reset();
         $this->clientPhotos->reset(); // @phpstan-ignore-line
 
-        $this->msg  = 'Client created successfully';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Client created successfully');
     }
 }

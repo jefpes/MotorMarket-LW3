@@ -80,10 +80,7 @@ class ReceivePayment extends Component
             Sale::find($this->form->sale_id)->update(['status' => 'PAGO']);
         }
 
-        $this->msg  = 'Payment received successfully';
-        $this->icon = 'icons.success';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Payment received successfully');
         $this->dispatch('installment::refresh');
 
         $this->cancel();

@@ -38,16 +38,11 @@ class Delete extends Component
             $this->form->destroy();
             $this->dispatch('vtype::refresh');
 
-            $this->icon = 'icons.success';
-            $this->msg  = 'Vehicle Type Deleted';
-            $this->dispatch('show-toast');
+            $this->toastSuccess('Vehicle Type Deleted');
 
             $this->cancel();
         } catch (\Throwable $th) {
-            $this->msg  = 'Vehicle Type Not Deleted';
-            $this->icon = 'icons.fail';
-
-            $this->dispatch('show-toast');
+            $this->toastFail('Vehicle Type not deleted');
 
             $this->cancel();
         }

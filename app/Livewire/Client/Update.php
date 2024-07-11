@@ -51,9 +51,6 @@ class Update extends Component
         // Processa e salva as fotos, se houver
         $this->clientPhoto->save($client->id, $client->name);
 
-        $this->msg  = 'Client updated successfully';
-        $this->icon = 'icons.success';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Client updated successfully');
     }
 }

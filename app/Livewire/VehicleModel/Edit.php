@@ -3,6 +3,7 @@
 namespace App\Livewire\VehicleModel;
 
 use App\Livewire\Forms\VehicleModelForm;
+use App\Models\{Brand, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,13 +29,13 @@ class Edit extends Component
     #[Computed()]
     public function brands(): Collection
     {
-        return \App\Models\Brand::orderBy('name')->get();
+        return Brand::orderBy('name')->get();
     }
 
     #[Computed()]
     public function types(): Collection
     {
-        return \App\Models\VehicleType::orderBy('name')->get();
+        return VehicleType::orderBy('name')->get();
     }
 
     #[On('vmodel::editing')]
@@ -51,11 +52,7 @@ class Edit extends Component
         $this->dispatch('vmodel::refresh');
         $this->form->save();
 
-        $this->icon = 'icons.success';
-
-        $this->msg = 'Vehicle Model Updated';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle Model updated successfully');
         $this->reset('modal');
     }
 }

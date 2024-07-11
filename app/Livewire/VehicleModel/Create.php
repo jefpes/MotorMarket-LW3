@@ -3,6 +3,7 @@
 namespace App\Livewire\VehicleModel;
 
 use App\Livewire\Forms\VehicleModelForm;
+use App\Models\VehicleType;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -31,7 +32,7 @@ class Create extends Component
     #[Computed()]
     public function types(): Collection
     {
-        return \App\Models\VehicleType::orderBy('name')->get();
+        return VehicleType::orderBy('name')->get();
     }
 
     public function cancel(): void
@@ -47,10 +48,7 @@ class Create extends Component
         $this->dispatch('vmodel::refresh');
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'Vehicle Model Created';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle Model created successfully');
         $this->cancel();
     }
 }

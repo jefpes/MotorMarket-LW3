@@ -47,8 +47,6 @@ class Create extends Component
         $this->employeeAddress->reset();
         $this->employeePhotos->reset(); // @phpstan-ignore-line
 
-        $this->msg  = 'Employee created successfully';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Employee created successfully');
     }
 }

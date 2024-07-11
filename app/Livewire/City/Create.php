@@ -35,9 +35,7 @@ class Create extends Component
         $this->dispatch('city::refresh');
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'City Created';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('City created successfully');
         $this->cancel();
     }
 }

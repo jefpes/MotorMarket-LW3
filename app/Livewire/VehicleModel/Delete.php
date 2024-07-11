@@ -33,19 +33,13 @@ class Delete extends Component
         $this->authorize('vmodel_delete');
 
         try {
-            $this->msg  = 'Vehicle Model Deleted';
-            $this->icon = 'icons.success';
             $this->form->destroy();
+            $this->toastSuccess('Vehicle Model Deleted');
             $this->dispatch('vmodel::refresh');
-
-            $this->dispatch('show-toast');
 
             $this->modal = false;
         } catch (\Throwable $th) {
-            $this->msg  = 'Vehicle Model Not Deleted';
-            $this->icon = 'icons.fail';
-
-            $this->dispatch('show-toast');
+            $this->toastFail('Vehicle Model not deleted');
 
             $this->modal = false;
         }

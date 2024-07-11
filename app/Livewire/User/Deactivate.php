@@ -17,10 +17,6 @@ class Deactivate extends Component
 
     public bool $modal = false;
 
-    public ?string $icon = 'icons.success';
-
-    public ?string $msg = 'User Deactived';
-
     public function render(): View
     {
         return view('livewire.user.deactivate');

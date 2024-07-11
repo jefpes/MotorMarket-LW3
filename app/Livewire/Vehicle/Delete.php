@@ -45,16 +45,12 @@ class Delete extends Component
             }
         }
 
-        $this->icon = 'icons.success';
-
-        $this->msg = 'Vehicle Deleted';
-
         $this->form->destroy();
         $this->modal = false;
 
         $this->dispatch('vehicle::refresh');
 
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle Deleted');
     }
 
     public function cancel(): void

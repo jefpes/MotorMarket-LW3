@@ -38,16 +38,11 @@ class Delete extends Component
             $this->form->destroy();
             $this->dispatch('city::refresh');
 
-            $this->icon = 'icons.success';
-            $this->msg  = 'City Deleted';
-            $this->dispatch('show-toast');
+            $this->toastSuccess('City Deleted');
 
             $this->cancel();
         } catch (\Throwable $th) {
-            $this->msg  = 'City Not Deleted';
-            $this->icon = 'icons.fail';
-
-            $this->dispatch('show-toast');
+            $this->toastFail('City not deleted');
 
             $this->cancel();
         }

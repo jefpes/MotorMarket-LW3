@@ -62,11 +62,7 @@ class UndoReceivePayment extends Component
 
         $this->dispatch('installment::refresh');
 
-        $this->msg = 'Payment undone successfully';
-
-        $this->icon = 'icons.success';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Payment undone successfully');
 
         $this->cancel();
     }

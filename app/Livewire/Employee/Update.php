@@ -59,9 +59,7 @@ class Update extends Component
         // Processa e salva as fotos, se houver
         $this->employeePhoto->save($employee->id, $employee->name);
 
-        $this->msg  = 'Employee updated successfully';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Employee updated successfully');
         $this->redirectRoute('employee.edit', $employee->id);
     }
 }

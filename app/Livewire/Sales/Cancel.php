@@ -36,10 +36,7 @@ class Cancel extends Component
         $this->authorize('sale_cancel');
 
         if($this->sale->date_cancel !== null) {
-            $this->msg  = 'Sale Already Cancelled';
-            $this->icon = 'icons.fail';
-
-            $this->dispatch('show-toast');
+            $this->toastFail('Sale already cancelled');
 
             $this->modal = false;
 
@@ -47,8 +44,6 @@ class Cancel extends Component
         }
 
         try {
-            $this->msg  = 'Sale cancelled';
-            $this->icon = 'icons.success';
 
             if ($this->sale->number_installments > 1) {
                 $this->sale->paymentInstallments->each(function ($installment) {
@@ -67,7 +62,7 @@ class Cancel extends Component
             }
             $this->dispatch('sales::refresh');
 
-            $this->dispatch('show-toast');
+            $this->toastSuccess('Sale cancelled successfully');
 
             $this->modal = false;
         } catch (\Throwable $th) {

@@ -41,11 +41,7 @@ class Edit extends Component
         $this->form->user_id = auth()->id();
         $this->form->save();
 
-        $this->icon = 'icons.success';
-
-        $this->msg = 'Expense Updated';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Expense updated successfully');
         $this->reset('modal');
     }
 }
