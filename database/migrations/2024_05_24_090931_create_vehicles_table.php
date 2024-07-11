@@ -42,6 +42,11 @@ return new class () extends Migration {
             $table->integer('km');
             $table->string('fuel');
             $table->string('engine_power');
+            $table->string('steering')->nullable();
+            $table->string('transmission');
+            $table->string('doors')->nullable();
+            $table->string('seats')->nullable();
+            $table->string('traction')->nullable();
             $table->string('color');
             $table->string('plate')->unique();
             $table->string('chassi')->unique();
