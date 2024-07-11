@@ -55,7 +55,6 @@ class Update extends Component
         }
 
         // Salva o endereço do funcionário
-        $this->employeeAddress->entity_id = $employee->id;
         $this->employeeAddress->save();
 
         // Remove a foto antiga, se houver
