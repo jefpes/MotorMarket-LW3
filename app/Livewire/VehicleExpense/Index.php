@@ -14,6 +14,20 @@ class Index extends Component
 {
     use WithPagination;
 
+    public string $sortDirection = 'asc';
+
+    public string $sortColumn = 'date';
+
+    public function doSort(string $column): void
+    {
+        if ($this->sortColumn === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortColumn    = $column;
+            $this->sortDirection = 'asc';
+        }
+    }
+
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 15;
 
@@ -29,7 +43,7 @@ class Index extends Component
     public ?string $value_max = null;
 
     /** @var array<string> */
-    public array $theader = ['Vehicle', 'Value', 'Description', 'Date', 'By', 'Actions'];
+    public array $theader = ['plate', 'value', 'description', 'date', 'by', 'actions'];
 
     public ?string $header = 'Expenses';
 
@@ -50,7 +64,7 @@ class Index extends Component
     {
         return  VehicleExpense::query()
         ->with('vehicle', 'user')
-        ->orderBy('date', 'desc')
+        ->orderBy($this->sortColumn, $this->sortDirection)
         ->when($this->date_i, fn (Builder $q) => $q->where('date', '>=', $this->date_i))
         ->when($this->date_f, fn (Builder $q) => $q->where('date', '<=', $this->date_f))
         ->when($this->value_min, fn (Builder $q) => $q->where('value', '>=', $this->value_min))
