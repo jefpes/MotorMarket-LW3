@@ -3,6 +3,7 @@
 namespace App\Livewire\VehicleExpense;
 
 use App\Models\{VehicleExpense};
+use App\Traits\SortTable;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -13,26 +14,13 @@ use stdClass;
 class Index extends Component
 {
     use WithPagination;
-
-    public string $sortDirection = 'asc';
-
-    public string $sortColumn = 'date';
-
-    public function doSort(string $column): void
-    {
-        if ($this->sortColumn === $column) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortColumn    = $column;
-            $this->sortDirection = 'asc';
-        }
-    }
+    use SortTable;
 
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 15;
 
     #[Url(except: '', as: 'p', history: true)]
-    public ?string $plete = '';
+    public ?string $plate = '';
 
     public ?string $date_i = '';
 
