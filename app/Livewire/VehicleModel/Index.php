@@ -3,10 +3,10 @@
 namespace App\Livewire\VehicleModel;
 
 use App\Livewire\Forms\VehicleModelForm;
+use App\Models\VehicleType;
 use App\Models\{Brand, VehicleModel};
-use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\{Builder, Collection};
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\Component;
 
@@ -33,7 +33,7 @@ class Index extends Component
     {
         return view('livewire.vehicle-model.index', [
             'brands' => Brand::orderBy('name')->get(),
-            'types'  => \App\Models\VehicleType::orderBy('name')->get(),
+            'types'  => VehicleType::orderBy('name')->get(),
         ]);
     }
 
@@ -43,10 +43,10 @@ class Index extends Component
         return VehicleModel::with('brand', 'type')
         ->orderBy('name')
         ->when($this->brand_id, fn (Builder $q) => $q->whereHas('brand', function (Builder $q) {
-            $q->where('id', $this->brand_id);
+            $q->whereId($this->brand_id);
         }))
         ->when($this->vehicle_type_id, fn (Builder $q) => $q->whereHas('type', function (Builder $q) {
-            $q->where('id', $this->vehicle_type_id);
+            $q->whereId($this->vehicle_type_id);
         }))
         ->when($this->search, fn (Builder $q) => $q->where('name', 'like', "%{$this->search}%"))
         ->get();
