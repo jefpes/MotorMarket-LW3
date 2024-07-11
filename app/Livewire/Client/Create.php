@@ -41,7 +41,7 @@ class Create extends Component
         $this->clientAddress->save($client); // @phpstan-ignore-line
 
         // Processa e salva as fotos, se houver
-        $this->clientPhoto->save($client);
+        $this->clientPhoto->save($client->id, $client->name);
 
         $this->client->reset();
         $this->clientAddress->reset();

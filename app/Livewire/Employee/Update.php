@@ -57,7 +57,7 @@ class Update extends Component
         $this->employeePhoto->deleteOldPhotos($employee);
 
         // Processa e salva as fotos, se houver
-        $this->employeePhoto->save($employee);
+        $this->employeePhoto->save($employee->id, $employee->name);
 
         $this->msg  = 'Employee updated successfully';
         $this->icon = 'icons.success';

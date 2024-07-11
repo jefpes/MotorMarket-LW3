@@ -41,7 +41,7 @@ class Create extends Component
         $this->employeeAddress->save();
 
         // Processa e salva as fotos, se houver
-        $this->employeePhoto->save($employee);
+        $this->employeePhoto->save($employee->id, $employee->name);
 
         $this->employee->reset();
         $this->employeeAddress->reset();

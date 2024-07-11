@@ -49,7 +49,7 @@ class Update extends Component
         $this->clientAddress->save();
 
         // Processa e salva as fotos, se houver
-        $this->clientPhoto->save($client);
+        $this->clientPhoto->save($client->id, $client->name);
 
         $this->msg  = 'Client updated successfully';
         $this->icon = 'icons.success';

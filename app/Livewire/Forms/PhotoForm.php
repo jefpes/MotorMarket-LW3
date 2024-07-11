@@ -33,7 +33,7 @@ abstract class PhotoForm extends Form
 
     abstract protected function getDirectory(): string;
 
-    public function save(Model $entity): void
+    public function save(int $id, string $name): void
     {
         file_exists('storage/' . $this->getDirectory()) ?: Storage::makeDirectory($this->getDirectory());
 
@@ -45,14 +45,14 @@ abstract class PhotoForm extends Form
                 $image = $manager->read($photo)->scale(height: 1240);
 
                 $path       = 'storage/' . $this->getDirectory();
-                $customName = $path . str_replace(' ', '_', $entity->name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension(); // @phpstan-ignore-line
+                $customName = $path . str_replace(' ', '_', $name) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
 
                 $image->save($customName);
 
                 $this->getPhotoModel()->updateOrCreate(
                     ['id' => $this->id],
                     [
-                        $this->getEntityField() => $entity->id, // @phpstan-ignore-line
+                        $this->getEntityField() => $id,
                         'photo_name'            => str_replace($path, '', $customName),
                         'format'                => $photo->getClientOriginalExtension(),
                         'full_path'             => storage_path('app/public/') . str_replace('storage/', '', $customName),
