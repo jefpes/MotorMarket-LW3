@@ -49,15 +49,17 @@ class Index extends Component
 
         if (in_array($this->sortColumn, ['plate'])) {
             $query->join('vehicles', 'vehicle_expenses.vehicle_id', '=', 'vehicles.id')
-                  ->join('users', 'vehicle_expenses.user_id', '=', 'users.id')
                   ->select('vehicle_expenses.*')
-                  ->orderBy("vehicles.{$this->sortColumn}", $this->sortDirection);
-        } elseif (in_array($this->sortColumn, ['name'])) {
+                  ->orderBy("vehicles.plate", $this->sortDirection);
+        }
+
+        if (in_array($this->sortColumn, ['name'])) {
             $query->join('users', 'vehicle_expenses.user_id', '=', 'users.id')
-                  ->join('vehicles', 'vehicle_expenses.vehicle_id', '=', 'vehicles.id')
                   ->select('vehicle_expenses.*')
-                  ->orderBy("users.{$this->sortColumn}", $this->sortDirection);
-        } else {
+                  ->orderBy("users.name", $this->sortDirection);
+        }
+
+        if (!in_array($this->sortColumn, ['plate', 'name'])) {
             $query->orderBy($this->sortColumn, $this->sortDirection);
         }
 
