@@ -8,6 +8,8 @@ use Livewire\Form;
 
 class VehicleForm extends Form
 {
+    public ?Vehicle $vehicle = null;
+
     #[Locked]
     public ?int $id = null;
 
@@ -87,9 +89,10 @@ class VehicleForm extends Form
         );
     }
 
-    public function setVehicle(int $id): void
+    public function setVehicle(Vehicle $v): void
     {
-        $this->fill(Vehicle::find($id));
+        $this->fill($v);
+        $this->vehicle = $v;
     }
 
     public function destroy(): void

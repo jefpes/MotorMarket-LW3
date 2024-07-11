@@ -42,8 +42,8 @@
       </div>
 
       <div class="flex-1">
-        <x-form.file-input name="photos" label="Photos" :messages="$errors->get('vechiclePhoto.photos')"
-          wire:model="vechiclePhoto.photos" class="w-full" />
+        <x-form.file-input name="photos" label="Photos" placeholder="Photos"
+          :messages="$errors->get('vehiclePhoto.photos')" wire:model="vehiclePhoto.photos" class="w-full" />
       </div>
     </div>
 

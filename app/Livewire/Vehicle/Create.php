@@ -8,6 +8,7 @@ use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Livewire\Attributes\{Computed};
@@ -18,9 +19,9 @@ class Create extends Component
     use WithFileUploads;
     use Toast;
 
-    public VehicleForm $vechicle;
+    public VehicleForm $vehicle;
 
-    public VehiclePhotoForm $vechiclePhoto;
+    public VehiclePhotoForm $vehiclePhoto;
 
     public string $header = 'Create Vehicle';
 
@@ -45,12 +46,14 @@ class Create extends Component
     {
         $this->authorize('vehicle_create');
 
-        $vehicle = $this->vechicle->save();
+        file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
+
+        $vehicle = $this->vehicle->save();
 
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
 
-        foreach ($this->vechiclePhoto->photos as $photo) {
+        foreach ($this->vehiclePhoto->photos as $photo) {
             // read image from file system
             $image = $manager->read($photo);
 
@@ -71,7 +74,7 @@ class Create extends Component
             ]);
         }
 
-        $this->vechicle->reset();
+        $this->vehicle->reset();
 
         $this->msg  = 'Vehicle created successfully';
         $this->icon = 'icons.success';

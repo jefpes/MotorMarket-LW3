@@ -30,7 +30,7 @@ class Delete extends Component
 
     public function deleting(int $id): void
     {
-        $this->form->setVehicle($id);
+        $this->form->setVehicle(Vehicle::findOrFail($id));
         $this->modal = true;
     }
 

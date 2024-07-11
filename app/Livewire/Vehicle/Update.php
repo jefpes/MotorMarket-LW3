@@ -22,14 +22,14 @@ class Update extends Component
 
     public VehicleForm $vehicle;
 
-    public VehiclePhotoForm $vechiclePhoto;
+    public VehiclePhotoForm $vehiclePhoto;
 
     public string $header = 'Editing Vehicle';
 
     public function mount(int $id): void
     {
-        $this->vehicle->setVehicle($id);
-        $this->vechiclePhoto->setPhoto(Vehicle::findOrFail($id));
+        $this->vehicle->setVehicle(Vehicle::findOrFail($id));
+        $this->vehiclePhoto->setPhoto(Vehicle::findOrFail($id));
     }
     public function render(): View
     {
@@ -59,7 +59,7 @@ class Update extends Component
         // create image manager with desired driver
         $manager = new ImageManager(new Driver());
 
-        foreach ($this->vechiclePhoto->photos as $photo) {
+        foreach ($this->vehiclePhoto->photos as $photo) {
             // read image from file system
             $image = $manager->read($photo);
 
@@ -83,6 +83,5 @@ class Update extends Component
         $this->msg  = 'Vehicle updated successfully';
         $this->icon = 'icons.success';
         $this->dispatch('show-toast');
-
     }
 }
