@@ -8,9 +8,6 @@ use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 use Livewire\Attributes\{Computed};
 use Livewire\{Component, WithFileUploads};
 
@@ -46,33 +43,9 @@ class Create extends Component
     {
         $this->authorize('vehicle_create');
 
-        file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
-
         $vehicle = $this->vehicle->save();
 
-        // create image manager with desired driver
-        $manager = new ImageManager(new Driver());
-
-        foreach ($this->vehiclePhoto->photos as $photo) {
-            // read image from file system
-            $image = $manager->read($photo);
-
-            // resize image proportionally to 300px width
-            $image->scale(height: 1240);
-
-            $path       = 'storage/vehicle_photos/';
-            $customName = $path . str_replace(' ', '_', $vehicle->plate) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
-
-            // Save image
-            $image->save($customName);
-
-            $vehicle->photos()->create([
-                'photo_name' => str_replace($path, '', $customName),
-                'format'     => $photo->getClientOriginalExtension(),
-                'full_path'  => storage_path('app/vehicle_photos/') . str_replace('storage/', '', $customName),
-                'path'       => $customName,
-            ]);
-        }
+        $this->vehiclePhoto->save($vehicle->id, $vehicle->plate);
 
         $this->vehicle->reset();
 
