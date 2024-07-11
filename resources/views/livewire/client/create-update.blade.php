@@ -162,5 +162,5 @@
     </x-primary-button>
   </div>
 
-  <x-toast on="show-toast" :$icon> {{ __( $msg ) }} </x-toast>
+  <x-toast :$msg :$icon />
 </div>

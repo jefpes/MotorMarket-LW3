@@ -31,9 +31,8 @@ class Create extends Component
         $this->form->email = $employee->email;
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'User Created';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('User created successfully');
+        $this->dispatch('user::refresh');
         $this->form->reset();
     }
 

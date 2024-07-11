@@ -36,7 +36,8 @@ class Edit extends Component
         }
 
         $this->form->save();
-        $this->redirectRoute('users', navigate: true);
+        $this->toastSuccess('User updated successfully');
+        $this->dispatch('user::refresh');
     }
 
     #[On('user::editing')]

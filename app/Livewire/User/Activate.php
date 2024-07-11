@@ -4,12 +4,15 @@ namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{On};
 use Livewire\Component;
 
 class Activate extends Component
 {
+    use Toast;
+
     public UserForm $form;
 
     public bool $modal = false;
@@ -41,9 +44,7 @@ class Activate extends Component
 
         if ($user->hierarchy($userAction->id)) {
             $userAction->roles()->detach();
-            $this->icon = 'icons.success';
-            $this->msg  = 'User Activate';
-            $this->dispatch('show-toast')->to(self::class);
+            $this->toastSuccess('User Activated');
             $userAction->update(['active' => true]);
             $this->dispatch('user::refresh')->to(Index::class);
             $this->modal = false;
@@ -51,10 +52,7 @@ class Activate extends Component
             return;
         }
 
-        $this->msg  = 'You have not permission for activating this register';
-        $this->icon = 'icons.fail';
-
-        $this->dispatch('show::toast');
+        $this->toastFail('You not have permission for this action');
         $this->modal = false;
     }
 
