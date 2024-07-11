@@ -21,7 +21,7 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.user.edit', ['employees' => Employee::orderBy('name')->get()]);
+        return view('livewire.user.edit', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
     }
 
     public function save(): void

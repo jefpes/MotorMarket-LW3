@@ -20,7 +20,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.user.create', ['employees' => Employee::orderBy('name')->get()]);
+        return view('livewire.user.create', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
     }
 
     public function save(): void
