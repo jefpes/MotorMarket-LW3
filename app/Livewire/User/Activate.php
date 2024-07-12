@@ -40,9 +40,7 @@ class Activate extends Component
 
         if ($user->hierarchy($userAction->id)) {
 
-            $userAction->roles()->detach();
-
-            $userAction->update(['active' => true]);
+            $userAction->restore();
 
             $this->dispatch('user::refresh')->to(Index::class);
 

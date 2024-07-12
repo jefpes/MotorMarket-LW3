@@ -34,7 +34,7 @@ class Index extends Component
     #[Computed()]
     public function users(): User|LengthAwarePaginator
     {
-        return User::query()->loged()->search($this->search)->paginate($this->perPage);
+        return User::query()->withTrashed()->loged()->search($this->search)->paginate($this->perPage);
     }
 
     public function updatedSearch(): void

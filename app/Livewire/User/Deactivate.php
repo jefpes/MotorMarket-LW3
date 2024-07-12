@@ -39,9 +39,8 @@ class Deactivate extends Component
         $user = auth()->user();
 
         if ($user->hierarchy($userAction->id)) {
-            $userAction->roles()->detach();
+            $userAction->delete();
             $this->toastSuccess('User Deactivate');
-            $userAction->update(['active' => false]);
             $this->dispatch('user::refresh');
             $this->modal = false;
 

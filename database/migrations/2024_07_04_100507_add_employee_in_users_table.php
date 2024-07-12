@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,8 +12,7 @@ return new class () extends Migration {
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Employee::class)->nullable()->after('id');
-            $table->boolean('active')->default(1)->after('email_verified_at');
+            $table->foreignIdFor(Employee::class)->nullable()->after('id');
         });
     }
 
