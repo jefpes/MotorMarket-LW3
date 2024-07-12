@@ -45,7 +45,7 @@
           <x-table.td>
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
-                @if ($u->active)
+                @if (!$u->deleted_at)
                   @can($this->permissions->admin)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />

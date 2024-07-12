@@ -43,7 +43,7 @@ class UserForm extends Form
 
     public function setUser(int $id): void
     {
-        $this->fill(User::find($id));
+        $this->fill(User::withTrashed()->find($id));
     }
 
     public function save(): User

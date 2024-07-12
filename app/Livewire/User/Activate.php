@@ -33,7 +33,7 @@ class Activate extends Component
     {
         $this->authorize('user_delete');
 
-        $userAction = User::find($this->form->id);
+        $userAction = User::withTrashed()->find($this->form->id);
 
         /** @var User $user */
         $user = auth()->user();
