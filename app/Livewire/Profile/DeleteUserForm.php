@@ -25,9 +25,6 @@ class DeleteUserForm extends Component
 
         /** @var User */
         $user = Auth::user();
-
-        $user->roles()->detach();
-
         $user->delete();
 
         tap(Auth::user(), $logout(...));
