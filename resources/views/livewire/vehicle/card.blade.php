@@ -44,12 +44,6 @@
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Plate') }}: </span> {{ $vehicle->plate }} </p>
       </div>
       <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Chassi') }}: </span> {{ $vehicle->chassi }} </p>
-      </div>
-      <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Renavam') }}: </span> {{ $vehicle->renavam }} </p>
-      </div>
-      <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Description') }}: </span> {{ $vehicle->description }} </p>
       </div>
     </dl>

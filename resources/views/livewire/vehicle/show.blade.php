@@ -33,6 +33,41 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Model') }}: </span> {{ $vehicle->model->name ?? '' }} </p>
       </div>
+
+      <div class="flex">
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Fuel') }}: </span> {{ $vehicle->fuel ?? '' }} </p>
+      </div>
+
+      @if ($vehicle->steering)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Steering') }}: </span> {{ $vehicle->steering ?? '' }} </p>
+        </div>
+      @endif
+
+      <div class="flex">
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Transmission') }}: </span> {{ $vehicle->transmission ?? '' }} </p>
+      </div>
+
+      @if ($vehicle->traction)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Traction') }}: </span> {{ $vehicle->traction ?? '' }} </p>
+        </div>
+      @endif
+
+      @if ($vehicle->doors)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Doors') }}: </span> {{ $vehicle->doors ?? '' }} </p>
+        </div>
+      @endif
+
+      @if ($vehicle->seats)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Seats') }}: </span> {{ $vehicle->seats ?? '' }} </p>
+        </div>
+      @endif
+
+
+
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Year') }}: </span> {{ $vehicle->year_one .'/'. $vehicle->year_two }} </p>
       </div>
