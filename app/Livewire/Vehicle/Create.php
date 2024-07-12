@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
-use App\Enums\FuelType;
+use App\Enums\{FuelTypes, SteeringTypes, TransmissionTypes};
 use App\Livewire\Forms\{VehicleForm, VehiclePhotoForm};
 use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
@@ -24,7 +24,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle.create-update', ['fuelTypes' => FuelType::cases()]);
+        return view('livewire.vehicle.create-update', ['fuelTypes' => FuelTypes::cases(), 'steeringTypes' => SteeringTypes::cases(), 'transmissionTypes' => TransmissionTypes::cases()]);
     }
 
     #[Computed()]

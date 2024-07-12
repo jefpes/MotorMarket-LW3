@@ -35,15 +35,41 @@
           @endforeach
         </x-select>
       </div>
+      <div class="flex-1">
+        <x-select :messages="$errors->get('vehicle.steering')" wire:model="vehicle.steering" class="w-full" label='Steering' id="fuel">
+          <option value=""> {{ __('Select')}} </option>
+          @foreach ($steeringTypes as $data)
+          <option value="{{ $data->value }}"> {{ $data->value }} </option>
+          @endforeach
+        </x-select>
+      </div>
+      <div class="flex-1">
+        <x-select :messages="$errors->get('vehicle.transmission')" wire:model="vehicle.transmission" class="w-full" label='Transmission' id="fuel">
+          <option value=""> {{ __('Select')}} </option>
+          @foreach ($transmissionTypes as $data)
+          <option value="{{ $data->value }}"> {{ $data->value }} </option>
+          @endforeach
+        </x-select>
+      </div>
+    </div>
 
+    <div class="flex flex-col md:flex-row justify-between md:space-x-2 md:space-y-0 space-y-2">
       <div class="flex-1">
         <x-form.input name="engine_power" label="Engine Power" placeholder="Engine Power"
           :messages="$errors->get('vehicle.engine_power')" wire:model="vehicle.engine_power" class="w-full" />
       </div>
 
       <div class="flex-1">
-        <x-form.file-input name="photos" label="Photos" placeholder="Photos"
-          :messages="$errors->get('vehiclePhoto.photos')" wire:model="vehiclePhoto.photos" class="w-full" />
+        <x-form.input name="traction" label="Traction" placeholder="Traction"
+          :messages="$errors->get('vehicle.traction')" wire:model="vehicle.traction" class="w-full" />
+      </div>
+      <div class="flex-1">
+        <x-form.input x-mask="999" name="doors" label="Doors" placeholder="Doors" :messages="$errors->get('vehicle.doors')"
+          wire:model="vehicle.doors" class="w-full" />
+      </div>
+      <div class="flex-1">
+        <x-form.input x-mask="999" name="seats" label="Seats" placeholder="Seats" :messages="$errors->get('vehicle.seats')"
+          wire:model="vehicle.seats" class="w-full" />
       </div>
     </div>
 
@@ -84,6 +110,8 @@
       </div>
     </div>
 
+    <x-form.file-input name="photos" label="Photos" placeholder="Photos" :messages="$errors->get('vehiclePhoto.photos')"
+      wire:model="vehiclePhoto.photos" class="w-full" />
     <x-form.textarea name="description" label="Description" placeholder="Description"
       :messages="$errors->get('vehicle.description')" wire:model="vehicle.description" class="w-full" />
   </div>
