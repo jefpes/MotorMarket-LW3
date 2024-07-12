@@ -39,7 +39,7 @@ class VehicleForm extends Form
 
     public ?string $chassi = '';
 
-    public ?string $renavan = '';
+    public ?string $renavam = '';
 
     public ?string $description = '';
 
@@ -59,7 +59,7 @@ class VehicleForm extends Form
             'color'            => ['required', 'string', 'max:255', 'min:3'],
             'plate'            => ['required', 'string', 'size:8'],
             'chassi'           => ['required', 'string', 'max:255', 'min:3'],
-            'renavan'          => ['required', 'string', 'max:255', 'min:3'],
+            'renavam'          => ['required', 'string', 'max:255', 'min:3'],
             'description'      => ['required', 'string', 'max:255', 'min:10'],
         ];
     }
@@ -83,7 +83,7 @@ class VehicleForm extends Form
                 'color'            => $this->color,
                 'plate'            => $this->plate,
                 'chassi'           => $this->chassi,
-                'renavan'          => $this->renavan,
+                'renavam'          => $this->renavam,
                 'description'      => $this->description,
             ]
         );

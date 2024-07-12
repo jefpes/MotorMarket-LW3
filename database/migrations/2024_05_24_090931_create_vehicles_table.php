@@ -50,7 +50,7 @@ return new class () extends Migration {
             $table->string('color');
             $table->string('plate')->unique();
             $table->string('chassi')->unique();
-            $table->string('renavan')->unique();
+            $table->string('renavam')->unique();
             $table->date('sold_date')->nullable();
             $table->string('description');
 

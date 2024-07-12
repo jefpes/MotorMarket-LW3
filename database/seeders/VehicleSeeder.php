@@ -30,7 +30,7 @@ class VehicleSeeder extends Seeder
             'color'            => 'Branco',
             'plate'            => 'AAA-0001',
             'chassi'           => '000000001',
-            'renavan'          => '000000001',
+            'renavam'          => '000000001',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
@@ -91,7 +91,7 @@ class VehicleSeeder extends Seeder
             'color'            => 'Branco',
             'plate'            => 'AAA-0002',
             'chassi'           => '000000002',
-            'renavan'          => '000000002',
+            'renavam'          => '000000002',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
@@ -140,7 +140,7 @@ class VehicleSeeder extends Seeder
             'color'            => 'Preta',
             'plate'            => 'AAA-0003',
             'chassi'           => '000000003',
-            'renavan'          => '000000003',
+            'renavam'          => '000000003',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
@@ -189,7 +189,7 @@ class VehicleSeeder extends Seeder
             'color'            => 'Vermelha',
             'plate'            => 'AAA-0004',
             'chassi'           => '000000004',
-            'renavan'          => '000000004',
+            'renavam'          => '000000004',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
@@ -241,7 +241,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Preto',
             'plate'            => 'AAA-0005',
-            'renavan'          => '000000005',
+            'renavam'          => '000000005',
             'chassi'           => '000000005',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -307,7 +307,7 @@ class VehicleSeeder extends Seeder
             'color'            => 'Vermelho',
             'plate'            => 'AAA-0006',
             'chassi'           => '000000006',
-            'renavan'          => '000000006',
+            'renavam'          => '000000006',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
@@ -371,7 +371,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Preto',
             'plate'            => 'AAA-0007',
-            'renavan'          => '000000007',
+            'renavam'          => '000000007',
             'chassi'           => '000000007',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -430,7 +430,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Vermelho',
             'plate'            => 'AAA-0008',
-            'renavan'          => '000000008',
+            'renavam'          => '000000008',
             'chassi'           => '000000008',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -479,7 +479,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Branca',
             'plate'            => 'AAA-0009',
-            'renavan'          => '000000009',
+            'renavam'          => '000000009',
             'chassi'           => '000000009',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -528,7 +528,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Preto',
             'plate'            => 'AAA-0025',
-            'renavan'          => '000000025',
+            'renavam'          => '000000025',
             'chassi'           => '000000025',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -581,7 +581,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Preto',
             'plate'            => 'AAA-0010',
-            'renavan'          => '000000010',
+            'renavam'          => '000000010',
             'chassi'           => '000000010',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -634,7 +634,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Vermelho',
             'plate'            => 'AAA-0011',
-            'renavan'          => '000000011',
+            'renavam'          => '000000011',
             'chassi'           => '000000011',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -687,7 +687,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X4',
             'color'            => 'Preta',
             'plate'            => 'AAA-0012',
-            'renavan'          => '000000012',
+            'renavam'          => '000000012',
             'chassi'           => '000000012',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -740,7 +740,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X4',
             'color'            => 'Cereja',
             'plate'            => 'AAA-0013',
-            'renavan'          => '000000013',
+            'renavam'          => '000000013',
             'chassi'           => '000000013',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -799,7 +799,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Branco',
             'plate'            => 'AAA-0014',
-            'renavan'          => '000000014',
+            'renavam'          => '000000014',
             'chassi'           => '000000014',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -864,7 +864,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X2',
             'color'            => 'Vermelho',
             'plate'            => 'AAA-0015',
-            'renavan'          => '000000015',
+            'renavam'          => '000000015',
             'chassi'           => '000000015',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -913,7 +913,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Azul',
             'plate'            => 'AAA-0016',
-            'renavan'          => '000000016',
+            'renavam'          => '000000016',
             'chassi'           => '000000016',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -954,7 +954,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X4',
             'color'            => 'Branco',
             'plate'            => 'AAA-0017',
-            'renavan'          => '000000017',
+            'renavam'          => '000000017',
             'chassi'           => '000000017',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1007,7 +1007,7 @@ class VehicleSeeder extends Seeder
             'traction'         => '4X4',
             'color'            => 'Vermelha',
             'plate'            => 'AAA-0018',
-            'renavan'          => '000000018',
+            'renavam'          => '000000018',
             'chassi'           => '000000018',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1062,7 +1062,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Azul',
             'plate'            => 'AAA-0019',
-            'renavan'          => '000000019',
+            'renavam'          => '000000019',
             'chassi'           => '000000019',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1099,7 +1099,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Vermelha',
             'plate'            => 'AAA-0020',
-            'renavan'          => '000000020',
+            'renavam'          => '000000020',
             'chassi'           => '000000020',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1142,7 +1142,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Vermelha',
             'plate'            => 'AAA-0021',
-            'renavan'          => '000000021',
+            'renavam'          => '000000021',
             'chassi'           => '000000021',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1191,7 +1191,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Prata',
             'plate'            => 'AAA-0022',
-            'renavan'          => '000000022',
+            'renavam'          => '000000022',
             'chassi'           => '000000022',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1234,7 +1234,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Vermelha',
             'plate'            => 'AAA-0023',
-            'renavan'          => '000000023',
+            'renavam'          => '000000023',
             'chassi'           => '000000023',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
@@ -1277,7 +1277,7 @@ class VehicleSeeder extends Seeder
             'transmission'     => 'MANUAL',
             'color'            => 'Preta',
             'plate'            => 'AAA-0024',
-            'renavan'          => '000000024',
+            'renavam'          => '000000024',
             'chassi'           => '000000024',
             'description'      => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([

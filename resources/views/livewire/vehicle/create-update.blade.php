@@ -68,8 +68,8 @@
           wire:model="vehicle.chassi" class="w-full" />
       </div>
       <div class="flex-1">
-        <x-form.input name="renavan" label="Renavan" placeholder="Renavan" :messages="$errors->get('vehicle.renavan')"
-          wire:model="vehicle.renavan" class="w-full" />
+        <x-form.input name="renavam" label="Renavam" placeholder="Renavam" :messages="$errors->get('vehicle.renavam')"
+          wire:model="vehicle.renavam" class="w-full" />
       </div>
     </div>
 
