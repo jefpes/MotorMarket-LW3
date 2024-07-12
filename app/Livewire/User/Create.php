@@ -33,7 +33,7 @@ class Create extends Component
 
         $this->toastSuccess('User created successfully');
         $this->dispatch('user::refresh');
-        $this->form->reset();
+        $this->cancel();
     }
 
     public function cancel(): void
