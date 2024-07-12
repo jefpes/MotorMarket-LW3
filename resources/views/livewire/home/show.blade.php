@@ -20,6 +20,47 @@
         <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Model') }}:</span>
         <span class="py-4">{{ $vehicle->model->name }}</span>
       </div>
+
+      <div>
+        <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Fuel') }}:</span>
+        <span class="py-4">{{ $vehicle->fuel }}</span>
+      </div>
+
+      @if ($vehicle->steering)
+        <div>
+          <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Steering') }}:</span>
+          <span class="py-4">{{ $vehicle->steering }}</span>
+        </div>
+      @endif
+
+      @if ($vehicle->transmission)
+        <div>
+          <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Transmission') }}:</span>
+          <span class="py-4">{{ $vehicle->transmission }}</span>
+        </div>
+      @endif
+
+      @if ($vehicle->traction)
+        <div>
+          <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Traction') }}:</span>
+          <span class="py-4">{{ $vehicle->traction }}</span>
+        </div>
+      @endif
+
+      @if ($vehicle->doors)
+        <div>
+          <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Doors') }}:</span>
+          <span class="py-4">{{ $vehicle->doors }}</span>
+        </div>
+      @endif
+
+      @if ($vehicle->seats)
+        <div>
+          <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Seats') }}:</span>
+          <span class="py-4">{{ $vehicle->seats }}</span>
+        </div>
+      @endif
+
       <div>
         <span class="font-bold text-gray-900 dark:text-gray-100">{{ __('Year') }}:</span>
         <span class="py-4">{{ $vehicle->year_one.'/'.$vehicle->year_two }}</span>
