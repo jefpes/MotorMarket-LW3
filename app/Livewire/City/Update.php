@@ -34,12 +34,11 @@ class Update extends Component
         $this->authorize('city_update');
 
         $this->dispatch('city::refresh');
+
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'City Updated';
+        $this->toastSuccess('City Updated');
 
-        $this->dispatch('show-toast');
         $this->cancel();
     }
 

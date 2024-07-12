@@ -20,7 +20,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.user.create', ['employees' => Employee::orderBy('name')->get()]);
+        return view('livewire.user.create', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
     }
 
     public function save(): void
@@ -31,10 +31,9 @@ class Create extends Component
         $this->form->email = $employee->email;
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'User Created';
-        $this->dispatch('show-toast');
-        $this->form->reset();
+        $this->toastSuccess('User created successfully');
+        $this->dispatch('user::refresh');
+        $this->cancel();
     }
 
     public function cancel(): void

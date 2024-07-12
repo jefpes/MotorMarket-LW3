@@ -33,7 +33,7 @@ class SalesContract extends Component
             (object) ['label' => 'PLACA', 'value' => $this->sale->vehicle->plate],
             (object) ['label' => 'COR', 'value' => $this->sale->vehicle->color],
             (object) ['label' => 'ANO/MODELO', 'value' => $this->sale->vehicle->year_one . '/' . $this->sale->vehicle->year_two],
-            (object) ['label' => 'RENAVAM', 'value' => $this->sale->vehicle->renavan],
+            (object) ['label' => 'RENAVAM', 'value' => $this->sale->vehicle->renavam],
             (object) ['label' => 'CHASSI', 'value' => $this->sale->vehicle->chassi],
             (object) ['label' => 'KILOMETRAGEM', 'value' => number_format($this->sale->vehicle->km, 0, '', '.')],
         ];

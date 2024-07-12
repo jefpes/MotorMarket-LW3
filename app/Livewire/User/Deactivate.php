@@ -4,19 +4,18 @@ namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{On};
 use Livewire\Component;
 
 class Deactivate extends Component
 {
+    use Toast;
+
     public UserForm $form;
 
     public bool $modal = false;
-
-    public ?string $icon = 'icons.success';
-
-    public ?string $msg = 'User Deactived';
 
     public function render(): View
     {
@@ -40,21 +39,15 @@ class Deactivate extends Component
         $user = auth()->user();
 
         if ($user->hierarchy($userAction->id)) {
-            $userAction->roles()->detach();
-            $this->icon = 'icons.success';
-            $this->msg  = 'User Deactivate';
-            $this->dispatch('show-toast')->to(self::class);
-            $userAction->update(['active' => false]);
-            $this->dispatch('user::refresh')->to(Index::class);
+            $userAction->delete();
+            $this->toastSuccess('User Deactivate');
+            $this->dispatch('user::refresh');
             $this->modal = false;
 
             return;
         }
 
-        $this->msg  = 'You have not permission for deactivating this register';
-        $this->icon = 'icons.fail';
-
-        $this->dispatch('show::toast');
+        $this->toastFail('You not have permission for this action');
         $this->modal = false;
     }
 

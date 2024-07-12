@@ -40,10 +40,17 @@ return new class () extends Migration {
             $table->year('year_one');
             $table->year('year_two');
             $table->integer('km');
+            $table->string('fuel');
+            $table->string('engine_power');
+            $table->string('steering')->nullable();
+            $table->string('transmission');
+            $table->string('doors')->nullable();
+            $table->string('seats')->nullable();
+            $table->string('traction')->nullable();
             $table->string('color');
             $table->string('plate')->unique();
             $table->string('chassi')->unique();
-            $table->string('renavan')->unique();
+            $table->string('renavam')->unique();
             $table->date('sold_date')->nullable();
             $table->string('description');
 

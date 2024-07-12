@@ -32,17 +32,14 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('expense_create');
+        $this->authorize('vexpense_create');
 
         $this->dispatch('expense::create');
         $this->form->vehicle_id = $this->v_id;
         $this->form->user_id    = auth()->id();
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'Expense Created';
-
-        $this->dispatch('show-toast-2');
+        $this->toastSuccess('Expense created successfully');
         $this->cancel();
     }
 }

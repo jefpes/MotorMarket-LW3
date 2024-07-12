@@ -8,6 +8,8 @@ use Livewire\Form;
 
 class VehicleForm extends Form
 {
+    public ?Vehicle $vehicle = null;
+
     #[Locked]
     public ?int $id = null;
 
@@ -27,13 +29,27 @@ class VehicleForm extends Form
 
     public ?int $km = 0;
 
+    public ?string $fuel = '';
+
+    public ?string $engine_power = '';
+
+    public ?string $steering = '';
+
+    public ?string $transmission = '';
+
+    public ?string $doors = '';
+
+    public ?string $seats = '';
+
+    public ?string $traction = '';
+
     public ?string $color = '';
 
     public ?string $plate = '';
 
     public ?string $chassi = '';
 
-    public ?string $renavan = '';
+    public ?string $renavam = '';
 
     public ?string $description = '';
 
@@ -48,10 +64,13 @@ class VehicleForm extends Form
             'year_one'         => ['required', 'integer', 'min:1900', 'max:2100'],
             'year_two'         => ['required', 'integer', 'min:1900', 'max:2100'],
             'km'               => ['required', 'integer', 'min:0'],
+            'fuel'             => ['required', 'string', 'max:40', 'min:2'],
+            'engine_power'     => ['required', 'string', 'max:10', 'min:1'],
+            'transmission'     => ['required', 'string', 'max:255', 'min:3'],
             'color'            => ['required', 'string', 'max:255', 'min:3'],
             'plate'            => ['required', 'string', 'size:8'],
             'chassi'           => ['required', 'string', 'max:255', 'min:3'],
-            'renavan'          => ['required', 'string', 'max:255', 'min:3'],
+            'renavam'          => ['required', 'string', 'max:255', 'min:3'],
             'description'      => ['required', 'string', 'max:255', 'min:10'],
         ];
     }
@@ -59,7 +78,8 @@ class VehicleForm extends Form
     public function save(): Vehicle
     {
         $this->validate();
-        $people = Vehicle::updateOrCreate(
+
+        return Vehicle::updateOrCreate(
             ['id' => $this->id],
             [
                 'purchase_date'    => $this->purchase_date,
@@ -69,33 +89,26 @@ class VehicleForm extends Form
                 'year_one'         => $this->year_one,
                 'year_two'         => $this->year_two,
                 'km'               => $this->km,
+                'fuel'             => $this->fuel,
+                'engine_power'     => $this->engine_power,
+                'steering'         => $this->steering,
+                'transmission'     => $this->transmission,
+                'doors'            => $this->doors,
+                'seats'            => $this->seats,
+                'traction'         => $this->traction,
                 'color'            => $this->color,
                 'plate'            => $this->plate,
                 'chassi'           => $this->chassi,
-                'renavan'          => $this->renavan,
+                'renavam'          => $this->renavam,
                 'description'      => $this->description,
             ]
         );
-
-        return $people;
     }
 
-    public function setVehicle(int $id): void
+    public function setVehicle(Vehicle $v): void
     {
-        $vehicle                = Vehicle::find($id);
-        $this->id               = $vehicle->id;
-        $this->purchase_date    = $vehicle->purchase_date;
-        $this->purchase_price   = $vehicle->purchase_price;
-        $this->sale_price       = $vehicle->sale_price;
-        $this->vehicle_model_id = $vehicle->vehicle_model_id;
-        $this->year_one         = $vehicle->year_one;
-        $this->year_two         = $vehicle->year_two;
-        $this->km               = $vehicle->km;
-        $this->color            = $vehicle->color;
-        $this->plate            = $vehicle->plate;
-        $this->chassi           = $vehicle->chassi;
-        $this->renavan          = $vehicle->renavan;
-        $this->description      = $vehicle->description;
+        $this->fill($v);
+        $this->vehicle = $v;
     }
 
     public function destroy(): void

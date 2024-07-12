@@ -12,4 +12,5 @@
     </div>
     @endforeach
   </div>
+  <x-toast :$msg :$icon />
 </div>

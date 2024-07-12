@@ -2,14 +2,12 @@
 
 namespace App\Livewire\Vehicle;
 
-use App\Livewire\Forms\VehicleForm;
+use App\Enums\{FuelTypes, SteeringTypes, TransmissionTypes};
+use App\Livewire\Forms\{VehicleForm, VehiclePhotoForm};
 use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Drivers\Gd\Driver;
-use Intervention\Image\ImageManager;
 use Livewire\Attributes\{Computed};
 use Livewire\{Component, WithFileUploads};
 
@@ -18,16 +16,15 @@ class Create extends Component
     use WithFileUploads;
     use Toast;
 
-    public VehicleForm $form;
+    public VehicleForm $vehicle;
+
+    public VehiclePhotoForm $vehiclePhoto;
 
     public string $header = 'Create Vehicle';
 
-    /** @var array<Object> */
-    public array $photos;
-
     public function render(): View
     {
-        return view('livewire.vehicle.create');
+        return view('livewire.vehicle.create-update', ['fuelTypes' => FuelTypes::cases(), 'steeringTypes' => SteeringTypes::cases(), 'transmissionTypes' => TransmissionTypes::cases()]);
     }
 
     #[Computed()]
@@ -46,38 +43,12 @@ class Create extends Component
     {
         $this->authorize('vehicle_create');
 
-        file_exists('storage/vehicle_photos/') ?: Storage::makeDirectory('vehicle_photos/');
+        $vehicle = $this->vehicle->save();
 
-        $vehicle = $this->form->save();
+        $this->vehiclePhoto->save($vehicle->id, $vehicle->plate);
 
-        // create image manager with desired driver
-        $manager = new ImageManager(new Driver());
+        $this->vehicle->reset();
 
-        foreach ($this->photos as $photo) {
-            // read image from file system
-
-            $image = $manager->read($photo);
-
-            // resize image proportionally to 300px width
-            $image->scale(height: 1240);
-
-            $path       = 'storage/vehicle_photos/';
-            $customName = $path . str_replace(' ', '_', $vehicle->plate) . '_' . uniqid() . '.' . $photo->getClientOriginalExtension();
-
-            // Save image
-            $image->save($customName);
-
-            $vehicle->photos()->create([
-                'photo_name' => str_replace($path, '', $customName),
-                'format'     => $photo->getClientOriginalExtension(),
-                'full_path'  => storage_path('app/vehicle_photos/') . str_replace('storage/', '', $customName),
-                'path'       => $customName,
-            ]);
-        }
-        $this->form->reset();
-
-        $this->msg  = 'Vehicle created successfully';
-        $this->icon = 'icons.success';
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle created successfully');
     }
 }

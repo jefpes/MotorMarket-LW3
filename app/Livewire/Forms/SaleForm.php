@@ -88,22 +88,7 @@ class SaleForm extends Form
 
     public function setSale(int $id): void
     {
-        $sale                      = Sale::find($id);
-        $this->id                  = $sale->id;
-        $this->user_id             = $sale->user_id;
-        $this->vehicle_id          = $sale->vehicle_id;
-        $this->client_id           = $sale->client_id;
-        $this->payment_method      = $sale->payment_method;
-        $this->status              = $sale->status;
-        $this->date_sale           = $sale->date_sale;
-        $this->date_payment        = $sale->date_payment;
-        $this->discount            = $sale->discount;
-        $this->surcharge           = $sale->surcharge;
-        $this->down_payment        = $sale->down_payment;
-        $this->number_installments = $sale->number_installments;
-        $this->total               = $sale->total;
-        $this->reimbursement       = $sale->reimbursement;
-        $this->date_cancel         = $sale->date_cancel;
+        $this->fill(Sale::find($id));
     }
 
     public function destroy(): void

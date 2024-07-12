@@ -36,10 +36,7 @@ class Update extends Component
         $this->dispatch('vtype::refresh');
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'Vehicle Type Updated';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Vehicle Type updated successfully');
         $this->cancel();
     }
 

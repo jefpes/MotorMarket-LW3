@@ -41,10 +41,7 @@ class Create extends Component
         $this->dispatch('role::refresh');
         $this->form->save();
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'Role Created';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Role created successfully');
         $this->cancel();
     }
 }

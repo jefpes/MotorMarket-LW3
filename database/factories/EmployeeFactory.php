@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\MaritalStatus;
+use App\Models\{Employee, EmployeeAddress};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -33,5 +34,12 @@ class EmployeeFactory extends Factory
             'hiring_date'      => $this->faker->date(),
             'resignation_date' => $this->faker->optional()->date(),
         ];
+    }
+
+    public function withAddress()
+    {
+        return $this->afterCreating(function (Employee $employee) {
+            EmployeeAddress::factory()->create(['employee_id' => $employee->id]);
+        });
     }
 }

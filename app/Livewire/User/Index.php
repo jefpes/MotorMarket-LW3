@@ -17,7 +17,7 @@ class Index extends Component
     public UserForm $form;
 
     /** @var array<string> */
-    public array $theader = ['Name', 'User', 'E-Mail', 'Status', 'Actions'];
+    public array $theader = ['name', 'email', 'status', 'actions'];
 
     #[Url(except: '', as: 's', history: true)]
     public ?string $search = '';
@@ -34,7 +34,7 @@ class Index extends Component
     #[Computed()]
     public function users(): User|LengthAwarePaginator
     {
-        return User::query()->loged()->search($this->search)->paginate($this->perPage);
+        return User::query()->withTrashed()->loged()->search($this->search)->paginate($this->perPage);
     }
 
     public function updatedSearch(): void

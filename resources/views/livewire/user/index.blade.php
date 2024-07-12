@@ -24,7 +24,7 @@
   <x-table.table>
     <x-slot:thead>
       @foreach ($theader as $h)
-        @if ($h == 'Actions')
+        @if ($h == 'actions')
           @canany([$this->permissions->update, $this->permissions->delete])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
@@ -37,16 +37,15 @@
       @forelse ($this->users->items() as $u)
       <x-table.tr>
         <x-table.td> {{ $u->name }} </x-table.td>
-        <x-table.td> {{ $u->user_name }} </x-table.td>
         <x-table.td> {{ $u->email }} </x-table.td>
         <x-table.td> <span
-          class="{{ $u->active ? 'bg-green-100 text-green-800 me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'
-            : 'bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'}}"> {{ $u->active ? __('Active') : __('Inactive') }} </span> </x-table.td>
+          class="{{ $u->deleted_at ? 'bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'
+            : 'bg-green-100 text-green-800 me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'}}"> {{ $u->deleted_at ? __('Inactive') : __('Active') }} </span> </x-table.td>
         @canany(['user_delete', 'user_update'])
           <x-table.td>
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
-                @if ($u->active)
+                @if (!$u->deleted_at)
                   @can($this->permissions->admin)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />

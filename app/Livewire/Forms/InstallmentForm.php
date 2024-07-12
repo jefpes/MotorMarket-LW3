@@ -71,19 +71,7 @@ class InstallmentForm extends Form
 
     public function setInstallment(int $id): void
     {
-        $installment = PaymentInstallments::find($id);
-
-        $this->id             = $installment->id;
-        $this->sale_id        = $installment->sale_id;
-        $this->user_id        = $installment->user_id;
-        $this->due_date       = $installment->due_date;
-        $this->value          = $installment->value;
-        $this->status         = $installment->status;
-        $this->payment_date   = $installment->payment_date;
-        $this->payment_value  = $installment->payment_value;
-        $this->payment_method = $installment->payment_method;
-        $this->discount       = $installment->discount;
-        $this->surcharge      = $installment->surcharge;
+        $this->fill(PaymentInstallments::find($id));
     }
 
     public function destroy(): void

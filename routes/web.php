@@ -63,7 +63,7 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:vehicle_update'])
         ->name('vehicle.edit');
 
-    Route::get('vehicle_show/{id}', Vehicle\Show::class)
+    Route::get('vehicle/{id}', Vehicle\Show::class)
         ->middleware(['auth', 'verified', 'can:vehicle_read'])
         ->name('vehicle.show');
 
@@ -83,7 +83,7 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:client_update'])
         ->name('client.edit');
 
-    Route::get('client_show/{id}', Client\Show::class)
+    Route::get('client/{id}', Client\Show::class)
         ->middleware(['auth', 'verified', 'can:client_read'])
         ->name('client.show');
 
@@ -99,7 +99,7 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:employee_update'])
         ->name('employee.edit');
 
-    Route::get('employee_show/{id}', Employee\Show::class)
+    Route::get('employee/{id}', Employee\Show::class)
         ->middleware(['auth', 'verified', 'can:employee_read'])
         ->name('employee.show');
 
@@ -124,7 +124,7 @@ Route::middleware(Localization::class)->group(function () {
         ->name('installments');
 
     Route::get('vehicle-expense', VehicleExpense\Index::class)
-        ->middleware(['auth', 'verified', 'can:expense_read'])
+        ->middleware(['auth', 'verified', 'can:vexpense_read'])
         ->name('vehicle-expense');
 
     require __DIR__ . '/auth.php';

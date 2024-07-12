@@ -46,10 +46,7 @@ class RoleForm extends Form
 
     public function setRole(int $id): void
     {
-        $role            = Role::find($id);
-        $this->name      = $role->name;
-        $this->id        = $role->id;
-        $this->hierarchy = $role->hierarchy;
+        $this->fill(Role::find($id));
     }
 
     public function cancel(): void

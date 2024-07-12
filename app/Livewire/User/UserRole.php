@@ -3,11 +3,14 @@
 namespace App\Livewire\User;
 
 use App\Models\{Role, User};
+use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class UserRole extends Component
 {
+    use Toast;
+
     public ?User $user;
 
     public Object $roles;
@@ -25,6 +28,7 @@ class UserRole extends Component
     public function toggleRole(int $role_id): void
     {
         $this->user->roles()->toggle($role_id);
+        $this->toastSuccess('Role Updated Successfully');
     }
 
 }

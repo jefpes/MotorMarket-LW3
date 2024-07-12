@@ -8,6 +8,8 @@ use Livewire\Form;
 
 class ClientForm extends Form
 {
+    public Client $client;
+
     #[Locked]
     public ?int $id = null;
 
@@ -27,57 +29,42 @@ class ClientForm extends Form
 
     public ?string $father = '';
 
+    public ?string $father_phone = '';
+
     public ?string $mother = '';
+
+    public ?string $mother_phone = '';
 
     public ?string $affiliated_one = '';
 
+    public ?string $affiliated_one_phone = '';
+
     public ?string $affiliated_two = '';
 
+    public ?string $affiliated_two_phone = '';
+
     public ?string $description = '';
-
-    public ?string $cep = '';
-
-    public ?string $logradouro_type = '';
-
-    public ?string $logradouro = '';
-
-    public ?int $number = null;
-
-    public ?string $complement = '';
-
-    public ?string $bairro = '';
-
-    public ?int $city_id = null;
-
-    public ?string $state = '';
-
-    public ?string $country = 'Brasil';
 
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
         return [
-            'name'            => ['required', 'min:3', 'max:255'],
-            'rg'              => ['required', 'min:3', 'max:20'],
-            'cpf'             => ['required', 'size:14'],
-            'marital_status'  => ['required', 'min:3', 'max:255'],
-            'phone_one'       => ['required', 'size:15'],
-            'phone_two'       => ['nullable', 'min:3', 'max:20'],
-            'birth_date'      => ['required', 'date'],
-            'father'          => ['nullable', 'min:3', 'max:255'],
-            'mother'          => ['nullable', 'min:3', 'max:255'],
-            'affiliated_one'  => ['nullable', 'min:3', 'max:255'],
-            'affiliated_two'  => ['nullable', 'min:3', 'max:255'],
-            'description'     => ['nullable', 'min:3', 'max:255'],
-            'cep'             => ['required', 'size:9'],
-            'logradouro_type' => ['required', 'min:2', 'max:255'], // 'required', 'in:'.implode(',', LogradouroType::cases()), // 'required', 'min:3', 'max:255
-            'logradouro'      => ['required', 'min:3', 'max:255'],
-            'number'          => ['integer', 'min:1', 'max:99999'],
-            'complement'      => ['nullable', 'min:3', 'max:255'],
-            'bairro'          => ['required', 'min:3', 'max:100'],
-            'city_id'         => ['required', 'exists:cities,id', 'integer'],
-            'state'           => ['required', 'min:2', 'max:100'],
-            'country'         => ['required', 'min:3', 'max:100'],
+            'name'                 => ['required', 'min:3', 'max:255'],
+            'rg'                   => ['required', 'min:3', 'max:20'],
+            'cpf'                  => ['required', 'size:14'],
+            'marital_status'       => ['required', 'min:3', 'max:255'],
+            'phone_one'            => ['required', 'size:15'],
+            'phone_two'            => ['nullable', 'min:3', 'max:20'],
+            'birth_date'           => ['required', 'date'],
+            'father'               => ['nullable', 'min:3', 'max:255'],
+            'father_phone'         => ['nullable', 'min:3', 'max:20'],
+            'mother'               => ['nullable', 'min:3', 'max:255'],
+            'mother_phone'         => ['nullable', 'min:3', 'max:20'],
+            'affiliated_one'       => ['nullable', 'min:3', 'max:255'],
+            'affiliated_one_phone' => ['nullable', 'min:3', 'max:20'],
+            'affiliated_two'       => ['nullable', 'min:3', 'max:255'],
+            'affiliated_two_phone' => ['nullable', 'min:3', 'max:20'],
+            'description'          => ['nullable', 'min:3', 'max:255'],
         ];
     }
 
@@ -87,58 +74,32 @@ class ClientForm extends Form
         $client = Client::updateOrCreate(
             ['id' => $this->id],
             [
-                'name'            => $this->name,
-                'rg'              => $this->rg,
-                'cpf'             => $this->cpf,
-                'marital_status'  => $this->marital_status,
-                'phone_one'       => $this->phone_one,
-                'phone_two'       => $this->phone_two,
-                'birth_date'      => $this->birth_date,
-                'father'          => $this->father,
-                'mother'          => $this->mother,
-                'affiliated_one'  => $this->affiliated_one,
-                'affiliated_two'  => $this->affiliated_two,
-                'description'     => $this->description,
-                'cep'             => $this->cep,
-                'logradouro_type' => $this->logradouro_type,
-                'logradouro'      => $this->logradouro,
-                'number'          => $this->number,
-                'complement'      => $this->complement,
-                'bairro'          => $this->bairro,
-                'city_id'         => $this->city_id,
-                'state'           => $this->state,
-                'country'         => $this->country,
+                'name'                 => $this->name,
+                'rg'                   => $this->rg,
+                'cpf'                  => $this->cpf,
+                'marital_status'       => $this->marital_status,
+                'phone_one'            => $this->phone_one,
+                'phone_two'            => $this->phone_two,
+                'birth_date'           => $this->birth_date,
+                'father'               => $this->father,
+                'father_phone'         => $this->father_phone,
+                'mother'               => $this->mother,
+                'mother_phone'         => $this->mother_phone,
+                'affiliated_one'       => $this->affiliated_one,
+                'affiliated_one_phone' => $this->affiliated_one_phone,
+                'affiliated_two'       => $this->affiliated_two,
+                'affiliated_two_phone' => $this->affiliated_two_phone,
+                'description'          => $this->description,
             ]
         );
 
         return $client;
     }
 
-    public function setClient(int $id): void
+    public function setClient(Client $client): void
     {
-        $client                = Client::find($id);
-        $this->id              = $client->id;
-        $this->name            = $client->name;
-        $this->rg              = $client->rg;
-        $this->cpf             = $client->cpf;
-        $this->marital_status  = $client->marital_status;
-        $this->phone_one       = $client->phone_one;
-        $this->phone_two       = $client->phone_two;
-        $this->birth_date      = $client->birth_date;
-        $this->father          = $client->father;
-        $this->mother          = $client->mother;
-        $this->affiliated_one  = $client->affiliated_one;
-        $this->affiliated_two  = $client->affiliated_two;
-        $this->description     = $client->description;
-        $this->cep             = $client->cep;
-        $this->logradouro_type = $client->logradouro_type;
-        $this->logradouro      = $client->logradouro;
-        $this->number          = $client->number;
-        $this->complement      = $client->complement;
-        $this->bairro          = $client->bairro;
-        $this->city_id         = $client->city_id;
-        $this->state           = $client->state;
-        $this->country         = $client->country;
+        $this->fill($client);
+        $this->client = $client;
     }
 
     public function destroy(): void

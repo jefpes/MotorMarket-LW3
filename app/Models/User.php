@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, BelongsToMany};
+use Illuminate\Database\Eloquent\{Builder, SoftDeletes};
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -14,6 +14,7 @@ class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory;
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hierarchy(int $id): bool
     {
         $h_user_loged = $this->roles()->pluck('hierarchy')->max();
-        $h_user_param = (User::find($id)->roles()->pluck('hierarchy')->max() ?? $h_user_loged + 1);
+        $h_user_param = (User::withTrashed()->find($id)->roles()->pluck('hierarchy')->max() ?? $h_user_loged + 1);
 
         return $h_user_loged <= $h_user_param;
     }

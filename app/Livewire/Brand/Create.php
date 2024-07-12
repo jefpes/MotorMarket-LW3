@@ -32,12 +32,10 @@ class Create extends Component
     {
         $this->authorize('brand_create');
 
-        $this->dispatch('brand::refresh');
         $this->form->save();
+        $this->toastSuccess('Brand created successfully');
+        $this->dispatch('brand::refresh');
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'Brand Created';
-        $this->dispatch('show-toast');
         $this->cancel();
     }
 }

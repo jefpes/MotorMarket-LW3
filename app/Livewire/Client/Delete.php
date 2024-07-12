@@ -4,6 +4,7 @@ namespace App\Livewire\Client;
 
 use App\Livewire\Forms\ClientForm;
 use App\Models\Client;
+use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\{Locked, On};
@@ -11,16 +12,14 @@ use Livewire\Component;
 
 class Delete extends Component
 {
+    use Toast;
+
     public ClientForm $form;
 
     #[Locked]
     public int $id;
 
     public bool $modal = false;
-
-    public ?string $icon = 'icons.success';
-
-    public ?string $msg = 'Client Deleted';
 
     public ?string $title = 'Deleting Client';
 
@@ -32,7 +31,7 @@ class Delete extends Component
     #[On('client::deleting')]
     public function deleting(int $id): void
     {
-        $this->form->setClient($id);
+        $this->form->setClient(Client::find($id));
         $this->modal = true;
     }
 
@@ -52,7 +51,7 @@ class Delete extends Component
 
         $this->dispatch('client::refresh');
 
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Client Deleted');
     }
 
     public function cancel(): void

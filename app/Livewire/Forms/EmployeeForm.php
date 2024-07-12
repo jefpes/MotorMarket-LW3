@@ -22,7 +22,7 @@ class EmployeeForm extends Form
 
     public ?string $phone_two = null;
 
-    public ?string $salary = null;
+    public ?float $salary = null;
 
     public ?string $rg = null;
 
@@ -47,12 +47,12 @@ class EmployeeForm extends Form
     {
         return [
             'name'             => ['required', 'min:3', 'max:255'],
-            'email'            => ['required', 'email', Rule::unique('employees')->ignore($this->employee?->id)],
+            'email'            => ['required', 'email', Rule::unique('employees')->ignore($this->id)],
             'phone_one'        => ['required'],
             'phone_two'        => ['nullable'],
             'salary'           => ['nullable', 'numeric'],
-            'rg'               => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
-            'cpf'              => ['required', Rule::unique('employees')->ignore($this->employee?->id)],
+            'rg'               => ['required', Rule::unique('employees')->ignore($this->id)],
+            'cpf'              => ['required', Rule::unique('employees')->ignore($this->id)],
             'birth_date'       => ['required', 'date'],
             'father'           => ['nullable', 'min:3', 'max:255'],
             'mother'           => ['required', 'min:3', 'max:255'],
@@ -67,7 +67,7 @@ class EmployeeForm extends Form
     {
         $this->validate();
 
-        $employee = Employee::updateOrCreate(
+        return Employee::updateOrCreate(
             ['id' => $this->id],
             [
                 'name'             => $this->name,
@@ -86,28 +86,12 @@ class EmployeeForm extends Form
                 'resignation_date' => $this->resignation_date,
             ]
         );
-
-        return $employee;
     }
 
     public function setEmployee(Employee $e): void
     {
-        $this->employee         = $e;
-        $this->id               = $this->employee->id;
-        $this->name             = $this->employee->name;
-        $this->email            = $this->employee->email;
-        $this->phone_one        = $this->employee->phone_one;
-        $this->phone_two        = $this->employee->phone_two;
-        $this->salary           = (string) $this->employee->salary;
-        $this->rg               = $this->employee->rg;
-        $this->cpf              = $this->employee->cpf;
-        $this->birth_date       = $this->employee->birth_date;
-        $this->father           = $this->employee->father;
-        $this->mother           = $this->employee->mother;
-        $this->marital_status   = $this->employee->marital_status;
-        $this->spouse           = $this->employee->spouse;
-        $this->hiring_date      = $this->employee->hiring_date;
-        $this->resignation_date = $this->employee->resignation_date;
+        $this->fill($e);
+        $this->employee = $e;
     }
 
     public function destroy(): void

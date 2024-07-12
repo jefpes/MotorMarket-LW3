@@ -44,20 +44,14 @@
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Plate') }}: </span> {{ $vehicle->plate }} </p>
       </div>
       <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Chassi') }}: </span> {{ $vehicle->chassi }} </p>
-      </div>
-      <div class="flex">
-        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Renavan') }}: </span> {{ $vehicle->renavan }} </p>
-      </div>
-      <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Description') }}: </span> {{ $vehicle->description }} </p>
       </div>
     </dl>
   </div>
   @canany(['vehicle_update', 'vehicle_delete'])
     <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
-      @can('expense_create')
-      <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
+      @can('vexpense_create')
+        <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
       @endcan
 
       @can('vehicle_update')

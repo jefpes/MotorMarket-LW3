@@ -35,16 +35,13 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->authorize('expense_update');
+        $this->authorize('vexpense_update');
         $this->dispatch('expense::refresh');
+
         $this->form->user_id = auth()->id();
         $this->form->save();
 
-        $this->icon = 'icons.success';
-
-        $this->msg = 'Expense Updated';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Expense updated successfully');
         $this->reset('modal');
     }
 }

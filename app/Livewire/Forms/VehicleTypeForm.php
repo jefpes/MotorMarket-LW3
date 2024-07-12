@@ -40,9 +40,7 @@ class VehicleTypeForm extends Form
 
     public function setVehicleType(int $id): void
     {
-        $vtype      = VehicleType::find($id);
-        $this->name = $vtype->name;
-        $this->id   = $vtype->id;
+        $this->fill(VehicleType::find($id));
     }
 
     public function cancel(): void

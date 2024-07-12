@@ -33,13 +33,10 @@ class Update extends Component
     {
         $this->authorize('brand_update');
 
-        $this->dispatch('brand::refresh');
         $this->form->save();
+        $this->dispatch('brand::refresh');
 
-        $this->icon = 'icons.success';
-        $this->msg  = 'Brand Updated';
-
-        $this->dispatch('show-toast');
+        $this->toastSuccess('Brand updated successfully');
         $this->cancel();
     }
 

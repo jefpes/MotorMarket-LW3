@@ -39,6 +39,5 @@
     <x-primary-button wire:click="save" class="ms-3"> {{ __('Save') }} </x-primary-button>
   </div>
 
-  <x-toast on="show-toast" :$icon> {{ __( $msg ) }} </x-toast>
-
+  <x-toast :$msg :$icon />
 </div>
