@@ -102,6 +102,11 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatedBrandId(): void
+    {
+        $this->resetPage();
+    }
+
     public function updatedVehicleModelId(): void
     {
         $this->resetPage();
