@@ -34,21 +34,28 @@
 
         <x-form.input label="Buyed after of" type="date" name="date_f" wire:model.live='date_f' />
       </div>
-      <x-select wire:model.live="sold" class="w-full" id="sold">
+      <x-select label="Sold" wire:model.live="sold" class="w-full" id="sold">
         <option value="0"> {{ __('Unsold') }} </option>
         <option value="true"> {{ __('Sold') }} </option>
       </x-select>
 
-      <x-select wire:model.live="vehicle_type_id" class="w-full" id="type_select">
+      <x-select label="Type" wire:model.live="vehicle_type_id" class="w-full" id="type_select">
         <option value=""> {{ __('Type')}} </option>
         @foreach ($types as $data)
         <option value="{{ $data->id }}"> {{ $data->name }} </option>
         @endforeach
       </x-select>
 
-      <x-select wire:model.live="vehicle_model_id" class="w-full" id="model_select">
+      <x-select label="Brand" wire:model.live="brand_id" class="w-full" id="brand_select">
+        <option value=""> {{ __('Type')}} </option>
+        @foreach ($this->brands as $data)
+        <option value="{{ $data->id }}"> {{ $data->name }} </option>
+        @endforeach
+      </x-select>
+
+      <x-select label="Model" wire:model.live="vehicle_model_id" class="w-full" id="model_select">
         <option value=""> {{ __('Model') }} </option>
-        @foreach ($models as $data)
+        @foreach ($this->models as $data)
         <option value="{{ $data->id }}"> {{ $data->name }} </option>
         @endforeach
       </x-select>
