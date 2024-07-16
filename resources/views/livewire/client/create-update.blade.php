@@ -97,8 +97,7 @@
 
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.file-input name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('clientPhoto.photos')"
-          wire:model="clientPhoto.photos" class="w-full" />
+        <x-form.file-input name="photo" label="Photo" placeholder="Photo" wire:model="clientPhoto.photos" class="w-full" />
       </div>
       <div class="basis-1/2">
         <x-form.input name="birth_date" label="Birth Date" type="date" placeholder="Birth Date"

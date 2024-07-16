@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Employee;
 
-use App\Enums\{MaritalStatus, States};
+use App\Enums\{Genders, MaritalStatus, States};
 use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotoForm};
 use App\Models\{City, Employee};
 use App\Traits\Toast;
@@ -32,7 +32,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.employee.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
+        return view('livewire.employee.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
     }
 
     public function save(): void
@@ -56,9 +56,6 @@ class Update extends Component
 
         // Salva o endereço do funcionário
         $this->employeeAddress->save();
-
-        // Remove a foto antiga, se houver
-        $this->employeePhoto->deleteOldPhotos($employee);
 
         // Processa e salva as fotos, se houver
         $this->employeePhoto->save($employee->id, $employee->name);

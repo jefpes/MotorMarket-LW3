@@ -1,13 +1,12 @@
-@props(['name', 'label','messages', 'placeholder' => null, 'type' => 'text'])
+@props(['name', 'label','messages' => null])
 
 <div>
-  <label class ='block font-medium text-sm text-gray-700 dark:text-gray-300'>
+  <label for="{{ $name }}" class='block font-medium text-sm text-gray-700 dark:text-gray-300'>
     {{ __($label) }}
   </label>
   <input
     name="{{ $name }}"
     id="{{ $name }}"
-    placeholder="{{ __($placeholder) }}"
     type="file"
     multiple
     {{ $attributes->merge(['class' => 'block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400
