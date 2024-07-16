@@ -65,6 +65,10 @@
       <x-secondary-button type="button" wire:click="$set('modal', false)">
         {{ __('Close') }}
       </x-secondary-button>
+
+      <x-primary-button class="ms-3" type="button" wire:click="resetFilters">
+        {{ __('Reset Filter') }}
+      </x-primary-button>
     </x-slot:footer>
   </x-modal>
 </div>

@@ -45,6 +45,11 @@ class Index extends Component
         return view('livewire.vehicle.index', ['types' => VehicleType::all()]);
     }
 
+    public function resetFilters(): void
+    {
+        $this->reset(['search', 'vehicle_type_id', 'brand_id', 'vehicle_model_id', 'date_i', 'date_f', 'sold']);
+    }
+
     #[Computed()]
     public function vehicle(): Paginator
     {
