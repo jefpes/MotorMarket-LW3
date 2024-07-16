@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Card extends Component
 {
-    public Vehicle $vehicle;
+    public ?Vehicle $vehicle;
 
     public function mount(Vehicle $vehicle): void
     {

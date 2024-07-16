@@ -7,7 +7,7 @@
     @endif
   </a>
   <div class="p-2">
-    <dl class="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+    <div class="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Purchase Date') }}: </span> <x-span-date :date="$vehicle->purchase_date" /> </p>
       </div>
@@ -46,12 +46,12 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Description') }}: </span> {{ $vehicle->description }} </p>
       </div>
-    </dl>
+    </div>
   </div>
   @canany(['vehicle_update', 'vehicle_delete'])
     <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
       @can('vexpense_create')
-        <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" />
+        <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" wire:key="expense_{{ $vehicle->id }}" />
       @endcan
 
       @can('vehicle_update')
@@ -59,7 +59,7 @@
       @endcan
 
       @can('vehicle_delete')
-        <livewire:vehicle.delete :id="$vehicle->id" :key="$vehicle->id" />
+        <livewire:vehicle.delete :id="$vehicle->id" wire:key="delete_{{ $vehicle->id }}" />
       @endcan
 
       @if(!$vehicle->sold_date)

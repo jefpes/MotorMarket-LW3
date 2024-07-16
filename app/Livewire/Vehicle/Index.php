@@ -55,7 +55,7 @@ class Index extends Component
                 ->when($this->sold !== null, function (Builder $q) {
                     $q->where('sold_date', $this->sold ? '!=' : '=', null);
                 })
-                ->paginate();
+                ->paginate(2);
     }
 
     public function updatedSearch(): void
