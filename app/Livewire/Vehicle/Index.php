@@ -71,9 +71,10 @@ class Index extends Component
     public function models(): Collection
     {
         return VehicleModel::join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
-        ->select('vehicle_models.*')
-        ->distinct()
+              ->select('vehicle_models.*')
+              ->distinct()
               ->where('vehicles.sold_date', '=', null)
+              ->when($this->brand_id, fn (Builder $q) => $q->where('brand_id', $this->brand_id))
               ->orderBy('vehicle_models.name')
               ->get();
     }
@@ -83,9 +84,10 @@ class Index extends Component
     {
         return Brand::join('vehicle_models', 'brands.id', '=', 'vehicle_models.brand_id')
               ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
-              ->select('brands.*')
+              ->select('brands.*', 'vehicle_models.vehicle_type_id')
               ->distinct()
               ->where('vehicles.sold_date', '=', null)
+              ->when($this->vehicle_type_id, fn (Builder $q) => $q->where('vehicle_models.vehicle_type_id', $this->vehicle_type_id))
               ->orderBy('brands.name')
               ->get();
     }
