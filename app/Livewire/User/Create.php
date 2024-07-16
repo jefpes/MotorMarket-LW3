@@ -2,7 +2,6 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\UserForm;
 use App\Models\Employee;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -11,8 +10,7 @@ use Livewire\Component;
 class Create extends Component
 {
     use Toast;
-
-    public UserForm $form;
+    use Utilities;
 
     public bool $modal = false;
 
@@ -25,6 +23,8 @@ class Create extends Component
 
     public function save(): void
     {
+        $this->authorize($this->permission_create);
+
         $this->form->validateOnly('employee_id');
         $employee          = Employee::findOrFail($this->form->employee_id);
         $this->form->name  = $employee->name;

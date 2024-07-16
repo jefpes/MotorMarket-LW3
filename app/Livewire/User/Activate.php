@@ -2,7 +2,6 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -12,8 +11,7 @@ use Livewire\Component;
 class Activate extends Component
 {
     use Toast;
-
-    public UserForm $form;
+    use Utilities;
 
     public bool $modal = false;
 
@@ -31,7 +29,7 @@ class Activate extends Component
 
     public function active(): void
     {
-        $this->authorize('user_delete');
+        $this->authorize($this->permission_delete);
 
         $userAction = User::withTrashed()->find($this->form->id);
 

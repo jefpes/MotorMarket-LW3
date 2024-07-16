@@ -29,9 +29,7 @@
       <x-table.th> {{ __($h) }} </x-table.th>
       @endcanany
       @else
-      <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h }}')">
-        <x-table.sortable :columnName='$h' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
-      </x-table.th>
+      <x-table.th> {{ __($h)}} </x-table.th>
       @endif
 
       @endforeach

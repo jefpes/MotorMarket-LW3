@@ -2,7 +2,6 @@
 
 namespace App\Livewire\User;
 
-use App\Livewire\Forms\UserForm;
 use App\Models\{Employee, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -12,12 +11,11 @@ use Livewire\Component;
 class Edit extends Component
 {
     use Toast;
+    use Utilities;
 
     public bool $modal = false;
 
     public string $title = 'Edit user';
-
-    public UserForm $form;
 
     public function render(): View
     {
@@ -26,7 +24,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->authorize('user_update');
+        $this->authorize($this->permission_update);
 
         /** @var User  */
         $user = auth()->user();
@@ -48,7 +46,7 @@ class Edit extends Component
                 'employee_id'       => $this->form->employee_id,
                 'email_verified_at' => null,
             ]
-        ); // reset email_verified_at to send email verification
+        );
 
         $this->toastSuccess('User updated successfully');
         $this->dispatch('user::refresh');

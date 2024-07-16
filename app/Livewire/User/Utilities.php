@@ -1,10 +1,12 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Livewire\User;
 
-trait Permission
+use App\Livewire\Forms\UserForm;
+
+trait Utilities
 {
     public string $permission_create = 'user_create';
 
@@ -15,4 +17,6 @@ trait Permission
     public string $permission_delete = 'user_delete';
 
     public string $permission_admin = 'admin';
+
+    public UserForm $form;
 }
