@@ -5,6 +5,6 @@
   <x-form.money-input name="value" label="Value" placeholder="Value" :messages="$errors->get('form.value')"
     wire:model="form.value" class="w-full" />
 
-  <x-form.textarea name="description" label="Description" placeholder="Description"
+  <x-form.textarea rows="2" name="description" label="Description" placeholder="Description"
     :messages="$errors->get('form.description')" wire:model="form.description" class="w-full" />
 </div>
