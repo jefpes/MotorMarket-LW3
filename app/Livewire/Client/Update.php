@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\{MaritalStatus, States};
+use App\Enums\{Genders, MaritalStatus, States};
 use App\Livewire\Forms\{ClientAddressForm, ClientForm, ClientPhotoForm};
 use App\Models\{City, Client};
 use App\Traits\Toast;
@@ -32,7 +32,7 @@ class Update extends Component
     }
     public function render(): View
     {
-        return view('livewire.client.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
+        return view('livewire.client.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
     }
 
     public function save(): void

@@ -8,12 +8,14 @@ use Livewire\Form;
 
 class ClientForm extends Form
 {
-    public Client $client;
+    public ?Client $client;
 
     #[Locked]
     public ?int $id = null;
 
     public ?string $name = null;
+
+    public ?string $gender = null;
 
     public ?string $rg = null;
 
@@ -50,6 +52,7 @@ class ClientForm extends Form
     {
         return [
             'name'                 => ['required', 'min:3', 'max:255'],
+            'gender'               => ['required', 'min:3', 'max:25'],
             'rg'                   => ['required', 'min:3', 'max:20'],
             'cpf'                  => ['required', 'size:14'],
             'marital_status'       => ['required', 'min:3', 'max:255'],
@@ -75,6 +78,7 @@ class ClientForm extends Form
             ['id' => $this->id],
             [
                 'name'                 => $this->name,
+                'gender'               => $this->gender,
                 'rg'                   => $this->rg,
                 'cpf'                  => $this->cpf,
                 'marital_status'       => $this->marital_status,
