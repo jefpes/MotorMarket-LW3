@@ -13,6 +13,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    public bool $modal = false;
+
     public string $header = 'Vehicles';
 
     #[Url(except: '', as: 'date-ini', history: true)]
