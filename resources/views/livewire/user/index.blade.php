@@ -24,13 +24,16 @@
   <x-table.table>
     <x-slot:thead>
       @foreach ($theader as $h)
-        @if ($h == 'actions')
+      @if ($h == 'actions')
           @canany([$permission_update, $permission_delete])
-            <x-table.th> {{ __($h) }} </x-table.th>
-          @endcanany
-        @else
-          <x-table.th> {{ __($h) }} </x-table.th>
-        @endif
+      <x-table.th> {{ __($h) }} </x-table.th>
+      @endcanany
+      @else
+      <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h }}')">
+        <x-table.sortable :columnName='$h' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+      </x-table.th>
+      @endif
+
       @endforeach
     </x-slot:thead>
     <x-slot:tbody>
@@ -46,22 +49,22 @@
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
                 @if (!$u->deleted_at)
-                  @can($persmission_admin)
+                  @can($permission_admin)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />
                   @endcan
 
-                  @can($persmission_update)
+                  @can($permission_update)
                   <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" wire:click="$dispatch('user::editing', { id: {{ $u->id }}})"
                     id="edit-{{ $u->id }}"/>
                   @endcan
 
-                  @can($persmission_delete)
+                  @can($permission_delete)
                   <x-icons.delete id="deactive-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})"
                     class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
                 @else
-                  @can($persmission_delete)
+                  @can($permission_delete)
                     <x-icons.recycle class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" id="active-{{ $u->id }}" wire:click="$dispatch('user::activating', { id: {{ $u->id }} })"/>
                   @endcan
                 @endif
