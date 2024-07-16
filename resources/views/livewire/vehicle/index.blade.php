@@ -1,11 +1,11 @@
 <div>
   <x-slot name="header">{{ __($header) }}</x-slot>
-  <div class="flex flex-col md:flex-row justify-between gap-2 pb-3">
-    <div class="flex-1">
+  <div class="flex flex-wrap justify-between gap-2 pb-3">
+    <div class="flex-0">
       <x-form.input x-mask="aaa-9*99" name="search" type="text" placeholder="Search" :messages="$errors->get('search')"
         wire:model.live.debounce.800="search" class="w-full" />
     </div>
-    <div class="flex-0 sm:flex gap-2">
+    <div class="flex-1 sm:flex gap-2">
       <div class="flex-none justify-between">
         <x-text-input type="date" id="date_i" wire:model.live='date_i' /> {{ __('to') }} <x-text-input type="date" id="date_f" wire:model.live='date_f' />
       </div>
