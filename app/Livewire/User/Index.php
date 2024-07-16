@@ -4,15 +4,17 @@ namespace App\Livewire\User;
 
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\Traits\SortTable;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
-use stdClass;
 
 class Index extends Component
 {
+    use SortTable;
     use WithPagination;
+    use Permission;
 
     public UserForm $form;
 
@@ -45,18 +47,4 @@ class Index extends Component
     {
         $this->resetPage();
     }
-
-    #[Computed]
-    public function permissions(): stdClass
-    {
-        $permission         = new stdClass();
-        $permission->create = 'user_create';
-        $permission->read   = 'user_read';
-        $permission->update = 'user_update';
-        $permission->delete = 'user_delete';
-        $permission->admin  = 'admin';
-
-        return $permission;
-    }
-
 }

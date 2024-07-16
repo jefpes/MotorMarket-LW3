@@ -25,7 +25,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
         @if ($h == 'actions')
-          @canany([$this->permissions->update, $this->permissions->delete])
+          @canany([$permission_update, $permission_delete])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
         @else
@@ -46,22 +46,22 @@
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
                 @if (!$u->deleted_at)
-                  @can($this->permissions->admin)
+                  @can($persmission_admin)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />
                   @endcan
 
-                  @can($this->permissions->update)
+                  @can($persmission_update)
                   <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" wire:click="$dispatch('user::editing', { id: {{ $u->id }}})"
                     id="edit-{{ $u->id }}"/>
                   @endcan
 
-                  @can($this->permissions->delete)
+                  @can($persmission_delete)
                   <x-icons.delete id="deactive-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})"
                     class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
                 @else
-                  @can($this->permissions->delete)
+                  @can($persmission_delete)
                     <x-icons.recycle class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" id="active-{{ $u->id }}" wire:click="$dispatch('user::activating', { id: {{ $u->id }} })"/>
                   @endcan
                 @endif
