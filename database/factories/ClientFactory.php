@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\{MaritalStatus};
+use App\Enums\{Genders, MaritalStatus};
 use App\Models\{Client, ClientAddress};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,6 +20,7 @@ class ClientFactory extends Factory
     {
         return [
             'name'                 => $this->faker->name,
+            'gender'               => $this->faker->randomElement(array_map(fn ($case) => $case->value, Genders::cases())),
             'rg'                   => $this->faker->unique()->numerify('##.###.###-#'),
             'cpf'                  => $this->faker->unique()->numerify('###.###.###-##'),
             'marital_status'       => $this->faker->randomElement(array_map(fn ($case) => $case->value, MaritalStatus::cases())),

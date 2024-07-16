@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\MaritalStatus;
+use App\Enums\{Genders, MaritalStatus};
 use App\Models\{Employee, EmployeeAddress};
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,6 +20,7 @@ class EmployeeFactory extends Factory
     {
         return [
             'name'             => $this->faker->name,
+            'gender'           => $this->faker->randomElement(array_map(fn ($case) => $case->value, Genders::cases())),
             'email'            => fake()->unique()->safeEmail(),
             'salary'           => $this->faker->randomFloat(2, 1000, 10000),
             'rg'               => $this->faker->unique()->numerify('##.###.###-#'),
