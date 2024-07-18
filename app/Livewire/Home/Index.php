@@ -25,37 +25,28 @@ class Index extends Component
     #[Url(except: '', as: 'y-e', history: true)]
     public ?string $year_end = '';
 
-    public ?string $year_min = '';
-
-    public ?string $year_max = '';
-
-    #[Url(except: '', as: 'order', history: true)]
+    #[Url(except: '', history: true)]
     public ?string $order = 'asc';
 
-    #[Url(except: '', as: 'm-p', history: true)]
+    #[Url(except: '', history: true)]
     public ?string $max_price = null;
 
     #[Url(except: '', as: 't', history: true)]
     public ?string $type = null;
 
-    public function mount(): void
-    {
-        $this->year_ini = Vehicle::whereSoldDate(null)->min('year_one');
-        $this->year_end = Vehicle::whereSoldDate(null)->max('year_one');
-        $this->year_min = $this->year_ini;
-        $this->year_max = $this->year_end;
-    }
-
     #[Layout('components.layouts.home')]
     public function render(): View
     {
-        return view('livewire.home.index', ['company' => Company::find(1), 'max_prices' => Vehicle::whereSoldDate(null)->max('sale_price'), 'types' => VehicleType::all()]);
+        return view('livewire.home.index', ['company' => Company::find(1), 'types' => VehicleType::all()]);
     }
 
     #[Computed()]
     public function years(): Collection
     {
         return Vehicle::whereSoldDate(null)
+            ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
+            ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
+            ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
             ->select('year_one')
             ->distinct()
             ->orderBy('year_one')
@@ -66,9 +57,10 @@ class Index extends Component
     public function vehicles(): LengthAwarePaginator
     {
         return Vehicle::with('model', 'photos')
-            ->where('sold_date', '=', null)
+            ->whereSoldDate(null)
             ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
-            ->when($this->year_ini && $this->year_end, fn ($query) => $query->whereBetween('year_one', [$this->year_ini, $this->year_end]))
+            ->when($this->year_ini, fn ($query) => $query->where('year_one', '>=', $this->year_ini))
+            ->when($this->year_end, fn ($query) => $query->where('year_one', '<=', $this->year_end))
             ->when($this->order, fn ($query) => $query->orderBy('sale_price', $this->order))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
             ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
@@ -78,7 +70,15 @@ class Index extends Component
     #[Computed()]
     public function prices(): Collection
     {
-        return $this->vehicles->pluck('sale_price')->unique()->sort(); // @phpstan-ignore-line
+        return Vehicle::whereSoldDate(null)
+            ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
+            ->when($this->year_ini, fn ($query) => $query->where('year_one', '>=', $this->year_ini))
+            ->when($this->year_end, fn ($query) => $query->where('year_one', '<=', $this->year_end))
+            ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
+            ->select('sale_price')
+            ->distinct()
+            ->orderBy('sale_price')
+            ->get();
     }
 
     #[Computed()]
