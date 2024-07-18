@@ -37,6 +37,23 @@
       <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <span
           class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
+          {{ __('Type') }}
+        </span>
+
+        <div class="w-full space-y-1 text-gray-500 dark:text-gray-400 px-2 py-4">
+
+          <x-select wire:model.live="type" class="w-full" label="Type">
+            <option value=""> {{ __('All') }} </option>
+            @foreach ($types as $t)
+            <option value="{{ $t->id }}"> {{ $t->name }} </option>
+            @endforeach
+          </x-select>
+        </div>
+      </div>
+
+      <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
+        <span
+          class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
           {{ __('Brands') }}
         </span>
         <div class="w-full space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4 space-2">
@@ -50,7 +67,6 @@
           @endforeach
         </div>
       </div>
-
       <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <span
           class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
@@ -66,8 +82,8 @@
           <div class="flex-1">
             <x-select wire:model.live="max_price" class="w-full" id="max_price" label="Max Price">
               <option value=""> {{ __('All') }} </option>
-              @for ($i = 10000; $i <= ($max_prices+10000); $i+=10000) <option value="{{ $i }}"> {{ $i }} </option>
-                @endfor
+              @foreach ($this->prices as $p) <option value="{{ $p->sale_price }}"> <x-span-money :money="$p->sale_price" /> </option>
+                @endforeach
             </x-select>
           </div>
         </div>
@@ -89,23 +105,6 @@
               @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
             </x-select>
           </div>
-        </div>
-      </div>
-
-      <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <span
-          class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Type') }}
-        </span>
-
-        <div class="w-full space-y-1 text-gray-500 dark:text-gray-400 px-2 py-4">
-
-          <x-select wire:model.live="type" class="w-full" label="Type">
-            <option value=""> {{ __('All') }} </option>
-            @foreach ($types as $t)
-            <option value="{{ $t->id }}"> {{ $t->name }} </option>
-            @endforeach
-          </x-select>
         </div>
       </div>
     </div>

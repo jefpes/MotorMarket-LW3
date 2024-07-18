@@ -4,7 +4,9 @@ namespace App\Livewire\Home;
 
 use App\Models\{Brand, Company, Vehicle, VehicleType};
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\{Computed, Layout, Url};
 use Livewire\{Component, WithPagination};
 
@@ -38,8 +40,8 @@ class Index extends Component
 
     public function mount(): void
     {
-        $this->year_ini = Vehicle::min('year_one');
-        $this->year_end = Vehicle::max('year_one');
+        $this->year_ini = Vehicle::whereSoldDate(null)->min('year_one');
+        $this->year_end = Vehicle::whereSoldDate(null)->max('year_one');
         $this->year_min = $this->year_ini;
         $this->year_max = $this->year_end;
     }
@@ -47,7 +49,17 @@ class Index extends Component
     #[Layout('components.layouts.home')]
     public function render(): View
     {
-        return view('livewire.home.index', ['company' => Company::find(1), 'max_prices' => Vehicle::max('sale_price'), 'types' => VehicleType::all()]);
+        return view('livewire.home.index', ['company' => Company::find(1), 'max_prices' => Vehicle::whereSoldDate(null)->max('sale_price'), 'types' => VehicleType::all()]);
+    }
+
+    #[Computed()]
+    public function prices(): Collection
+    {
+        return Vehicle::whereSoldDate(null)
+            ->select('sale_price')
+            ->distinct()
+            ->orderBy('sale_price')
+            ->get();
     }
 
     #[Computed()]
@@ -72,6 +84,7 @@ class Index extends Component
               ->select('brands.*')
               ->distinct()
               ->where('vehicles.sold_date', '=', null)
+              ->when($this->type, fn (Builder $q) => $q->where('vehicle_models.vehicle_type_id', $this->type))
               ->orderBy('brands.name')
               ->get();
     }
@@ -108,6 +121,7 @@ class Index extends Component
 
     public function updatedType(): void
     {
+        $this->reset('selectedBrands');
         $this->resetPage();
     }
 }
