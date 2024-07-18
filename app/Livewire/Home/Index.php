@@ -126,7 +126,7 @@ class Index extends Component
 
     public function updatedType(): void
     {
-        $this->reset('selectedBrands');
+        $this->clean();
         $this->resetPage();
     }
 }
