@@ -82,7 +82,7 @@
           <div class="flex-1">
             <x-select wire:model.live="max_price" class="w-full" id="max_price" label="Max Price">
               <option value=""> {{ __('All') }} </option>
-              @foreach ($this->prices as $p) <option value="{{ $p->sale_price }}"> <x-span-money :money="$p->sale_price" /> </option> @endforeach
+              @foreach ($this->prices as $p) <option value="{{ (int) round($p->sale_price) }}"> <x-span-money :money="$p->sale_price" /> </option> @endforeach
             </x-select>
           </div>
         </div>
