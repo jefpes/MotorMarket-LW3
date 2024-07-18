@@ -82,8 +82,7 @@
           <div class="flex-1">
             <x-select wire:model.live="max_price" class="w-full" id="max_price" label="Max Price">
               <option value=""> {{ __('All') }} </option>
-              @foreach ($this->prices as $p) <option value="{{ $p->sale_price }}"> <x-span-money :money="$p->sale_price" /> </option>
-                @endforeach
+              @foreach ($this->prices as $p) <option value="{{ $p }}"> <x-span-money :money="$p" /> </option> @endforeach
             </x-select>
           </div>
         </div>
@@ -97,12 +96,14 @@
         <div class="w-full space-x-2 text-gray-500 dark:text-gray-400 px-2 py-4 flex">
           <div class="flex-1">
             <x-select wire:model.live="year_ini" class="w-full" label="Year Initial">
-              @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
+              <option value=""> {{__('Select') }} </option>
+              @foreach ($this->years as $y) <option value="{{ $y->year_one }}"> {{ $y->year_one }} </option> @endforeach
             </x-select>
           </div>
           <div class="flex-1">
             <x-select wire:model.live="year_end" class="w-full" label="Year Final">
-              @for ($i = $year_min; $i <= $year_max; $i++) <option value="{{ $i }}"> {{ $i }} </option> @endfor
+              <option value=""> {{ __('Select') }} </option>
+              @foreach ($this->years as $y) <option value="{{ $y->year_one }}"> {{ $y->year_one }} </option> @endforeach
             </x-select>
           </div>
         </div>
@@ -113,6 +114,9 @@
       <x-secondary-button type="button" wire:click="$set('modal', false)">
         {{ __('Close') }}
       </x-secondary-button>
+      <x-primary-button class="ms-3" type="button" wire:click="clean">
+        {{ __('Clean Filters') }}
+      </x-primary-button>
     </x-slot:footer>
   </x-modal>
 

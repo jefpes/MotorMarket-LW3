@@ -33,7 +33,7 @@ class Index extends Component
     public ?string $order = 'asc';
 
     #[Url(except: '', as: 'm-p', history: true)]
-    public ?float $max_price = null;
+    public ?string $max_price = null;
 
     #[Url(except: '', as: 't', history: true)]
     public ?string $type = null;
@@ -53,12 +53,12 @@ class Index extends Component
     }
 
     #[Computed()]
-    public function prices(): Collection
+    public function years(): Collection
     {
         return Vehicle::whereSoldDate(null)
-            ->select('sale_price')
+            ->select('year_one')
             ->distinct()
-            ->orderBy('sale_price')
+            ->orderBy('year_one')
             ->get();
     }
 
@@ -66,7 +66,6 @@ class Index extends Component
     public function vehicles(): LengthAwarePaginator
     {
         return Vehicle::with('model', 'photos')
-            ->orderBy('updated_at', 'desc')
             ->where('sold_date', '=', null)
             ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
             ->when($this->year_ini && $this->year_end, fn ($query) => $query->whereBetween('year_one', [$this->year_ini, $this->year_end]))
@@ -77,7 +76,13 @@ class Index extends Component
     }
 
     #[Computed()]
-    public function brands(): \Illuminate\Support\Collection
+    public function prices(): Collection
+    {
+        return $this->vehicles->pluck('sale_price')->unique()->sort(); // @phpstan-ignore-line
+    }
+
+    #[Computed()]
+    public function brands(): Collection
     {
         return Brand::join('vehicle_models', 'brands.id', '=', 'vehicle_models.brand_id')
               ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
@@ -89,9 +94,9 @@ class Index extends Component
               ->get();
     }
 
-    public function cancel(): void
+    public function clean(): void
     {
-        $this->modal = false;
+        $this->reset(['selectedBrands', 'year_ini', 'year_end', 'order', 'max_price', 'type']);
     }
 
     public function updatedSelectedBrands(): void
