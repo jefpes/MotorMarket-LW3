@@ -1,50 +1,47 @@
 <div>
   <x-slot name="header"> {{ __($header) }} </x-slot>
 
-  <div class="pb-4 flex flex-col md:flex-row justify-between gap-x-2 gap-y-4 md:gap-y-0">
-    <div class="flex">
-      <div class="flex items-center me-4">
-        <input wire:model.live='filter' id="inline-radio" type="radio" value="plate" name="inline-radio-group"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __('Plate') }}</label>
-      </div>
-      <div class="flex items-center me-4">
-        <input wire:model.live='filter' id="inline-2-radio" type="radio" value="client" name="inline-radio-group"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __('Client') }}</label>
-      </div>
-    </div>
-
+  <div class="flex justify-between gap-2 pb-3">
     <div class="flex-1">
-      @if ($filter == 'plate')
-      <x-form.plate-input class="w-full" type="search" name="search"
-        wire:model.live.debounce.1000ms="plate"
-        placeholder="{{ __('Search plate') }}" />
-      @endif
-      @if ($filter == 'client')
-      <x-text-input class="w-full" type="search" name="search"
-        wire:model.live.debounce.1000ms="client"
-        placeholder="{{ __('Search client') }}" />
-      @endif
-    </div>
-    <div class="flex-0">
-      <x-text-input type="date" id="date_i" wire:model.live='date_ini' /> {{ __('to') }}
-      <x-text-input type="date" id="date_f" wire:model.live='date_end' />
-    </div>
-    <div class="flex flex-0 gap-x-2">
-      <x-select wire:model.live="perPage" class="flex">
-        <option :value="10">10</option>
-        <option :value="15">15</option>
-        <option :value="25">25</option>
-        <option :value="50">50</option>
-      </x-select>
+      <div class="flex">
+        <div class="flex items-center me-4">
+          <input wire:model.live='filter' id="inline-radio" type="radio" value="plate" name="inline-radio-group"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __('Plate') }}</label>
+        </div>
+        <div class="flex items-center me-4">
+          <input wire:model.live='filter' id="inline-2-radio" type="radio" value="client" name="inline-radio-group"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __('Client') }}</label>
+        </div>
 
-      <x-select wire:model.live="status" class="flex">
-        <option value="">{{ __('All') }}</option>
-        @foreach ($sts as $s)
-          <option value="{{ $s->value }}">{{ $s->value }}</option>
-        @endforeach
-      </x-select>
+        <div class="flex-1">
+          @if ($filter == 'plate')
+          <x-form.plate-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="plate"
+            placeholder="{{ __('Search plate') }}" />
+          @endif
+          @if ($filter == 'client')
+          <x-text-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="client"
+            placeholder="{{ __('Search client') }}" />
+          @endif
+        </div>
+      </div>
+    </div>
+    <div class="flex-1">
+      <div class="flex gap-x-4 justify-end items-center">
+        <x-icons.filter
+          class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+          wire:click="$set('filter_modal', true)" />
+
+        <div class="flex flex-0 gap-x-2">
+          <x-select wire:model.live="perPage" class="flex">
+            <option :value="10">10</option>
+            <option :value="15">15</option>
+            <option :value="25">25</option>
+            <option :value="50">50</option>
+          </x-select>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -130,6 +127,32 @@
         <x-primary-button class="ms-3"> {{ __('Issue') }} </x-primary-button>
       </a>
       @endif
+    </x-slot:footer>
+  </x-modal>
+
+  <x-modal wire:model="filter_modal" name="filter_modal">
+    <x-slot:title> {{ __('Filters') }} </x-slot:title>
+    <div class="space-y-4">
+      <x-form.input class="w-full" label="Sold after of" type="date" name="date_ini" wire:model.live='date_ini' />
+
+      <x-form.input class="w-full" label="Sold after of" type="date" name="date_end" wire:model.live='date_end' />
+
+      <x-select wire:model.live="status" label="Status" class="w-full">
+        <option value="">{{ __('All') }}</option>
+        @foreach ($sts as $s)
+        <option value="{{ $s->value }}">{{ $s->value }}</option>
+        @endforeach
+      </x-select>
+    </div>
+
+    <x-slot:footer>
+      <x-secondary-button type="button" wire:click="$set('filter_modal', false)">
+        {{ __('Close') }}
+      </x-secondary-button>
+
+      <x-primary-button class="ms-3" type="button" wire:click="resetFilters">
+        {{ __('Reset Filter') }}
+      </x-primary-button>
     </x-slot:footer>
   </x-modal>
 </div>

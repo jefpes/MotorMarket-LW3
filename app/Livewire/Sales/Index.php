@@ -18,6 +18,8 @@ class Index extends Component
 
     public bool $modal = false;
 
+    public bool $filter_modal = false;
+
     public ?int $sale_id = 1;
 
     #[Validate('required|string|max:100')]
@@ -101,8 +103,14 @@ class Index extends Component
             $q->where('name', 'like', "%{$this->client}%");
         }))
         ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
-        ->when($this->date_ini && $this->date_end, fn (Builder $q) => $q->whereBetween('date_sale', [$this->date_ini, $this->date_end]))
+        ->when($this->date_ini, fn (Builder $q) => $q->where('date_sale', '>=', $this->date_ini))
+        ->when($this->date_end, fn (Builder $q) => $q->where('date_sale', '<=', $this->date_end))
         ->paginate($this->perPage);
+    }
+
+    public function resetFilters(): void
+    {
+        $this->reset(['plate', 'client', 'status', 'date_ini', 'date_end', 'perPage']);
     }
 
     public function issueContract(int $id): void
