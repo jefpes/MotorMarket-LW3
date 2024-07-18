@@ -80,6 +80,7 @@ class Index extends Component
               ->distinct()
               ->where('vehicles.sold_date', '=', null)
               ->when($this->brand_id, fn (Builder $q) => $q->where('brand_id', $this->brand_id))
+              ->when($this->vehicle_type_id, fn (Builder $q) => $q->where('vehicle_models.vehicle_type_id', $this->vehicle_type_id))
               ->orderBy('vehicle_models.name')
               ->get();
     }
@@ -104,6 +105,8 @@ class Index extends Component
 
     public function updatedVehicleTypeId(): void
     {
+        $this->brand_id         = null;
+        $this->vehicle_model_id = null;
         $this->resetPage();
     }
 

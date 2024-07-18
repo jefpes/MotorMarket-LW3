@@ -42,7 +42,7 @@
       <x-select label="Type" wire:model.live="vehicle_type_id" class="w-full" id="type_select">
         <option value=""> {{ __('Type')}} </option>
         @foreach ($types as $data)
-        <option value="{{ $data->id }}"> {{ $data->name }} </option>
+          <option value="{{ $data->id }}"> {{ $data->name }} </option>
         @endforeach
       </x-select>
 
