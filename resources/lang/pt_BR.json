@@ -43,6 +43,8 @@
   "employee_update": "Atualizar Funcionário",
   "employee_delete": "Apagar Funcionário",
   "ephoto_delete": "Apagar Foto do Funcionário",
+  "Ability Added": "Habilidade Adicionada",
+  "Ability Removed": "Habilidade Removida",
 
   "Brands": "Marcas",
   "brand": "Marca",
