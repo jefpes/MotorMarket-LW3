@@ -1,51 +1,66 @@
 <div>
     <x-slot name="header">{{ __($header) }}</x-slot>
+    <div class="flex justify-end mb-4 mr-4">
+      <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+        wire:click="$set('modal', true)" />
+    </div>
 
-      <div class="flex flex-col md:flex-row gap-2 pb-3 flex-0 sm:flex justify-between">
-        <div class="flex flex-col md:flex-row gap-2 flex-0 sm:flex">
-        <div class="flex-none">
-          <x-input-label for="due_date_i" value="{{ __('Due Date') }}" />
-          <x-text-input type="date" id="due_date_i" wire:model.live.debounce.500ms='due_date_i' />
-          {{ __('to') }} <x-text-input type="date" id="due_date_f" wire:model.live.debounce.500ms='due_date_f' />
+    <x-modal wire:model="modal" name="filter_modal">
+      <x-slot:title> {{ __('Filters') }} </x-slot:title>
+      <div class="space-y-1">
+        <div class="flex gap-x-1">
+          <div class="flex-1">
+            <x-form.input class="w-full" label="Due date after" type="date" name="due_date_i" wire:model.live.debounce.500ms='due_date_i' />
+          </div>
+
+          <div class="flex-1">
+            <x-form.input class="w-full" label="Due date before" type="date" name="due_date_f" wire:model.live.debounce.500ms='due_date_f' />
+          </div>
+        </div>
+        <div class="flex gap-x-1">
+          <div class="flex-1">
+            <x-form.input class="w-full" label="Pay date after" type="date" name="pay_date_i" wire:model.live.debounce.500ms='pay_date_i' />
+          </div>
+
+          <div class="flex-1">
+            <x-form.input class="w-full" label="Pay date before" type="date" name="pay_date_f" wire:model.live.debounce.500ms='pay_date_f' />
+          </div>
         </div>
 
-        <div class="flex-none">
-          <x-input-label for="pay_date_i" value="{{ __('Payment Date') }}" />
-          <x-text-input type="date" id="pay_date_i" wire:model.live.debounce.500ms='pay_date_i' />
-          {{ __('to') }} <x-text-input type="date" id="pay_date_f" wire:model.live.debounce.500ms='pay_date_f' />
-        </div>
-        </div>
-        <div class="flex justify-end gap-2">
-          <div>
-            <x-input-label for="perPage" value="{{ __('Nº') }}" />
-            <x-select wire:model.live="perPage" class="w-full" id="perPage">
+            <x-select label="Registers per page" wire:model.live="perPage" class="w-full" id="perPage">
               <option value="10"> 10 </option>
               <option value="15"> 15 </option>
               <option value="25"> 25 </option>
               <option value="50"> 50 </option>
               <option value="100"> 100 </option>
             </x-select>
-          </div>
-          <div>
-            <x-input-label for="payment_method" value="{{ __('Payment Method') }}" />
-            <x-select wire:model.live="payment_method" class="w-full" id="payment_method">
+
+            <x-select label="Payment Method" wire:model.live="payment_method" class="w-full" id="payment_method">
               <option value=""> {{ __('All')}} </option>
               @foreach ($payment_methods as $data)
               <option value="{{ $data->value }}"> {{ $data->value }} </option>
               @endforeach
             </x-select>
-          </div>
-          <div>
-            <x-input-label for="sts_select" value="{{ __('Status') }}" />
-            <x-select wire:model.live="status" class="w-full" id="sts_select">
+
+            <x-select label="Status" wire:model.live="status" class="w-full" id="sts_select">
               <option value=""> {{ __('All')}} </option>
               @foreach ($sts as $data)
-                <option value="{{ $data->value }}"> {{ $data->value }} </option>
+              <option value="{{ $data->value }}"> {{ $data->value }} </option>
               @endforeach
             </x-select>
-          </div>
-        </div>
       </div>
+
+      <x-slot:footer>
+        <x-secondary-button type="button" wire:click="$set('modal', false)">
+          {{ __('Close') }}
+        </x-secondary-button>
+
+        <x-primary-button class="ms-3" type="button" wire:click="resetFilters">
+          {{ __('Reset Filter') }}
+        </x-primary-button>
+      </x-slot:footer>
+    </x-modal>
+
 
     <x-table.table>
       <x-slot:thead>

@@ -14,6 +14,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    public bool $modal = false;
+
     #[Url(except: '', as: 'sts', history: true)]
     public ?string $status = '';
 
@@ -35,12 +37,6 @@ class Index extends Component
 
     public ?string $header = 'Installments';
 
-    public function mount(): void
-    {
-        $this->due_date_i = now()->subMonth()->format('Y-m-d');
-        $this->due_date_f = now()->format('Y-m-d');
-    }
-
     public function render(): View
     {
         return view('livewire.payment-installments.index', ['sts' => StatusPayments::cases(), 'payment_methods' => PaymentMethod::cases()]);
@@ -53,10 +49,42 @@ class Index extends Component
         ->with('sale', 'user')
         ->orderBy('due_date')
         ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
-        ->when($this->due_date_i && $this->due_date_f, fn (Builder $q) => $q->whereBetween('due_date', [$this->due_date_i, $this->due_date_f]))
-        ->when($this->pay_date_i && $this->pay_date_f, fn (Builder $q) => $q->whereBetween('payment_date', [$this->pay_date_i, $this->pay_date_f]))
+        ->when($this->due_date_i, fn (Builder $q) => $q->where('due_date', '>=', $this->due_date_i))
+        ->when($this->due_date_f, fn (Builder $q) => $q->where('due_date', '<=', $this->due_date_f))
+        ->when($this->pay_date_i, fn (Builder $q) => $q->where('payment_date', '>=', $this->pay_date_i))
+        ->when($this->pay_date_f, fn (Builder $q) => $q->where('payment_date', '<=', $this->pay_date_f))
         ->when($this->payment_method, fn (Builder $q) => $q->where('payment_method', $this->payment_method))
         ->paginate($this->perPage);
+    }
+
+    public function resetFilters(): void
+    {
+        $this->reset(['due_date_i', 'due_date_f', 'pay_date_i', 'pay_date_f', 'payment_method', 'status']);
+    }
+
+    public function updatedDueDateI(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDueDateF(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPayDateI(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPayDateF(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPaymentMethod(): void
+    {
+        $this->resetPage();
     }
 
     public function updatedPerPage(): void

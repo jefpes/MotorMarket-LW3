@@ -28,6 +28,10 @@
   "Sold after of": "Vendido após",
   "Sold before of": "Vendido antes",
   "Registers per page": "Registros por página",
+  "Pay date after": "Data de pagamento após",
+  "Pay date before": "Data de pagamento antes",
+  "Due date after": "Data de vencimento após",
+  "Due date before": "Data de vencimento antes",
 
   "Brands": "Marcas",
   "brand": "Marca",
