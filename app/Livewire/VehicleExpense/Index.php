@@ -16,18 +16,24 @@ class Index extends Component
     use WithPagination;
     use SortTable;
 
+    public bool $modal = false;
+
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 15;
 
-    #[Url(except: '', as: 'p', history: true)]
+    #[Url(except: '', as: 'plate', history: true)]
     public ?string $plate = '';
 
+    #[Url(except: '', as: 'd-i', history: true)]
     public ?string $date_i = '';
 
-    public ?string $date_f = '';
+    #[Url(except: '', as: 'd-e', history: true)]
+    public ?string $date_e = '';
 
+    #[Url(except: '', as: 'min-v', history: true)]
     public ?string $value_min = null;
 
+    #[Url(except: '', as: 'max-v', history: true)]
     public ?string $value_max = null;
 
     /** @var array<string> */
@@ -66,10 +72,15 @@ class Index extends Component
         return $query
             ->when($this->plate, fn (Builder $q) => $q->whereHas('vehicle', fn (Builder $q) => $q->where('plate', 'like', "%$this->plate%")))
             ->when($this->date_i, fn (Builder $q) => $q->where('date', '>=', $this->date_i))
-            ->when($this->date_f, fn (Builder $q) => $q->where('date', '<=', $this->date_f))
+            ->when($this->date_e, fn (Builder $q) => $q->where('date', '<=', $this->date_e))
             ->when($this->value_min, fn (Builder $q) => $q->where('value', '>=', $this->value_min))
             ->when($this->value_max, fn (Builder $q) => $q->where('value', '<=', $this->value_max))
             ->paginate($this->perPage);
+    }
+
+    public function resetFilters(): void
+    {
+        $this->reset(['plate', 'date_i', 'date_e', 'value_min', 'value_max', 'perPage']);
     }
 
     public function updatedPerPage(): void

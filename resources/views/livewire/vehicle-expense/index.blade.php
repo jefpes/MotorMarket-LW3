@@ -1,39 +1,47 @@
 <div>
     <x-slot name="header">{{ __($header) }}</x-slot>
 
-    <div class="flex flex-col md:flex-row gap-2 pb-3 flex-0 sm:flex justify-between">
-      <div class="flex flex-col md:flex-row gap-2 flex-0 sm:flex">
-        <x-form.input x-mask="aaa-9*99" name="search" label="Plate" placeholder="Search" :messages="$errors->get('search')"
-          wire:model.live.debounce.800="plate" class="w-full" />
-        <div class="flex-none">
-          <x-input-label for="date_i" value="{{ __('Date') }}" />
-          <x-text-input type="date" id="date_i" wire:model.live.debounce.500ms='date_i' />
-          {{ __('to') }}
-          <x-text-input type="date" id="date_f" wire:model.live.debounce.500ms='date_f' />
+    <x-modal wire:model="modal" name="filter_modal">
+      <x-slot:title> {{ __('Filters') }} </x-slot:title>
+      <div class="space-y-2">
+        <div class="flex gap-x-1">
+          <div class="flex-1">
+            <x-form.input class="w-full" label="Expense date after" type="date" name="date_i" wire:model.live.debounce.500ms='date_i' />
+          </div>
+
+          <div class="flex-1">
+            <x-form.input class="w-full" label="Expense date before" type="date" name="date_e" wire:model.live.debounce.500ms='date_e' />
+          </div>
         </div>
-        <div class="flex-none">
-          <div class="flex w-full gap-x-2">
-            <x-form.money-input name="value_min" label="Value" placeholder="Value" :messages="$errors->get('value_min')"
-              wire:model.live.debounce.500ms="value_min" class="w-full" />
-            <div class="flex items-center pt-3">{{ __('to') }}</div>
-            <x-form.money-input name="value_max" label="Value" placeholder="Value" :messages="$errors->get('value_max')"
-              wire:model.live.debounce.500ms="value_max" class="w-full" />
+
+        <div class="flex gap-x-2">
+          <div class="flex-1">
+            <x-select label="Registers per page" wire:model.live="perPage" class="w-full" id="perPage">
+              <option value="10"> 10 </option>
+              <option value="15"> 15 </option>
+              <option value="25"> 25 </option>
+              <option value="50"> 50 </option>
+              <option value="100"> 100 </option>
+            </x-select>
           </div>
         </div>
       </div>
 
-      <div class="flex justify-end gap-2">
-        <div>
-          <x-input-label for="perPage" value="{{ __('Nº') }}" />
-          <x-select wire:model.live="perPage" class="w-full" id="perPage">
-            <option value="10"> 10 </option>
-            <option value="15"> 15 </option>
-            <option value="25"> 25 </option>
-            <option value="50"> 50 </option>
-            <option value="100"> 100 </option>
-          </x-select>
-        </div>
-      </div>
+      <x-slot:footer>
+        <x-secondary-button type="button" wire:click="$set('modal', false)">
+          {{ __('Close') }}
+        </x-secondary-button>
+
+        <x-primary-button class="ms-3" type="button" wire:click="resetFilters">
+          {{ __('Reset Filter') }}
+        </x-primary-button>
+      </x-slot:footer>
+    </x-modal>
+
+    <div class="flex flex-col md:flex-row gap-2 pb-3 flex-0 sm:flex justify-between">
+        <x-form.plate-input name="search" label="Plate" placeholder="Search" wire:model.live.debounce.800="plate" class="w-full" />
+        <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+          wire:click="$set('modal', true)" />
     </div>
 
     <x-table.table>
