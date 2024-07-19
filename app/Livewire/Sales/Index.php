@@ -31,7 +31,14 @@ class Index extends Component
     /** @var array<string> */
     public array $theader = ['Plate', 'Client', 'Sale Date', 'Value', 'Status', 'Installments', 'By' , 'Actions'];
 
-    public string $filter = 'plate';
+    public bool $plate_filter = true;
+
+    public function plateClient(): void
+    {
+        $this->plate_filter = !$this->plate_filter;
+        $this->client       = '';
+        $this->plate        = '';
+    }
 
     #[Url(except: '', as: 'd_i', history: true)]
     public string $date_ini = '';
@@ -57,13 +64,6 @@ class Index extends Component
         return view('livewire.sales.index', [
             'sts' => StatusPayments::cases(),
         ]);
-    }
-
-    public function updatedFilter(): void
-    {
-        $this->resetPage();
-        $this->plate  = '';
-        $this->client = '';
     }
 
     public function updatedDateIni(): void
@@ -95,17 +95,17 @@ class Index extends Component
     public function sales(): LengthAwarePaginator
     {
         return Sale::query()
-        ->with('user', 'vehicle', 'client', 'paymentInstallments')
-        ->when($this->plate, fn (Builder $q) => $q->whereHas('vehicle', function (Builder $q) {
-            $q->where('plate', 'like', "%{$this->plate}%");
-        }))
-        ->when($this->client, fn (Builder $q) => $q->whereHas('client', function (Builder $q) {
-            $q->where('name', 'like', "%{$this->client}%");
-        }))
-        ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
-        ->when($this->date_ini, fn (Builder $q) => $q->where('date_sale', '>=', $this->date_ini))
-        ->when($this->date_end, fn (Builder $q) => $q->where('date_sale', '<=', $this->date_end))
-        ->paginate($this->perPage);
+          ->with('user', 'vehicle', 'client', 'paymentInstallments')
+          ->when($this->plate, fn (Builder $q) => $q->whereHas('vehicle', function (Builder $q) {
+              $q->where('plate', 'like', "%{$this->plate}%");
+          }))
+          ->when($this->client, fn (Builder $q) => $q->whereHas('client', function (Builder $q) {
+              $q->where('name', 'like', "%{$this->client}%");
+          }))
+          ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
+          ->when($this->date_ini, fn (Builder $q) => $q->where('date_sale', '>=', $this->date_ini))
+          ->when($this->date_end, fn (Builder $q) => $q->where('date_sale', '<=', $this->date_end))
+          ->paginate($this->perPage);
     }
 
     public function resetFilters(): void

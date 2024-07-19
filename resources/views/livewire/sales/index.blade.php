@@ -5,29 +5,21 @@
     <div class="flex-1">
       <div class="flex">
         <div class="flex items-center me-4">
-          <input wire:model.live='filter' id="inline-radio" type="radio" value="plate" name="inline-radio-group"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="inline-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __('Plate') }}</label>
-        </div>
-        <div class="flex items-center me-4">
-          <input wire:model.live='filter' id="inline-2-radio" type="radio" value="client" name="inline-radio-group"
-            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-          <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ __('Client') }}</label>
+          <x-toggle text="{{ $plate_filter ? 'Plate' : 'Client' }}" wire:click="plateClient" ckd="{{ $plate_filter }}" />
         </div>
 
         <div class="flex-1">
-          @if ($filter == 'plate')
+          @if ($plate_filter)
           <x-form.plate-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="plate"
             placeholder="{{ __('Search plate') }}" />
-          @endif
-          @if ($filter == 'client')
-          <x-text-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="client"
-            placeholder="{{ __('Search client') }}" />
+            @else
+            <x-text-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="client"
+              placeholder="{{ __('Search client') }}" />
           @endif
         </div>
       </div>
     </div>
-    <div class="flex-1">
+    <div class="flex-0">
       <div class="flex gap-x-4 justify-end items-center">
         <x-icons.filter
           class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
