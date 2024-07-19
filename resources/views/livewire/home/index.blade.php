@@ -115,7 +115,7 @@
         {{ __('Close') }}
       </x-secondary-button>
       <x-primary-button class="ms-3" type="button" wire:click="clean">
-        {{ __('Clean Filters') }}
+        {{ __('Reset Filter') }}
       </x-primary-button>
     </x-slot:footer>
   </x-modal>

@@ -22,7 +22,12 @@
   "Seats": "Assentos",
   "Transmission": "Transmissão",
   "Gender": "Gênero",
-  "Clean Filters": "Limpar Filtros",
+  "Reset Filter": "Limpar Filtro",
+  "Buyed after of": "Comprado após",
+  "Buyed before of": "Comprado antes",
+  "Sold after of": "Vendido após",
+  "Sold before of": "Vendido antes",
+  "Registers per page": "Registros por página",
 
   "Brands": "Marcas",
   "brand": "Marca",

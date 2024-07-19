@@ -2,11 +2,11 @@
   <x-slot name="header">{{ __($header) }}</x-slot>
   <div class="flex justify-between gap-2 pb-3">
     <div class="flex-1">
-      <x-form.input x-mask="aaa-9*99" name="search" type="text" placeholder="Search" :messages="$errors->get('search')"
+      <x-form.plate-input type="search" label="Plate" name="search" placeholder="Search" :messages="$errors->get('search')"
         wire:model.live.debounce.800="search" class="w-full" />
     </div>
-    <div class="flex-1">
-      <div class="flex gap-x-4 justify-end items-center">
+    <div class="flex items-center">
+      <div class="flex gap-x-4">
         <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500" wire:click="$set('modal', true)"/>
 
         @can('vehicle_create')
