@@ -22,13 +22,17 @@ class Index extends Component
     #[Url(except: '', as: 'p', history: true)]
     public ?int $perPage = 15;
 
+    #[Url(except: '', as: 'd-d-i', history: true)]
     public ?string $due_date_i = '';
 
-    public ?string $due_date_f = '';
+    #[Url(except: '', as: 'd-d-e', history: true)]
+    public ?string $due_date_e = '';
 
+    #[Url(except: '', as: 'p-d-i', history: true)]
     public ?string $pay_date_i = '';
 
-    public ?string $pay_date_f = '';
+    #[Url(except: '', as: 'p-d-e', history: true)]
+    public ?string $pay_date_e = '';
 
     public ?string $payment_method = '';
 
@@ -46,20 +50,28 @@ class Index extends Component
     public function installments(): LengthAwarePaginator
     {
         return  PaymentInstallments::query()
-        ->with('sale', 'user')
-        ->orderBy('due_date')
-        ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
-        ->when($this->due_date_i, fn (Builder $q) => $q->where('due_date', '>=', $this->due_date_i))
-        ->when($this->due_date_f, fn (Builder $q) => $q->where('due_date', '<=', $this->due_date_f))
-        ->when($this->pay_date_i, fn (Builder $q) => $q->where('payment_date', '>=', $this->pay_date_i))
-        ->when($this->pay_date_f, fn (Builder $q) => $q->where('payment_date', '<=', $this->pay_date_f))
-        ->when($this->payment_method, fn (Builder $q) => $q->where('payment_method', $this->payment_method))
-        ->paginate($this->perPage);
+          ->with('sale', 'user')
+          ->orderBy('due_date')
+          ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
+          ->when($this->due_date_i, fn (Builder $q) => $q->where('due_date', '>=', $this->due_date_i))
+          ->when($this->due_date_e, fn (Builder $q) => $q->where('due_date', '<=', $this->due_date_e))
+          ->when($this->pay_date_i, fn (Builder $q) => $q->where('payment_date', '>=', $this->pay_date_i))
+          ->when($this->pay_date_e, fn (Builder $q) => $q->where('payment_date', '<=', $this->pay_date_e))
+          ->when($this->payment_method, fn (Builder $q) => $q->where('payment_method', $this->payment_method))
+          ->paginate($this->perPage);
+    }
+
+    public function overdue(): void
+    {
+        $this->resetFilters();
+        $this->status     = StatusPayments::PN->value;
+        $this->due_date_e = now()->subDay()->format('Y-m-d');
     }
 
     public function resetFilters(): void
     {
-        $this->reset(['due_date_i', 'due_date_f', 'pay_date_i', 'pay_date_f', 'payment_method', 'status']);
+        $this->reset(['due_date_i', 'due_date_e', 'pay_date_i', 'pay_date_e', 'payment_method', 'status']);
+        $this->resetPage();
     }
 
     public function updatedDueDateI(): void
