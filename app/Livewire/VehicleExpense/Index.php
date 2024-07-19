@@ -44,6 +44,11 @@ class Index extends Component
         return view('livewire.vehicle-expense.index');
     }
 
+    public function mount(): void
+    {
+        $this->setInitialColumn('date');
+    }
+
     /** @return array<object> */
     #[Computed()]
     public function table(): array
