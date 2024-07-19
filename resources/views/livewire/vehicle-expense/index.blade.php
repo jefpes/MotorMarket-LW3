@@ -38,10 +38,15 @@
       </x-slot:footer>
     </x-modal>
 
-    <div class="flex flex-col md:flex-row gap-2 pb-3 flex-0 sm:flex justify-between">
+    <div class="flex justify-between gap-2 pb-3">
+      <div class="flex-1">
         <x-form.plate-input name="search" label="Plate" placeholder="Search" wire:model.live.debounce.800="plate" class="w-full" />
-        <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+      </div>
+      <div class="flex items-end gap-x-4 pb-1">
+        <x-icons.filter
+          class="cursor-pointer w-8 h-8 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
           wire:click="$set('modal', true)" />
+      </div>
     </div>
 
     <x-table.table>

@@ -1,7 +1,7 @@
 <div>
     <x-slot name="header">{{ __($header) }}</x-slot>
     <div class="flex justify-end mb-4 mr-4">
-      <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+      <x-icons.filter class="cursor-pointer w-8 h-8 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
         wire:click="$set('modal', true)" />
     </div>
 
