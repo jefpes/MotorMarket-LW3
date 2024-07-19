@@ -10,8 +10,8 @@
 
         <div class="flex-1">
           @if ($plate_filter)
-          <x-form.plate-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="plate"
-            placeholder="{{ __('Search plate') }}" />
+            <x-form.plate-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="plate"
+              placeholder="{{ __('Search plate') }}" />
             @else
             <x-text-input class="w-full" type="search" name="search" wire:model.live.debounce.1000ms="client"
               placeholder="{{ __('Search client') }}" />
@@ -19,21 +19,9 @@
         </div>
       </div>
     </div>
-    <div class="flex-0">
-      <div class="flex gap-x-4 justify-end items-center">
-        <x-icons.filter
-          class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+    <div class="flex items-center">
+        <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
           wire:click="$set('filter_modal', true)" />
-
-        <div class="flex flex-0 gap-x-2">
-          <x-select wire:model.live="perPage" class="flex">
-            <option :value="10">10</option>
-            <option :value="15">15</option>
-            <option :value="25">25</option>
-            <option :value="50">50</option>
-          </x-select>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -125,16 +113,29 @@
   <x-modal wire:model="filter_modal" name="filter_modal">
     <x-slot:title> {{ __('Filters') }} </x-slot:title>
     <div class="space-y-4">
+      <div class="flex gap-2">
+        <div class="flex-1">
+          <x-select class="w-full" label="Registers per page" wire:model.live="perPage">
+            <option :value="10">10</option>
+            <option :value="15">15</option>
+            <option :value="25">25</option>
+            <option :value="50">50</option>
+          </x-select>
+        </div>
+        <div class="flex-1">
+          <x-select class="w-full" wire:model.live="status" label="Status" class="w-full">
+            <option value="">{{ __('All') }}</option>
+            @foreach ($sts as $s)
+            <option value="{{ $s->value }}">{{ $s->value }}</option>
+            @endforeach
+          </x-select>
+        </div>
+      </div>
+
+
       <x-form.input class="w-full" label="Sold after of" type="date" name="date_ini" wire:model.live='date_ini' />
 
       <x-form.input class="w-full" label="Sold after of" type="date" name="date_end" wire:model.live='date_end' />
-
-      <x-select wire:model.live="status" label="Status" class="w-full">
-        <option value="">{{ __('All') }}</option>
-        @foreach ($sts as $s)
-        <option value="{{ $s->value }}">{{ $s->value }}</option>
-        @endforeach
-      </x-select>
     </div>
 
     <x-slot:footer>
