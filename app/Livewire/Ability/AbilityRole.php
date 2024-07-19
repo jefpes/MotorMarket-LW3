@@ -28,7 +28,18 @@ class AbilityRole extends Component
 
     public function toggleAbility(int $abilityId): void
     {
-        $this->role->abilities()->toggle($abilityId);
-        $this->toastSuccess('Ability Updated');
+        $result = $this->role->abilities()->toggle($abilityId);
+
+        if ($result['attached']) {
+            $this->toastSuccess('Ability Added');
+
+            return;
+        }
+
+        if ($result['detached']) {
+            $this->toastSuccess('Ability Removed');
+
+            return;
+        }
     }
 }
