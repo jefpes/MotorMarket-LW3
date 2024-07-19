@@ -51,14 +51,14 @@
 
     <x-table.table>
       <x-slot:thead>
-        @foreach ($theader as $h)
-          @if ($h == 'actions')
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
             @canany([$this->permission->update, $this->permission->delete])
-              <x-table.th> {{ __($h) }} </x-table.th>
+              <x-table.th> {{ __($h->head) }} </x-table.th>
             @endcanany
           @else
-            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h }}')">
-              <x-table.sortable :columnName='$h' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
             </x-table.th>
           @endif
 
@@ -71,7 +71,7 @@
           <x-table.td> <x-span-money :money="$data->value" /> </x-table.td>
           <x-table.td> {{ $data->description }} </x-table.td>
           <x-table.td> <x-span-date :date="$data->date" /> </x-table.td>
-          <x-table.td> {{ $data->user->name ?? '' }} </x-table.td>
+          <x-table.td> {{ $data->name ?? '' }} </x-table.td>
 
           @canany([$this->permission->update, $this->permission->delete])
           <x-table.td>

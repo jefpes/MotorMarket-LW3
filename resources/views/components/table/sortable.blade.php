@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class'=> 'flex items-center']) }}>
-  {{ $columnName }}
+  {{ __($columnLabel) }}
 
   @if ($sortColumn !== $columnName)
     <x-icons.up-down class="ml-2"/>
