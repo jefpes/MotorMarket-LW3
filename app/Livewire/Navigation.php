@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Livewire\Actions\Logout;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Navigation extends Component
@@ -26,12 +27,11 @@ class Navigation extends Component
         $this->redirect(url()->previous());
     }
 
-    /** @var array<object> */
-    public array $navs;
-
-    public function mount(): void
+    /** @return array<object> */
+    #[Computed()]
+    public function navs(): array
     {
-        $this->navs = [
+        return [
             (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => 'admin', 'isActive' => request()->routeIs('dashboard')],
             (object)['route' => 'company', 'label' => 'Company', 'permission' => 'company_update', 'isActive' => request()->routeIs('company')],
             (object)['route' => 'users', 'label' => 'Users', 'permission' => 'user_read', 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
