@@ -2,7 +2,7 @@
 
 namespace App\Livewire\PaymentInstallments;
 
-use App\Enums\PaymentMethod;
+use App\Enums\{PaymentMethod, Permission};
 use App\Livewire\Forms\InstallmentForm;
 use App\Models\{PaymentInstallments, Sale};
 use App\Traits\Toast;
@@ -37,7 +37,7 @@ class ReceivePayment extends Component
     #[On('installment::receive')]
     public function receiving(int $id): void
     {
-        $this->authorize('payment_receive');
+        $this->authorize(Permission::PAYMENT_RECEIVE->value);
 
         $this->form->setInstallment($id);
 
@@ -68,7 +68,7 @@ class ReceivePayment extends Component
 
     public function save(): void
     {
-        $this->authorize('payment_receive');
+        $this->authorize(Permission::PAYMENT_RECEIVE->value);
 
         $this->form->user_id = auth()->id();
         $this->form->status  = 'PAGO';

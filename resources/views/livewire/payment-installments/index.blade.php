@@ -1,8 +1,14 @@
 <div>
     <x-slot name="header">{{ __($header) }}</x-slot>
-    <div class="flex justify-end mb-4 mr-4">
-      <x-icons.filter class="cursor-pointer w-8 h-8 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
-        wire:click="$set('modal', true)" />
+
+    <div class="flex justify-end mb-4 gap-x-2">
+      <div class="flex-1">
+        <x-form.input name="search" type="text" placeholder="Search" wire:model.live.debounce.800="search" class="w-full" />
+      </div>
+      <div class="flex items-center">
+        <x-icons.filter class="cursor-pointer w-8 h-8 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500"
+          wire:click="$set('modal', true)" />
+      </div>
     </div>
 
     <x-modal wire:model="modal" name="filter_modal">
@@ -85,7 +91,7 @@
       <x-slot:thead>
         @foreach ($theader as $h)
         @if ($h == 'Actions')
-        @canany(['payment_receive', 'payment_undo'])
+        @canany([$permission::PAYMENT_RECEIVE->value, $permission::PAYMENT_UNDO->value])
         <x-table.th> {{ __($h) }} </x-table.th>
         @endcanany
         @else
@@ -96,7 +102,6 @@
       <x-slot:tbody>
         @forelse ($this->installments as $i)
         <x-table.tr>
-          <x-table.td> {{ $loop->iteration }} </x-table.td>
           <x-table.td> {{ $i->sale->client->name }} </x-table.td>
           <x-table.td> <x-span-date :date="$i->due_date" /> </x-table.td>
           <x-table.td> <x-span-money class="py-4" :money="$i->value" /> </x-table.td>
@@ -106,7 +111,7 @@
           <x-table.td> {{ $i->status }} </x-table.td>
           <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
 
-          @canany(['payment_undo', 'payment_receive'])
+          @canany([$permission::PAYMENT_UNDO->value, $permission::PAYMENT_RECEIVE->value])
           <x-table.td>
             <div class="flex flex-row gap-2">
               @if ($i->status != 'CANCELADO')

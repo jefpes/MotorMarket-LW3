@@ -2,6 +2,7 @@
 
 namespace App\Livewire\PaymentInstallments;
 
+use App\Enums\Permission;
 use App\Models\PaymentInstallments;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,6 +26,6 @@ class SaleInstallment extends Component
     #[On('installment::refresh')]
     public function render(): View
     {
-        return view('livewire.payment-installments.sale-installment');
+        return view('livewire.payment-installments.sale-installment', ['permission' => Permission::class]);
     }
 }

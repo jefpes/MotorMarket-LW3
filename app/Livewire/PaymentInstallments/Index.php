@@ -2,7 +2,7 @@
 
 namespace App\Livewire\PaymentInstallments;
 
-use App\Enums\{PaymentMethod, StatusPayments};
+use App\Enums\{PaymentMethod, Permission, StatusPayments};
 use App\Models\PaymentInstallments;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Contracts\View\View;
@@ -34,24 +34,29 @@ class Index extends Component
     #[Url(except: '', as: 'p-d-e', history: true)]
     public ?string $pay_date_e = '';
 
+    #[Url(except: '', as: 'p-m', history: true)]
     public ?string $payment_method = '';
 
+    #[Url(except: '', as: 'name', history: true)]
+    public ?string $search = '';
+
     /** @var array<string> */
-    public array $theader = ['N°', 'Client', 'Due Date', 'Value', 'Payment Date',  'Payment Method' , 'Value Received' , 'Status', 'By', 'Actions'];
+    public array $theader = ['Client', 'Due Date', 'Value', 'Payment Date',  'Payment Method' , 'Value Received' , 'Status', 'By', 'Actions'];
 
     public ?string $header = 'Installments';
 
     public function render(): View
     {
-        return view('livewire.payment-installments.index', ['sts' => StatusPayments::cases(), 'payment_methods' => PaymentMethod::cases()]);
+        return view('livewire.payment-installments.index', ['permission' => Permission::class, 'sts' => StatusPayments::cases(), 'payment_methods' => PaymentMethod::cases()]);
     }
 
     #[Computed()]
     public function installments(): LengthAwarePaginator
     {
         return  PaymentInstallments::query()
-          ->with('sale', 'user')
+          ->with('sale.client', 'user')
           ->orderBy('due_date')
+          ->when($this->search, fn (Builder $q) => $q->whereHas('sale.client', fn (Builder $q) => $q->where('name', 'like', "%{$this->search}%")))
           ->when($this->status, fn (Builder $q) => $q->where('status', $this->status))
           ->when($this->due_date_i, fn (Builder $q) => $q->where('due_date', '>=', $this->due_date_i))
           ->when($this->due_date_e, fn (Builder $q) => $q->where('due_date', '<=', $this->due_date_e))

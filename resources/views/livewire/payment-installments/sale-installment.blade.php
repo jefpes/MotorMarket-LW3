@@ -4,7 +4,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
       @if ($h == 'Actions')
-      @canany(['payment_receive', 'payment_undo'])
+      @canany([$permission::PAYMENT_RECEIVE->value, $permission::PAYMENT_UNDO->value])
       <x-table.th> {{ __($h) }} </x-table.th>
       @endcanany
       @else
@@ -23,15 +23,15 @@
         <x-table.td> {{ $i->status }} </x-table.td>
         <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
 
-        @canany(['payment_undo', 'payment_receive'])
+        @canany([$permission::PAYMENT_UNDO->value, $permission::PAYMENT_RECEIVE->value])
         <x-table.td>
           <div class="flex flex-row gap-2">
             @if ($i->payment_date && $i->status != 'CANCELADO')
-              @can('payment_undo')
+              @can($permission::PAYMENT_UNDO->value)
                 <x-icons.undo class="text-2xl flex w-8 h-8 cursor-pointer text-red-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::undo-receive', { id: {{ $i->id }} })" />
               @endcan
             @else
-              @can('payment_receive')
+              @can($permission::PAYMENT_RECEIVE->value)
                 <x-icons.money-receive class="text-2xl flex w-8 h-8 cursor-pointer text-blue-600" id="show-{{ $i->id }}" wire:click="$dispatch('installment::receive', { id: {{ $i->id }} })" />
               @endcan
             @endif
