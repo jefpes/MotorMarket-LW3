@@ -8,12 +8,16 @@
   <div>
     <x-table.table>
       <x-slot:thead>
-        @foreach ($thead as $h)
-        @if ($h == 'Actions')
-        @canany([$permissions::BRAND_UPDATE->value, $permissions::BRAND_DELETE->value])
-        <x-table.th> {{ __($h) }} </x-table.th>
-        @endcanany
-        @else <x-table.th> {{ __($h) }} </x-table.th> @endif
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
+            @canany([$permissions::BRAND_UPDATE->value, $permissions::BRAND_DELETE->value])
+              <x-table.th> {{ __($h->head) }} </x-table.th>
+            @endcanany
+          @else
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
+          @endif
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
