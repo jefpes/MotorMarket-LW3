@@ -10,10 +10,14 @@
   <div>
     <x-table.table>
       <x-slot:thead>
-        @foreach ($header as $h)
-        <x-table.th>
-          {{ __($h) }}
-        </x-table.th>
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
+            <x-table.th> {{ __($h->head) }} </x-table.th>
+          @else
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName="$h->field" :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
+          @endif
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
