@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Company;
 
+use App\Enums\Permission;
 use App\Models\Company;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -79,6 +80,8 @@ class Edit extends Component
 
     public function save(): void
     {
+        $this->authorize(Permission::COMPANY_UPDATE->value);
+
         $this->validate([
             'name'  => 'required|string',
             'email' => 'email',
