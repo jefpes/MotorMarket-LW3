@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Brand;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\BrandForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -30,7 +31,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('brand_create');
+        $this->authorize(Permission::BRAND_CREATE->value);
 
         $this->form->save();
         $this->toastSuccess('Brand created successfully');

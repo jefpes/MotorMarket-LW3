@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Brand;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\BrandForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -32,7 +33,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('brand_delete');
+        $this->authorize(Permission::BRAND_DELETE->value);
 
         try {
             $this->form->destroy();

@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Brand;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\BrandForm;
 use App\Models\{Brand};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\{Computed, On};
 use Livewire\Component;
-use stdClass;
 
 class Index extends Component
 {
@@ -22,24 +22,12 @@ class Index extends Component
     #[On('brand::refresh')]
     public function render(): View
     {
-        return view('livewire.brand.index');
+        return view('livewire.brand.index', ['permissions' => Permission::class]);
     }
 
     #[Computed]
     public function data(): Collection
     {
-        return Brand::all();
-    }
-
-    #[Computed]
-    public function permissions(): stdClass
-    {
-        $permission         = new stdClass();
-        $permission->create = 'brand_create';
-        $permission->read   = 'brand_read';
-        $permission->update = 'brand_update';
-        $permission->delete = 'brand_delete';
-
-        return $permission;
+        return Brand::orderBy('name')->get();
     }
 }
