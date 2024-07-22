@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Role;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\RoleForm;
 use App\Models\{Role, User};
 use App\Traits\Toast;
@@ -29,7 +30,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('admin');
+        $this->authorize(Permission::ADMIN->value);
 
         $user = User::find(auth()->id());
 

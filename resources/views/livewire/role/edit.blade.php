@@ -9,7 +9,7 @@
       <x-input-label>{{__('hierarchy')}}</x-input-label>
       <x-select wire:model="form.hierarchy">
         <option value=""> {{ __('Select a hierarchy level') }} </option>
-        @for ($i = auth()->user()->roles()->pluck('hierarchy')->max(); $i < 100; $i++)
+        @for ($i = auth()->user()->roles()->pluck('hierarchy')->max(); $i < 20; $i++)
         <option value="{{ $i }}"> {{ $i }} </option>
           @endfor
       </x-select>

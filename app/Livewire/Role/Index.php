@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Role;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\RoleForm;
 use App\Models\Role;
 use Illuminate\Contracts\View\View;
@@ -19,7 +20,7 @@ class Index extends Component
     #[On('role::refresh')]
     public function render(): View
     {
-        return view('livewire.role.index');
+        return view('livewire.role.index', ['permission' => Permission::class]);
     }
 
     #[Computed()]

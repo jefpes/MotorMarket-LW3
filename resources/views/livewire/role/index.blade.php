@@ -1,9 +1,11 @@
 <div>
   <x-slot:header> {{ __('Roles') }} </x-slot:header>
 
-  <div class="flex justify-end pb-4">
-    <livewire:role.create>
-  </div>
+  @can($permission::ADMIN->value)
+    <div class="flex justify-end pb-4">
+      <livewire:role.create>
+    </div>
+  @endcan
 
   <div>
     <x-table.table>
@@ -20,15 +22,17 @@
           <x-table.td> {{ $r->name }} </x-table.td>
           <x-table.td> {{ $r->hierarchy }} </x-table.td>
           <x-table.td>
-            @if (auth()->user()->roles()->pluck('hierarchy')->max() <= $r->hierarchy)
-              <div class="flex flex-row gap-2 justify-center">
-                <x-icons.edit id="btn-edit-{{ $r->id }}" wire:click="$dispatch('role::editing', { id: {{ $r->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />
+            @can($permission::ADMIN->value)
+              @if (auth()->user()->roles()->pluck('hierarchy')->max() <= $r->hierarchy)
+                <div class="flex flex-row gap-2 justify-center">
+                  <x-icons.edit id="btn-edit-{{ $r->id }}" wire:click="$dispatch('role::editing', { id: {{ $r->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />
 
-                <x-icons.shield id="ability_role_button_{{ $r->id }}" :href="route('ability.role', $r->id)" class="cursor-pointer flex text-green-600 w-8 h-8" wire:navigate />
+                  <x-icons.shield id="ability_role_button_{{ $r->id }}" :href="route('ability.role', $r->id)" class="cursor-pointer flex text-green-600 w-8 h-8" wire:navigate />
 
-                <x-icons.delete id="btn-delete-{{ $r->id }}" wire:click="$dispatch('role::deleting', { id: {{ $r->id }} })" class="cursor-pointer flex text-red-500 w-8 h-8" />
-              </div>
-            @endif
+                  <x-icons.delete id="btn-delete-{{ $r->id }}" wire:click="$dispatch('role::deleting', { id: {{ $r->id }} })" class="cursor-pointer flex text-red-500 w-8 h-8" />
+                </div>
+              @endif
+            @endcan
           </x-table.td>
         </x-table.tr>
         @endforeach
