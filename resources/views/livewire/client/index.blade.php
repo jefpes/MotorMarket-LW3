@@ -2,8 +2,7 @@
   <x-slot name="header">{{ __($header) }}</x-slot>
   <div class="flex flex-row flex-wrap md:flex-nowrap w-full mb-4 gap-x-2 gap-y-2">
     <div class="w-full flex-1">
-      <x-form.input name="search" type="text" placeholder="Search" :messages="$errors->get('search')"
-        wire:model.live.debounce.800="search" class="w-full" />
+      <x-form.input name="search" type="text" placeholder="Search" wire:model.live.debounce.800="search" class="w-full" />
     </div>
 
     @can($permission::CLIENT_CREATE->value)
