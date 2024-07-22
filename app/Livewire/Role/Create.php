@@ -3,7 +3,7 @@
 namespace App\Livewire\Role;
 
 use App\Livewire\Forms\RoleForm;
-use App\Models\Role;
+use App\Models\{Role, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -31,10 +31,9 @@ class Create extends Component
     {
         $this->authorize('admin');
 
-        /** @var User */
-        $user = auth()->user(); /** @phpstan-ignore-line */
+        $user = User::find(auth()->id());
 
-        if ($user->roles()->pluck('hierarchy')->max() > (Role::find($this->form->id)->hierarchy ?? $user->roles()->pluck('hierarchy')->max() + 1)) { /** @phpstan-ignore-line */
+        if ($user->roles()->pluck('hierarchy')->max() > (Role::find($this->form->id)->hierarchy ?? $user->roles()->pluck('hierarchy')->max() + 1)) {
             abort(403, 'you not have permission for this action');
         }
 
