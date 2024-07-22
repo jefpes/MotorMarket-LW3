@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Permission;
 use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, SaleCanceled};
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
@@ -20,7 +21,7 @@ Route::middleware(Localization::class)->group(function () {
         ->name('dashboard');
 
     Route::get('users', User\Index::class)
-        ->middleware(['auth', 'can:user_read', 'verified'])
+        ->middleware(['auth', 'can:' . Permission::USER_READ->value, 'verified'])
         ->name('users');
 
     Route::get('user-roles/{id}', UserRole::class)
@@ -40,91 +41,91 @@ Route::middleware(Localization::class)->group(function () {
         ->name('profile');
 
     Route::get('brand', Brand\Index::class)
-        ->middleware(['auth', 'verified', 'can:brand_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::BRAND_READ->value])
         ->name('brand');
 
     Route::get('vmodel', VehicleModel\Index::class)
-        ->middleware(['auth', 'verified', 'can:vmodel_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_MODEL_READ->value])
         ->name('vmodel');
 
     Route::get('vtype', VehicleType\Index::class)
-        ->middleware(['auth', 'verified', 'can:vtype_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_TYPE_READ->value])
         ->name('vtype');
 
     Route::get('vehicle', Vehicle\Index::class)
-        ->middleware(['auth', 'verified', 'can:vehicle_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_READ->value])
         ->name('vehicle');
 
     Route::get('vehicle_create', Vehicle\Create::class)
-        ->middleware(['auth', 'verified', 'can:vehicle_create'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_CREATE->value])
         ->name('vehicle.create');
 
     Route::get('vehicle_edit/{id}', Vehicle\Update::class)
-        ->middleware(['auth', 'verified', 'can:vehicle_update'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_UPDATE->value])
         ->name('vehicle.edit');
 
     Route::get('vehicle/{id}', Vehicle\Show::class)
-        ->middleware(['auth', 'verified', 'can:vehicle_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_READ->value])
         ->name('vehicle.show');
 
     Route::get('city', City\Index::class)
-        ->middleware(['auth', 'verified', 'can:city_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::CITY_READ->value])
         ->name('city');
 
     Route::get('client', Client\Index::class)
-        ->middleware(['auth', 'verified', 'can:client_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_READ->value])
         ->name('client');
 
     Route::get('client_create', Client\Create::class)
-        ->middleware(['auth', 'verified', 'can:client_create'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_CREATE->value])
         ->name('client.create');
 
     Route::get('client_edit/{id}', Client\Update::class)
-        ->middleware(['auth', 'verified', 'can:client_update'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_UPDATE->value])
         ->name('client.edit');
 
     Route::get('client/{id}', Client\Show::class)
-        ->middleware(['auth', 'verified', 'can:client_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_READ->value])
         ->name('client.show');
 
     Route::get('employee', Employee\Index::class)
-        ->middleware(['auth', 'verified', 'can:client_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::EMPLOYEE_READ->value])
         ->name('employee');
 
     Route::get('employee_create', Employee\Create::class)
-        ->middleware(['auth', 'verified', 'can:employee_create'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::EMPLOYEE_CREATE->value])
         ->name('employee.create');
 
     Route::get('employee_edit/{id}', Employee\Update::class)
-        ->middleware(['auth', 'verified', 'can:employee_update'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::EMPLOYEE_UPDATE->value])
         ->name('employee.edit');
 
     Route::get('employee/{id}', Employee\Show::class)
-        ->middleware(['auth', 'verified', 'can:employee_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::EMPLOYEE_READ->value])
         ->name('employee.show');
 
     Route::get('sales', Sales\Index::class)
-            ->middleware(['auth', 'verified', 'can:sale_read'])
+            ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value])
             ->name('sales');
 
     Route::get('sale_create/{id}', Sales\Create::class)
-        ->middleware(['auth', 'verified', 'can:sale_create'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::SALE_CREATE->value])
         ->name('sale.create');
 
     Route::get('sale/{id}/contract', Reports\SalesContract::class)
-        ->middleware(['auth', 'verified', 'can:sale_create', SaleCanceled::class])
+        ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value, SaleCanceled::class])
         ->name('contract');
 
     Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
-        ->middleware(['auth', 'verified', 'can:installment_read', SaleCanceled::class])
+        ->middleware(['auth', 'verified', 'can:' . Permission::INSTALLMENT_READ->value, SaleCanceled::class])
         ->name('sale.installments');
 
     Route::get('installments', PaymentInstallments\Index::class)
-        ->middleware(['auth', 'verified', 'can:installment_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::INSTALLMENT_READ->value])
         ->name('installments');
 
     Route::get('vehicle-expense', VehicleExpense\Index::class)
-        ->middleware(['auth', 'verified', 'can:vexpense_read'])
+        ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_EXPENSE_READ->value])
         ->name('vehicle-expense');
 
     require __DIR__ . '/auth.php';

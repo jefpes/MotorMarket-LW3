@@ -15,7 +15,7 @@ class Navigation
     * @param array<string> $isActive
     * @return object
     */
-    public static function createNavItem(string $route, string $label, Permission $permission, array $isActive = null): object
+    public static function createNavItem(string $route, string $label, Permission $permission, array $isActive = []): object
     {
         return (object)[
             'route'      => $route,
