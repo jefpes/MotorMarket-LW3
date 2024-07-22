@@ -84,7 +84,7 @@
           @endcanany
         </x-table.tr>
         @empty
-          <x-table.tr-no-register :cols="count($theader)" />
+          <x-table.tr-no-register :cols="count($this->table)" />
         @endforelse
       </x-slot:tbody>
     </x-table.table>
