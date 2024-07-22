@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Sales;
 
-use App\Enums\StatusPayments;
+use App\Enums\{Permission, StatusPayments};
 use App\Models\{Sale};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,7 +62,8 @@ class Index extends Component
     public function render(): View
     {
         return view('livewire.sales.index', [
-            'sts' => StatusPayments::cases(),
+            'sts'        => StatusPayments::cases(),
+            'permission' => Permission::class,
         ]);
     }
 

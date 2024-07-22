@@ -30,7 +30,7 @@
       <x-slot name="thead">
         @foreach ($theader as $h)
           @if ($h == 'Actions')
-            @canany(['sale_cancel'])
+            @canany([$permission::SALE_CANCEL->value])
               <x-table.th> {{ __($h) }} </x-table.th>
             @endcanany
           @else
@@ -49,7 +49,7 @@
           <x-table.td> {{ $s->number_installments }} </x-table.td>
           <x-table.td> {{ $s->user->name }} </x-table.td>
 
-          @canany(['sale_cancel', 'installment_read'])
+          @canany([$permission::SALE_CANCEL->value, $permission::INSTALLMENT_READ->value])
             <x-table.td>
               <div class="flex flex-row gap-2 justify-center">
                 @if (!$s->date_cancel)
@@ -60,7 +60,7 @@
                       href="{{ route('sale.installments', $s->id) }}" id="installments-{{ $s->id }}" wire:navigate />
                   @endif
 
-                  @can('sale_cancel')
+                  @can($permission::SALE_CANCEL->value)
                     <x-icons.cancel id="btn-cancel-{{ $s->id }}"
                       wire:click="$dispatch('sale::canceling', { id: {{ $s->id }} })"
                       class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />

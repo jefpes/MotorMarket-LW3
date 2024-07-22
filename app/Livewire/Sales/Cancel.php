@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Sales;
 
-use App\Enums\StatusPayments;
+use App\Enums\{Permission, StatusPayments};
 use App\Models\{Sale, Vehicle};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -27,13 +27,15 @@ class Cancel extends Component
     #[On('sale::canceling')]
     public function canceling(int $id): void
     {
+        $this->authorize(Permission::SALE_CANCEL->value);
+
         $this->sale  = Sale::with('paymentInstallments')->find($id);
         $this->modal = true;
     }
 
     public function cancel(): void
     {
-        $this->authorize('sale_cancel');
+        $this->authorize(Permission::SALE_CANCEL->value);
 
         if($this->sale->date_cancel !== null) {
             $this->toastFail('Sale already cancelled');

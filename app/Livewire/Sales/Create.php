@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Sales;
 
-use App\Enums\{PaymentMethod, StatusPayments};
+use App\Enums\{PaymentMethod, Permission, StatusPayments};
 use App\Livewire\Forms\{InstallmentForm, SaleForm};
 use App\Models\{Client, Vehicle};
 use App\Traits\Toast;
@@ -116,7 +116,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('sale_create');
+        $this->authorize(Permission::SALE_CREATE->value);
 
         if ($this->vehicle->sold_date) {
             $this->toastFail('This vehicle has already been sold');
