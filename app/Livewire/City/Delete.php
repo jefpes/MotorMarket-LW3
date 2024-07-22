@@ -2,6 +2,7 @@
 
 namespace App\Livewire\City;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\CityForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -32,7 +33,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('city_delete');
+        $this->authorize(Permission::CITY_DELETE->value);
 
         try {
             $this->form->destroy();

@@ -2,13 +2,13 @@
 
 namespace App\Livewire\City;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\CityForm;
 use App\Models\{City};
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\{Computed, On};
 use Livewire\Component;
-use stdClass;
 
 class Index extends Component
 {
@@ -22,24 +22,12 @@ class Index extends Component
     #[On('city::refresh')]
     public function render(): View
     {
-        return view('livewire.city.index');
+        return view('livewire.city.index', ['permission' => Permission::class]);
     }
 
     #[Computed]
     public function data(): Collection
     {
-        return City::all();
-    }
-
-    #[Computed]
-    public function permissions(): stdClass
-    {
-        $permission         = new stdClass();
-        $permission->create = 'city_create';
-        $permission->read   = 'city_read';
-        $permission->update = 'city_update';
-        $permission->delete = 'city_delete';
-
-        return $permission;
+        return City::orderBy('name')->get();
     }
 }

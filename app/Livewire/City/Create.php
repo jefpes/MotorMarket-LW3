@@ -2,6 +2,7 @@
 
 namespace App\Livewire\City;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\CityForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -30,7 +31,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('city_create');
+        $this->authorize(Permission::CITY_CREATE->value);
 
         $this->dispatch('city::refresh');
         $this->form->save();
