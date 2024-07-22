@@ -12,7 +12,7 @@
     </x-secondary-button>
 
     <x-danger-button class="ms-3" wire:click='deactive'>
-      {{ __('Desable') }}
+      {{ __('Deactivate') }}
     </x-danger-button>
   </x-slot>
 </x-modal>

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
+use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -11,7 +13,8 @@ use Livewire\Component;
 class Deactivate extends Component
 {
     use Toast;
-    use Utilities;
+
+    public UserForm $form;
 
     public bool $modal = false;
 
@@ -29,7 +32,7 @@ class Deactivate extends Component
 
     public function deactive(): void
     {
-        $this->authorize($this->permission_delete);
+        $this->authorize(Permission::USER_DELETE->value);
 
         $userAction = User::find($this->form->id);
 
@@ -38,7 +41,7 @@ class Deactivate extends Component
 
         if ($user->hierarchy($userAction->id)) {
             $userAction->delete();
-            $this->toastSuccess('User Deactivate');
+            $this->toastSuccess('User deactivated');
             $this->dispatch('user::refresh');
             $this->modal = false;
 

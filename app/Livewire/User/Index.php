@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\View\View;
@@ -11,7 +12,6 @@ use Livewire\{Component, WithPagination};
 class Index extends Component
 {
     use WithPagination;
-    use Utilities;
 
     /** @var array<string> */
     public array $theader = ['name', 'email', 'status', 'actions'];
@@ -25,7 +25,7 @@ class Index extends Component
     #[On('user::refresh')]
     public function render(): View
     {
-        return view('livewire.user.index');
+        return view('livewire.user.index', ['permission' => Permission::class]);
     }
 
     #[Computed()]

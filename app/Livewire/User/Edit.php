@@ -2,6 +2,8 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
+use App\Livewire\Forms\UserForm;
 use App\Models\{Employee, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -11,7 +13,8 @@ use Livewire\Component;
 class Edit extends Component
 {
     use Toast;
-    use Utilities;
+
+    public UserForm $form;
 
     public bool $modal = false;
 
@@ -24,7 +27,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->authorize($this->permission_update);
+        $this->authorize(Permission::USER_UPDATE->value);
 
         /** @var User  */
         $user = auth()->user();

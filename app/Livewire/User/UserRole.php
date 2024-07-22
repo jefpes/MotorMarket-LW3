@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
 use App\Models\{Role, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -27,6 +28,8 @@ class UserRole extends Component
 
     public function toggleRole(int $role_id): void
     {
+        $this->authorize(Permission::ADMIN->value);
+
         $this->user->roles()->toggle($role_id);
         $this->toastSuccess('Role Updated Successfully');
     }
