@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Client;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\ClientForm;
 use App\Models\Client;
 use App\Traits\Toast;
@@ -37,7 +38,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('client_delete');
+        $this->authorize(Permission::CLIENT_DELETE->value);
         $client = Client::find($this->form->id);
 
         if($client->photos->isNotEmpty()) {

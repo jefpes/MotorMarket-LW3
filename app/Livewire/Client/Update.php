@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\{Genders, MaritalStatus, States};
+use App\Enums\{Genders, MaritalStatus, Permission, States};
 use App\Livewire\Forms\{ClientAddressForm, ClientForm, ClientPhotoForm};
 use App\Models\{City, Client};
 use App\Traits\Toast;
@@ -37,7 +37,7 @@ class Update extends Component
 
     public function save(): void
     {
-        $this->authorize('client_update');
+        $this->authorize(Permission::CLIENT_UPDATE->value);
 
         $this->client->validate();
         $this->clientAddress->validate();
