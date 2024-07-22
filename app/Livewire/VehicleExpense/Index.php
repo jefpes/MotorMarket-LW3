@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleExpense;
 
+use App\Enums\Permission;
 use App\Models\{VehicleExpense};
 use App\Traits\SortTable;
 use Illuminate\Contracts\View\View;
@@ -9,7 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Attributes\{Computed, On, Url};
 use Livewire\{Component, WithPagination};
-use stdClass;
 
 class Index extends Component
 {
@@ -41,7 +41,7 @@ class Index extends Component
     #[On('expense::refresh')]
     public function render(): View
     {
-        return view('livewire.vehicle-expense.index');
+        return view('livewire.vehicle-expense.index', ['permission' => Permission::class]);
     }
 
     public function mount(): void
@@ -106,17 +106,5 @@ class Index extends Component
     public function updatedValueMax(): void
     {
         $this->resetPage();
-    }
-
-    #[Computed]
-    public function permission(): stdClass
-    {
-        $permission         = new stdClass();
-        $permission->create = 'vexpense_create';
-        $permission->read   = 'vexpense_read';
-        $permission->update = 'vexpense_update';
-        $permission->delete = 'vexpense_delete';
-
-        return $permission;
     }
 }

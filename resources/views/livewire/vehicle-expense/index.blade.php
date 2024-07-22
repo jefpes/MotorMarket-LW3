@@ -53,7 +53,7 @@
       <x-slot:thead>
         @foreach ($this->table as $h)
           @if ($h->field == 'actions')
-            @canany([$this->permission->update, $this->permission->delete])
+            @canany([$permission::VEHICLE_EXPENSE_UPDATE->value, $permission::VEHICLE_EXPENSE_DELETE->value])
               <x-table.th> {{ __($h->head) }} </x-table.th>
             @endcanany
           @else
@@ -73,7 +73,7 @@
           <x-table.td> <x-span-date :date="$data->date" /> </x-table.td>
           <x-table.td> {{ $data->name ?? '' }} </x-table.td>
 
-          @canany([$this->permission->update, $this->permission->delete])
+          @canany([$permission::VEHICLE_EXPENSE_UPDATE->value, $permission::VEHICLE_EXPENSE_DELETE->value])
           <x-table.td>
             <div class="flex flex-row gap-2">
               <x-icons.edit id="btn-edit-{{ $data->id }}" wire:click="$dispatch('expense::editing', { id: {{ $data->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleExpense;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleExpenseForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -32,7 +33,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('vexpense_create');
+        $this->authorize(Permission::VEHICLE_EXPENSE_CREATE->value);
 
         $this->dispatch('expense::create');
         $this->form->vehicle_id = $this->v_id;
