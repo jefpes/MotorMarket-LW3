@@ -15,7 +15,7 @@
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      @can('vehicle_delete')
+      @can($permission::VEHICLE_DELETE->value)
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>

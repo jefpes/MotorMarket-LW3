@@ -8,8 +8,8 @@
     <div class="flex items-end gap-x-4 pb-1">
       <x-icons.filter class="cursor-pointer w-8 h-8 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500" wire:click="$set('modal', true)"/>
 
-      @can('vehicle_create')
-      <x-primary-button :href="route('vehicle.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
+      @can($permission::VEHICLE_CREATE->value)
+        <x-primary-button :href="route('vehicle.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
       @endcan
     </div>
   </div>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Enums\Permission;
 use App\Models\{Brand, Vehicle, VehicleModel, VehicleType};
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\View\View;
@@ -42,7 +43,7 @@ class Index extends Component
     #[On('vehicle::refresh')]
     public function render(): View
     {
-        return view('livewire.vehicle.index', ['types' => VehicleType::all()]);
+        return view('livewire.vehicle.index', ['types' => VehicleType::orderBy('name')->get(), 'permission' => Permission::class]);
     }
 
     public function resetFilters(): void

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Enums\Permission;
 use App\Models\Vehicle;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -21,6 +22,6 @@ class Card extends Component
     #[On('expense::create')]
     public function render(): View
     {
-        return view('livewire.vehicle.card');
+        return view('livewire.vehicle.card', ['permission' => Permission::class]);
     }
 }

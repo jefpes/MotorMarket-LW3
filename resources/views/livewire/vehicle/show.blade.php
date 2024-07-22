@@ -90,11 +90,11 @@
     </dl>
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
-    @can('expense_create')
+    @can($permission::VEHICLE_EXPENSE_CREATE->value)
       <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}"/>
     @endcan
     <x-secondary-button :href="route('vehicle')" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    @can('vehicle_update')
+    @can($permission::VEHICLE_UPDATE->value)
       <x-primary-button :href="route('vehicle.edit', $vehicle->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
@@ -114,7 +114,7 @@
         {{ __('Download') }}
       </x-primary-button>
 
-      @can('vphoto_delete')
+      @can($permission::VEHICLE_PHOTO_DELETE->value)
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>

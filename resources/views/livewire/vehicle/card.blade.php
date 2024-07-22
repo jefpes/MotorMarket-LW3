@@ -11,7 +11,7 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Purchase Date') }}: </span> <x-span-date :date="$vehicle->purchase_date" /> </p>
       </div>
-      @can('vehicle_create')
+      @can($permission::VEHICLE_CREATE->value)
         <div class="flex">
           <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Purchase Price') }}: </span> <x-span-money class="py-4" :money="$vehicle->purchase_price" /> </p>
         </div>
@@ -48,17 +48,17 @@
       </div>
     </div>
   </div>
-  @canany(['vehicle_update', 'vehicle_delete'])
+  @canany([$permission::VEHICLE_UPDATE->value, $permission::VEHICLE_DELETE->value])
     <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
-      @can('vexpense_create')
+      @can($permission::VEHICLE_EXPENSE_CREATE->value)
         <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" wire:key="expense_{{ $vehicle->id }}" />
       @endcan
 
-      @can('vehicle_update')
+      @can($permission::VEHICLE_UPDATE->value)
         <x-secondary-button :href="route('vehicle.edit', $vehicle->id)" wire:navigate> {{ __('Edit') }} </x-secondary-button>
       @endcan
 
-      @can('vehicle_delete')
+      @can($permission::VEHICLE_DELETE->value)
         <livewire:vehicle.delete :id="$vehicle->id" wire:key="delete_{{ $vehicle->id }}" />
       @endcan
 
