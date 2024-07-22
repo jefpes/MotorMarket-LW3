@@ -28,13 +28,15 @@
   <div>
     <x-table.table>
       <x-slot:thead>
-        @foreach ($thead as $h)
-          @if ($h == 'actions')
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
             @canany([$permission::VEHICLE_MODEL_UPDATE->value, $permission::VEHICLE_MODEL_DELETE->value])
-              <x-table.th> {{ __($h) }} </x-table.th>
+              <x-table.th> {{ __($h->head) }} </x-table.th>
             @endcanany
           @else
-            <x-table.th> {{ __($h)}} </x-table.th>
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
           @endif
         @endforeach
       </x-slot:thead>
@@ -42,8 +44,8 @@
         @forelse ($this->vmodels as $vm)
           <x-table.tr wire:key="{{ $vm->id }}">
             <x-table.td> {{ $vm->name }} </x-table.td>
-            <x-table.td> {{ $vm->brand->name }} </x-table.td>
-            <x-table.td> {{ $vm->type->name }} </x-table.td>
+            <x-table.td> {{ $vm->brand }} </x-table.td>
+            <x-table.td> {{ $vm->type }} </x-table.td>
             @canany([$permission::VEHICLE_MODEL_UPDATE->value, $permission::VEHICLE_MODEL_DELETE->value])
               <x-table.td>
                 <div class="flex flex-row gap-2 justify-center">
