@@ -67,15 +67,15 @@ class Index extends Component
     public function expenses(): LengthAwarePaginator
     {
         return VehicleExpense::join('vehicles', 'vehicle_expenses.vehicle_id', '=', 'vehicles.id')
-              ->join('users', 'vehicle_expenses.user_id', '=', 'users.id')
-              ->select('vehicle_expenses.*', 'vehicles.plate', 'users.name')
-              ->orderBy($this->sortColumn, $this->sortDirection)
-              ->when($this->plate, fn (Builder $q) => $q->where('vehicles.plate', 'like', "%$this->plate%"))
-              ->when($this->date_i, fn (Builder $q) => $q->where('date', '>=', $this->date_i))
-              ->when($this->date_e, fn (Builder $q) => $q->where('date', '<=', $this->date_e))
-              ->when($this->value_min, fn (Builder $q) => $q->where('value', '>=', $this->value_min))
-              ->when($this->value_max, fn (Builder $q) => $q->where('value', '<=', $this->value_max))
-              ->paginate($this->perPage);
+                ->join('users', 'vehicle_expenses.user_id', '=', 'users.id')
+                ->select('vehicle_expenses.*', 'vehicles.plate', 'users.name')
+                ->orderBy($this->sortColumn, $this->sortDirection)
+                ->when($this->plate, fn (Builder $q) => $q->where('vehicles.plate', 'like', "%$this->plate%"))
+                ->when($this->date_i, fn (Builder $q) => $q->where('date', '>=', $this->date_i))
+                ->when($this->date_e, fn (Builder $q) => $q->where('date', '<=', $this->date_e))
+                ->when($this->value_min, fn (Builder $q) => $q->where('value', '>=', $this->value_min))
+                ->when($this->value_max, fn (Builder $q) => $q->where('value', '<=', $this->value_max))
+                ->paginate($this->perPage);
     }
 
     public function resetFilters(): void
