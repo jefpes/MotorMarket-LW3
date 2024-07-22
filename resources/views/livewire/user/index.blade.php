@@ -23,16 +23,17 @@
 
   <x-table.table>
     <x-slot:thead>
-      @foreach ($theader as $h)
-        @if ($h == 'actions')
-          @canany([$permission::USER_UPDATE->value, $permission::USER_DELETE->value, $permission::ADMIN->value])
-            <x-table.th> {{ __($h) }} </x-table.th>
-          @endcanany
-        @else
-          <x-table.th> {{ __($h)}} </x-table.th>
-        @endif
-
-      @endforeach
+      @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
+            @canany([$permission::VEHICLE_EXPENSE_UPDATE->value, $permission::VEHICLE_EXPENSE_DELETE->value])
+              <x-table.th> {{ __($h->head) }} </x-table.th>
+            @endcanany
+          @else
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
+          @endif
+        @endforeach
     </x-slot:thead>
     <x-slot:tbody>
       @forelse ($this->users->items() as $u)
