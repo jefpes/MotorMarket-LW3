@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleModel;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleModelForm;
 use App\Models\VehicleType;
 use App\Traits\Toast;
@@ -43,7 +44,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('vmodel_create');
+        $this->authorize(Permission::VEHICLE_MODEL_CREATE->value);
 
         $this->dispatch('vmodel::refresh');
         $this->form->save();

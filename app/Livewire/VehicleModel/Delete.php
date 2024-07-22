@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleModel;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleModelForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -30,7 +31,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('vmodel_delete');
+        $this->authorize(Permission::VEHICLE_MODEL_DELETE->value);
 
         try {
             $this->form->destroy();

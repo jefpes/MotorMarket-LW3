@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleModel;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleModelForm;
 use App\Models\VehicleType;
 use App\Models\{Brand, VehicleModel};
@@ -32,8 +33,9 @@ class Index extends Component
     public function render(): View
     {
         return view('livewire.vehicle-model.index', [
-            'brands' => Brand::orderBy('name')->get(),
-            'types'  => VehicleType::orderBy('name')->get(),
+            'brands'     => Brand::orderBy('name')->get(),
+            'types'      => VehicleType::orderBy('name')->get(),
+            'permission' => Permission::class,
         ]);
     }
 
