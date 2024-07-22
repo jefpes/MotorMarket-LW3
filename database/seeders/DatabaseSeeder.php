@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\{Ability, City, User};
+use App\Models\{Ability, User};
+use App\Utilities\Permission;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
+        // Criar o usuário 'master'
         $user = User::create([
             'name'              => 'master',
             'email'             => 'master@admin.com',
@@ -24,60 +26,22 @@ class DatabaseSeeder extends Seeder
             'remember_token'    => Str::random(10),
         ]);
 
+        // Criar a role 'master'
         $role = $user->roles()->create([
             'name'      => 'master',
             'hierarchy' => 0,
         ]);
 
-        $role->abilities()->createMany([
-            ['name' => 'admin'],
-            ['name' => 'user_create'],
-            ['name' => 'user_read'],
-            ['name' => 'user_update'],
-            ['name' => 'user_delete'],
-            ['name' => 'brand_create'],
-            ['name' => 'brand_read'],
-            ['name' => 'brand_update'],
-            ['name' => 'brand_delete'],
-            ['name' => 'vmodel_create'],
-            ['name' => 'vmodel_read'],
-            ['name' => 'vmodel_update'],
-            ['name' => 'vmodel_delete'],
-            ['name' => 'vtype_create'],
-            ['name' => 'vtype_read'],
-            ['name' => 'vtype_update'],
-            ['name' => 'vtype_delete'],
-            ['name' => 'vehicle_create'],
-            ['name' => 'vehicle_read'],
-            ['name' => 'vehicle_update'],
-            ['name' => 'vehicle_delete'],
-            ['name' => 'vphoto_delete'],
-            ['name' => 'city_create'],
-            ['name' => 'city_read'],
-            ['name' => 'city_update'],
-            ['name' => 'city_delete'],
-            ['name' => 'client_create'],
-            ['name' => 'client_read'],
-            ['name' => 'client_update'],
-            ['name' => 'client_delete'],
-            ['name' => 'cphoto_delete'],
-            ['name' => 'sale_create'],
-            ['name' => 'sale_read'],
-            ['name' => 'sale_cancel'],
-            ['name' => 'installment_read'],
-            ['name' => 'payment_receive'],
-            ['name' => 'payment_undo'],
-            ['name' => 'company_update'],
-            ['name' => 'vexpense_create'],
-            ['name' => 'vexpense_read'],
-            ['name' => 'vexpense_update'],
-            ['name' => 'vexpense_delete'],
-            ['name' => 'employee_create'],
-            ['name' => 'employee_read'],
-            ['name' => 'employee_update'],
-            ['name' => 'employee_delete'],
-            ['name' => 'ephoto_delete'],
-        ]);
+        // Obter todos os métodos públicos da classe Permission
+        $permissionMethods = get_class_methods(Permission::class);
+
+        // Criar as permissões
+        $permissions = array_map(function ($method) {
+            return ['name' => Permission::$method()];
+        }, $permissionMethods);
+
+        // Associar as permissões à role
+        $role->abilities()->createMany($permissions);
 
         $user = User::create([
             'name'              => 'admin',
@@ -94,9 +58,7 @@ class DatabaseSeeder extends Seeder
 
         $role->abilities()->sync(Ability::pluck('id')->toArray());
 
-        City::factory()->count(10)->create();
-
-        $this->call([BrandSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, CompanySeeder::class]);
+        $this->call([CitySeeder::class, BrandSeeder::class, VehicleTypeSeeder::class,  VehicleModelSeeder::class, CompanySeeder::class]);
         $this->call([ClientSeeder::class, VehicleSeeder::class, SalesSeeder::class, VehicleExpenseSeeder::class, EmployeeSeeder::class]);
     }
 }
