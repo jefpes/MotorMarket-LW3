@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Employee;
 
-use App\Enums\{Genders, MaritalStatus, States};
+use App\Enums\{Genders, MaritalStatus, Permission, States};
 use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotoForm};
 use App\Models\{City};
 use App\Traits\Toast;
@@ -29,7 +29,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('employee_create');
+        $this->authorize(Permission::EMPLOYEE_CREATE->value);
 
         $this->employee->validate();
         $this->employeeAddress->validate();

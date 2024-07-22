@@ -144,7 +144,7 @@
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
     <x-secondary-button :href="route('client')" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    @can('client_update')
+    @can($permission::CLIENT_UPDATE->value)
       <x-primary-button :href="route('client.edit', $client->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
@@ -164,7 +164,7 @@
         {{ __('Download') }}
       </x-primary-button>
 
-      @can('cphoto_delete')
+      @can($permission::CLIENT_PHOTO_DELETE->value)
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\{EmployeeForm};
 use App\Models\{Employee};
 use App\Traits\Toast;
@@ -24,7 +25,7 @@ class Delete extends Component
 
     public function render(): View
     {
-        return view('livewire.employee.delete');
+        return view('livewire.employee.delete', ['permission' => Permission::class]);
     }
 
     #[On('employee::deleting')]
@@ -44,7 +45,7 @@ class Delete extends Component
 
     public function dismissRetain(bool $dismiss): void
     {
-        $this->authorize('employee_delete');
+        $this->authorize(Permission::EMPLOYEE_DELETE->value);
 
         $resignationDate = $dismiss ? now() : null;
         $activeStatus    = $dismiss ? false : true;

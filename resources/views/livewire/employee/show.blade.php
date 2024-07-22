@@ -165,7 +165,7 @@
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
     <x-secondary-button :href="route('employee')" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    @can('client_update')
+    @can($permission::EMPLOYEE_UPDATE->value)
       <x-primary-button :href="route('employee.edit', $employee->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
@@ -181,7 +181,7 @@
 
       <x-primary-button wire:click="download" class="ms-3"> {{ __('Download') }} </x-primary-button>
 
-      @can('ephoto_delete')
+      @can($permission::EMPLOYEE_PHOTO_DELETE->value)
         <x-danger-button wire:click="destroy" class="ms-3"> {{ __('Delete') }} </x-danger-button>
       @endcan
     </x-slot:footer>

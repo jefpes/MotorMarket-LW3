@@ -2,11 +2,10 @@
   <x-slot name="header">{{ __($header) }}</x-slot>
   <div class="flex flex-row flex-wrap md:flex-nowrap w-full mb-4 gap-x-2 gap-y-2">
     <div class="w-full flex-1">
-      <x-form.input name="search" type="text" placeholder="Search" :messages="$errors->get('search')"
-        wire:model.live.debounce.800="search" class="w-full" />
+      <x-form.input name="search" type="text" placeholder="Search" wire:model.live.debounce.800="search" class="w-full" />
     </div>
 
-    @can('employee_create')
+    @can($permission::EMPLOYEE_CREATE->value)
     <div class="gap-2 flex flex-0">
       <x-primary-button :href="route('employee.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
     </div>
@@ -18,7 +17,7 @@
     <x-slot:thead>
       @foreach ($theader as $h)
         @if ($h == 'Actions')
-          @canany(['employee_update', 'employee_delete'])
+          @canany([$permission::EMPLOYEE_UPDATE->value, $permission::EMPLOYEE_DELETE->value])
             <x-table.th> {{ __($h) }} </x-table.th>
           @endcanany
           @else
@@ -35,21 +34,21 @@
           <x-table.td> {{ $data->phone_one }} </x-table.td>
           <x-table.td> <x-span-date :date="$data->birth_date" /></x-table.td>
 
-          @canany(['employee_delete', 'employee_update'])
+          @canany([$permission::EMPLOYEE_DELETE->value, $permission::EMPLOYEE_UPDATE->value])
           <x-table.td>
             <div class="flex flex-row gap-2 justify-center">
 
               <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $data->id }}"
                 href="{{ route('employee.show', $data->id) }}" wire:navigate />
 
-              @can('employee_update')
+              @can($permission::EMPLOYEE_UPDATE->value)
                 @if (!$data->resignation_date)
                   <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}"
                     href="{{ route('employee.edit', $data->id) }}" wire:navigate />
                 @endif
               @endcan
 
-              @can('employee_delete')
+              @can($permission::EMPLOYEE_DELETE->value)
                 @if ($data->resignation_date)
                   <x-icons.recycle class="cursor-pointer text-2xl flex text-green-600 w-8 h-8" id="btn-dismiss-{{ $data->id }}"
                     wire:click="$dispatch('employee::deleting', { id: {{ $data->id }} })" />

@@ -29,7 +29,7 @@ class Show extends Component
 
     public function render(): View
     {
-        return view('livewire.client.show');
+        return view('livewire.client.show', ['permission' => Permission::class]);
     }
 
     public function cancel(): void

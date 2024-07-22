@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Employee;
 
-use App\Enums\{Genders, MaritalStatus, States};
+use App\Enums\{Genders, MaritalStatus, Permission, States};
 use App\Livewire\Forms\{EmployeeAddressForm, EmployeeForm, EmployeePhotoForm};
 use App\Models\{City, Employee};
 use App\Traits\Toast;
@@ -37,7 +37,7 @@ class Update extends Component
 
     public function save(): void
     {
-        $this->authorize('employee_update');
+        $this->authorize(Permission::EMPLOYEE_UPDATE->value);
 
         $this->employee->validate();
         $this->employeeAddress->validate();
