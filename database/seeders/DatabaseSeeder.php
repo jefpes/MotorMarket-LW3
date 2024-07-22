@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Permission;
 use App\Models\{Ability, User};
-use App\Utilities\Permission;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -32,16 +32,9 @@ class DatabaseSeeder extends Seeder
             'hierarchy' => 0,
         ]);
 
-        // Obter todos os métodos públicos da classe Permission
-        $permissionMethods = get_class_methods(Permission::class);
-
-        // Criar as permissões
-        $permissions = array_map(function ($method) {
-            return ['name' => Permission::$method()];
-        }, $permissionMethods);
-
-        // Associar as permissões à role
-        $role->abilities()->createMany($permissions);
+        foreach (Permission::cases() as $permission) {
+            $role->abilities()->create(['name' => $permission->value]);
+        }
 
         $user = User::create([
             'name'              => 'admin',

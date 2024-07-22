@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\Permission;
 use App\Livewire\Actions\Logout;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Computed;
@@ -32,21 +33,20 @@ class Navigation extends Component
     public function navs(): array
     {
         return [
-            (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => 'admin', 'isActive' => request()->routeIs('dashboard')],
-            (object)['route' => 'company', 'label' => 'Company', 'permission' => 'company_update', 'isActive' => request()->routeIs('company')],
-            (object)['route' => 'users', 'label' => 'Users', 'permission' => 'user_read', 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
-            (object)['route' => 'roles', 'label' => 'Roles', 'permission' => 'admin', 'isActive' => request()->routeIs('roles', 'ability.role')],
-            (object)['route' => 'brand', 'label' => 'Brands', 'permission' => 'brand_read', 'isActive' => request()->routeIs('brand')],
-            (object)['route' => 'vtype', 'label' => 'Vehicle Type', 'permission' => 'vtype_read', 'isActive' => request()->routeIs('vtype')],
-            (object)['route' => 'vmodel', 'label' => 'Vehicle Model', 'permission' => 'vmodel_read', 'isActive' => request()->routeIs('vmodel')],
-            (object)['route' => 'vehicle', 'label' => 'Vehicles', 'permission' => 'vehicle_read', 'isActive' => request()->routeIs('vehicle', 'vehicle.create', 'vehicle.edit', 'vehicle.show')],
-            (object)['route' => 'city', 'label' => 'Cities', 'permission' => 'city_read', 'isActive' => request()->routeIs('city')],
-            (object)['route' => 'client', 'label' => 'Clients', 'permission' => 'client_read', 'isActive' => request()->routeIs('client', 'client.create', 'client.edit', 'client.show')],
-            (object)['route' => 'employee', 'label' => 'Employees', 'permission' => 'employee_read', 'isActive' => request()->routeIs('employee', 'employee.create', 'employee.edit', 'employee.show')],
-            (object)['route' => 'sales', 'label' => 'Sales', 'permission' => 'sale_read', 'isActive' => request()->routeIs('sales', 'sale.create')],
-            (object)['route' => 'installments', 'label' => 'Installments', 'permission' => 'installment_read', 'isActive' => request()->routeIs('installments', 'sale.installments')],
-            (object)['route' => 'vehicle-expense', 'label' => 'Expenses', 'permission' => 'vexpense_read', 'isActive' => request()->routeIs('vehicle-expense')],
+            (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => Permission::ADMIN->value, 'isActive' => request()->routeIs('dashboard')],
+            (object)['route' => 'company', 'label' => 'Company', 'permission' => Permission::COMPANY_UPDATE->value, 'isActive' => request()->routeIs('company')],
+            (object)['route' => 'users', 'label' => 'Users', 'permission' => Permission::USER_READ->value, 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
+            (object)['route' => 'roles', 'label' => 'Roles', 'permission' => Permission::ADMIN->value, 'isActive' => request()->routeIs('roles', 'ability.role')],
+            (object)['route' => 'brand', 'label' => 'Brands', 'permission' => Permission::BRAND_READ->value, 'isActive' => request()->routeIs('brand')],
+            (object)['route' => 'vtype', 'label' => 'Vehicle Type', 'permission' => Permission::VEHICLE_TYPE_READ->value, 'isActive' => request()->routeIs('vtype')],
+            (object)['route' => 'vmodel', 'label' => 'Vehicle Model', 'permission' => Permission::VEHICLE_MODEL_READ->value, 'isActive' => request()->routeIs('vmodel')],
+            (object)['route' => 'vehicle', 'label' => 'Vehicles', 'permission' => Permission::VEHICLE_READ->value, 'isActive' => request()->routeIs('vehicle', 'vehicle.create', 'vehicle.edit', 'vehicle.show')],
+            (object)['route' => 'city', 'label' => 'Cities', 'permission' => Permission::CITY_READ->value, 'isActive' => request()->routeIs('city')],
+            (object)['route' => 'client', 'label' => 'Clients', 'permission' => Permission::CLIENT_READ->value, 'isActive' => request()->routeIs('client', 'client.create', 'client.edit', 'client.show')],
+            (object)['route' => 'employee', 'label' => 'Employees', 'permission' => Permission::EMPLOYEE_READ->value, 'isActive' => request()->routeIs('employee', 'employee.create', 'employee.edit', 'employee.show')],
+            (object)['route' => 'sales', 'label' => 'Sales', 'permission' => Permission::SALE_READ->value, 'isActive' => request()->routeIs('sales', 'sale.create')],
+            (object)['route' => 'installments', 'label' => 'Installments', 'permission' => Permission::INSTALLMENT_READ->value, 'isActive' => request()->routeIs('installments', 'sale.installments')],
+            (object)['route' => 'vehicle-expense', 'label' => 'Expenses', 'permission' => Permission::VEHICLE_EXPENSE_READ->value, 'isActive' => request()->routeIs('vehicle-expense')],
         ];
     }
-
 }
