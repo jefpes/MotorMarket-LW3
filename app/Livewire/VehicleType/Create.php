@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleType;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleTypeForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -30,7 +31,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('vtype_create');
+        $this->authorize(Permission::VEHICLE_TYPE_CREATE->value);
 
         $this->dispatch('vtype::refresh');
         $this->form->save();

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleType;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleTypeForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -32,7 +33,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('vtype_delete');
+        $this->authorize(Permission::VEHICLE_TYPE_DELETE->value);
 
         try {
             $this->form->destroy();
