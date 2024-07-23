@@ -3,7 +3,7 @@
 
   @can($permission::ADMIN->value)
     <div class="flex justify-end pb-4">
-      <livewire:role.create>
+        <x-primary-button type='button' wire:click="$dispatch('role::creating')" class="text-[1em] tracking-normal"> {{ __('New Role') }} </x-primary-button>
     </div>
   @endcan
 
@@ -43,6 +43,8 @@
       </x-slot:tbody>
     </x-table.table>
   </div>
-  <livewire:role.delete />
+
+  <livewire:role.create />
   <livewire:role.update />
+  <livewire:role.delete />
 </div>

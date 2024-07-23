@@ -60,6 +60,9 @@
   "Vehicle model updated successfully": "Modelo de veículo atualizado com sucesso",
   "City created successfully": "Cidade criada com sucesso",
   "City updated successfully": "Cidade atualizada com sucesso",
+  "Role updated successfully": "Função atualizada com sucesso",
+  "Role created successfully": "Função criada com sucesso",
+  "Select a hierarchy level": "Selecione um nível de hierarquia",
 
   "Brands": "Marcas",
   "brand": "Marca",

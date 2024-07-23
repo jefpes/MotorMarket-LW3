@@ -7,6 +7,7 @@ use App\Livewire\Forms\RoleForm;
 use App\Models\{Role, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -17,15 +18,23 @@ class Create extends Component
 
     public bool $modal = false;
 
+    public ?string $title = 'Create Role';
+
     public function render(): View
     {
-        return view('livewire.role.create');
+        return view('livewire.role.create-update');
     }
 
     public function cancel(): void
     {
         $this->form->reset();
         $this->reset('modal');
+    }
+
+    #[On('role::creating')]
+    public function creating(): void
+    {
+        $this->modal = true;
     }
 
     public function save(): void

@@ -21,9 +21,11 @@ class Update extends Component
 
     public bool $modal = false;
 
+    public ?string $title = 'Edit Role';
+
     public function render(): View
     {
-        return view('livewire.role.update');
+        return view('livewire.role.create-update');
     }
 
     #[On('role::editing')]
