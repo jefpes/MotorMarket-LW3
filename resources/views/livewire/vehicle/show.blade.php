@@ -13,6 +13,11 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{  __('Purchase Date') }}: </span> <x-span-date :date="$vehicle->purchase_date" /> </p>
       </div>
+      @if ($vehicle->fipe_price)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Fipe Price') }}: </span> <x-span-money class="py-4" :money="$vehicle->fipe_price" /> </p>
+        </div>
+      @endif
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Purchase Price') }}: </span> <x-span-money class="py-4" :money="$vehicle->purchase_price" /> </p>
       </div>
@@ -24,6 +29,11 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Sale Price') }}: </span> <x-span-money class="py-4" :money="$vehicle->sale_price" /> </p>
       </div>
+      @if ($vehicle->promotional_price)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Promotional Price') }}: </span> <x-span-money class="py-4" :money="$vehicle->promotional_price" /> </p>
+        </div>
+      @endif
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Type') }}: </span> {{ $vehicle->model->type->name ?? '' }} </p>
       </div>
