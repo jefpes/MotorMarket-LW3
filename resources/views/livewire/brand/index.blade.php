@@ -21,7 +21,7 @@
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
-        @foreach ($this->data as $d)
+        @forelse ($this->data as $d)
         <x-table.tr>
           <x-table.td> {{ $d->name }} </x-table.td>
           @canany([$permissions::BRAND_UPDATE->value, $permissions::BRAND_DELETE->value])
@@ -39,7 +39,9 @@
           </x-table.td>
           @endcanany
         </x-table.tr>
-        @endforeach
+        @empty
+          <x-table.tr-no-register :cols="count($this->table)" />
+        @endforelse
       </x-slot:tbody>
     </x-table.table>
   </div>

@@ -8,16 +8,20 @@
   <div>
     <x-table.table>
       <x-slot:thead>
-        @foreach ($thead as $h)
-          @if ($h == 'Actions')
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
             @canany([$permission::CITY_UPDATE->value, $permission::CITY_DELETE->value])
-              <x-table.th> {{ __($h) }} </x-table.th>
+              <x-table.th> {{ __($h->head) }} </x-table.th>
             @endcanany
-          @else <x-table.th> {{ __($h) }} </x-table.th> @endif
+          @else
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
+          @endif
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
-        @foreach ($this->data as $d)
+        @forelse ($this->data as $d)
           <x-table.tr>
             <x-table.td> {{ $d->name }} </x-table.td>
             @canany([$permission::CITY_UPDATE->value, $permission::CITY_DELETE->value])
@@ -33,7 +37,9 @@
               </x-table.td>
             @endcanany
           </x-table.tr>
-        @endforeach
+          @empty
+            <x-table.tr-no-register :cols="count($thead)" />
+        @endforelse
       </x-slot:tbody>
     </x-table.table>
   </div>

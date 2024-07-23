@@ -75,7 +75,7 @@
           @endcanany
         </x-table.tr>
         @empty
-          <x-table.tr-no-register :cols="count($theader)" />
+          <x-table.tr-no-register :cols="count($this->table)" />
         @endforelse
       </x-slot>
     </x-table.table>
@@ -95,7 +95,7 @@
       </div>
 
       <div class="flex-0">
-        <x-form.input type="date" class="w-full" name="city" label="Data" :messages="$errors->get('date')" wire:model.live="date" />
+        <x-form.input type="date" class="w-full" name="date" label="Data" :messages="$errors->get('date')" wire:model.live="date" />
       </div>
     </div>
 
@@ -135,7 +135,7 @@
       </div>
 
 
-      <x-form.input class="w-full" label="Sold after of" type="date" name="date_ini" wire:model.live='date_ini' />
+      <x-form.date-input class="w-full" label="Sold after of" name="date_ini" wire:model.live='date_ini' />
 
       <x-form.input class="w-full" label="Sold after of" type="date" name="date_end" wire:model.live='date_end' />
     </div>
