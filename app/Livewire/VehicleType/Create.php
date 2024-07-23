@@ -6,6 +6,7 @@ use App\Enums\Permission;
 use App\Livewire\Forms\VehicleTypeForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -20,13 +21,21 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-type.create');
+        return view('livewire.vehicle-type.create-update');
     }
 
     public function cancel(): void
     {
         $this->reset('modal');
         $this->form->reset();
+    }
+
+    #[On('vtype::creating')]
+    public function creating(): void
+    {
+        $this->authorize(Permission::VEHICLE_TYPE_UPDATE->value);
+
+        $this->modal = true;
     }
 
     public function save(): void

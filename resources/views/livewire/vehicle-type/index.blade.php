@@ -2,7 +2,7 @@
   <x-slot:header> {{ __($header) }} </x-slot:header>
   @can($permission::VEHICLE_TYPE_CREATE->value)
     <div class="flex justify-end pb-4">
-      <livewire:brand.create/>
+      <x-primary-button type='button' wire:click="$dispatch('vtype::creating')" class="text-[1em] tracking-normal"> {{ __('New') }} </x-primary-button>
     </div>
   @endcan
   <div>
@@ -29,10 +29,10 @@
               <x-table.td>
                 <div class="flex flex-row gap-2 justify-center">
                   @can($permission::VEHICLE_TYPE_UPDATE->value)
-                    <x-icons.edit wire:click="$dispatch('brand::editing', { id: {{ $d->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />
+                    <x-icons.edit wire:click="$dispatch('vtype::editing', { id: {{ $d->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />
                   @endcan
                   @can($permission::VEHICLE_TYPE_DELETE->value)
-                    <x-icons.delete wire:click="$dispatch('brand::deleting', { id: {{ $d->id }} })" class="cursor-pointer flex text-red-500 w-8 h-8" />
+                    <x-icons.delete wire:click="$dispatch('vtype::deleting', { id: {{ $d->id }} })" class="cursor-pointer flex text-red-500 w-8 h-8" />
                   @endcan
                 </div>
               </x-table.td>
@@ -43,6 +43,7 @@
     </x-table.table>
   </div>
 
-  <livewire:brand.update />
-  <livewire:brand.delete />
+  <livewire:vehicle-type.create />
+  <livewire:vehicle-type.update />
+  <livewire:vehicle-type.delete />
 </div>
