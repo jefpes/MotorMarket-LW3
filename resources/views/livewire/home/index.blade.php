@@ -20,7 +20,12 @@
             <div class="pt-3 flex items-center justify-between">
               <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
             </div>
-            <p class="pt-1"><x-span-money class="py-4" :money="$v->sale_price" /></p>
+            @if ($v->promotional_price)
+              <p class="pt-1"><x-span-money class="line-through py-4" :money="$v->sale_price" /></p>
+              <p class="pt-1"><x-span-money class="py-4" :money="$v->promotional_price" /></p>
+            @else
+              <p class="pt-1"><x-span-money class="py-4" :money="$v->sale_price" /></p>
+            @endif
           </a>
         </div>
       @endforeach
