@@ -14,8 +14,9 @@
     </nav>
     <div class="flex flex-wrap gap-4 py-2 w-full">
       @foreach ($this->vehicles as $v)
-        <div class="w-full sm:w-[48%] md:w-[30%] xl:w-[24%] p-1 rounded-md border-2 border-gray-300 dark:border-gray-600">
-          <a href="{{ route('show.v', $v->id) }}">
+      <div class="w-full sm:w-[48%] md:w-[30%] xl:w-[24%] p-1">
+          <livewire:home.card :vehicle="$v" :key="$v->id" />
+          {{-- <a href="{{ route('show.v', $v->id) }}">
             <img class="hover:grow hover:shadow-lg w-full sm:w-auto sm:h-60 rounded-md" src="{{ $v->photos->first()->path }}">
             <div class="pt-3 flex items-center justify-between">
               <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
@@ -26,7 +27,7 @@
             @else
               <p class="pt-1"><x-span-money class="py-4" :money="$v->sale_price" /></p>
             @endif
-          </a>
+          </a> --}}
         </div>
       @endforeach
     </div>
