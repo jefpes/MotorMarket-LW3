@@ -89,27 +89,29 @@
 
     <x-table.table>
       <x-slot:thead>
-        @foreach ($theader as $h)
-        @if ($h == 'Actions')
-        @canany([$permission::PAYMENT_RECEIVE->value, $permission::PAYMENT_UNDO->value])
-        <x-table.th> {{ __($h) }} </x-table.th>
-        @endcanany
-        @else
-        <x-table.th> {{ __($h) }} </x-table.th>
-        @endif
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
+            @canany([$permission::PAYMENT_RECEIVE->value, $permission::PAYMENT_UNDO->value])
+              <x-table.th> {{ __($h->head) }} </x-table.th>
+            @endcanany
+          @else
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
+          @endif
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
         @forelse ($this->installments as $i)
         <x-table.tr>
-          <x-table.td> {{ $i->sale->client->name }} </x-table.td>
+          <x-table.td> {{ $i->client_name }} </x-table.td>
           <x-table.td> <x-span-date :date="$i->due_date" /> </x-table.td>
           <x-table.td> <x-span-money class="py-4" :money="$i->value" /> </x-table.td>
           <x-table.td> <x-span-date :date="$i->payment_date" /> </x-table.td>
           <x-table.td> {{ $i->payment_method ?? '' }} </x-table.td>
           <x-table.td> <x-span-money class="py-4" :money="$i->payment_value" /> </x-table.td>
           <x-table.td> {{ $i->status }} </x-table.td>
-          <x-table.td> {{ $i->user->name ?? '' }} </x-table.td>
+          <x-table.td> {{ $i->user_name ?? '' }} </x-table.td>
 
           @canany([$permission::PAYMENT_UNDO->value, $permission::PAYMENT_RECEIVE->value])
           <x-table.td>
