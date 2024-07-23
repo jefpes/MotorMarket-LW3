@@ -44,5 +44,5 @@
     </x-table.table>
   </div>
   <livewire:role.delete />
-  <livewire:role.edit />
+  <livewire:role.update />
 </div>

@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Locked, On};
 use Livewire\Component;
 
-class Edit extends Component
+class Update extends Component
 {
     use Toast;
 
@@ -23,7 +23,7 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.role.edit');
+        return view('livewire.role.update');
     }
 
     #[On('role::editing')]

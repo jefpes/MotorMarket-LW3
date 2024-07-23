@@ -14,7 +14,7 @@ Route::middleware(Localization::class)->group(function () {
 
     Route::get('/show/{id}', Home\Show::class)->name('show.v');
 
-    Route::get('/company', Company\Edit::class)->middleware(['auth', 'verified', 'can:company_update'])->name('company');
+    Route::get('/company', Company\Update::class)->middleware(['auth', 'verified', 'can:company_update'])->name('company');
 
     Route::get('dashboard', Dashboard::class)
         ->middleware(['auth', 'verified'])

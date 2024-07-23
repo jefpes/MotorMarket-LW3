@@ -8,7 +8,7 @@ use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class Edit extends Component
+class Update extends Component
 {
     use Toast;
 
