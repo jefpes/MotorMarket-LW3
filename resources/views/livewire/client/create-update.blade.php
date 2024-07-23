@@ -100,8 +100,7 @@
         <x-form.file-input name="photo" label="Photo" placeholder="Photo" wire:model="clientPhoto.photos" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="birth_date" label="Birth Date" type="date" placeholder="Birth Date"
-          :messages="$errors->get('client.birth_date')" wire:model="client.birth_date" class="w-full" />
+        <x-form.date-input name="birth_date" label="Birth Date" :messages="$errors->get('client.birth_date')" wire:model="client.birth_date" class="w-full" />
       </div>
     </div>
     <x-form.textarea name="description" label="Description" placeholder="Description"
