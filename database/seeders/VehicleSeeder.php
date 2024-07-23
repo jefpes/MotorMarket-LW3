@@ -14,6 +14,7 @@ class VehicleSeeder extends Seeder
     {
         Vehicle::create([
             'purchase_date'    => '2024-05-24',
+            'fipe_price'       => 48000.00,
             'purchase_price'   => 40000.00,
             'sale_price'       => 48000.00,
             'vehicle_model_id' => 26,
@@ -79,6 +80,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-04-02',
+            'fipe_price'       => 15000.00,
             'purchase_price'   => 11000.00,
             'sale_price'       => 15000.00,
             'vehicle_model_id' => 33,
@@ -127,21 +129,23 @@ class VehicleSeeder extends Seeder
         ]);
 
         Vehicle::create([
-            'purchase_date'    => '2024-05-01',
-            'purchase_price'   => 10500.00,
-            'sale_price'       => 14000.00,
-            'vehicle_model_id' => 33,
-            'year_one'         => 2015,
-            'year_two'         => 2015,
-            'km'               => 16000,
-            'fuel'             => 'FLEX',
-            'engine_power'     => '160cc',
-            'transmission'     => 'MANUAL',
-            'color'            => 'Preta',
-            'plate'            => 'AAA-0003',
-            'chassi'           => '000000003',
-            'renavam'          => '000000003',
-            'description'      => 'Veículo em ótimo estado de conservação.',
+            'purchase_date'     => '2024-05-01',
+            'fipe_price'        => 15000.00,
+            'purchase_price'    => 10500.00,
+            'sale_price'        => 14000.00,
+            'promotional_price' => 13500.00,
+            'vehicle_model_id'  => 33,
+            'year_one'          => 2015,
+            'year_two'          => 2015,
+            'km'                => 16000,
+            'fuel'              => 'FLEX',
+            'engine_power'      => '160cc',
+            'transmission'      => 'MANUAL',
+            'color'             => 'Preta',
+            'plate'             => 'AAA-0003',
+            'chassi'            => '000000003',
+            'renavam'           => '000000003',
+            'description'       => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
                 'photo_name' => 'bros-preta-2015-1.webp',
@@ -176,21 +180,23 @@ class VehicleSeeder extends Seeder
         ]);
 
         Vehicle::create([
-            'purchase_date'    => '2024-05-01',
-            'purchase_price'   => 10700.00,
-            'sale_price'       => 14000.00,
-            'vehicle_model_id' => 33,
-            'year_one'         => 2015,
-            'year_two'         => 2015,
-            'km'               => 16000,
-            'fuel'             => 'FLEX',
-            'engine_power'     => '160cc',
-            'transmission'     => 'MANUAL',
-            'color'            => 'Vermelha',
-            'plate'            => 'AAA-0004',
-            'chassi'           => '000000004',
-            'renavam'          => '000000004',
-            'description'      => 'Veículo em ótimo estado de conservação.',
+            'purchase_date'     => '2024-05-01',
+            'fipe_price'        => 15000.00,
+            'purchase_price'    => 10700.00,
+            'sale_price'        => 15000.00,
+            'promotional_price' => 14500.00,
+            'vehicle_model_id'  => 33,
+            'year_one'          => 2015,
+            'year_two'          => 2015,
+            'km'                => 16000,
+            'fuel'              => 'FLEX',
+            'engine_power'      => '160cc',
+            'transmission'      => 'MANUAL',
+            'color'             => 'Vermelha',
+            'plate'             => 'AAA-0004',
+            'chassi'            => '000000004',
+            'renavam'           => '000000004',
+            'description'       => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
                 'photo_name' => 'bros-vermelha-2015-1.webp',
@@ -225,25 +231,27 @@ class VehicleSeeder extends Seeder
         ]);
 
         Vehicle::create([
-            'purchase_date'    => '2024-06-01',
-            'purchase_price'   => 17000.00,
-            'sale_price'       => 23000.00,
-            'vehicle_model_id' => 37,
-            'year_one'         => 2012,
-            'year_two'         => 2012,
-            'km'               => 41000,
-            'fuel'             => 'FLEX',
-            'engine_power'     => '1.0',
-            'steering'         => 'HIDRÁULICA',
-            'transmission'     => 'MANUAL',
-            'doors'            => '4',
-            'seats'            => '5',
-            'traction'         => '4X2',
-            'color'            => 'Preto',
-            'plate'            => 'AAA-0005',
-            'renavam'          => '000000005',
-            'chassi'           => '000000005',
-            'description'      => 'Veículo em ótimo estado de conservação.',
+            'purchase_date'     => '2024-06-01',
+            'fipe_price'        => 23000.00,
+            'purchase_price'    => 17000.00,
+            'sale_price'        => 23000.00,
+            'promotional_price' => 22000.00,
+            'vehicle_model_id'  => 37,
+            'year_one'          => 2012,
+            'year_two'          => 2012,
+            'km'                => 41000,
+            'fuel'              => 'FLEX',
+            'engine_power'      => '1.0',
+            'steering'          => 'HIDRÁULICA',
+            'transmission'      => 'MANUAL',
+            'doors'             => '4',
+            'seats'             => '5',
+            'traction'          => '4X2',
+            'color'             => 'Preto',
+            'plate'             => 'AAA-0005',
+            'renavam'           => '000000005',
+            'chassi'            => '000000005',
+            'description'       => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
                 'photo_name' => 'celta-preto-2012-1.webp',
@@ -291,6 +299,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-04-03',
+            'fipe_price'       => 23000.00,
             'purchase_price'   => 19000.00,
             'sale_price'       => 23000.00,
             'vehicle_model_id' => 37,
@@ -356,6 +365,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-03-01',
+            'fipe_price'       => 112000.00,
             'purchase_price'   => 90000.00,
             'sale_price'       => 110000.00,
             'vehicle_model_id' => 26,
@@ -414,25 +424,27 @@ class VehicleSeeder extends Seeder
         ]);
 
         Vehicle::create([
-            'purchase_date'    => '2024-03-22',
-            'purchase_price'   => 70000.00,
-            'sale_price'       => 81000.00,
-            'vehicle_model_id' => 26,
-            'year_one'         => 2016,
-            'year_two'         => 2017,
-            'km'               => 40123,
-            'fuel'             => 'FLEX',
-            'engine_power'     => '2.0',
-            'steering'         => 'HIDRÁULICA',
-            'transmission'     => 'AUTOMÁTICA',
-            'doors'            => '4',
-            'seats'            => '5',
-            'traction'         => '4X2',
-            'color'            => 'Vermelho',
-            'plate'            => 'AAA-0008',
-            'renavam'          => '000000008',
-            'chassi'           => '000000008',
-            'description'      => 'Veículo em ótimo estado de conservação.',
+            'purchase_date'     => '2024-03-22',
+            'fipe_price'        => 81000.00,
+            'purchase_price'    => 70000.00,
+            'sale_price'        => 81000.00,
+            'promotional_price' => 80000.00,
+            'vehicle_model_id'  => 26,
+            'year_one'          => 2016,
+            'year_two'          => 2017,
+            'km'                => 40123,
+            'fuel'              => 'FLEX',
+            'engine_power'      => '2.0',
+            'steering'          => 'HIDRÁULICA',
+            'transmission'      => 'AUTOMÁTICA',
+            'doors'             => '4',
+            'seats'             => '5',
+            'traction'          => '4X2',
+            'color'             => 'Vermelho',
+            'plate'             => 'AAA-0008',
+            'renavam'           => '000000008',
+            'chassi'            => '000000008',
+            'description'       => 'Veículo em ótimo estado de conservação.',
         ])->photos()->createMany([
             [
                 'photo_name' => 'corrola-vermelho-2016-1.webp',
@@ -468,6 +480,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-05-01',
+            'fipe_price'       => 15000.00,
             'purchase_price'   => 13000.00,
             'sale_price'       => 15000.00,
             'vehicle_model_id' => 35,
@@ -517,6 +530,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2023-12-25',
+            'fipe_price'       => 16000.00,
             'purchase_price'   => 12000.00,
             'sale_price'       => 15500.00,
             'vehicle_model_id' => 35,
@@ -566,6 +580,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-01-02',
+            'fipe_price'       => 40600.00,
             'purchase_price'   => 32000.00,
             'sale_price'       => 40000.00,
             'vehicle_model_id' => 13,
@@ -619,6 +634,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-01-04',
+            'fipe_price'       => 35000.00,
             'purchase_price'   => 28000.00,
             'sale_price'       => 35000.00,
             'vehicle_model_id' => 13,
@@ -672,6 +688,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-02-04',
+            'fipe_price'       => 152000.00,
             'purchase_price'   => 120000.00,
             'sale_price'       => 153000.00,
             'vehicle_model_id' => 27,
@@ -725,6 +742,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-05-30',
+            'fipe_price'       => 200000.00,
             'purchase_price'   => 160000.00,
             'sale_price'       => 180000.00,
             'vehicle_model_id' => 27,
@@ -784,6 +802,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-04-01',
+            'fipe_price'       => 40000.00,
             'purchase_price'   => 30000.00,
             'sale_price'       => 37000.00,
             'vehicle_model_id' => 23,
@@ -849,6 +868,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-05-08',
+            'fipe_price'       => 33000.00,
             'purchase_price'   => 25000.00,
             'sale_price'       => 33000.00,
             'vehicle_model_id' => 23,
@@ -902,6 +922,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-02-04',
+            'fipe_price'       => 21000.00,
             'purchase_price'   => 13000.00,
             'sale_price'       => 20000.00,
             'vehicle_model_id' => 36,
@@ -939,6 +960,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-01-03',
+            'fipe_price'       => 180000.00,
             'purchase_price'   => 120000.00,
             'sale_price'       => 165000.00,
             'vehicle_model_id' => 12,
@@ -992,6 +1014,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-02-01',
+            'fipe_price'       => 1340000.00,
             'purchase_price'   => 100000.00,
             'sale_price'       => 130000.00,
             'vehicle_model_id' => 12,
@@ -1051,6 +1074,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2023-11-12',
+            'fipe_price'       => 11500.00,
             'purchase_price'   => 8000.00,
             'sale_price'       => 11000.00,
             'vehicle_model_id' => 34,
@@ -1088,6 +1112,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2023-10-01',
+            'fipe_price'       => 12000.00,
             'purchase_price'   => 8500.00,
             'sale_price'       => 11000.00,
             'vehicle_model_id' => 34,
@@ -1131,6 +1156,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-02-03',
+            'fipe_price'       => 14000.00,
             'purchase_price'   => 10500.00,
             'sale_price'       => 13000.00,
             'vehicle_model_id' => 34,
@@ -1180,6 +1206,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-02-03',
+            'fipe_price'       => 18000.00,
             'purchase_price'   => 15000.00,
             'sale_price'       => 19000.00,
             'vehicle_model_id' => 38,
@@ -1223,6 +1250,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-03-03',
+            'fipe_price'       => 18000.00,
             'purchase_price'   => 15200.00,
             'sale_price'       => 19000.00,
             'vehicle_model_id' => 38,
@@ -1266,6 +1294,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-03-01',
+            'fipe_price'       => 20000.00,
             'purchase_price'   => 15500.00,
             'sale_price'       => 19000.00,
             'vehicle_model_id' => 39,
