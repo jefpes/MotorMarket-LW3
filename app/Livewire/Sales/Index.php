@@ -118,7 +118,7 @@ class Index extends Component
         return Sale::join('vehicles', 'vehicles.id', '=', 'sales.vehicle_id')
           ->join('clients', 'clients.id', '=', 'sales.client_id')
           ->join('users', 'users.id', '=', 'sales.user_id')
-          ->select('sales.*', 'vehicles.plate', 'clients.name as client_name', 'users.name as user_name')
+          ->select('sales.*', 'vehicles.plate as vehicle_plate', 'clients.name as client_name', 'users.name as user_name')
           ->when($this->plate, fn (Builder $q) => $q->where('vehicles.plate', 'like', "%{$this->plate}%"))
           ->when($this->client, fn (Builder $q) => $q->where('clients.name', 'like', "%{$this->client}%"))
           ->when($this->status, fn (Builder $q) => $q->where('sales.status', $this->status))

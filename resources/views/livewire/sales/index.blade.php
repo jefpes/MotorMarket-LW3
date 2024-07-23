@@ -43,13 +43,13 @@
       <x-slot name="tbody">
         @forelse ($this->sales->items() as $s)
         <x-table.tr>
-          <x-table.td> {{ $s->vehicle->plate }} </x-table.td>
+          <x-table.td> {{ $s->vehicle_plate }} </x-table.td>
           <x-table.td> {{ $s->client->name }} </x-table.td>
           <x-table.td> <x-span-date :date="$s->date_sale" /> </x-table.td>
           <x-table.td> <x-span-money class="py-4" :money="$s->total" /> </x-table.td>
           <x-table.td> {{ $s->status }} </x-table.td>
           <x-table.td> {{ $s->number_installments }} </x-table.td>
-          <x-table.td> {{ $s->user->name }} </x-table.td>
+          <x-table.td> {{ $s->user_name }} </x-table.td>
 
           @canany([$permission::SALE_CANCEL->value, $permission::INSTALLMENT_READ->value])
             <x-table.td>
