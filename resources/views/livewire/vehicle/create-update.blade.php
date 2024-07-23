@@ -4,7 +4,7 @@
   <div class="space-y-2">
     <div class="flex flex-col md:flex-row justify-between md:space-x-2 md:space-y-0 space-y-2">
       <div class="basis-1/3">
-        <x-form.input name="purchase_date" label="Purchase Date" type="date" placeholder="Purchase Date"
+        <x-form.date-input name="purchase_date" label="Purchase Date" placeholder="Purchase Date"
           :messages="$errors->get('vehicle.purchase_date')" wire:model="vehicle.purchase_date" class="w-full" />
       </div>
       <div class="basis-1/3">
