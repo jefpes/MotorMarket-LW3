@@ -19,7 +19,7 @@
 
     <x-form.textarea name="about" label="About" placeholder="About" :messages="$errors->get('about')" wire:model="about" class="w-full" />
 
-    <x-form.input x-mask="(99) 9 9999 9999" name="phone" label="Phone" placeholder="Phone" :messages="$errors->get('phone')" wire:model="phone" class="w-full" />
+    <x-form.phone-input name="phone" label="Phone" placeholder="Phone" :messages="$errors->get('phone')" wire:model="phone" class="w-full" />
 
     <x-form.input name="email" label="Email" placeholder="Email" :messages="$errors->get('email')" wire:model="email" class="w-full" />
 
