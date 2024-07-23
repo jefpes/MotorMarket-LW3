@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Edit extends Component
+class Update extends Component
 {
     use Toast;
 
@@ -22,15 +22,14 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.user.edit', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
+        return view('livewire.user.create-update', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
     }
 
     public function save(): void
     {
         $this->authorize(Permission::USER_UPDATE->value);
 
-        /** @var User  */
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if (!$user->hierarchy($this->form->id)) {
             abort(403, 'you not have permission for this action');

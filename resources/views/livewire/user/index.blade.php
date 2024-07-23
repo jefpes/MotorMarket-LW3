@@ -8,7 +8,7 @@
     </div>
     <div class="w-full md:5/12 lg:w-5/12 flex justify-end gap-x-2">
       @can($permission::USER_CREATE->value)
-        <livewire:user.create />
+        <x-primary-button type='button' wire:click="$dispatch('user::creating')" class="text-[1em] tracking-normal"> {{ __('New') }} </x-primary-button>
       @endcan
 
       <x-select wire:model.live="perPage" class="flex">
@@ -83,5 +83,6 @@
 
   <livewire:user.deactivate />
   <livewire:user.activate />
-  <livewire:user.edit />
+  <livewire:user.create />
+  <livewire:user.update />
 </div>

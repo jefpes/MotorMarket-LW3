@@ -51,7 +51,6 @@
   "User activated": "Usuário ativado",
   "Deactivate": "Desativar",
   "User deactivated": "Usuário desativado",
-  "User created successfully": "Usuário criado com sucesso",
   "Expense updated successfully": "Despesa atualizada com sucesso",
   "Expense created successfully": "Despesa criada com sucesso",
   "Select a Brand": "Selecione uma Marca",
@@ -63,6 +62,8 @@
   "Role updated successfully": "Função atualizada com sucesso",
   "Role created successfully": "Função criada com sucesso",
   "Select a hierarchy level": "Selecione um nível de hierarquia",
+  "User created successfully": "Usuário criado com sucesso",
+  "User updated successfully": "Usuário atualizado com sucesso",
 
   "Brands": "Marcas",
   "brand": "Marca",

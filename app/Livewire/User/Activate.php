@@ -36,8 +36,7 @@ class Activate extends Component
 
         $userAction = User::withTrashed()->find($this->form->id);
 
-        /** @var User $user */
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if ($user->hierarchy($userAction->id)) {
 

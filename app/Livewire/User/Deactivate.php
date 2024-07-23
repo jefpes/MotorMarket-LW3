@@ -36,8 +36,7 @@ class Deactivate extends Component
 
         $userAction = User::find($this->form->id);
 
-        /** @var User $user */
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if ($user->hierarchy($userAction->id)) {
             $userAction->delete();
