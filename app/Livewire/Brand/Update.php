@@ -21,7 +21,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.brand.update');
+        return view('livewire.brand.create-update');
     }
 
     public function cancel(): void

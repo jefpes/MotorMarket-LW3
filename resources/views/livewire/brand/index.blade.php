@@ -2,7 +2,8 @@
   <x-slot:header> {{ __($header) }} </x-slot:header>
   @can($permissions::BRAND_CREATE->value)
   <div class="flex justify-end pb-4">
-    <livewire:brand.create />
+    <x-primary-button type='button' wire:click="$dispatch('brand::creating')" class="text-[1em] tracking-normal">{{ __('New') }}
+    </x-primary-button>
   </div>
   @endcan
   <div>
@@ -46,6 +47,7 @@
     </x-table.table>
   </div>
 
+  <livewire:brand.create />
   <livewire:brand.update />
   <livewire:brand.delete />
 </div>

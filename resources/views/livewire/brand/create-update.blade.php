@@ -1,6 +1,4 @@
 <div>
-  <x-primary-button type='button' wire:click="$set('modal', true)" class="text-[1em] tracking-normal">{{ __('New') }}
-      </x-primary-button>
   <x-modal wire:model="modal" name="main_modal">
     <x-slot:title> {{ __($title) }} </x-slot:title>
 
