@@ -34,8 +34,10 @@ return new class () extends Migration {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->date('purchase_date');
+            $table->decimal('fipe_price', places: 2)->nullable();
             $table->decimal('purchase_price', places: 2);
             $table->decimal('sale_price', places: 2);
+            $table->decimal('promotional_price', places: 2)->nullable();
             $table->foreignIdFor(VehicleModel::class)->constrained(table: 'vehicle_models', column: 'id');
             $table->year('year_one');
             $table->year('year_two');
