@@ -17,6 +17,8 @@ class Edit extends Component
 
     public ?VehicleModelForm $form;
 
+    public string $title = 'Edit Vehicle Model';
+
     #[Locked]
     public int $id;
 
@@ -24,7 +26,7 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-model.edit');
+        return view('livewire.vehicle-model.create-update');
     }
 
     #[Computed()]
@@ -46,6 +48,12 @@ class Edit extends Component
         $this->modal = true;
     }
 
+    public function cancel(): void
+    {
+        $this->form->reset();
+        $this->reset('modal');
+    }
+
     public function save(): void
     {
         $this->authorize(Permission::VEHICLE_MODEL_UPDATE->value);
@@ -53,7 +61,7 @@ class Edit extends Component
         $this->dispatch('vmodel::refresh');
         $this->form->save();
 
-        $this->toastSuccess('Vehicle Model updated successfully');
+        $this->toastSuccess('Vehicle model updated successfully');
         $this->reset('modal');
     }
 }

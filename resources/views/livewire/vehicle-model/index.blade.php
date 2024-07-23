@@ -20,7 +20,7 @@
           @endforeach
       </x-select>
       @can($permission::VEHICLE_MODEL_CREATE->value)
-        <livewire:vehicle-model.create>
+        <x-primary-button type='button' wire:click="$dispatch('vmodel::creating')" class="text-[1em] tracking-normal"> {{ __('New') }} </x-primary-button>
       @endcan
     </div>
   </div>
@@ -67,4 +67,5 @@
   </div>
   <livewire:vehicle-model.delete />
   <livewire:vehicle-model.edit />
+  <livewire:vehicle-model.create />
 </div>

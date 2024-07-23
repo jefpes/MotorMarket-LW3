@@ -54,6 +54,10 @@
   "User created successfully": "Usuário criado com sucesso",
   "Expense updated successfully": "Despesa atualizada com sucesso",
   "Expense created successfully": "Despesa criada com sucesso",
+  "Select a Brand": "Selecione uma Marca",
+  "Select a Type": "Selecione um Tipo",
+  "Vehicle model created successfully": "Modelo de veículo criado com sucesso",
+  "Vehicle model updated successfully": "Modelo de veículo atualizado com sucesso",
 
   "Brands": "Marcas",
   "brand": "Marca",

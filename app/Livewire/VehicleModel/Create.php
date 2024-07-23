@@ -8,7 +8,7 @@ use App\Models\VehicleType;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
-use Livewire\Attributes\Computed;
+use Livewire\Attributes\{Computed, On};
 use Livewire\Component;
 
 class Create extends Component
@@ -19,9 +19,11 @@ class Create extends Component
 
     public bool $modal = false;
 
+    public string $title = 'Create Vehicle Model';
+
     public function render(): View
     {
-        return view('livewire.vehicle-model.create');
+        return view('livewire.vehicle-model.create-update');
     }
 
     #[Computed()]
@@ -34,6 +36,12 @@ class Create extends Component
     public function types(): Collection
     {
         return VehicleType::orderBy('name')->get();
+    }
+
+    #[On('vmodel::creating')]
+    public function creating(): void
+    {
+        $this->modal = true;
     }
 
     public function cancel(): void
@@ -49,7 +57,7 @@ class Create extends Component
         $this->dispatch('vmodel::refresh');
         $this->form->save();
 
-        $this->toastSuccess('Vehicle Model created successfully');
+        $this->toastSuccess('Vehicle model created successfully');
         $this->cancel();
     }
 }
