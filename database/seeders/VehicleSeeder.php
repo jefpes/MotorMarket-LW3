@@ -1014,7 +1014,7 @@ class VehicleSeeder extends Seeder
 
         Vehicle::create([
             'purchase_date'    => '2024-02-01',
-            'fipe_price'       => 1340000.00,
+            'fipe_price'       => 134000.00,
             'purchase_price'   => 100000.00,
             'sale_price'       => 130000.00,
             'vehicle_model_id' => 12,
