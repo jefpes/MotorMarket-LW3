@@ -18,6 +18,8 @@ class Update extends Component
 
     public ?string $name;
 
+    public ?string $opened_in;
+
     public ?string $email;
 
     public ?string $ceo;
@@ -56,6 +58,7 @@ class Update extends Component
 
         $this->name               = $this->company->name;
         $this->email              = $this->company->email;
+        $this->opened_in          = $this->company->opened_in;
         $this->phone              = $this->company->phone;
         $this->address            = $this->company->address;
         $this->cnpj               = $this->company->cnpj;
@@ -90,6 +93,7 @@ class Update extends Component
         $this->company->update([
             'name'               => $this->name,
             'email'              => $this->email,
+            'opened_in'          => $this->opened_in,
             'phone'              => $this->phone,
             'address'            => $this->address,
             'ceo'                => $this->ceo,
