@@ -24,7 +24,7 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-expense.edit');
+        return view('livewire.vehicle-expense.create-update');
     }
 
     #[On('expense::editing')]

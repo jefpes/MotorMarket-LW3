@@ -22,7 +22,7 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-expense.create');
+        return view('livewire.vehicle-expense.create-update');
     }
 
     public function cancel(): void
