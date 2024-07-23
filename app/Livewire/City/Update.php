@@ -21,7 +21,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.city.update');
+        return view('livewire.city.create-update');
     }
 
     public function cancel(): void
@@ -38,7 +38,7 @@ class Update extends Component
 
         $this->form->save();
 
-        $this->toastSuccess('City Updated');
+        $this->toastSuccess('City updated successfully');
 
         $this->cancel();
     }

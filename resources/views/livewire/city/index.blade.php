@@ -2,7 +2,7 @@
   <x-slot:header> {{ __($header) }} </x-slot:header>
   @can($permission::CITY_CREATE->value)
     <div class="flex justify-end pb-4">
-      <livewire:city.create/>
+      <x-primary-button type='button' wire:click="$dispatch('city::creating')" class="text-[1em] tracking-normal">{{ __('New') }} </x-primary-button>
     </div>
   @endcan
   <div>
@@ -44,6 +44,7 @@
     </x-table.table>
   </div>
 
+  <livewire:city.create />
   <livewire:city.update />
   <livewire:city.delete />
 </div>
