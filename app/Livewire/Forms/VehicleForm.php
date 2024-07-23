@@ -15,9 +15,13 @@ class VehicleForm extends Form
 
     public ?string $purchase_date = null;
 
+    public ?float $fipe_price = null;
+
     public ?float $purchase_price = null;
 
     public ?float $sale_price = null;
+
+    public ?float $promotional_price = null;
 
     public ?int $vehicle_type_id = null;
 
@@ -57,21 +61,23 @@ class VehicleForm extends Form
     public function rules()
     {
         return [
-            'purchase_date'    => ['required', 'date'],
-            'purchase_price'   => ['required', 'numeric'],
-            'sale_price'       => ['required', 'numeric'],
-            'vehicle_model_id' => ['required', 'exists:vehicle_models,id', 'integer'],
-            'year_one'         => ['required', 'integer', 'min:1900', 'max:2100'],
-            'year_two'         => ['required', 'integer', 'min:1900', 'max:2100'],
-            'km'               => ['required', 'integer', 'min:0'],
-            'fuel'             => ['required', 'string', 'max:40', 'min:2'],
-            'engine_power'     => ['required', 'string', 'max:10', 'min:1'],
-            'transmission'     => ['required', 'string', 'max:255', 'min:3'],
-            'color'            => ['required', 'string', 'max:255', 'min:3'],
-            'plate'            => ['required', 'string', 'size:8'],
-            'chassi'           => ['required', 'string', 'max:255', 'min:3'],
-            'renavam'          => ['required', 'string', 'max:255', 'min:3'],
-            'description'      => ['required', 'string', 'max:255', 'min:10'],
+            'purchase_date'     => ['required', 'date'],
+            'fipe_price'        => ['nullable', 'numeric'],
+            'purchase_price'    => ['required', 'numeric'],
+            'sale_price'        => ['required', 'numeric'],
+            'promotional_price' => ['nullable', 'numeric'],
+            'vehicle_model_id'  => ['required', 'exists:vehicle_models,id', 'integer'],
+            'year_one'          => ['required', 'integer', 'min:1900', 'max:2100'],
+            'year_two'          => ['required', 'integer', 'min:1900', 'max:2100'],
+            'km'                => ['required', 'integer', 'min:0'],
+            'fuel'              => ['required', 'string', 'max:40', 'min:2'],
+            'engine_power'      => ['required', 'string', 'max:10', 'min:1'],
+            'transmission'      => ['required', 'string', 'max:255', 'min:3'],
+            'color'             => ['required', 'string', 'max:255', 'min:3'],
+            'plate'             => ['required', 'string', 'size:8'],
+            'chassi'            => ['required', 'string', 'max:255', 'min:3'],
+            'renavam'           => ['required', 'string', 'max:255', 'min:3'],
+            'description'       => ['required', 'string', 'max:255', 'min:10'],
         ];
     }
 
@@ -82,25 +88,27 @@ class VehicleForm extends Form
         return Vehicle::updateOrCreate(
             ['id' => $this->id],
             [
-                'purchase_date'    => $this->purchase_date,
-                'purchase_price'   => $this->purchase_price,
-                'sale_price'       => $this->sale_price,
-                'vehicle_model_id' => $this->vehicle_model_id,
-                'year_one'         => $this->year_one,
-                'year_two'         => $this->year_two,
-                'km'               => $this->km,
-                'fuel'             => $this->fuel,
-                'engine_power'     => $this->engine_power,
-                'steering'         => $this->steering,
-                'transmission'     => $this->transmission,
-                'doors'            => $this->doors,
-                'seats'            => $this->seats,
-                'traction'         => $this->traction,
-                'color'            => $this->color,
-                'plate'            => $this->plate,
-                'chassi'           => $this->chassi,
-                'renavam'          => $this->renavam,
-                'description'      => $this->description,
+                'purchase_date'     => $this->purchase_date,
+                'fipe_price'        => $this->fipe_price,
+                'purchase_price'    => $this->purchase_price,
+                'sale_price'        => $this->sale_price,
+                'promotional_price' => $this->promotional_price,
+                'vehicle_model_id'  => $this->vehicle_model_id,
+                'year_one'          => $this->year_one,
+                'year_two'          => $this->year_two,
+                'km'                => $this->km,
+                'fuel'              => $this->fuel,
+                'engine_power'      => $this->engine_power,
+                'steering'          => $this->steering,
+                'transmission'      => $this->transmission,
+                'doors'             => $this->doors,
+                'seats'             => $this->seats,
+                'traction'          => $this->traction,
+                'color'             => $this->color,
+                'plate'             => $this->plate,
+                'chassi'            => $this->chassi,
+                'renavam'           => $this->renavam,
+                'description'       => $this->description,
             ]
         );
     }

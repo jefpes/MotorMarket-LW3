@@ -7,8 +7,8 @@
       </x-text-input>
     </div>
     <div class="w-full md:5/12 lg:w-5/12 flex justify-end gap-x-2">
-      @can('user_create')
-        <livewire:user.create />
+      @can($permission::USER_CREATE->value)
+        <x-primary-button type='button' wire:click="$dispatch('user::creating')" class="text-[1em] tracking-normal"> {{ __('New') }} </x-primary-button>
       @endcan
 
       <x-select wire:model.live="perPage" class="flex">
@@ -23,13 +23,15 @@
 
   <x-table.table>
     <x-slot:thead>
-      @foreach ($theader as $h)
-        @if ($h == 'actions')
-          @canany([$this->permissions->update, $this->permissions->delete])
-            <x-table.th> {{ __($h) }} </x-table.th>
+      @foreach ($this->table as $h)
+        @if ($h->field == 'actions')
+          @canany([$permission::USER_DELETE->value, $permission::USER_UPDATE->value, $permission::ADMIN->value])
+            <x-table.th> {{ __($h->head) }} </x-table.th>
           @endcanany
         @else
-          <x-table.th> {{ __($h) }} </x-table.th>
+          <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+            <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+          </x-table.th>
         @endif
       @endforeach
     </x-slot:thead>
@@ -41,27 +43,27 @@
         <x-table.td> <span
           class="{{ $u->deleted_at ? 'bg-red-100 text-red-800 me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300'
             : 'bg-green-100 text-green-800 me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300'}}"> {{ $u->deleted_at ? __('Inactive') : __('Active') }} </span> </x-table.td>
-        @canany(['user_delete', 'user_update'])
+        @canany([$permission::USER_DELETE->value, $permission::USER_UPDATE->value, $permission::ADMIN->value])
           <x-table.td>
             @if(auth()->user()->hierarchy($u->id))
               <div class="flex flex-row gap-2 justify-center">
                 @if (!$u->deleted_at)
-                  @can($this->permissions->admin)
+                  @can($permission::ADMIN->value)
                   <x-icons.roles class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('user.roles', $u->id) }}"
                     id="roles-{{ $u->id }}" wire:navigate />
                   @endcan
 
-                  @can($this->permissions->update)
+                  @can($permission::USER_UPDATE->value)
                   <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" wire:click="$dispatch('user::editing', { id: {{ $u->id }}})"
                     id="edit-{{ $u->id }}"/>
                   @endcan
 
-                  @can($this->permissions->delete)
+                  @can($permission::USER_DELETE->value)
                   <x-icons.delete id="deactive-{{ $u->id }}" wire:click="$dispatch('user::deactivating', { id: {{ $u->id }}})"
                     class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
                 @else
-                  @can($this->permissions->delete)
+                  @can($permission::USER_DELETE->value)
                     <x-icons.recycle class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" id="active-{{ $u->id }}" wire:click="$dispatch('user::activating', { id: {{ $u->id }} })"/>
                   @endcan
                 @endif
@@ -81,5 +83,6 @@
 
   <livewire:user.deactivate />
   <livewire:user.activate />
-  <livewire:user.edit />
+  <livewire:user.create />
+  <livewire:user.update />
 </div>

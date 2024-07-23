@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Role;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\RoleForm;
-use App\Models\Role;
+use App\Models\{Role, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -16,9 +18,11 @@ class Create extends Component
 
     public bool $modal = false;
 
+    public ?string $title = 'Create Role';
+
     public function render(): View
     {
-        return view('livewire.role.create');
+        return view('livewire.role.create-update');
     }
 
     public function cancel(): void
@@ -27,14 +31,19 @@ class Create extends Component
         $this->reset('modal');
     }
 
+    #[On('role::creating')]
+    public function creating(): void
+    {
+        $this->modal = true;
+    }
+
     public function save(): void
     {
-        $this->authorize('admin');
+        $this->authorize(Permission::ADMIN->value);
 
-        /** @var User */
-        $user = auth()->user(); /** @phpstan-ignore-line */
+        $user = User::find(auth()->id());
 
-        if ($user->roles()->pluck('hierarchy')->max() > (Role::find($this->form->id)->hierarchy ?? $user->roles()->pluck('hierarchy')->max() + 1)) { /** @phpstan-ignore-line */
+        if ($user->roles()->pluck('hierarchy')->max() > (Role::find($this->form->id)->hierarchy ?? $user->roles()->pluck('hierarchy')->max() + 1)) {
             abort(403, 'you not have permission for this action');
         }
 

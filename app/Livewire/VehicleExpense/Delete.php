@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleExpense;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\{VehicleExpenseForm};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -30,7 +31,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('expense_delete');
+        $this->authorize(Permission::VEHICLE_EXPENSE_DELETE->value);
         $this->form->destroy();
         $this->dispatch('expense::refresh');
         $this->toastSuccess('Expense Deleted');

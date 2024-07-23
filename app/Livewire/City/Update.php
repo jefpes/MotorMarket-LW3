@@ -2,6 +2,7 @@
 
 namespace App\Livewire\City;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\CityForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -20,7 +21,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.city.update');
+        return view('livewire.city.create-update');
     }
 
     public function cancel(): void
@@ -31,13 +32,13 @@ class Update extends Component
 
     public function save(): void
     {
-        $this->authorize('city_update');
+        $this->authorize(Permission::CITY_UPDATE->value);
 
         $this->dispatch('city::refresh');
 
         $this->form->save();
 
-        $this->toastSuccess('City Updated');
+        $this->toastSuccess('City updated successfully');
 
         $this->cancel();
     }

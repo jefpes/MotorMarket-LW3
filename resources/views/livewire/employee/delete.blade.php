@@ -9,7 +9,7 @@
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      @can('client_delete')
+      @can($permission::EMPLOYEE_DELETE->value)
         @if ($form->resignation_date)
           <x-primary-button wire:click="dismissRetain(false)" class="ms-3">
             {{ __('Retain') }}

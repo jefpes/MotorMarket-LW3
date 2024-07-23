@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use App\Traits\Toast;
@@ -31,12 +32,11 @@ class Activate extends Component
 
     public function active(): void
     {
-        $this->authorize('user_delete');
+        $this->authorize(Permission::USER_DELETE->value);
 
         $userAction = User::withTrashed()->find($this->form->id);
 
-        /** @var User $user */
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if ($user->hierarchy($userAction->id)) {
 
@@ -44,7 +44,7 @@ class Activate extends Component
 
             $this->dispatch('user::refresh')->to(Index::class);
 
-            $this->toastSuccess('User Activated');
+            $this->toastSuccess('User activated');
 
             $this->modal = false;
 

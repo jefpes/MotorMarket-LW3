@@ -16,6 +16,8 @@ class EmployeeForm extends Form
 
     public ?string $name = null;
 
+    public ?string $gender = null;
+
     public ?string $email = null;
 
     public ?string $phone_one = null;
@@ -47,6 +49,7 @@ class EmployeeForm extends Form
     {
         return [
             'name'             => ['required', 'min:3', 'max:255'],
+            'gender'           => ['required', 'min:3', 'max:25'],
             'email'            => ['required', 'email', Rule::unique('employees')->ignore($this->id)],
             'phone_one'        => ['required'],
             'phone_two'        => ['nullable'],
@@ -71,6 +74,7 @@ class EmployeeForm extends Form
             ['id' => $this->id],
             [
                 'name'             => $this->name,
+                'gender'           => $this->gender,
                 'email'            => $this->email,
                 'phone_one'        => $this->phone_one,
                 'phone_two'        => $this->phone_two,

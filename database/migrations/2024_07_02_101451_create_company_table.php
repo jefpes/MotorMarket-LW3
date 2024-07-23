@@ -14,6 +14,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('name');
             $table->string('cnpj')->nullable();
+            $table->date('opened_in')->nullable();
             $table->string('address')->nullable();
             $table->string('ceo')->nullable();
             $table->string('cpf')->nullable();

@@ -12,7 +12,7 @@
           </x-select>
         </div>
         <div class="flex-1">
-          <x-form.input name="date" label="Payment Date" type="date" :messages="$errors->get('form.payment_date')"
+          <x-form.date-input name="date" label="Payment Date" :messages="$errors->get('form.payment_date')"
             wire:model="form.payment_date" class="w-full" />
         </div>
       </div>

@@ -4,7 +4,7 @@
   <div class="space-y-2">
     <div class="flex flex-col md:flex-row justify-between md:space-x-2 md:space-y-0 space-y-2">
       <div class="basis-1/3">
-        <x-form.input name="purchase_date" label="Purchase Date" type="date" placeholder="Purchase Date"
+        <x-form.date-input name="purchase_date" label="Purchase Date" placeholder="Purchase Date"
           :messages="$errors->get('vehicle.purchase_date')" wire:model="vehicle.purchase_date" class="w-full" />
       </div>
       <div class="basis-1/3">
@@ -101,12 +101,20 @@
 
     <div class="flex flex-col md:flex-row justify-between md:space-x-2 md:space-y-0 space-y-2">
       <div class="flex-1">
+        <x-form.money-input name="fipe_price" label="Fipe Price" placeholder="Fipe Price"
+          :messages="$errors->get('vehicle.fipe_price')" wire:model="vehicle.fipe_price" class="w-full" />
+      </div>
+      <div class="flex-1">
         <x-form.money-input name="purchase_price" label="Purchase Price" placeholder="Purchase Price"
           :messages="$errors->get('vehicle.purchase_price')" wire:model="vehicle.purchase_price" class="w-full" />
       </div>
       <div class="flex-1">
         <x-form.money-input name="sale_price" label="Sale Price" placeholder="Sale Price"
           :messages="$errors->get('vehicle.sale_price')" wire:model="vehicle.sale_price" class="w-full" />
+      </div>
+      <div class="flex-1">
+        <x-form.money-input name="promotional_price" label="Promotional Price" placeholder="Promotional Price"
+          :messages="$errors->get('vehicle.promotional_price')" wire:model="vehicle.promotional_price" class="w-full" />
       </div>
     </div>
 

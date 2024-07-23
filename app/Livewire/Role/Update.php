@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Role;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\RoleForm;
-use App\Models\Role;
+use App\Models\{Role, User};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Locked, On};
 use Livewire\Component;
 
-class Edit extends Component
+class Update extends Component
 {
     use Toast;
 
@@ -20,9 +21,11 @@ class Edit extends Component
 
     public bool $modal = false;
 
+    public ?string $title = 'Edit Role';
+
     public function render(): View
     {
-        return view('livewire.role.edit');
+        return view('livewire.role.create-update');
     }
 
     #[On('role::editing')]
@@ -34,12 +37,11 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->authorize('admin');
+        $this->authorize(Permission::ADMIN->value);
 
-        /** @var User */
-        $user = auth()->user(); /** @phpstan-ignore-line */
+        $user = User::find(auth()->id());
 
-        if ($user->roles()->pluck('hierarchy')->max() > (Role::find($this->form->id)->hierarchy ?? $user->roles()->pluck('hierarchy')->max() + 1)) { /** @phpstan-ignore-line */
+        if ($user->roles()->pluck('hierarchy')->max() > (Role::find($this->form->id)->hierarchy ?? $user->roles()->pluck('hierarchy')->max() + 1)) {
             abort(403, 'you not have permission for this action');
         }
 

@@ -12,7 +12,7 @@
           <x-icons.home class="cursor-pointer w-auto fill-current text-gray-800 dark:text-gray-200 pr-2" :href="route('home')" wire:navigate />
         </div>
         <!-- Navigation Links -->
-        @foreach ($navs as $nav)
+        @foreach ($this->navs as $nav)
           @can($nav->permission)
             <div class="hidden sm:-my-px sm:mr-2 sm:flex">
               <x-nav-link :href="route($nav->route)" :active="$nav->isActive" wire:navigate> {{ __($nav->label) }} </x-nav-link>
@@ -66,7 +66,7 @@
 
   <!-- Responsive Navigation Menu -->
   <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-    @foreach ($navs as $nav)
+    @foreach ($this->navs as $nav)
       @can($nav->permission)
         <div class="py-1 space-y-1">
           <x-responsive-nav-link :href="route($nav->route)" :active="$nav->isActive" wire:navigate> {{ __($nav->label) }} </x-responsive-nav-link>

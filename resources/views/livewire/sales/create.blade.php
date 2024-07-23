@@ -23,7 +23,7 @@
         <x-input-error :messages="$errors->get('sale_form.payment_method')" />
       </div>
       <div class="flex-1">
-        <x-form.input type="date" name="date_sale" label="Sale Date"
+        <x-form.date-input name="date_sale" label="Sale Date"
           :messages="$errors->get('sale_form.date_sale')" wire:model="sale_form.date_sale" class="w-full" />
       </div>
     </div>
@@ -68,7 +68,7 @@
         :messages="$errors->get('installment_value')" wire:model.live.debounce.1000ms="installment_value" class="w-full" />
       </div>
       <div class="flex-1">
-      <x-form.input type="date" name="first_installment_date" label="First Installment Date"
+      <x-form.date-input name="first_installment_date" label="First Installment Date"
         :messages="$errors->get('first_installment_date')" wire:model="first_installment_date" class="w-full" />
       </div>
     </div>

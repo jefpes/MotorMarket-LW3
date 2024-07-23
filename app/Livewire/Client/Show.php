@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Client;
 
+use App\Enums\Permission;
 use App\Models\{Client, ClientPhoto};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -28,7 +29,7 @@ class Show extends Component
 
     public function render(): View
     {
-        return view('livewire.client.show');
+        return view('livewire.client.show', ['permission' => Permission::class]);
     }
 
     public function cancel(): void
@@ -44,7 +45,7 @@ class Show extends Component
 
     public function destroy(): void
     {
-        $this->authorize('cphoto_delete');
+        $this->authorize(Permission::CLIENT_PHOTO_DELETE->value);
 
         try {
             Storage::delete("/client_photos/" . $this->photo->photo_name);

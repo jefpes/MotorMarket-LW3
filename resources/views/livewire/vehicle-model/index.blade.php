@@ -19,33 +19,46 @@
             <option value="{{ $data->id }}"> {{ $data->name }} </option>
           @endforeach
       </x-select>
-      <livewire:vehicle-model.create>
+      @can($permission::VEHICLE_MODEL_CREATE->value)
+        <x-primary-button type='button' wire:click="$dispatch('vmodel::creating')" class="text-[1em] tracking-normal"> {{ __('New') }} </x-primary-button>
+      @endcan
     </div>
   </div>
 
   <div>
     <x-table.table>
       <x-slot:thead>
-        @foreach ($thead as $h)
-        <x-table.th>
-          {{ __($h) }}
-        </x-table.th>
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
+            @canany([$permission::VEHICLE_MODEL_UPDATE->value, $permission::VEHICLE_MODEL_DELETE->value])
+              <x-table.th> {{ __($h->head) }} </x-table.th>
+            @endcanany
+          @else
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
+          @endif
         @endforeach
       </x-slot:thead>
       <x-slot:tbody>
         @forelse ($this->vmodels as $vm)
-        <x-table.tr wire:key="{{ $vm->id }}">
-          <x-table.td> {{ $vm->name }} </x-table.td>
-          <x-table.td> {{ $vm->brand->name }} </x-table.td>
-          <x-table.td> {{ $vm->type->name }} </x-table.td>
-          <x-table.td>
-              <div class="flex flex-row gap-2 justify-center">
-                <x-icons.edit id="btn-edit-{{ $vm->id }}" wire:click="$dispatch('vmodel::editing', { id: {{ $vm->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />
-
-                <x-icons.delete id="btn-delete-{{ $vm->id }}" wire:click="$dispatch('vmodel::deleting', { id: {{ $vm->id }} })" class="cursor-pointer flex text-red-500 w-8 h-8" />
-              </div>
-          </x-table.td>
-        </x-table.tr>
+          <x-table.tr wire:key="{{ $vm->id }}">
+            <x-table.td> {{ $vm->name }} </x-table.td>
+            <x-table.td> {{ $vm->brand }} </x-table.td>
+            <x-table.td> {{ $vm->type }} </x-table.td>
+            @canany([$permission::VEHICLE_MODEL_UPDATE->value, $permission::VEHICLE_MODEL_DELETE->value])
+              <x-table.td>
+                <div class="flex flex-row gap-2 justify-center">
+                  @can($permission::VEHICLE_MODEL_UPDATE->value)
+                    <x-icons.edit id="btn-edit-{{ $vm->id }}" wire:click="$dispatch('vmodel::editing', { id: {{ $vm->id }} })" class="cursor-pointer flex text-yellow-400 w-8 h-8" />
+                  @endcan
+                  @can($permission::VEHICLE_MODEL_DELETE->value)
+                    <x-icons.delete id="btn-delete-{{ $vm->id }}" wire:click="$dispatch('vmodel::deleting', { id: {{ $vm->id }} })" class="cursor-pointer flex text-red-500 w-8 h-8" />
+                  @endcan
+                </div>
+              </x-table.td>
+            @endcanany
+          </x-table.tr>
         @empty
           <x-table.tr-no-register :cols="count($theader)" />
         @endforelse
@@ -54,4 +67,5 @@
   </div>
   <livewire:vehicle-model.delete />
   <livewire:vehicle-model.edit />
+  <livewire:vehicle-model.create />
 </div>

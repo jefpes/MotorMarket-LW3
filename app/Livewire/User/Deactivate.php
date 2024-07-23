@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use App\Traits\Toast;
@@ -31,16 +32,15 @@ class Deactivate extends Component
 
     public function deactive(): void
     {
-        $this->authorize('user_delete');
+        $this->authorize(Permission::USER_DELETE->value);
 
         $userAction = User::find($this->form->id);
 
-        /** @var User $user */
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if ($user->hierarchy($userAction->id)) {
             $userAction->delete();
-            $this->toastSuccess('User Deactivate');
+            $this->toastSuccess('User deactivated');
             $this->dispatch('user::refresh');
             $this->modal = false;
 

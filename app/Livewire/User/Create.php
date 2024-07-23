@@ -2,10 +2,12 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\UserForm;
 use App\Models\Employee;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Create extends Component
@@ -20,11 +22,13 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.user.create', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
+        return view('livewire.user.create-update', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
     }
 
     public function save(): void
     {
+        $this->authorize(Permission::USER_CREATE->value);
+
         $this->form->validateOnly('employee_id');
         $employee          = Employee::findOrFail($this->form->employee_id);
         $this->form->name  = $employee->name;
@@ -40,5 +44,11 @@ class Create extends Component
     {
         $this->form->reset();
         $this->modal = false;
+    }
+
+    #[On('user::creating')]
+    public function creating(): void
+    {
+        $this->modal = true;
     }
 }

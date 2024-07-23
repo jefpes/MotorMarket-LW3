@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleForm;
 use App\Models\Vehicle;
 use App\Traits\Toast;
@@ -25,7 +26,7 @@ class Delete extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle.delete');
+        return view('livewire.vehicle.delete', ['permission' => Permission::class]);
     }
 
     public function deleting(int $id): void
@@ -36,7 +37,7 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('vehicle_delete');
+        $this->authorize(Permission::VEHICLE_DELETE->value);
         $vehicle = Vehicle::find($this->form->id);
 
         if($vehicle->photos->isNotEmpty()) {

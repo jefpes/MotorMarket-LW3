@@ -13,6 +13,7 @@ class CompanySeeder extends Seeder
     {
         \App\Models\Company::create([
             'name'               => 'Motor Market',
+            'opened_in'          => '2021-07-02',
             'cnpj'               => '99.999.999/9999-99',
             'ceo'                => 'João da Silva',
             'cpf'                => '999.999.999-99',

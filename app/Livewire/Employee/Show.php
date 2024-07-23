@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Employee;
 
+use App\Enums\Permission;
 use App\Models\{Employee, EmployeePhotos};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -28,7 +29,7 @@ class Show extends Component
 
     public function render(): View
     {
-        return view('livewire.employee.show');
+        return view('livewire.employee.show', ['permission' => Permission::class]);
     }
 
     public function cancel(): void
@@ -44,7 +45,7 @@ class Show extends Component
 
     public function destroy(): void
     {
-        $this->authorize('ephoto_delete');
+        $this->authorize(Permission::EMPLOYEE_PHOTO_DELETE->value);
 
         try {
             Storage::delete("/employee_photos/" . $this->photo->photo_name);

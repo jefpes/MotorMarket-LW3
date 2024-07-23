@@ -2,6 +2,7 @@
 
 namespace App\Livewire\PaymentInstallments;
 
+use App\Enums\{Permission, StatusPayments};
 use App\Livewire\Forms\InstallmentForm;
 use App\Models\{Sale};
 use App\Traits\Toast;
@@ -40,7 +41,7 @@ class UndoReceivePayment extends Component
 
     public function undo(): void
     {
-        $this->authorize('payment_undo');
+        $this->authorize(Permission::PAYMENT_UNDO->value);
 
         $this->form->payment_value = null;
 
@@ -54,11 +55,11 @@ class UndoReceivePayment extends Component
 
         $this->form->user_id = auth()->id();
 
-        $this->form->status = 'PENDENTE';
+        $this->form->status = StatusPayments::PN->value;
 
         $this->form->save();
 
-        Sale::find($this->form->sale_id)->update(['status' => 'PENDENTE']);
+        Sale::find($this->form->sale_id)->update(['status' => StatusPayments::PN->value]);
 
         $this->dispatch('installment::refresh');
 

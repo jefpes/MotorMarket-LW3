@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
-use App\Enums\{FuelTypes, SteeringTypes, TransmissionTypes};
+use App\Enums\{FuelTypes, Permission, SteeringTypes, TransmissionTypes};
 use App\Livewire\Forms\{VehicleForm, VehiclePhotoForm};
 use App\Models\{VehicleModel, VehicleType};
 use App\Traits\Toast;
@@ -41,7 +41,7 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize('vehicle_create');
+        $this->authorize(Permission::VEHICLE_CREATE->value);
 
         $vehicle = $this->vehicle->save();
 

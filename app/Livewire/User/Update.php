@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\UserForm;
 use App\Models\{Employee, User};
 use App\Traits\Toast;
@@ -9,27 +10,26 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class Edit extends Component
+class Update extends Component
 {
     use Toast;
+
+    public UserForm $form;
 
     public bool $modal = false;
 
     public string $title = 'Edit user';
 
-    public UserForm $form;
-
     public function render(): View
     {
-        return view('livewire.user.edit', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
+        return view('livewire.user.create-update', ['employees' => Employee::whereResignationDate(null)->orderBy('name')->get()]);
     }
 
     public function save(): void
     {
-        $this->authorize('user_update');
+        $this->authorize(Permission::USER_UPDATE->value);
 
-        /** @var User  */
-        $user = auth()->user();
+        $user = User::find(auth()->id());
 
         if (!$user->hierarchy($this->form->id)) {
             abort(403, 'you not have permission for this action');
@@ -48,7 +48,7 @@ class Edit extends Component
                 'employee_id'       => $this->form->employee_id,
                 'email_verified_at' => null,
             ]
-        ); // reset email_verified_at to send email verification
+        );
 
         $this->toastSuccess('User updated successfully');
         $this->dispatch('user::refresh');

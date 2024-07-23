@@ -2,8 +2,11 @@
 
 namespace App\Livewire;
 
+use App\Enums\Permission;
 use App\Livewire\Actions\Logout;
+use App\Utilities\Navigation as UtilitiesNavigation;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class Navigation extends Component
@@ -26,27 +29,25 @@ class Navigation extends Component
         $this->redirect(url()->previous());
     }
 
-    /** @var array<object> */
-    public array $navs;
-
-    public function mount(): void
+    /** @return array<object> */
+    #[Computed()]
+    public function navs(): array
     {
-        $this->navs = [
-            (object)['route' => 'dashboard', 'label' => 'Dashboard', 'permission' => 'admin', 'isActive' => request()->routeIs('dashboard')],
-            (object)['route' => 'company', 'label' => 'Company', 'permission' => 'company_update', 'isActive' => request()->routeIs('company')],
-            (object)['route' => 'users', 'label' => 'Users', 'permission' => 'user_read', 'isActive' => request()->routeIs('users', 'users.create', 'users.edit')],
-            (object)['route' => 'roles', 'label' => 'Roles', 'permission' => 'admin', 'isActive' => request()->routeIs('roles', 'ability.role')],
-            (object)['route' => 'brand', 'label' => 'Brands', 'permission' => 'brand_read', 'isActive' => request()->routeIs('brand')],
-            (object)['route' => 'vtype', 'label' => 'Vehicle Type', 'permission' => 'vtype_read', 'isActive' => request()->routeIs('vtype')],
-            (object)['route' => 'vmodel', 'label' => 'Vehicle Model', 'permission' => 'vmodel_read', 'isActive' => request()->routeIs('vmodel')],
-            (object)['route' => 'vehicle', 'label' => 'Vehicles', 'permission' => 'vehicle_read', 'isActive' => request()->routeIs('vehicle', 'vehicle.create', 'vehicle.edit', 'vehicle.show')],
-            (object)['route' => 'city', 'label' => 'Cities', 'permission' => 'city_read', 'isActive' => request()->routeIs('city')],
-            (object)['route' => 'client', 'label' => 'Clients', 'permission' => 'client_read', 'isActive' => request()->routeIs('client', 'client.create', 'client.edit', 'client.show')],
-            (object)['route' => 'employee', 'label' => 'Employees', 'permission' => 'employee_read', 'isActive' => request()->routeIs('employee', 'employee.create', 'employee.edit', 'employee.show')],
-            (object)['route' => 'sales', 'label' => 'Sales', 'permission' => 'sale_read', 'isActive' => request()->routeIs('sales', 'sale.create')],
-            (object)['route' => 'installments', 'label' => 'Installments', 'permission' => 'installment_read', 'isActive' => request()->routeIs('installments', 'sale.installments')],
-            (object)['route' => 'vehicle-expense', 'label' => 'Expenses', 'permission' => 'vexpense_read', 'isActive' => request()->routeIs('vehicle-expense')],
+        return [
+            UtilitiesNavigation::createNavItem('dashboard', 'Dashboard', Permission::ADMIN),
+            UtilitiesNavigation::createNavItem('company', 'Company', Permission::COMPANY_UPDATE),
+            UtilitiesNavigation::createNavItem('users', 'Users', Permission::USER_READ, ['user.roles']),
+            UtilitiesNavigation::createNavItem('roles', 'Roles', Permission::ADMIN, ['roles', 'ability.role']),
+            UtilitiesNavigation::createNavItem('brand', 'Brands', Permission::BRAND_READ),
+            UtilitiesNavigation::createNavItem('vtype', 'Vehicle Type', Permission::VEHICLE_TYPE_READ),
+            UtilitiesNavigation::createNavItem('vmodel', 'Vehicle Model', Permission::VEHICLE_MODEL_READ),
+            UtilitiesNavigation::createNavItem('vehicle', 'Vehicles', Permission::VEHICLE_READ, ['vehicle.create', 'vehicle.edit', 'vehicle.show']),
+            UtilitiesNavigation::createNavItem('city', 'Cities', Permission::CITY_READ),
+            UtilitiesNavigation::createNavItem('client', 'Clients', Permission::CLIENT_READ, ['client.create', 'client.edit', 'client.show']),
+            UtilitiesNavigation::createNavItem('employee', 'Employees', Permission::EMPLOYEE_READ, ['employee.create', 'employee.edit', 'employee.show']),
+            UtilitiesNavigation::createNavItem('sales', 'Sales', Permission::SALE_READ, ['sale.create']),
+            UtilitiesNavigation::createNavItem('installments', 'Installments', Permission::INSTALLMENT_READ, ['sale.installments']),
+            UtilitiesNavigation::createNavItem('vehicle-expense', 'Expenses', Permission::VEHICLE_EXPENSE_READ),
         ];
     }
-
 }

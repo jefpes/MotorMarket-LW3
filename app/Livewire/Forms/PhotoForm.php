@@ -49,8 +49,7 @@ abstract class PhotoForm extends Form
 
                 $image->save($customName);
 
-                $this->getPhotoModel()->updateOrCreate(
-                    ['id' => $this->id],
+                $this->getPhotoModel()->create(
                     [
                         $this->getEntityField() => $id,
                         'photo_name'            => str_replace($path, '', $customName),

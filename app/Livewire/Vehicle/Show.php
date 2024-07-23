@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Vehicle;
 
+use App\Enums\Permission;
 use App\Models\{Vehicle, VehiclePhoto};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -30,7 +31,7 @@ class Show extends Component
     #[On('vehicle::refresh')]
     public function render(): View
     {
-        return view('livewire.vehicle.show');
+        return view('livewire.vehicle.show', ['permission' => Permission::class]);
     }
 
     public function cancel(): void
@@ -46,7 +47,7 @@ class Show extends Component
 
     public function destroy(): void
     {
-        $this->authorize('vphoto_delete');
+        $this->authorize(Permission::VEHICLE_PHOTO_DELETE->value);
 
         try {
             Storage::delete("/vehicle_photos/" . $this->photo->photo_name);

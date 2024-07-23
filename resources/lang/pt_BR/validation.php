@@ -170,6 +170,7 @@ return [
 
     'attributes' => [
         'address'               => 'endereço',
+        'hierarchy'             => 'hierarquia',
         'employee_id'           => 'funcionário',
         'hiring_date'           => 'data de contratação',
         'mother'                => 'mãe',

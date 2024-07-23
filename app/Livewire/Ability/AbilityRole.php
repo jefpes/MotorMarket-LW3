@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Ability;
 
+use App\Enums\Permission;
 use App\Models\{Ability, Role};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -28,7 +29,20 @@ class AbilityRole extends Component
 
     public function toggleAbility(int $abilityId): void
     {
-        $this->role->abilities()->toggle($abilityId);
-        $this->toastSuccess('Ability Updated');
+        $this->authorize(Permission::ADMIN->value);
+
+        $result = $this->role->abilities()->toggle($abilityId);
+
+        if ($result['attached']) {
+            $this->toastSuccess('Ability Added');
+
+            return;
+        }
+
+        if ($result['detached']) {
+            $this->toastSuccess('Ability Removed');
+
+            return;
+        }
     }
 }

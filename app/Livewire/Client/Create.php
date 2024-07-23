@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\{MaritalStatus, States};
+use App\Enums\{Genders, MaritalStatus, Permission, States};
 use App\Livewire\Forms\{ClientAddressForm, ClientForm, ClientPhotoForm};
 use App\Models\City;
 use App\Traits\Toast;
@@ -24,12 +24,12 @@ class Create extends Component
 
     public function render(): View
     {
-        return view('livewire.client.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases()]);
+        return view('livewire.client.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
     }
 
     public function save(): void
     {
-        $this->authorize('client_create');
+        $this->authorize(Permission::CLIENT_CREATE->value);
 
         $this->client->validate();
         $this->clientAddress->validate();

@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Role;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\RoleForm;
+use App\Models\User;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{On};
@@ -30,12 +32,11 @@ class Delete extends Component
 
     public function destroy(): void
     {
-        $this->authorize('admin');
+        $this->authorize(Permission::ADMIN->value);
 
-        /** @var User */
-        $user = auth()->user(); /** @phpstan-ignore-line */
+        $user = User::find(auth()->id());
 
-        if ($user->roles()->pluck('hierarchy')->max() > $this->form->hierarchy || $user->roles()->pluck('name')->contains($this->form->name)) { /** @phpstan-ignore-line */
+        if ($user->roles()->pluck('hierarchy')->max() > $this->form->hierarchy || $user->roles()->where('name', $this->form->name)->exists()) {
             abort(403, 'you not have permission for this action');
         }
 

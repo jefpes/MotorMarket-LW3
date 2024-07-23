@@ -3,13 +3,15 @@
   <div class="pb-2 space-y-2">
     <x-form.input name="name" label="Name" placeholder="Name" :messages="$errors->get('name')" wire:model="name" class="w-full" />
 
-    <x-form.input x-mask="99.999.999/9999-99" name="cnpj" label="CNPJ" placeholder="CNPJ" :messages="$errors->get('cnpj')" wire:model="cnpj" class="w-full" />
+    <x-form.cnpj-input name="cnpj" label="CNPJ" placeholder="CNPJ" :messages="$errors->get('cnpj')" wire:model="cnpj" class="w-full" />
+
+    <x-form.date-input name="opened_in" label="Opened in" :messages="$errors->get('opened_in')" wire:model="opened_in" class="w-full" />
 
     <x-form.textarea name="address" label="Address" placeholder="Address" :messages="$errors->get('address')" wire:model="address" class="w-full" />
 
     <x-form.input name="ceo" label="CEO" placeholder="CEO" :messages="$errors->get('ceo')" wire:model="ceo" class="w-full" />
 
-    <x-form.input x-mask="999.999.999-99" name="cpf" label="CPF" placeholder="CPF" :messages="$errors->get('cpf')" wire:model="cpf" class="w-full" />
+    <x-form.cpf-input name="cpf" label="CPF" placeholder="CPF" :messages="$errors->get('cpf')" wire:model="cpf" class="w-full" />
 
     <x-form.input name="ceo_marital_status" label="CEO Marital Status" placeholder="CEO Marital Status" :messages="$errors->get('ceo_marital_status')" wire:model="ceo_marital_status" class="w-full" />
 
@@ -17,7 +19,7 @@
 
     <x-form.textarea name="about" label="About" placeholder="About" :messages="$errors->get('about')" wire:model="about" class="w-full" />
 
-    <x-form.input x-mask="(99) 9 9999 9999" name="phone" label="Phone" placeholder="Phone" :messages="$errors->get('phone')" wire:model="phone" class="w-full" />
+    <x-form.phone-input name="phone" label="Phone" placeholder="Phone" :messages="$errors->get('phone')" wire:model="phone" class="w-full" />
 
     <x-form.input name="email" label="Email" placeholder="Email" :messages="$errors->get('email')" wire:model="email" class="w-full" />
 

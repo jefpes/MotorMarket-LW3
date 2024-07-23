@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Company;
 
+use App\Enums\Permission;
 use App\Models\Company;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
-class Edit extends Component
+class Update extends Component
 {
     use Toast;
 
@@ -16,6 +17,8 @@ class Edit extends Component
     public Company $company;
 
     public ?string $name;
+
+    public ?string $opened_in;
 
     public ?string $email;
 
@@ -55,6 +58,7 @@ class Edit extends Component
 
         $this->name               = $this->company->name;
         $this->email              = $this->company->email;
+        $this->opened_in          = $this->company->opened_in;
         $this->phone              = $this->company->phone;
         $this->address            = $this->company->address;
         $this->cnpj               = $this->company->cnpj;
@@ -79,6 +83,8 @@ class Edit extends Component
 
     public function save(): void
     {
+        $this->authorize(Permission::COMPANY_UPDATE->value);
+
         $this->validate([
             'name'  => 'required|string',
             'email' => 'email',
@@ -87,6 +93,7 @@ class Edit extends Component
         $this->company->update([
             'name'               => $this->name,
             'email'              => $this->email,
+            'opened_in'          => $this->opened_in,
             'phone'              => $this->phone,
             'address'            => $this->address,
             'ceo'                => $this->ceo,

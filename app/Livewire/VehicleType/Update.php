@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleType;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleTypeForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -20,7 +21,7 @@ class Update extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-type.update');
+        return view('livewire.vehicle-type.create-update');
     }
 
     public function cancel(): void
@@ -29,22 +30,24 @@ class Update extends Component
         $this->form->reset();
     }
 
+    #[On('vtype::editing')]
+    public function editing(int $id): void
+    {
+        $this->authorize(Permission::VEHICLE_TYPE_UPDATE->value);
+
+        $this->form->setVehicleType($id);
+
+        $this->modal = true;
+    }
+
     public function save(): void
     {
-        $this->authorize('vtype_update');
+        $this->authorize(Permission::VEHICLE_TYPE_UPDATE->value);
 
         $this->dispatch('vtype::refresh');
         $this->form->save();
 
         $this->toastSuccess('Vehicle Type updated successfully');
         $this->cancel();
-    }
-
-    #[On('vtype::editing')]
-    public function editing(int $id): void
-    {
-        $this->form->setVehicleType($id);
-
-        $this->modal = true;
     }
 }

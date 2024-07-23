@@ -2,6 +2,7 @@
 
 namespace App\Livewire\VehicleExpense;
 
+use App\Enums\Permission;
 use App\Livewire\Forms\VehicleExpenseForm;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -23,7 +24,7 @@ class Edit extends Component
 
     public function render(): View
     {
-        return view('livewire.vehicle-expense.edit');
+        return view('livewire.vehicle-expense.create-update');
     }
 
     #[On('expense::editing')]
@@ -35,7 +36,7 @@ class Edit extends Component
 
     public function save(): void
     {
-        $this->authorize('vexpense_update');
+        $this->authorize(Permission::VEHICLE_EXPENSE_UPDATE->value);
         $this->dispatch('expense::refresh');
 
         $this->form->user_id = auth()->id();

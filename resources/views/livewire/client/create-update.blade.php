@@ -17,6 +17,15 @@
 
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="flex-0">
+        <x-select :messages="$errors->get('client.gender')" wire:model="client.gender" class="w-full"
+          label='Gender' id="gender">
+          <option value=""> {{ __('Select')}} </option>
+          @foreach ($genders as $data)
+          <option value="{{ $data->value }}"> {{ $data->value }} </option>
+          @endforeach
+        </x-select>
+      </div>
+      <div class="flex-0">
         <x-select :messages="$errors->get('client.marital_status')" wire:model="client.marital_status" class="w-full"
           label='Marital Status' id="marital_status">
           <option value=""> {{ __('Select')}} </option>
@@ -88,12 +97,10 @@
 
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.file-input name="photo" label="Photo" placeholder="Photo" :messages="$errors->get('clientPhoto.photos')"
-          wire:model="clientPhoto.photos" class="w-full" />
+        <x-form.file-input name="photo" label="Photo" placeholder="Photo" wire:model="clientPhoto.photos" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="birth_date" label="Birth Date" type="date" placeholder="Birth Date"
-          :messages="$errors->get('client.birth_date')" wire:model="client.birth_date" class="w-full" />
+        <x-form.date-input name="birth_date" label="Birth Date" :messages="$errors->get('client.birth_date')" wire:model="client.birth_date" class="w-full" />
       </div>
     </div>
     <x-form.textarea name="description" label="Description" placeholder="Description"

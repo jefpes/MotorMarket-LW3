@@ -7,7 +7,7 @@
   <div class="flex flex-row flex-wrap pt-2">
     @foreach ($roles as $role)
     <div class="w-1/2 md:w-1/4 lg:w-1/6 ">
-      <x-toggle :key="$role->id" :text="__($role->name)" wire:click="toggleRole({{ $role->id }})"
+      <x-toggle :key="$role->id" :text="$role->name" wire:click="toggleRole({{ $role->id }})"
         ckd="{{ $user->roles->contains($role->id) ? true : false}}" />
     </div>
     @endforeach
