@@ -28,13 +28,15 @@
   <div>
     <x-table.table>
       <x-slot name="thead">
-        @foreach ($theader as $h)
-          @if ($h == 'Actions')
+        @foreach ($this->table as $h)
+          @if ($h->field == 'actions')
             @canany([$permission::SALE_CANCEL->value])
-              <x-table.th> {{ __($h) }} </x-table.th>
+              <x-table.th> {{ __($h->head) }} </x-table.th>
             @endcanany
           @else
-            <x-table.th> {{ __($h) }} </x-table.th>
+            <x-table.th class="cursor-pointer" wire:click="doSort('{{ $h->field }}')">
+              <x-table.sortable :columnLabel="$h->head" :columnName='$h->field' :sortColumn="$sortColumn" :sortDirection="$sortDirection" />
+            </x-table.th>
           @endif
         @endforeach
       </x-slot>
