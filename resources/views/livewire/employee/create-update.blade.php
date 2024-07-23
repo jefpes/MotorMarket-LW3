@@ -68,18 +68,18 @@
           wire:model="employeePhoto.photos" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input name="birth_date" label="Birth Date" type="date" placeholder="Birth Date"
+        <x-form.date-input name="birth_date" label="Birth Date" placeholder="Birth Date"
           :messages="$errors->get('employee.birth_date')" wire:model="employee.birth_date" class="w-full" />
       </div>
     </div>
 
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="basis-1/2">
-        <x-form.input name="hiring_date" label="Hiring Date" type="date" placeholder="Hiring Date"
+        <x-form.date-input name="hiring_date" label="Hiring Date" placeholder="Hiring Date"
           :messages="$errors->get('employee.hiring_date')" wire:model="employee.hiring_date" class="w-full" />
       </div>
       <div class="basis-1/2">
-        <x-form.input disabled name="resignation_date" label="Resignation Date" type="date" placeholder="Resignation Date"
+        <x-form.date-input disabled name="resignation_date" label="Resignation Date" placeholder="Resignation Date"
           :messages="$errors->get('employee.resignation_date')" wire:model="employee.resignation_date" class="w-full" />
       </div>
     </div>
