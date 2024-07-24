@@ -16,8 +16,10 @@
       @foreach ($this->vehicles as $v)
       <div class="w-full sm:w-[48%] md:w-[30%] xl:w-[24%] p-1">
           <a href="{{ route('show.v', $v->id) }}"
-            class="block rounded-lg p-4 shadow-md shadow-green-300 dark:bg-gray-800 bg-gray-200">
-            <img src="{{ $v->photos->first()->path }}" class="h-56 w-full rounded-md object-cover hover:grow" />
+            class="block rounded-lg p-2 shadow-md shadow-green-300 dark:bg-gray-800 bg-gray-200 hover:grow">
+            <div class="h-56 w-full">
+              <img src="{{ $v->photos->first()->path }}" class="h-full w-full rounded-md object-fill" />
+            </div>
 
             <div class="mt-2">
               <dl>
@@ -62,6 +64,14 @@
                     <p class="text-gray-500">{{ __('Year') }}</p>
 
                     <p class="font-medium">{{ $v->year_one.'/'.$v->year_two }}</p>
+                  </div>
+                </div>
+
+                <div class="sm:inline-flex sm:shrink-0 sm:items-center sm:gap-2">
+                  <div class="mt-1 sm:mt-0">
+                    <p class="text-gray-500">{{ __('KM') }}</p>
+
+                    <p class="font-medium">{{ $v->km }}</p>
                   </div>
                 </div>
               </div>
