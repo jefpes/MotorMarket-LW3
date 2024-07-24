@@ -48,7 +48,7 @@
                 @endcan
 
                 @can($permission_delete)
-                  <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}" wire:click="$dispatch('supplier::deleting', { id: {{ $data->id }}})" />
+                  <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}" wire:click="deleting({{ $data->id }})" />
                 @endcan
               </div>
             </x-table.td>

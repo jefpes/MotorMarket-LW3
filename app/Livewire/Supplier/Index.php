@@ -47,6 +47,11 @@ class Index extends Component
         return view('livewire.supplier.index', ['permission' => Permission::class]);
     }
 
+    public function deleting(int $id): void
+    {
+        $this->dispatch('supplier::deleting', $id);
+    }
+
     #[Computed()]
     public function suppliers(): Paginator
     {
