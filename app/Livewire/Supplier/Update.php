@@ -26,7 +26,7 @@ class Update extends Component
     }
     public function render(): View
     {
-        return view('livewire.entityForm.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
+        return view('livewire.supplier.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
     }
 
     public function save(): void

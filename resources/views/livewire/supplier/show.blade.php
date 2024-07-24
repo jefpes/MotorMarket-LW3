@@ -143,9 +143,9 @@
     </dl>
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
-    <x-secondary-button :href="route('entity')" wire:navigate> {{ __('Back') }} </x-secondary-button>
+    <x-secondary-button :href="route('supplier')" wire:navigate> {{ __('Back') }} </x-secondary-button>
     @can($permission::CLIENT_UPDATE->value)
-      <x-primary-button :href="route('entity.edit', $entity->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
+      <x-primary-button :href="route('supplier.edit', $entity->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
 
