@@ -5,7 +5,7 @@ use App\Http\Middleware\{ CheckRoleHierarchy, CheckUserHierarchy, Localization, 
 use App\Livewire\Ability\AbilityRole;
 use App\Livewire\Role;
 use App\Livewire\User\{ UserRole };
-use App\Livewire\{Brand, City, Client, Company, Dashboard, Employee, Home, PaymentInstallments, Profile, Reports, Sales, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
+use App\Livewire\{Brand, City, Client, Company, Dashboard, Employee, Home, PaymentInstallments, Profile, Reports, Sales, Supplier, User, Vehicle, VehicleExpense, VehicleModel, VehicleType};
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(Localization::class)->group(function () {
@@ -87,6 +87,22 @@ Route::middleware(Localization::class)->group(function () {
     Route::get('client/{id}', Client\Show::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_READ->value])
         ->name('client.show');
+
+    Route::get('supplier', Supplier\Index::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_READ->value])
+        ->name('supplier');
+
+    Route::get('supplier_create', Supplier\Create::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_CREATE->value])
+        ->name('supplier.create');
+
+    Route::get('supplier_edit/{id}', Supplier\Update::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_UPDATE->value])
+        ->name('supplier.edit');
+
+    Route::get('supplier/{id}', Supplier\Show::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::CLIENT_READ->value])
+        ->name('supplier.show');
 
     Route::get('employee', Employee\Index::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::EMPLOYEE_READ->value])

@@ -28,27 +28,27 @@
       @endforeach
     </x-slot:thead>
     <x-slot:tbody>
-      @forelse ($this->suppliers->items() as $c)
+      @forelse ($this->suppliers as $data)
         <x-table.tr>
-          <x-table.td> {{ $c->name }} </x-table.td>
-          <x-table.td> {{ $c->rg }} </x-table.td>
-          <x-table.td> {{ $c->cpf }} </x-table.td>
-          <x-table.td> {{ $c->phone_one }} </x-table.td>
-          <x-table.td> <x-span-date :date="$c->birth_date" /> </x-table.td>
+          <x-table.td> {{ $data->name }} </x-table.td>
+          <x-table.td> {{ $data->rg }} </x-table.td>
+          <x-table.td> {{ $data->cpf }} </x-table.td>
+          <x-table.td> {{ $data->phone_one }} </x-table.td>
+          <x-table.td> <x-span-date :date="$data->birth_date" /> </x-table.td>
 
 
           @canany([$permission_update, $permission_delete])
             <x-table.td>
               <div class="flex flex-row gap-2 justify-center">
 
-                <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
+                <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $data->id }}" href="{{ route('supplier.show', $data->id) }}" wire:navigate />
 
                 @can($permission_update)
-                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
+                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}" href="{{ route('supplier.edit', $data->id) }}" wire:navigate />
                 @endcan
 
                 @can($permission_delete)
-                  <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $c->id }}" wire:click="$dispatch('client::deleting', { id: {{ $c->id }}})" />
+                  <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}" wire:click="$dispatch('supplier::deleting', { id: {{ $data->id }}})" />
                 @endcan
               </div>
             </x-table.td>
