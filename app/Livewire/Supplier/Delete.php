@@ -5,7 +5,6 @@ namespace App\Livewire\Supplier;
 use App\Models\Supplier;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\{Locked, On};
 use Livewire\Component;
 
@@ -38,11 +37,7 @@ class Delete extends Component
         $this->authorize($this->permission_delete);
         $supplier = Supplier::find($this->entityForm->id);
 
-        if($supplier->photos->isNotEmpty()) {
-            foreach ($supplier->photos as $photo) {
-                Storage::delete("/supplier_photos/" . $photo->photo_name);
-            }
-        }
+        $this->entityPhotoForm->deleteOldPhotos($supplier);
 
         $this->entityForm->destroy();
         $this->entityForm->reset();

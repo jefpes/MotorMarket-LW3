@@ -64,7 +64,7 @@ abstract class PhotoForm extends Form
 
     public function deleteOldPhotos(Model $entity): void
     {
-        if (!empty($this->photos)) {
+        if (!empty($entity->photos->first())) { // @phpstan-ignore-line
             foreach ($entity->photos as $photo) { // @phpstan-ignore-line
                 if (Storage::exists("/" . $this->getDirectory() . $photo->photo_name)) {
                     Storage::delete("/" . $this->getDirectory() . $photo->photo_name);
@@ -90,6 +90,6 @@ abstract class PhotoForm extends Form
 
     public function setPhotos(Model $entity): void
     {
-        $this->photos = $this->getPhotoModel()->where($this->getEntityField(), $entity->id); // @phpstan-ignore-line
+        $this->photos = $this->getPhotoModel()->where($this->getEntityField(), $entity->id)->toArray(); // @phpstan-ignore-line
     }
 }
