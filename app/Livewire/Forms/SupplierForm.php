@@ -100,7 +100,7 @@ class SupplierForm extends Form
         return $supplier;
     }
 
-    public function setClient(Supplier $supplier): void
+    public function setSupplier(Supplier $supplier): void
     {
         $this->fill($supplier);
         $this->supplier = $supplier;
