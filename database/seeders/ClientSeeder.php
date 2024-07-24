@@ -12,13 +12,17 @@ class ClientSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i = 0; $i < 10; $i++) {
-            $photo = 'client_' . ($i + 1) . '.webp';
-            Client::factory()->withAddress()->create()->photos()->create([
+        for ($i = 1; $i <= 10; $i++) {
+            $photo  = "client_$i.webp";
+            $client = Client::factory()->withAddress()->create();
+
+            $folder = "client_photos";
+
+            $client->photos()->create([
                 'photo_name' => $photo,
                 'format'     => 'webp',
-                'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/client_photos/' . $photo,
-                'path'       => 'storage/client_photos/' . $photo,
+                'full_path'  => base_path("storage/app/$folder/$photo"),
+                'path'       => "storage/$folder/$photo",
             ]);
         }
     }
