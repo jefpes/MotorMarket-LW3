@@ -45,6 +45,7 @@ class Delete extends Component
         }
 
         $this->entityForm->destroy();
+        $this->entityForm->reset();
         $this->modal = false;
 
         $this->dispatch('supplier::refresh');
