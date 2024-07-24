@@ -101,7 +101,7 @@ class Index extends Component
 
     public function clean(): void
     {
-        $this->reset(['selectedBrands', 'year_ini', 'year_end', 'order', 'max_price', 'type']);
+        $this->reset(['selectedBrands', 'year_ini', 'year_end', 'order', 'max_price', 'vehicle_type_id']);
     }
 
     public function updatedSelectedBrands(): void
