@@ -15,6 +15,7 @@ class Index extends Component
 {
     use SortTable;
     use WithPagination;
+    use Utilities;
 
     public string $header = 'Suppliers';
 
