@@ -21,7 +21,7 @@ class Show extends Component
 
     public function mount(int $id): void
     {
-        $this->supplier = Supplier::with('photos')->findOrFail($id);
+        $this->entity = Supplier::with('photos')->findOrFail($id);
     }
 
     public function render(): View
@@ -36,8 +36,8 @@ class Show extends Component
 
     public function actions(int $id): void
     {
-        $this->supplierPhoto = SupplierPhoto::findOrFail($id);
-        $this->modal         = true;
+        $this->entityPhoto = SupplierPhoto::findOrFail($id);
+        $this->modal       = true;
     }
 
     public function destroy(): void
@@ -45,8 +45,8 @@ class Show extends Component
         $this->authorize($this->permission_photo_delete);
 
         try {
-            Storage::delete("/supplier_photos/" . $this->supplierPhoto->photo_name);
-            $this->supplierPhoto->delete();
+            Storage::delete("/supplier_photos/" . $this->entityPhoto->photo_name);
+            $this->entityPhoto->delete();
             $this->modal = false;
 
             $this->toastSuccess('Photo Deleted');
@@ -61,7 +61,7 @@ class Show extends Component
         $response = null;
 
         try {
-            $response = response()->download($this->supplierPhoto->path, $this->supplierPhoto->photo_name);
+            $response = response()->download($this->entityPhoto->path, $this->entityPhoto->photo_name);
 
             $this->toastSuccess('Photo Downloaded');
         } catch (\Throwable $th) {

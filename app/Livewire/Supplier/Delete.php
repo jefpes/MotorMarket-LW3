@@ -29,14 +29,14 @@ class Delete extends Component
     #[On('supplier::deleting')]
     public function deleting(int $id): void
     {
-        $this->supplierForm->setSupplier(Supplier::find($id));
+        $this->entityForm->setSupplier(Supplier::find($id));
         $this->modal = true;
     }
 
     public function destroy(): void
     {
         $this->authorize($this->permission_delete);
-        $supplier = Supplier::find($this->supplier->id);
+        $supplier = Supplier::find($this->entityForm->id);
 
         if($supplier->photos->isNotEmpty()) {
             foreach ($supplier->photos as $photo) {
@@ -44,7 +44,7 @@ class Delete extends Component
             }
         }
 
-        $this->supplierForm->destroy();
+        $this->entityForm->destroy();
         $this->modal = false;
 
         $this->dispatch('supplier::refresh');
@@ -54,7 +54,7 @@ class Delete extends Component
 
     public function cancel(): void
     {
-        $this->supplierForm->reset();
+        $this->entityForm->reset();
         $this->reset('modal');
     }
 }

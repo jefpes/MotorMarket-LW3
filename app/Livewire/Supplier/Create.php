@@ -25,20 +25,20 @@ class Create extends Component
     {
         $this->authorize($this->permission_create);
 
-        $this->supplierForm->validate();
-        $this->supplierAddressForm->validate();
+        $this->entityForm->validate();
+        $this->entityAddressForm->validate();
 
-        $supplier = $this->supplierForm->save();
+        $supplier = $this->entityForm->save();
 
         // Salva o endereço do cliente
-        $this->supplierAddressForm->entity_id = $supplier->id;
-        $this->supplierAddressForm->save($supplier); // @phpstan-ignore-line
+        $this->entityAddressForm->entity_id = $supplier->id;
+        $this->entityAddressForm->save($supplier); // @phpstan-ignore-line
 
         // Processa e salva as fotos, se houver
-        $this->supplierPhotoForm->save($supplier->id, $supplier->name);
+        $this->entityPhotoForm->save($supplier->id, $supplier->name);
 
-        $this->supplierForm->reset();
-        $this->supplierAddressForm->reset();
+        $this->entityForm->reset();
+        $this->entityAddressForm->reset();
         $this->supplierPhotosForm->reset(); // @phpstan-ignore-line
 
         $this->toastSuccess('Supplier created successfully');

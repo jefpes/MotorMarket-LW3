@@ -8,15 +8,15 @@ use App\Models\{Supplier, SupplierPhoto};
 
 trait Utilities
 {
-    public ?Supplier $supplier;
+    public ?Supplier $entity;
 
-    public ?SupplierPhoto $supplierPhoto;
+    public ?SupplierPhoto $entityPhoto;
 
-    public ?SupplierForm $supplierForm;
+    public ?SupplierForm $entityForm;
 
-    public ?SupplierPhotoForm $supplierPhotoForm;
+    public ?SupplierPhotoForm $entityPhotoForm;
 
-    public ?SupplierAddressForm $supplierAddressForm;
+    public ?SupplierAddressForm $entityAddressForm;
 
     public string $permission_create = Permission::CLIENT_CREATE->value;
 

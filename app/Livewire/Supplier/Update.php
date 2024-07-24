@@ -20,30 +20,30 @@ class Update extends Component
     public function mount(int $id): void
     {
         $supplier = Supplier::findOrFail($id);
-        $this->supplierForm->setSupplier($supplier);
-        $this->supplierAddressForm->setAddress($supplier);
-        $this->supplierPhotoForm->setPhoto($supplier);
+        $this->entityForm->setSupplier($supplier);
+        $this->entityAddressForm->setAddress($supplier);
+        $this->entityPhotoForm->setPhoto($supplier);
     }
     public function render(): View
     {
-        return view('livewire.supplierForm.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
+        return view('livewire.entityForm.create-update', ['states' => States::cases(), 'cities' => City::all(), 'maritalStatus' => MaritalStatus::cases(), 'genders' => Genders::cases()]);
     }
 
     public function save(): void
     {
         $this->authorize($this->permission_update);
 
-        $this->supplierForm->validate();
-        $this->supplierAddressForm->validate();
+        $this->entityForm->validate();
+        $this->entityAddressForm->validate();
 
-        $supplier = $this->supplierForm->save();
+        $supplier = $this->entityForm->save();
 
         // Salva o endereço do cliente
-        $this->supplierAddressForm->entity_id = $supplier->id;
-        $this->supplierAddressForm->save();
+        $this->entityAddressForm->entity_id = $supplier->id;
+        $this->entityAddressForm->save();
 
         // Processa e salva as fotos, se houver
-        $this->supplierPhotoForm->save($supplier->id, $supplier->name);
+        $this->entityPhotoForm->save($supplier->id, $supplier->name);
 
         $this->toastSuccess('Supplier updated successfully');
     }
