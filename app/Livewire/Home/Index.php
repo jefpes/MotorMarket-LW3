@@ -4,7 +4,6 @@ namespace App\Livewire\Home;
 
 use App\Models\{Brand, Company, Vehicle, VehicleType};
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\{Computed, Layout, Url};
@@ -31,21 +30,27 @@ class Index extends Component
     #[Url(except: '', history: true)]
     public ?string $max_price = null;
 
-    #[Url(except: '', as: 't', history: true)]
-    public ?string $type = null;
+    #[Url(except: '', as: 'type', history: true)]
+    public ?int $vehicle_type_id = null;
 
     #[Layout('components.layouts.home')]
     public function render(): View
     {
-        return view('livewire.home.index', ['company' => Company::find(1), 'types' => VehicleType::all()]);
+        return view('livewire.home.index', ['company' => Company::find(1)]);
+    }
+
+    #[Computed()]
+    public function types(): Collection
+    {
+        return VehicleType::orderBy('name')->get();
     }
 
     #[Computed()]
     public function years(): Collection
     {
-        return Vehicle::whereSoldDate(null)
+        return Vehicle::whereNull('sold_date')
             ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
-            ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
+            ->when($this->vehicle_type_id, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->vehicle_type_id)))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
             ->select('year_one')
             ->distinct()
@@ -57,24 +62,24 @@ class Index extends Component
     public function vehicles(): LengthAwarePaginator
     {
         return Vehicle::with('model', 'photos')
-            ->whereSoldDate(null)
+            ->whereNull('sold_date')
             ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
             ->when($this->year_ini, fn ($query) => $query->where('year_one', '>=', $this->year_ini))
             ->when($this->year_end, fn ($query) => $query->where('year_one', '<=', $this->year_end))
             ->when($this->order, fn ($query) => $query->orderBy('sale_price', $this->order))
             ->when($this->max_price, fn ($query) => $query->where('sale_price', '<=', $this->max_price))
-            ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
+            ->when($this->vehicle_type_id, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->vehicle_type_id)))
             ->paginate();
     }
 
     #[Computed()]
     public function prices(): Collection
     {
-        return Vehicle::whereSoldDate(null)
+        return Vehicle::whereNull('sold_date')
             ->when($this->selectedBrands, fn ($query) => $query->whereHas('model', fn ($query) => $query->whereIn('brand_id', $this->selectedBrands)))
             ->when($this->year_ini, fn ($query) => $query->where('year_one', '>=', $this->year_ini))
             ->when($this->year_end, fn ($query) => $query->where('year_one', '<=', $this->year_end))
-            ->when($this->type, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->type)))
+            ->when($this->vehicle_type_id, fn ($query) => $query->whereHas('model', fn ($query) => $query->where('vehicle_type_id', $this->vehicle_type_id)))
             ->select('sale_price')
             ->distinct()
             ->orderBy('sale_price')
@@ -85,13 +90,13 @@ class Index extends Component
     public function brands(): Collection
     {
         return Brand::join('vehicle_models', 'brands.id', '=', 'vehicle_models.brand_id')
-              ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
-              ->select('brands.*')
-              ->distinct()
-              ->where('vehicles.sold_date', '=', null)
-              ->when($this->type, fn (Builder $q) => $q->where('vehicle_models.vehicle_type_id', $this->type))
-              ->orderBy('brands.name')
-              ->get();
+            ->join('vehicles', 'vehicle_models.id', '=', 'vehicles.vehicle_model_id')
+            ->whereNull('vehicles.sold_date')
+            ->when($this->vehicle_type_id, fn ($query) => $query->where('vehicle_models.vehicle_type_id', $this->vehicle_type_id))
+            ->select('brands.*')
+            ->distinct()
+            ->orderBy('brands.name')
+            ->get();
     }
 
     public function clean(): void
