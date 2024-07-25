@@ -6,7 +6,6 @@ use App\Enums\Permission;
 use App\Models\{Supplier, SupplierPhoto};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -45,14 +44,12 @@ class Show extends Component
         $this->authorize($this->permission_photo_delete);
 
         try {
-            Storage::delete("/supplier_photos/" . $this->entityPhoto->photo_name);
-            $this->entityPhoto->delete();
-            $this->modal = false;
-
+            $this->entityPhotoForm->deletePhoto($this->entityPhoto);
             $this->toastSuccess('Photo Deleted');
-        } catch (\Exception $e) {
             $this->modal = false;
-            $this->toastFail('Failed to delete photo');
+        } catch (\Throwable $th) {
+            $this->modal = false;
+            $this->toastFail('Photo Not Deleted');
         }
     }
 

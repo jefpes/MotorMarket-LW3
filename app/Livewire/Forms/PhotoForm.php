@@ -74,6 +74,13 @@ abstract class PhotoForm extends Form
         }
     }
 
+    //passar um Model de photo
+    public function deletePhoto(Model $entity): void
+    {
+        Storage::delete("/" . $this->getDirectory() . $entity->photo_name); // @phpstan-ignore-line
+        $entity->delete();
+    }
+
     public function setPhoto(Model $entity): void
     {
         $photo = $this->getPhotoModel()->where($this->getEntityField(), $entity->id)->first(); // @phpstan-ignore-line
