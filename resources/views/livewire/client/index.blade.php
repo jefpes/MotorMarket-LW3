@@ -5,9 +5,9 @@
       <x-form.input name="search" type="text" placeholder="Search" wire:model.live.debounce.800="search" class="w-full" />
     </div>
 
-    @can($permission::CLIENT_CREATE->value)
+    @can($permission_create)
     <div class="gap-2 flex flex-0">
-      <x-primary-button :href="route('client.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
+      <x-primary-button :href="route('supplier.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
     </div>
     @endcan
 
@@ -17,7 +17,7 @@
     <x-slot:thead>
       @foreach ($this->table as $h)
         @if ($h->field == 'actions')
-          @canany([$permission::CLIENT_UPDATE->value, $permission::CLIENT_DELETE->value])
+          @canany([$permission_update, $permission_delete])
             <x-table.th> {{ __($h->head) }} </x-table.th>
           @endcanany
         @else
@@ -28,34 +28,34 @@
       @endforeach
     </x-slot:thead>
     <x-slot:tbody>
-      @forelse ($this->clients->items() as $c)
+      @forelse ($this->clients as $data)
         <x-table.tr>
-          <x-table.td> {{ $c->name }} </x-table.td>
-          <x-table.td> {{ $c->rg }} </x-table.td>
-          <x-table.td> {{ $c->cpf }} </x-table.td>
-          <x-table.td> {{ $c->phone_one }} </x-table.td>
-          <x-table.td> <x-span-date :date="$c->birth_date" /> </x-table.td>
+          <x-table.td> {{ $data->name }} </x-table.td>
+          <x-table.td> {{ $data->rg }} </x-table.td>
+          <x-table.td> {{ $data->cpf }} </x-table.td>
+          <x-table.td> {{ $data->phone_one }} </x-table.td>
+          <x-table.td> <x-span-date :date="$data->birth_date" /> </x-table.td>
 
 
-          @canany([$permission::CLIENT_DELETE->value, $permission::CLIENT_UPDATE->value])
-          <x-table.td>
-            <div class="flex flex-row gap-2 justify-center">
+          @canany([$permission_update, $permission_delete])
+            <x-table.td>
+              <div class="flex flex-row gap-2 justify-center">
 
-              <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $c->id }}" href="{{ route('client.show', $c->id) }}" wire:navigate />
+                <x-icons.eye class="text-2xl flex w-8 h-8 cursor-pointer" id="show-{{ $data->id }}" href="{{ route('client.show', $data->id) }}" wire:navigate />
 
-              @can($permission::CLIENT_UPDATE->value)
-                <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $c->id }}" href="{{ route('client.edit', $c->id) }}" wire:navigate />
-              @endcan
+                @can($permission_update)
+                  <x-icons.edit class="text-2xl flex text-yellow-400 w-8 h-8 cursor-pointer" id="edit-{{ $data->id }}" href="{{ route('client.edit', $data->id) }}" wire:navigate />
+                @endcan
 
-              @can($permission::CLIENT_DELETE->value)
-                <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $c->id }}" wire:click="$dispatch('client::deleting', { id: {{ $c->id }}})" />
-              @endcan
-            </div>
-          </x-table.td>
+                @can($permission_delete)
+                  <x-icons.delete class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" id="btn-delete-{{ $data->id }}" wire:click="deleting({{ $data->id }})" />
+                @endcan
+              </div>
+            </x-table.td>
           @endcanany
         </x-table.tr>
       @empty
-        <x-table.tr-no-register :cols="count($theader)" />
+        <x-table.tr-no-register :cols="count($this->table)" />
       @endforelse
 
     </x-slot:tbody>
@@ -64,5 +64,5 @@
     {{ $this->clients->onEachSide(1)->links() }}
   </div>
 
-  <livewire:client.delete />
+  <livewire:supplier.delete />
 </div>

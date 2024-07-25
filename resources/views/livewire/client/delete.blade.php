@@ -1,7 +1,7 @@
 <div>
   <x-modal wire:model="modal" name="main_modal">
     <x-slot:title>
-      {{ __($title) }}: <span class="text-yellow-300">{{ $form->name }}</span>
+      {{ __($title) }}: <span class="text-yellow-300">{{ $entityForm->name }}</span>
     </x-slot:title>
     <div class="w-full">
       <p>
@@ -14,7 +14,7 @@
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      @can('client_delete')
+      @can($permission_delete)
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>
