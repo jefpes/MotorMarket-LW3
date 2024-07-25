@@ -19,4 +19,9 @@ class Supplier extends Model
     {
         return $this->hasOne(SupplierAddress::class);
     }
+
+    public function vehicles(): HasMany
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 }
