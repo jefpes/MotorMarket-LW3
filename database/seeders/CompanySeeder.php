@@ -15,7 +15,6 @@ class CompanySeeder extends Seeder
             'name'      => 'Motor Market',
             'opened_in' => '2021-07-02',
             'cnpj'      => '99.999.999/9999-99',
-            'cpf'       => '999.999.999-99',
             'address'   => 'Rua das Flores, 123, Bairro das Rosas, Cidade das Cores, Estado dos Sonhos, CEP: 99999-999',
             'about'     => 'Somos uma empresa de venda de veículos, na qual presamos pela qualidade e satisfação do cliente.',
             'phone'     => '(85) 99999-9999',
