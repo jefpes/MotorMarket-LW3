@@ -2,8 +2,7 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\{Genders, MaritalStatus, Permission, States};
-use App\Livewire\Forms\{ClientAddressForm, ClientForm, ClientPhotoForm};
+use App\Enums\{Genders, MaritalStatus, States};
 use App\Models\{City, Client};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -14,21 +13,16 @@ class Update extends Component
 {
     use WithFileUploads;
     use Toast;
-
-    public ClientForm $client;
-
-    public ClientPhotoForm $clientPhoto;
-
-    public ClientAddressForm $clientAddress;
+    use Utilities;
 
     public string $header = 'Update Client';
 
     public function mount(int $id): void
     {
         $client = Client::findOrFail($id);
-        $this->client->setClient($client);
-        $this->clientAddress->setAddress($client);
-        $this->clientPhoto->setPhoto($client);
+        $this->entityForm->setClient($client);
+        $this->entityAddressForm->setAddress($client);
+        $this->entityPhotoForm->setPhoto($client);
     }
     public function render(): View
     {
@@ -37,19 +31,17 @@ class Update extends Component
 
     public function save(): void
     {
-        $this->authorize(Permission::CLIENT_UPDATE->value);
+        $this->authorize($this->permission_update);
 
-        $this->client->validate();
-        $this->clientAddress->validate();
+        $this->entityForm->validate();
+        $this->entityAddressForm->validate();
 
-        $client = $this->client->save();
+        $client = $this->entityForm->save();
 
-        // Salva o endereço do cliente
-        $this->clientAddress->entity_id = $client->id;
-        $this->clientAddress->save();
+        $this->entityAddressForm->entity_id = $client->id;
+        $this->entityAddressForm->save();
 
-        // Processa e salva as fotos, se houver
-        $this->clientPhoto->save($client->id, $client->name);
+        $this->entityPhotoForm->save($client->id, $client->name);
 
         $this->toastSuccess('Client updated successfully');
     }

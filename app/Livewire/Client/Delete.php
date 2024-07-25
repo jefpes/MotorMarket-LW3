@@ -2,20 +2,16 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\Permission;
-use App\Livewire\Forms\ClientForm;
 use App\Models\Client;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\{Locked, On};
 use Livewire\Component;
 
 class Delete extends Component
 {
     use Toast;
-
-    public ClientForm $form;
+    use Utilities;
 
     #[Locked]
     public int $id;
@@ -32,32 +28,33 @@ class Delete extends Component
     #[On('client::deleting')]
     public function deleting(int $id): void
     {
-        $this->form->setClient(Client::find($id));
+        $this->entityForm->setClient(Client::find($id));
         $this->modal = true;
     }
 
     public function destroy(): void
     {
-        $this->authorize(Permission::CLIENT_DELETE->value);
-        $client = Client::find($this->form->id);
+        $this->authorize($this->permission_delete);
 
-        if($client->photos->isNotEmpty()) {
-            foreach ($client->photos as $photo) {
-                Storage::delete("/client_photos/" . $photo->photo_name);
-            }
+        $client = Client::find($this->entityForm->id);
+
+        try {
+            $this->entityForm->destroy();
+            $this->entityPhotoForm->deleteOldPhotos($client);
+            $this->entityForm->reset();
+            $this->modal = false;
+            $this->dispatch('client::refresh');
+            $this->toastSuccess('Client Deleted');
+
+        } catch (\Exception $e) {
+            $this->toastFail('Client Not Deleted');
+            $this->modal = false;
         }
-
-        $this->form->destroy();
-        $this->modal = false;
-
-        $this->dispatch('client::refresh');
-
-        $this->toastSuccess('Client Deleted');
     }
 
     public function cancel(): void
     {
-        $this->form->reset();
+        $this->entityForm->reset();
         $this->reset('modal');
     }
 }

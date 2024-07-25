@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\Permission;
-use App\Models\{Client, ClientPhoto};
+use App\Models\ClientPhoto;
+use App\Models\{Client};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
@@ -13,23 +13,20 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class Show extends Component
 {
     use Toast;
+    use Utilities;
 
     public bool $modal = false;
-
-    public Client $client;
-
-    public ClientPhoto $photo;
 
     public string $header = 'Showing Client';
 
     public function mount(int $id): void
     {
-        $this->client = Client::with('photos')->findOrFail($id);
+        $this->entity = Client::with('photos')->findOrFail($id);
     }
 
     public function render(): View
     {
-        return view('livewire.client.show', ['permission' => Permission::class]);
+        return view('livewire.client.show');
     }
 
     public function cancel(): void
@@ -39,28 +36,23 @@ class Show extends Component
 
     public function actions(int $id): void
     {
-        $this->photo = ClientPhoto::findOrFail($id);
-        $this->modal = true;
+        $this->entityPhoto = ClientPhoto::findOrFail($id);
+        $this->modal       = true;
     }
 
     public function destroy(): void
     {
-        $this->authorize(Permission::CLIENT_PHOTO_DELETE->value);
+        $this->authorize($this->permission_photo_delete);
 
         try {
-            Storage::delete("/client_photos/" . $this->photo->photo_name);
-            $this->photo->delete();
+            Storage::delete("/client_photos/" . $this->entityPhoto->photo_name);
+            $this->entityPhoto->delete();
             $this->modal = false;
 
-            $this->icon = 'icons.success';
-            $this->msg  = 'Photo Deleted';
-
-            $this->dispatch('show-toast');
+            $this->toastSuccess('Photo Deleted');
         } catch (\Exception $e) {
             $this->modal = false;
-            $this->icon  = 'icons.fail';
-            $this->msg   = 'Failed to delete photo';
-            $this->dispatch('show-toast');
+            $this->toastFail('Failed to delete photo');
         }
     }
 
@@ -69,18 +61,11 @@ class Show extends Component
         $response = null;
 
         try {
-            $response = response()->download($this->photo->path, $this->photo->photo_name);
+            $response = response()->download($this->entityPhoto->path, $this->entityPhoto->photo_name);
 
-            $this->icon = 'icons.success';
-            $this->msg  = 'Photo Downloaded';
-
-            $this->dispatch('show-toast');
-
+            $this->toastSuccess('Photo Downloaded');
         } catch (\Throwable $th) {
-            $this->icon = 'icons.fail';
-            $this->msg  = 'Download photo, failed';
-
-            $this->dispatch('show-toast');
+            $this->toastFail('Download photo, failed');
         }
 
         return $response;

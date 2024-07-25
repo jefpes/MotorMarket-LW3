@@ -2,8 +2,7 @@
 
 namespace App\Livewire\Client;
 
-use App\Enums\{Genders, MaritalStatus, Permission, States};
-use App\Livewire\Forms\{ClientAddressForm, ClientForm, ClientPhotoForm};
+use App\Enums\{Genders, MaritalStatus, States};
 use App\Models\City;
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
@@ -13,12 +12,7 @@ class Create extends Component
 {
     use WithFileUploads;
     use Toast;
-
-    public ClientForm $client;
-
-    public ClientPhotoForm $clientPhoto;
-
-    public ClientAddressForm $clientAddress;
+    use Utilities;
 
     public string $header = 'Create Client';
 
@@ -29,23 +23,22 @@ class Create extends Component
 
     public function save(): void
     {
-        $this->authorize(Permission::CLIENT_CREATE->value);
+        $this->authorize($this->permission_create);
 
-        $this->client->validate();
-        $this->clientAddress->validate();
+        $this->entityForm->validate();
+        $this->entityAddressForm->validate();
 
-        $client = $this->client->save();
+        $client = $this->entityForm->save();
 
         // Salva o endereço do cliente
-        $this->clientAddress->entity_id = $client->id;
-        $this->clientAddress->save($client); // @phpstan-ignore-line
+        $this->entityAddressForm->entity_id = $client->id;
+        $this->entityAddressForm->save();
 
         // Processa e salva as fotos, se houver
-        $this->clientPhoto->save($client->id, $client->name);
+        $this->entityPhotoForm->save($client->id, $client->name);
 
-        $this->client->reset();
-        $this->clientAddress->reset();
-        $this->clientPhotos->reset(); // @phpstan-ignore-line
+        $this->entityForm->reset();
+        $this->entityAddressForm->reset();
 
         $this->toastSuccess('Client created successfully');
     }
