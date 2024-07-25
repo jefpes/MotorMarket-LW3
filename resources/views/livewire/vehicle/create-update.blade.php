@@ -18,11 +18,11 @@
       </div>
       <div class="flex-0">
         <x-form.input x-mask="9999" name="year_one" label="Year" placeholder="Year"
-          :messages="$errors->get('vehicle.year_one')" wire:model="vehicle.year_one" class="w-full" />
+          :messages="$errors->get('vehicle.year_one')" wire:model="vehicle.year_one" class="w-20" />
       </div>
       <div class="flex-0">
         <x-form.input x-mask="9999" name="year_two" label="Year" placeholder="Year"
-          :messages="$errors->get('vehicle.year_two')" wire:model="vehicle.year_two" class="w-full" />
+          :messages="$errors->get('vehicle.year_two')" wire:model="vehicle.year_two" class="w-20" />
       </div>
     </div>
 
