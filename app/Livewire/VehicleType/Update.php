@@ -47,7 +47,7 @@ class Update extends Component
         $this->dispatch('vtype::refresh');
         $this->form->save();
 
-        $this->toastSuccess('Vehicle Type updated successfully');
+        $this->toastSuccess('Vehicle type updated successfully');
         $this->cancel();
     }
 }

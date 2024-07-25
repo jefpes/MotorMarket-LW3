@@ -45,7 +45,7 @@ class Create extends Component
         $this->dispatch('vtype::refresh');
         $this->form->save();
 
-        $this->toastSuccess('Vehicle Type created successfully');
+        $this->toastSuccess('Vehicle type created successfully');
         $this->cancel();
     }
 }
