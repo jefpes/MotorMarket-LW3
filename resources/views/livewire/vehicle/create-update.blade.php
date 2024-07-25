@@ -3,15 +3,24 @@
 
   <div class="space-y-2">
     <div class="flex flex-col md:flex-row justify-between md:space-x-2 md:space-y-0 space-y-2">
-      <div class="basis-1/3">
+      <div class="flex-1">
+        <x-select :messages="$errors->get('vehicle.supplier_id')" wire:model="vehicle.supplier_id" class="w-full"
+          label='Supplier' id="fuel">
+          <option value=""> {{ __('Select')}} </option>
+          @foreach ($this->suppliers as $data)
+          <option value="{{ $data->value }}"> {{ $data->name }} </option>
+          @endforeach
+        </x-select>
+      </div>
+      <div class="flex-0">
         <x-form.date-input name="purchase_date" label="Purchase Date" placeholder="Purchase Date"
           :messages="$errors->get('vehicle.purchase_date')" wire:model="vehicle.purchase_date" class="w-full" />
       </div>
-      <div class="basis-1/3">
+      <div class="flex-0">
         <x-form.input x-mask="9999" name="year_one" label="Year" placeholder="Year"
           :messages="$errors->get('vehicle.year_one')" wire:model="vehicle.year_one" class="w-full" />
       </div>
-      <div class="basis-1/3">
+      <div class="flex-0">
         <x-form.input x-mask="9999" name="year_two" label="Year" placeholder="Year"
           :messages="$errors->get('vehicle.year_two')" wire:model="vehicle.year_two" class="w-full" />
       </div>
@@ -122,6 +131,9 @@
       wire:model="vehiclePhoto.photos" class="w-full" />
     <x-form.textarea name="description" label="Description" placeholder="Description"
       :messages="$errors->get('vehicle.description')" wire:model="vehicle.description" class="w-full" />
+
+    <x-form.textarea name="annotation" label="Annotation" placeholder="Annotation"
+      :messages="$errors->get('vehicle.annotation')" wire:model="vehicle.annotation" class="w-full" />
   </div>
 
   <div class="flex items-center mt-4 pt-2 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end">

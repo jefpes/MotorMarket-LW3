@@ -4,7 +4,7 @@ namespace App\Livewire\Vehicle;
 
 use App\Enums\{FuelTypes, Permission, SteeringTypes, TransmissionTypes};
 use App\Livewire\Forms\{VehicleForm, VehiclePhotoForm};
-use App\Models\{VehicleModel, VehicleType};
+use App\Models\{Supplier, VehicleModel, VehicleType};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
@@ -25,6 +25,12 @@ class Create extends Component
     public function render(): View
     {
         return view('livewire.vehicle.create-update', ['fuelTypes' => FuelTypes::cases(), 'steeringTypes' => SteeringTypes::cases(), 'transmissionTypes' => TransmissionTypes::cases()]);
+    }
+
+    #[Computed()]
+    public function suppliers(): Collection
+    {
+        return Supplier::orderBy('name')->get();
     }
 
     #[Computed()]
