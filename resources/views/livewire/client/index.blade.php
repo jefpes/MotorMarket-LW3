@@ -7,7 +7,7 @@
 
     @can($permission_create)
     <div class="gap-2 flex flex-0">
-      <x-primary-button :href="route('supplier.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
+      <x-primary-button :href="route('client.create')"  wire:navigate > {{ __('New') }} </x-primary-button>
     </div>
     @endcan
 
