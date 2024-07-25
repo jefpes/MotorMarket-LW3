@@ -64,5 +64,5 @@
     {{ $this->clients->onEachSide(1)->links() }}
   </div>
 
-  <livewire:supplier.delete />
+  <livewire:client.delete />
 </div>
