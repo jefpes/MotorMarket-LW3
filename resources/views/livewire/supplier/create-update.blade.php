@@ -145,7 +145,7 @@
     </div>
     <div class="flex flex-col md:flex-row justify-between md:space-x-2">
       <div class="md:basis-1/3">
-        <x-form.input x-mask="99999" name="number" label="Number" placeholder="Number"
+        <x-form.input name="number" label="Number" placeholder="Number"
           :messages="$errors->get('entityAddressForm.number')" wire:model="entityAddressForm.number" class="w-full" />
       </div>
       <div class="md:basis-1/3">

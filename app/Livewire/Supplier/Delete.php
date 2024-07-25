@@ -35,17 +35,21 @@ class Delete extends Component
     public function destroy(): void
     {
         $this->authorize($this->permission_delete);
+
         $supplier = Supplier::find($this->entityForm->id);
 
-        $this->entityPhotoForm->deleteOldPhotos($supplier);
+        try {
+            $this->entityForm->destroy();
+            $this->entityPhotoForm->deleteOldPhotos($supplier);
+            $this->entityForm->reset();
+            $this->modal = false;
+            $this->dispatch('supplier::refresh');
+            $this->toastSuccess('Supplier Deleted');
 
-        $this->entityForm->destroy();
-        $this->entityForm->reset();
-        $this->modal = false;
-
-        $this->dispatch('supplier::refresh');
-
-        $this->toastSuccess('Supplier Deleted');
+        } catch (\Exception $e) {
+            $this->toastFail('Supplier Not Deleted');
+            $this->modal = false;
+        }
     }
 
     public function cancel(): void

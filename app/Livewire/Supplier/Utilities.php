@@ -18,13 +18,13 @@ trait Utilities
 
     public ?SupplierAddressForm $entityAddressForm;
 
-    public string $permission_create = Permission::CLIENT_CREATE->value;
+    public string $permission_create = Permission::SUPPLIER_CREATE->value;
 
-    public string $permission_read = Permission::CLIENT_READ->value;
+    public string $permission_read = Permission::SUPPLIER_READ->value;
 
-    public string $permission_update = Permission::CLIENT_UPDATE->value;
+    public string $permission_update = Permission::SUPPLIER_UPDATE->value;
 
-    public string $permission_delete = Permission::CLIENT_DELETE->value;
+    public string $permission_delete = Permission::SUPPLIER_DELETE->value;
 
-    public string $permission_photo_delete = Permission::CLIENT_PHOTO_DELETE->value;
+    public string $permission_photo_delete = Permission::SUPPLIER_PHOTO_DELETE->value;
 }

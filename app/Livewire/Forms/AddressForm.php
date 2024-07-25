@@ -3,7 +3,7 @@
 namespace App\Livewire\Forms;
 
 use Illuminate\Database\Eloquent\Model;
-use Livewire\Attributes\{Locked, Validate};
+use Livewire\Attributes\{Locked};
 use Livewire\Form;
 
 abstract class AddressForm extends Form
@@ -13,30 +13,37 @@ abstract class AddressForm extends Form
 
     public ?int $entity_id = null;
 
-    #[Validate('required', 'size:9')]
     public ?string $zip_code = '';
 
-    #[Validate('required', 'min:3', 'max:255')]
     public ?string $street = '';
 
-    #[Validate('required', 'integer')]
-    public ?int $number = null;
+    public ?string $number = null;
 
-    #[Validate('required', 'min:3', 'max:255')]
     public ?string $neighborhood = '';
 
-    #[Validate('nullable', 'min:3', 'max:255')]
     public ?string $complement = '';
 
-    #[Validate('required', 'exists:cities,id', 'integer')]
     public ?int $city_id = null;
 
-    #[Validate('required', 'min:2', 'max:100')]
     public ?string $state = '';
 
     abstract protected function getAddressModel(): Model;
 
     abstract protected function getEntityField(): string;
+
+    /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
+    public function rules()
+    {
+        return [
+            'zip_code'     => ['required', 'size:9'],
+            'street'       => ['required', 'min:3', 'max:255'],
+            'number'       => ['required', 'min:1', 'max:10'],
+            'neighborhood' => ['required', 'min:3', 'max:255'],
+            'complement'   => ['nullable', 'min:3', 'max:255'],
+            'city_id'      => ['required', 'exists:cities,id', 'integer'],
+            'state'        => ['required', 'min:2', 'max:100'],
+        ];
+    }
 
     public function save(): void
     {

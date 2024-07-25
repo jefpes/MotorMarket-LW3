@@ -144,7 +144,7 @@
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
     <x-secondary-button :href="route('supplier')" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    @can($permission::CLIENT_UPDATE->value)
+    @can($permission_update)
       <x-primary-button :href="route('supplier.edit', $entity->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
@@ -164,7 +164,7 @@
         {{ __('Download') }}
       </x-primary-button>
 
-      @can($permission::CLIENT_PHOTO_DELETE->value)
+      @can($permission_photo_delete)
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>
@@ -172,7 +172,5 @@
     </x-slot:footer>
   </x-modal>
 
-  <x-toast on="show-toast" :$icon>
-    {{ __( $msg ) }}
-  </x-toast>
+  <x-toast :$msg :$icon />
 </div>

@@ -32,14 +32,13 @@ class Create extends Component
 
         // Salva o endereço do cliente
         $this->entityAddressForm->entity_id = $supplier->id;
-        $this->entityAddressForm->save($supplier); // @phpstan-ignore-line
+        $this->entityAddressForm->save();
 
         // Processa e salva as fotos, se houver
         $this->entityPhotoForm->save($supplier->id, $supplier->name);
 
         $this->entityForm->reset();
         $this->entityAddressForm->reset();
-        $this->supplierPhotosForm->reset(); // @phpstan-ignore-line
 
         $this->toastSuccess('Supplier created successfully');
     }
