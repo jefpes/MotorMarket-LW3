@@ -8,7 +8,7 @@
           label='Supplier' id="fuel">
           <option value=""> {{ __('Select')}} </option>
           @foreach ($this->suppliers as $data)
-          <option value="{{ $data->value }}"> {{ $data->name }} </option>
+          <option value="{{ $data->id }}"> {{ $data->name }} </option>
           @endforeach
         </x-select>
       </div>
