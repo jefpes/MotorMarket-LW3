@@ -67,6 +67,8 @@
                       wire:click="$dispatch('sale::canceling', { id: {{ $s->id }} })"
                       class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
+                  <x-icons.eye class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
+                    href="{{ route('sale.show', $s->id) }}" id="show-{{ $s->id }}" wire:navigate />
                 @else
                   <x-icons.fail class="text-2xl flex text-red-600 w-8 h-8" />
                 @endif

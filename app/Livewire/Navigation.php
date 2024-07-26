@@ -46,7 +46,7 @@ class Navigation extends Component
             UtilitiesNavigation::createNavItem('client', 'Clients', Permission::CLIENT_READ, ['client.create', 'client.edit', 'client.show']),
             UtilitiesNavigation::createNavItem('supplier', 'Suppliers', Permission::SUPPLIER_READ, ['supplier.create', 'supplier.edit', 'supplier.show']),
             UtilitiesNavigation::createNavItem('employee', 'Employees', Permission::EMPLOYEE_READ, ['employee.create', 'employee.edit', 'employee.show']),
-            UtilitiesNavigation::createNavItem('sales', 'Sales', Permission::SALE_READ, ['sale.create']),
+            UtilitiesNavigation::createNavItem('sales', 'Sales', Permission::SALE_READ, ['sale.create', 'sale.show']),
             UtilitiesNavigation::createNavItem('installments', 'Installments', Permission::INSTALLMENT_READ, ['sale.installments']),
             UtilitiesNavigation::createNavItem('vehicle-expense', 'Expenses', Permission::VEHICLE_EXPENSE_READ),
         ];

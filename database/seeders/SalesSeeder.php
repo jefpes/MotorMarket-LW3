@@ -287,7 +287,6 @@ class SalesSeeder extends Seeder
                 'payment_method'      => 'CREDIÁRIO PRÓPRIO',
                 'status'              => 'PENDENTE',
                 'date_sale'           => '2024-04-07',
-                'date_payment'        => '2024-04-07',
                 'number_installments' => 10,
                 'down_payment'        => 30000,
                 'discount'            => 0,
