@@ -64,7 +64,7 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_UPDATE->value])
         ->name('vehicle.edit');
 
-    Route::get('vehicle/{id}/receipt', Reports\ReceiptSale::class)
+    Route::get('vehicle/{id}/receipt', Reports\ReceiptPurchase::class)
     ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_CREATE->value])
     ->name('receipt.purchase');
 

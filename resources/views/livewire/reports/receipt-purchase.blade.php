@@ -4,9 +4,9 @@
     </h1>
 
     <div class="space-y-3">
-      <p>Eu, {{ $sale->supplier->name }}, CPF: {{ $sale->supplier->cpf }}, declaro que recebi do(a)
+      <p>Eu, {{ $vehicle->supplier->name }}, CPF: {{ $vehicle->supplier->cpf }}, declaro que recebi do(a)
         @if ($company->cnpj) {{ $company->name }}, CNPJ: {{ $company->cnpj }} @else {{ $company->employee->name }}, CPF: {{ $company->employee->cpf }} @endif,
-        o valor <x-span-money class="font-bold" :money="$sale->total" />
+        o valor <x-span-money class="font-bold" :money="$vehicle->purchase_price" />
         referente a venda um veículo de: </p>
     </div>
 
