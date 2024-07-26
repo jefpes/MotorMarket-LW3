@@ -1,6 +1,13 @@
 <div>
   <x-slot name="header"> {{ __($header) }} </x-slot>
 
+  @if ($sale->status == 'CANCELADO')
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">{{ __('Attention') }}</strong>
+      <span class="block sm:inline">{{ __('This sale has been canceled') }}</span>
+    </div>
+  @endif
+
   <!-- component -->
   <div class="space-y-2">
     <section class="container mx-auto">

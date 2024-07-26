@@ -54,6 +54,8 @@
           @canany([$permission::SALE_CANCEL->value, $permission::INSTALLMENT_READ->value])
             <x-table.td>
               <div class="flex flex-row gap-2 justify-center">
+                <x-icons.eye class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('sale.show', $s->id) }}"
+                  id="show-{{ $s->id }}" wire:navigate />
                 @if (!$s->date_cancel)
                   @if ($s->number_installments > 1)
                     <x-icons.contract class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" wire:click="issueContract({{ $s->id }})" />
@@ -67,8 +69,6 @@
                       wire:click="$dispatch('sale::canceling', { id: {{ $s->id }} })"
                       class="cursor-pointer text-2xl flex text-red-600 w-8 h-8" />
                   @endcan
-                  <x-icons.eye class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
-                    href="{{ route('sale.show', $s->id) }}" id="show-{{ $s->id }}" wire:navigate />
                 @else
                   <x-icons.fail class="text-2xl flex text-red-600 w-8 h-8" />
                 @endif
