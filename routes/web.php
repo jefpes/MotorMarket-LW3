@@ -136,6 +136,10 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value, SaleCanceled::class])
         ->name('contract');
 
+    Route::get('sale/{id}/receipt', Reports\Receipt::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value])
+        ->name('receipt.sale');
+
     Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::INSTALLMENT_READ->value, SaleCanceled::class])
         ->name('sale.installments');

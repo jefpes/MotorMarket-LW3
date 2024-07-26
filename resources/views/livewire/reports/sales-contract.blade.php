@@ -233,7 +233,7 @@
       </p>
     </div>
 
-    <div class="py-10">
+    <div class="py-10 flex justify-end">
       <p class="font-semibold">{{ $city }}, {{ $date }}.</p>
     </div>
 

@@ -20,6 +20,8 @@ class Index extends Component
 
     public bool $modal = false;
 
+    public bool $receipt_modal = false;
+
     public bool $filter_modal = false;
 
     public ?int $sale_id = 1;
@@ -131,6 +133,12 @@ class Index extends Component
     public function resetFilters(): void
     {
         $this->reset(['plate', 'client', 'status', 'date_ini', 'date_end', 'perPage']);
+    }
+
+    public function receipt(int $id): void
+    {
+        $this->receipt_modal = true;
+        $this->sale_id       = $id;
     }
 
     public function issueContract(int $id): void
