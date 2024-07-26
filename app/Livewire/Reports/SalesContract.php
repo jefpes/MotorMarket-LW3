@@ -5,7 +5,7 @@ namespace App\Livewire\Reports;
 use App\Models\{Company, Sale};
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Livewire\Attributes\{Layout};
+use Livewire\Attributes\{Computed, Layout};
 use Livewire\Component;
 
 class SalesContract extends Component
@@ -26,7 +26,7 @@ class SalesContract extends Component
         $this->date    = Carbon::create(request('date'))->locale('pt_BR')->isoFormat('LL');
         $this->city    = request('city');
         $this->sale    = Sale::find($id);
-        $this->company = Company::first();
+        $this->company = Company::with('employee')->first();
         $this->data    = [
             (object) ['label' => 'MARCA/MODELO', 'value' => $this->sale->vehicle->model->brand->name],
             (object) ['label' => 'ESPECIE/TIPO', 'value' => $this->sale->vehicle->model->type->name],
@@ -43,5 +43,17 @@ class SalesContract extends Component
     public function render(): View
     {
         return view('livewire.reports.sales-contract');
+    }
+
+    #[Computed()]
+    public function ceo_address(): string
+    {
+        return $this->company->employee->address->street . ', ' . $this->company->employee->address->number . ', ' . $this->company->employee->address->neighborhood . ' - ' . $this->company->employee->address->city->name . ' - ' . $this->company->employee->address->state;
+    }
+
+    #[Computed()]
+    public function client_address(): string
+    {
+        return $this->sale->client->address->street . ', ' . $this->sale->client->address->number . ', ' . $this->sale->client->address->neighborhood . ' - ' . $this->sale->client->address->city->name . ' - ' . $this->sale->client->address->state;
     }
 }

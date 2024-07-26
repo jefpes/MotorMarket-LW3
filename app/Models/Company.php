@@ -12,7 +12,7 @@ class Company extends Model
 
     protected $table = 'company';
 
-    public function employees(): BelongsTo
+    public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
     }

@@ -107,7 +107,7 @@
       </x-secondary-button>
 
       @if ($modal)
-      <a href="{{ route('contract', [$sale_id, 'city' => $city, 'date' => $date ]) }}" id="contract-{{ $s->id }}" target="blank">
+      <a href="{{ route('contract', [$sale_id, 'city' => ($city ?? 'Pentecoste/CE'), 'date' => ($date ?? now()->format('Y-m-d')) ]) }}" id="contract-{{ $s->id }}" target="blank">
         <x-primary-button class="ms-3"> {{ __('Issue') }} </x-primary-button>
       </a>
       @endif
