@@ -4,7 +4,7 @@ namespace App\Livewire\Employee;
 
 use App\Enums\Permission;
 use App\Livewire\Forms\{EmployeeForm};
-use App\Models\{Employee};
+use App\Models\{Company, Employee};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Locked, On};
@@ -33,7 +33,7 @@ class Delete extends Component
     {
         $employee = Employee::find($id);
 
-        if ($employee->company) {
+        if (Company::first()->employee->id === $employee->id) {
             $this->toastFail('Employee is the CEO, it is not possible to delete him, determine another CEO and try again');
 
             return;
