@@ -61,6 +61,5 @@ class Update extends Component
         $this->employeePhoto->save($employee->id, $employee->name);
 
         $this->toastSuccess('Employee updated successfully');
-        $this->redirectRoute('employee.edit', $employee->id);
     }
 }

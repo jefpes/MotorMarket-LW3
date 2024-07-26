@@ -14,21 +14,7 @@
     </nav>
     <div class="flex flex-wrap gap-4 py-2 w-full">
       @foreach ($this->vehicles as $v)
-      <div class="w-full sm:w-[48%] md:w-[30%] xl:w-[24%] p-1">
-          <livewire:home.card :vehicle="$v" :key="$v->id" />
-          {{-- <a href="{{ route('show.v', $v->id) }}">
-            <img class="hover:grow hover:shadow-lg w-full sm:w-auto sm:h-60 rounded-md" src="{{ $v->photos->first()->path }}">
-            <div class="pt-3 flex items-center justify-between">
-              <p class="">{{ $v->model->name . ' - ' . $v->year_one.'/'.$v->year_two }}</p>
-            </div>
-            @if ($v->promotional_price)
-              <p class="pt-1"><x-span-money class="line-through py-4" :money="$v->sale_price" /></p>
-              <p class="pt-1"><x-span-money class="py-4" :money="$v->promotional_price" /></p>
-            @else
-              <p class="pt-1"><x-span-money class="py-4" :money="$v->sale_price" /></p>
-            @endif
-          </a> --}}
-        </div>
+        <livewire:home.card :vehicle="$v" :key="$v->id">
       @endforeach
     </div>
   </div>
@@ -48,9 +34,9 @@
 
         <div class="w-full space-y-1 text-gray-500 dark:text-gray-400 px-2 py-4">
 
-          <x-select wire:model.live="type" class="w-full" label="Type">
+          <x-select wire:model.live="vehicle_type_id" class="w-full" label="Type">
             <option value=""> {{ __('All') }} </option>
-            @foreach ($types as $t)
+            @foreach ($this->types as $t)
             <option value="{{ $t->id }}"> {{ $t->name }} </option>
             @endforeach
           </x-select>

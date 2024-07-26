@@ -31,7 +31,15 @@ class Delete extends Component
     #[On('employee::deleting')]
     public function deleting(int $id): void
     {
-        $this->form->setEmployee(Employee::find($id));
+        $employee = Employee::find($id);
+
+        if ($employee->company) {
+            $this->toastFail('Employee is the CEO, it is not possible to delete him, determine another CEO and try again');
+
+            return;
+        }
+
+        $this->form->setEmployee($employee);
         $this->modal = true;
 
         if ($this->form->employee->resignation_date) {

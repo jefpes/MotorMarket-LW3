@@ -30,8 +30,19 @@ class UserRole extends Component
     {
         $this->authorize(Permission::ADMIN->value);
 
-        $this->user->roles()->toggle($role_id);
-        $this->toastSuccess('Role Updated Successfully');
+        $result = $this->user->roles()->toggle($role_id);
+
+        if ($result['attached']) {
+            $this->toastSuccess('Assigned role');
+
+            return;
+        }
+
+        if ($result['detached']) {
+            $this->toastSuccess('Removed role');
+
+            return;
+        }
     }
 
 }

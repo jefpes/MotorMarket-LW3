@@ -5,17 +5,16 @@
 
     <x-form.cnpj-input name="cnpj" label="CNPJ" placeholder="CNPJ" :messages="$errors->get('cnpj')" wire:model="cnpj" class="w-full" />
 
+    <x-select name="employee_id" label="CEO" :messages="$errors->get('employee_id')" wire:model="employee_id" class="w-full" >
+      <option value="">Select a CEO</option>
+      @foreach ($this->employees as $employee)
+        <option value="{{ $employee->id }}"> {{ $employee->name }} </option>
+      @endforeach
+    </x-select>
+
     <x-form.date-input name="opened_in" label="Opened in" :messages="$errors->get('opened_in')" wire:model="opened_in" class="w-full" />
 
     <x-form.textarea name="address" label="Address" placeholder="Address" :messages="$errors->get('address')" wire:model="address" class="w-full" />
-
-    <x-form.input name="ceo" label="CEO" placeholder="CEO" :messages="$errors->get('ceo')" wire:model="ceo" class="w-full" />
-
-    <x-form.cpf-input name="cpf" label="CPF" placeholder="CPF" :messages="$errors->get('cpf')" wire:model="cpf" class="w-full" />
-
-    <x-form.input name="ceo_marital_status" label="CEO Marital Status" placeholder="CEO Marital Status" :messages="$errors->get('ceo_marital_status')" wire:model="ceo_marital_status" class="w-full" />
-
-    <x-form.textarea name="ceo_address" label="CEO Address" placeholder="CEO Address" :messages="$errors->get('ceo_address')" wire:model="ceo_address" class="w-full" />
 
     <x-form.textarea name="about" label="About" placeholder="About" :messages="$errors->get('about')" wire:model="about" class="w-full" />
 

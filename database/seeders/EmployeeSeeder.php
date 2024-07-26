@@ -12,13 +12,17 @@ class EmployeeSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
-            $photo = 'employee_' . ($i + 1) . '.webp';
-            Employee::factory()->withAddress()->create()->photos()->create([
+        for ($i = 1; $i <= 10; $i++) {
+            $photo    = "employee_$i.webp";
+            $employee = Employee::factory()->withAddress()->create();
+
+            $folder = "employee_photos";
+
+            $employee->photos()->create([
                 'photo_name' => $photo,
                 'format'     => 'webp',
-                'full_path'  => 'C:\Users\Duhasky\Documents\Projetos\MotorMarket\storage\app/client_photos/' . $photo,
-                'path'       => 'storage/employee_photos/' . $photo,
+                'full_path'  => base_path("storage/app/$folder/$photo"),
+                'path'       => "storage/$folder/$photo",
             ]);
         }
     }

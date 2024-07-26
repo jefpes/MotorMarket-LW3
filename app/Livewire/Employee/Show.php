@@ -3,10 +3,10 @@
 namespace App\Livewire\Employee;
 
 use App\Enums\Permission;
+use App\Livewire\Forms\EmployeePhotoForm;
 use App\Models\{Employee, EmployeePhotos};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -19,6 +19,8 @@ class Show extends Component
     public Employee $employee;
 
     public EmployeePhotos $photo;
+
+    public EmployeePhotoForm $employeePhotoForm;
 
     public string $header = 'Showing Employee';
 
@@ -48,19 +50,12 @@ class Show extends Component
         $this->authorize(Permission::EMPLOYEE_PHOTO_DELETE->value);
 
         try {
-            Storage::delete("/employee_photos/" . $this->photo->photo_name);
-            $this->photo->delete();
+            $this->employeePhotoForm->deletePhoto($this->photo);
+            $this->toastSuccess('Photo Deleted');
             $this->modal = false;
-
-            $this->icon = 'icons.success';
-            $this->msg  = 'Photo Deleted';
-
-            $this->dispatch('show-toast');
-        } catch (\Exception $e) {
+        } catch (\Throwable $th) {
             $this->modal = false;
-            $this->icon  = 'icons.fail';
-            $this->msg   = 'Failed to delete photo';
-            $this->dispatch('show-toast');
+            $this->toastFail('Photo Not Deleted');
         }
     }
 

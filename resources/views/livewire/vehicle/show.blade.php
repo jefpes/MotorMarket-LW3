@@ -10,6 +10,14 @@
       </div>
   <div class="p-2 border-t border-gray-200 dark:border-gray-700">
     <dl class="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+      @if ($vehicle->supplier)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Supplier') }}: </span> {{ $vehicle->supplier->name }} </p>
+        </div>
+      @endif
+      <div class="flex">
+        <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{  __('Purchase Date') }}: </span> <x-span-date :date="$vehicle->purchase_date" /> </p>
+      </div>
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{  __('Purchase Date') }}: </span> <x-span-date :date="$vehicle->purchase_date" /> </p>
       </div>
@@ -97,6 +105,11 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Description') }}: </span> {{ $vehicle->description }} </p>
       </div>
+      @if ($vehicle->annotation)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Annotation') }}: </span> {{ $vehicle->annotation }} </p>
+        </div>
+      @endif
     </dl>
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">

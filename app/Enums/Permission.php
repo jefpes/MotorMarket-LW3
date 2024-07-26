@@ -35,6 +35,11 @@ enum Permission: string
     case CLIENT_UPDATE          = 'client_update';
     case CLIENT_DELETE          = 'client_delete';
     case CLIENT_PHOTO_DELETE    = 'client_photo_delete';
+    case SUPPLIER_CREATE        = 'supplier_create';
+    case SUPPLIER_READ          = 'supplier_read';
+    case SUPPLIER_UPDATE        = 'supplier_update';
+    case SUPPLIER_DELETE        = 'supplier_delete';
+    case SUPPLIER_PHOTO_DELETE  = 'supplier_photo_delete';
     case SALE_CREATE            = 'sale_create';
     case SALE_READ              = 'sale_read';
     case SALE_CANCEL            = 'sale_cancel';

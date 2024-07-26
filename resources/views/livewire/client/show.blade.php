@@ -1,8 +1,8 @@
 <div>
-  <x-slot name="header">{{ __($header) }}: <span class="text-yellow-300">{{ $client->name ?? 'People'}}</span></x-slot>
+  <x-slot name="header">{{ __($header) }}: <span class="text-yellow-300">{{ $entity->name ?? 'People'}}</span></x-slot>
 
   <div class="flex overflow-x-auto pb-4">
-    @forelse ($client->photos as $photo)
+    @forelse ($entity->photos as $photo)
       <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
     @empty
       <p class="text-center text-2xl text-red-400" >{{ __('No photo available') }}</p>
@@ -14,61 +14,61 @@
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Name') }}: </span>
-          {{ $client->name }}
+          {{ $entity->name }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('RG') }}: </span>
-          {{ $client->rg }}
+          {{ $entity->rg }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('CPF') }}: </span>
-          {{ $client->cpf }}
+          {{ $entity->cpf }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Date Birth') }}: </span>
-          <x-span-date :date="$client->birth_date" />
+          <x-span-date :date="$entity->birth_date" />
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Mother') }}: </span>
-          {{ $client->mother }}
+          {{ $entity->mother }}
         </p>
       </div>
-      @if($client->father)
+      @if($entity->father)
         <div class="flex">
           <p class="text-lg font-semibold">
             <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Father') }}: </span>
-            {{ $client->father }}
+            {{ $entity->father }}
           </p>
         </div>
       @endif
-      @if($client->affiliated_one)
+      @if($entity->affiliated_one)
         <div class="flex">
           <p class="text-lg font-semibold">
-            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} @if($client->affiliated_two) (1) @endif: </span>
-            {{ $client->affiliated_one }}
+            <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} @if($entity->affiliated_two) (1) @endif: </span>
+            {{ $entity->affiliated_one }}
           </p>
         </div>
       @endif
-      @if($client->affiliated_two)
+      @if($entity->affiliated_two)
         <div class="flex">
           <p class="text-lg font-semibold">
             <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Affiliated') }} (2): </span>
-            {{ $client->affiliated_two }}
+            {{ $entity->affiliated_two }}
           </p>
         </div>
       @endif
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Description') }}: </span>
-          {{ $client->description }}
+          {{ $entity->description }}
         </p>
       </div>
 
@@ -82,15 +82,15 @@
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }}
-            @if($client->phone_two)(1)@endif: </span>
-          {{ $client->phone_one }}
+            @if($entity->phone_two)(1)@endif: </span>
+          {{ $entity->phone_one }}
         </p>
       </div>
-      @if($client->phone_two)
+      @if($entity->phone_two)
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Phone') }} (2): </span>
-          {{ $client->phone_two }}
+          {{ $entity->phone_two }}
         </p>
       </div>
       @endif
@@ -105,38 +105,38 @@
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('State') }}: </span>
-          {{ $client->address->state ?? ''}}
+          {{ $entity->address->state ?? ''}}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('City') }}: </span>
-          {{ $client->address->city->name ?? '' }}
+          {{ $entity->address->city->name ?? '' }}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Bairro') }}: </span>
-          {{ $client->address->neighborhood ?? ''}}
+          {{ $entity->address->neighborhood ?? ''}}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('CEP') }}: </span>
-          {{ $client->address->zip_code ?? ''}}
+          {{ $entity->address->zip_code ?? ''}}
         </p>
       </div>
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Logradouro') }}: </span>
-          {{ $client->address->street }}, {{ $client->address->number }}
+          {{ $entity->address->street }}, {{ $entity->address->number }}
         </p>
       </div>
-      @if($client->address->complement)
+      @if($entity->address->complement)
       <div class="flex">
         <p class="text-lg font-semibold">
           <span class="text-gray-500 md:text-lg dark:text-gray-400 uppercase">{{ __('Complement') }}: </span>
-          {{ $client->address->complement }}
+          {{ $entity->address->complement }}
         </p>
       </div>
       @endif
@@ -144,8 +144,8 @@
   </div>
   <div class="flex pt-4 items-center border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
     <x-secondary-button :href="route('client')" wire:navigate> {{ __('Back') }} </x-secondary-button>
-    @can($permission::CLIENT_UPDATE->value)
-      <x-primary-button :href="route('client.edit', $client->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
+    @can($permission_update)
+      <x-primary-button :href="route('client.edit', $entity->id)" wire:navigate> {{ __('Edit') }} </x-primary-button>
     @endcan
   </div>
 
@@ -164,7 +164,7 @@
         {{ __('Download') }}
       </x-primary-button>
 
-      @can($permission::CLIENT_PHOTO_DELETE->value)
+      @can($permission_photo_delete)
         <x-danger-button wire:click="destroy" class="ms-3">
           {{ __('Delete') }}
         </x-danger-button>
@@ -172,7 +172,5 @@
     </x-slot:footer>
   </x-modal>
 
-  <x-toast on="show-toast" :$icon>
-    {{ __( $msg ) }}
-  </x-toast>
+  <x-toast :$msg :$icon />
 </div>

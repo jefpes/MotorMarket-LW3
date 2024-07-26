@@ -29,4 +29,9 @@ class Vehicle extends Model
     {
         return $this->hasMany(VehicleExpense::class);
     }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }

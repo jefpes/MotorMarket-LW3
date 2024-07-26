@@ -15,6 +15,7 @@ class Index extends Component
 {
     use SortTable;
     use WithPagination;
+    use Utilities;
 
     public string $header = 'Clients';
 
@@ -46,11 +47,16 @@ class Index extends Component
         return view('livewire.client.index', ['permission' => Permission::class]);
     }
 
+    public function deleting(int $id): void
+    {
+        $this->dispatch('client::deleting', $id);
+    }
+
     #[Computed()]
     public function clients(): Paginator
     {
         return Client::when($this->search, fn (Builder $q) => $q->where('name', 'like', "%{$this->search}%"))
-            ->orderBy($this->sortColumn, $this->sortDirection)
+                ->orderBy($this->sortColumn, $this->sortDirection)
                 ->paginate();
     }
 

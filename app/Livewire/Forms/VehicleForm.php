@@ -27,6 +27,8 @@ class VehicleForm extends Form
 
     public ?int $vehicle_model_id = null;
 
+    public ?int $supplier_id = null;
+
     public ?string $year_one = '2024';
 
     public ?string $year_two = '2024';
@@ -57,6 +59,8 @@ class VehicleForm extends Form
 
     public ?string $description = '';
 
+    public ?string $annotation = '';
+
     /** @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string> */
     public function rules()
     {
@@ -67,6 +71,7 @@ class VehicleForm extends Form
             'sale_price'        => ['required', 'numeric'],
             'promotional_price' => ['nullable', 'numeric'],
             'vehicle_model_id'  => ['required', 'exists:vehicle_models,id', 'integer'],
+            'supplier_id'       => ['nullable', 'exists:suppliers,id', 'integer'],
             'year_one'          => ['required', 'integer', 'min:1900', 'max:2100'],
             'year_two'          => ['required', 'integer', 'min:1900', 'max:2100'],
             'km'                => ['required', 'integer', 'min:0'],
@@ -77,7 +82,8 @@ class VehicleForm extends Form
             'plate'             => ['required', 'string', 'size:8'],
             'chassi'            => ['required', 'string', 'max:255', 'min:3'],
             'renavam'           => ['required', 'string', 'max:255', 'min:3'],
-            'description'       => ['required', 'string', 'max:255', 'min:10'],
+            'description'       => ['nullable', 'string', 'max:255'],
+            'annotation'        => ['nullable', 'string', 'max:255'],
         ];
     }
 
@@ -94,6 +100,7 @@ class VehicleForm extends Form
                 'sale_price'        => $this->sale_price,
                 'promotional_price' => $this->promotional_price,
                 'vehicle_model_id'  => $this->vehicle_model_id,
+                'supplier_id'       => $this->supplier_id,
                 'year_one'          => $this->year_one,
                 'year_two'          => $this->year_two,
                 'km'                => $this->km,
@@ -109,6 +116,7 @@ class VehicleForm extends Form
                 'chassi'            => $this->chassi,
                 'renavam'           => $this->renavam,
                 'description'       => $this->description,
+                'annotation'        => $this->annotation,
             ]
         );
     }
