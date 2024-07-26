@@ -23,9 +23,9 @@ class SalesContract extends Component
 
     public function mount(int $id): void
     {
-        $this->date    = Carbon::create(request('date'))->locale('pt_BR')->isoFormat('LL');
         $this->city    = request('city');
         $this->sale    = Sale::with('client.address.city', 'vehicle.model.brand', 'vehicle.model.type')->find($id);
+        $this->date    = Carbon::create($this->sale->date_sale)->locale('pt_BR')->isoFormat('LL');
         $this->company = Company::with('employee')->first();
         $this->data    = [
             (object) ['label' => 'MARCA/MODELO', 'value' => $this->sale->vehicle->model->brand->name],

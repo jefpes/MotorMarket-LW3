@@ -96,9 +96,9 @@
           wire:model.live="city"/>
       </div>
 
-      <div class="flex-0">
+      {{-- <div class="flex-0">
         <x-form.input type="date" class="w-full" name="date" label="Data" :messages="$errors->get('date')" wire:model.live="date" />
-      </div>
+      </div> --}}
     </div>
 
     <x-slot:footer>
@@ -107,7 +107,7 @@
       </x-secondary-button>
 
       @if ($modal)
-      <a href="{{ route('contract', [$sale_id, 'city' => ($city ?? 'Pentecoste/CE'), 'date' => ($date ?? now()->format('Y-m-d')) ]) }}" id="contract-{{ $s->id }}" target="blank">
+      <a href="{{ route('contract', [$sale_id, 'city' => ($city ?? 'Pentecoste/CE') ]) }}" id="contract-{{ $s->id }}" target="blank">
         <x-primary-button class="ms-3"> {{ __('Issue') }} </x-primary-button>
       </a>
       @endif
