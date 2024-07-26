@@ -58,6 +58,11 @@
       <div class="flex">
         <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Description') }}: </span> {{ $vehicle->description }} </p>
       </div>
+      @if ($vehicle->annotation)
+        <div class="flex">
+          <p class="text-lg font-semibold"> <span class="text-gray-700 md:text-lg dark:text-gray-300 uppercase">{{ __('Annotation') }}: </span> {{ $vehicle->annotation }} </p>
+        </div>
+      @endif
     </div>
   </div>
   @canany([$permission::VEHICLE_UPDATE->value, $permission::VEHICLE_DELETE->value])
