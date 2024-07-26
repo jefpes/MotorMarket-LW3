@@ -67,6 +67,9 @@
   </div>
   @canany([$permission::VEHICLE_UPDATE->value, $permission::VEHICLE_DELETE->value])
     <div class="flex flex-wrap gap-y-2 items-center p-4 border-t border-gray-200 rounded-b dark:border-gray-600 justify-end gap-x-2">
+      @can($permission::VEHICLE_CREATE->value && $vehicle->supplier_id)
+        <x-secondary-button wire:click="receiptPurchase({{ $vehicle->id }})"> {{ __('Receipt') }} </x-secondary-button>
+      @endcan
       @can($permission::VEHICLE_EXPENSE_CREATE->value)
         <livewire:vehicle-expense.create v_id="{{ $vehicle->id }}" wire:key="expense_{{ $vehicle->id }}" />
       @endcan
@@ -87,4 +90,32 @@
 
     </div>
   @endcanany
+
+  <x-modal wire:model="modal" name="modal">
+    <x-slot:title> {{ __('Receipt') }} </x-slot:title>
+    <div class="w-full flex gap-2">
+      <div class="flex-1">
+        <x-form.input class="w-full" name="city_receipt" label="City" type="text" placeholder="City"
+          :messages="$errors->get('city')" wire:model.live="city" />
+      </div>
+
+      {{-- <div class="flex-0">
+        <x-form.input type="date" class="w-full" name="date" label="Data" :messages="$errors->get('date')"
+          wire:model.live="date" />
+      </div> --}}
+    </div>
+
+    <x-slot:footer>
+      <x-secondary-button wire:click="$set('modal', false)">
+        {{ __('Cancel') }}
+      </x-secondary-button>
+
+      @if ($modal)
+      <a href="{{ route('receipt.purchase', [$vehicle_id, 'city' => ($city ?? 'Pentecoste/CE') ]) }}" id="receipt-{{ $vehicle->id }}"
+        target="blank">
+        <x-primary-button class="ms-3"> {{ __('Receipt') }} </x-primary-button>
+      </a>
+      @endif
+    </x-slot:footer>
+  </x-modal>
 </div>
