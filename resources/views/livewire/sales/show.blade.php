@@ -1,15 +1,18 @@
 <div>
   <x-slot name="header"> {{ __($header) }} </x-slot>
 
-  @if ($sale->status == 'CANCELADO')
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-      <strong class="font-bold">{{ __('Attention') }}</strong>
-      <span class="block sm:inline">{{ __('This sale has been canceled') }}</span>
-    </div>
-  @endif
-
   <!-- component -->
   <div class="space-y-2">
+    @if ($sale->status == 'CANCELADO' || $sale->status == 'REEMBOLSADO')
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">{{ __('Attention') }}</strong>
+      <span class="block sm:inline">{{ __('This sale has been canceled/reembursed') }}</span>
+      @if ($sale->status == 'REEMBOLSADO')
+        <span class="block sm:inline">{{ '- '. __('Reimbursement') }}: <x-span-money :money="$sale->reimbursement" /></span>
+      @endif
+    </div>
+    @endif
+
     <section class="container mx-auto">
       <div
         class="text-black dark:text-white p-3 bg-gray-100 dark:bg-gray-700 flex mx-auto border-b border-gray-400 dark:border-gray-100 rounded-lg sm:flex-row flex-col">
