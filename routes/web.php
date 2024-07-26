@@ -136,7 +136,7 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value, SaleCanceled::class])
         ->name('contract');
 
-    Route::get('sale/{id}/receipt', Reports\Receipt::class)
+    Route::get('sale/{id}/receipt', Reports\ReceiptSale::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value])
         ->name('receipt.sale');
 

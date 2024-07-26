@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\View;
 use Livewire\Attributes\{Computed, Layout};
 use Livewire\Component;
 
-class Receipt extends Component
+class ReceiptSale extends Component
 {
     public Sale $sale;
 
@@ -39,7 +39,7 @@ class Receipt extends Component
     #[Layout('components.layouts.pdf')]
     public function render(): View
     {
-        return view('livewire.reports.receipt');
+        return view('livewire.reports.receipt-sale');
     }
 
     #[Computed()]
