@@ -128,6 +128,10 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_CREATE->value])
         ->name('sale.create');
 
+    Route::get('sale/{id}', Sales\Show::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value])
+        ->name('sale.show');
+
     Route::get('sale/{id}/contract', Reports\SalesContract::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value, SaleCanceled::class])
         ->name('contract');
