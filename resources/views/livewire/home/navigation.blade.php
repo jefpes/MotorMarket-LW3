@@ -9,11 +9,11 @@
       </nav>
     </div> --}}
 
-    <div class="order-1 md:order-2 ">
+    <div class="order-1 md:order-2">
       @if ($company->logo && Storage::exists("/$company->logo"))
-        <div class="max-h-8 max-w-48">
-          <img class="bg-cover " src="storage/{{ $company->logo }}" alt="{{ $company->name ?? 'Motor Market' }}" />
-        </div>
+        <a class="max-h-8 max-w-48" href="{{ route('home') }}">
+          <img class="max-h-8 max-w-48" src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name ?? 'Motor Market' }}" />
+        </a>
       @else
         <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500 text-xl" href="{{ route('home') }}">
           <svg class="fill-current mr-2" width="24" height="24" viewBox="0 0 24 24">

@@ -1,7 +1,7 @@
 <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
   <a href="{{ route('vehicle.show', $vehicle->id) }}" wire:navigate>
     @if ($vehicle->photos()->first() && Storage::exists("/vehicle_photos/".$vehicle->photos()->first()->photo_name))
-      <img class="rounded-t-lg max-h-72" src="{{ $vehicle->photos()->first()->path }}" alt="{{ $vehicle->surname }}"/>
+      <img class="rounded-t-lg max-h-72" src="{{ asset($vehicle->photos()->first()->path) }}" alt="{{ $vehicle->surname }}"/>
       @else
       <x-icons.no-image class="w-full h-72" />
     @endif
