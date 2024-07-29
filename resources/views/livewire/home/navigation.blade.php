@@ -1,6 +1,6 @@
-<nav id="header" class="w-full top-0 bg-white dark:bg-gray-800">
-  <div class="w-full container flex flex-wrap items-center justify-between mt-0 py-3">
-    <div class="flex-1 pl-2 md:pl-4">
+<nav id="header" class="w-full z-30 top-0 py-1 bg-white dark:bg-gray-800">
+  <div class="w-full container flex flex-wrap items-center justify-between mt-0 py-3 px-6 mx-auto">
+    <div class="flex-1">
       @if ($company->logo && Storage::exists("/$company->logo"))
         <a class="max-h-8 max-w-48" href="{{ route('home') }}">
           <img class="max-h-8 max-w-48" src="{{ asset('storage/' . $company->logo) }}" alt="{{ $company->name ?? 'Motor Market' }}" />

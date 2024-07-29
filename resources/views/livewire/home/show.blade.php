@@ -8,7 +8,7 @@
 
     @foreach ($vehicle->photos as $v)
       <div class="w-full md:w-1/3 xl:w-1/4 py-2 md:px-2 flex flex-col">
-        <img class="hover:grow shadow-md shadow-blue-500 md:rounded-xl object-fill max-h-[60vh] md:max-h-[50vh]" src="{{ asset($v->path) }}">
+        <img class="hover:grow shadow-md shadow-green-300 md:rounded-xl object-fill max-h-[60vh] md:max-h-[50vh]" src="{{ asset($v->path) }}">
       </div>
     @endforeach
 

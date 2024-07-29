@@ -8,9 +8,8 @@
           {{ __('Store') }}
         </span>
 
-        <x-secondary-button>
-          {{ __('Filter') }}
-        <x-icons.filter class="cursor-pointer w-6 h-6 text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500" wire:click="$set('modal', true)"/>
+        <x-secondary-button class="hover:text-blue-500 dark:hover:text-blue-500 text-gray-800  dark:text-gray-200" wire:click="$set('modal', true)"> {{ __('Filter') }}
+          <x-icons.filter class="ms-4 w-6 h-6" />
         </x-secondary-button>
       </div>
 
