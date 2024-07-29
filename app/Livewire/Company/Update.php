@@ -120,7 +120,9 @@ class Update extends Component
     {
         file_exists('storage/logo/') ?: Storage::makeDirectory('logo/');
 
-        Storage::delete($this->company->logo);
+        if ($this->company->logo && Storage::exists("/$this->company->logo")) {
+            Storage::delete($this->company->logo);
+        }
 
         $path = Storage::put('logo', $this->logo[0]);
 

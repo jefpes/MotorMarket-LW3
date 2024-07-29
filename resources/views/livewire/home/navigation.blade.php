@@ -1,5 +1,5 @@
-<nav id="header" class="w-full z-30 top-0 py-1 bg-white dark:bg-gray-800">
-  <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6 py-3">
+<nav id="header" class="w-full top-0 py-1 bg-white dark:bg-gray-800">
+  <div class="w-full container flex flex-wrap items-center justify-between mt-0 px-6 py-3">
 
     {{-- <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
       <nav>
@@ -10,12 +10,18 @@
     </div> --}}
 
     <div class="order-1 md:order-2 ">
-      <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500 text-xl" href="{{ route('home') }}">
-        <svg class="fill-current mr-2" width="24" height="24" viewBox="0 0 24 24">
-          <path d="M5,22h14c1.103,0,2-0.897,2-2V9c0-0.553-0.447-1-1-1h-3V7c0-2.757-2.243-5-5-5S7,4.243,7,7v1H4C3.447,8,3,8.447,3,9v11 C3,21.103,3.897,22,5,22z M9,7c0-1.654,1.346-3,3-3s3,1.346,3,3v1H9V7z M5,10h2v2h2v-2h6v2h2v-2h2l0.002,10H5V10z" />
-        </svg>
-        {{ $company->name ?? 'Motor Market' }}
-      </a>
+      @if ($company->logo && Storage::exists("/$company->logo"))
+        <div class="max-h-8 max-w-48">
+          <img class="bg-cover " src="storage/{{ $company->logo }}" alt="{{ $company->name ?? 'Motor Market' }}" />
+        </div>
+      @else
+        <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-500 text-xl" href="{{ route('home') }}">
+          <svg class="fill-current mr-2" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M5,22h14c1.103,0,2-0.897,2-2V9c0-0.553-0.447-1-1-1h-3V7c0-2.757-2.243-5-5-5S7,4.243,7,7v1H4C3.447,8,3,8.447,3,9v11 C3,21.103,3.897,22,5,22z M9,7c0-1.654,1.346-3,3-3s3,1.346,3,3v1H9V7z M5,10h2v2h2v-2h6v2h2v-2h2l0.002,10H5V10z" />
+          </svg>
+          {{ $company->name ?? 'Motor Market' }}
+        </a>
+      @endif
     </div>
 
     <div class="order-2 md:order-3 flex items-center" id="nav-content">
