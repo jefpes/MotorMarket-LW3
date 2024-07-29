@@ -10,7 +10,7 @@
 
     @foreach ($vehicle->photos as $v)
       <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <img class="hover:grow hover:shadow-lg" src="../{{ $v->path }}">
+        <img class="hover:grow hover:shadow-lg" src="{{ asset($v->path) }}">
       </div>
     @endforeach
 

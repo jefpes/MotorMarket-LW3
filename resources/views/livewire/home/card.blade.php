@@ -2,7 +2,7 @@
   <a href="{{ route('show.v', $v->id) }}"
     class="block rounded-lg p-2 shadow-md shadow-green-300 dark:bg-gray-800 bg-gray-200 hover:grow">
     <div class="h-56 w-full">
-      <img src="{{ $v->photos->first()->path }}" class="h-full w-full rounded-md object-fill" />
+      <img src="{{ asset($v->photos->first()->path) }}" class="h-full w-full rounded-md object-fill" />
     </div>
 
     <div class="mt-2">
