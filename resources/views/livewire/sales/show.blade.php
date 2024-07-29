@@ -178,10 +178,12 @@
                 <h2 class="text-gray-500 dark:text-gray-400">{{ __('Status') }}</h2>
                 <p class="{{ $this->isArrears === 'EM ATRASO' ? 'ml-2 md:ml-0 text-red-500' : 'ml-2 md:ml-0 text-green-500' }}">{{ $this->isArrears }}</p>
               </div>
-              <div class="flex md:block">
-                <h2 class="text-gray-500 dark:text-gray-400">{{ __('Next installment day') }}</h2>
-                <p class="ml-2 md:ml-0"> <x-span-date :date="$sale->paymentInstallments->where('status','PENDENTE')->first()->due_date" /> </p>
-              </div>
+              @if ($sale->paymentInstallments->where('status','PENDENTE')->count() > 0)
+                <div class="flex md:block">
+                  <h2 class="text-gray-500 dark:text-gray-400">{{ __('Next installment day') }}</h2>
+                  <p class="ml-2 md:ml-0"> <x-span-date :date="$sale->paymentInstallments->where('status','PENDENTE')->first()->due_date" /> </p>
+                </div>
+              @endif
               <div class="flex md:block">
                 <h2 class="text-gray-500 dark:text-gray-400">{{ __('Installment value') }}</h2>
                 <p class="ml-2 md:ml-0"> <x-span-money :money="$sale->paymentInstallments->first()->value" /> </p>
@@ -190,10 +192,12 @@
                 <h2 class="text-gray-500 dark:text-gray-400">{{ __('Amount paid') }}</h2>
                 <p class="ml-2 md:ml-0"> <x-span-money :money="$this->amountPaid" /> </p>
               </div>
-              <div class="flex md:block">
-                <h2 class="text-gray-500 dark:text-gray-400">{{ __('Amount remaining') }}</h2>
-                <p class="ml-2 md:ml-0"> <x-span-money :money="$this->amountArrears" /> </p>
-              </div>
+              @if ($sale->paymentInstallments->where('status','PENDENTE')->count() > 0)
+                <div class="flex md:block">
+                  <h2 class="text-gray-500 dark:text-gray-400">{{ __('Amount remaining') }}</h2>
+                  <p class="ml-2 md:ml-0"> <x-span-money :money="$this->amountArrears" /> </p>
+                </div>
+              @endif
             </div>
           </div>
         </div>

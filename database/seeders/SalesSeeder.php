@@ -165,7 +165,7 @@ class SalesSeeder extends Seeder
                 'user_id'             => 2,
                 'client_id'           => rand(1, 10),
                 'payment_method'      => 'CREDIÁRIO PRÓPRIO',
-                'status'              => 'PENDENTE',
+                'status'              => 'PAGO',
                 'date_sale'           => '2024-03-07',
                 'date_payment'        => '2024-03-07',
                 'number_installments' => 3,

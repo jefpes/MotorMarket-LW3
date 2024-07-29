@@ -1,16 +1,14 @@
 <section class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-2">
   <div class="container mx-auto flex items-center flex-wrap">
-    <nav id="store" class="w-full z-30 top-0 px-6 py-1">
-      <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
-        <span class="uppercase tracking-wide no-underline hover:no-underline font-bold text-xl">
-          {{ $vehicle->model->name . ' - ' . $vehicle->year_one.'/'.$vehicle->year_two }}
-        </span>
-      </div>
-    </nav>
+    <div class="w-full mx-auto flex flex-wrap items-center justify-center mt-0 px-2 py-3">
+      <span class="tracking-wide font-bold text-xl">
+        {{ $vehicle->model->name . ' - ' . $vehicle->year_one.'/'.$vehicle->year_two }}
+      </span>
+    </div>
 
     @foreach ($vehicle->photos as $v)
-      <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-        <img class="hover:grow hover:shadow-lg" src="{{ asset($v->path) }}">
+      <div class="w-full md:w-1/3 xl:w-1/4 py-2 md:px-2 flex flex-col">
+        <img class="hover:grow shadow-md shadow-blue-500 md:rounded-xl object-fill max-h-[60vh] md:max-h-[50vh]" src="{{ asset($v->path) }}">
       </div>
     @endforeach
 

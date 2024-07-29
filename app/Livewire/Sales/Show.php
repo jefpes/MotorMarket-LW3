@@ -27,15 +27,12 @@ class Show extends Component
     public function isArrears(): string
     {
         $installment = $this->sale
-                ->paymentInstallments()
-                ->where('status', 'PENDENTE')
-                ->orderBy('due_date')->first();
+            ->paymentInstallments()
+            ->where('status', 'PENDENTE')
+            ->orderBy('due_date')
+            ->first();
 
-        if ($installment->due_date < now()) {
-            return 'EM ATRASO';
-        } else {
-            return 'EM DIA';
-        }
+        return $installment == null ? 'PAGO' : ($installment->due_date < now() ? 'EM ATRASO' : 'EM DIA');
     }
 
     #[Computed()]
