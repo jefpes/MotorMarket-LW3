@@ -25,7 +25,7 @@ abstract class PhotoForm extends Form
     public ?string $path = '';
 
     /** @var array<Object> */
-    public array $photos;
+    public ?array $photos;
 
     abstract protected function getPhotoModel(): Model;
 
@@ -60,6 +60,7 @@ abstract class PhotoForm extends Form
                 );
             }
         }
+        $this->photos = null;
     }
 
     public function deleteOldPhotos(Model $entity): void
