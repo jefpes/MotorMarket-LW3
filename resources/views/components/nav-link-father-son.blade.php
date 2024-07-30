@@ -9,10 +9,10 @@ $classes = ($active ?? false)
 <a {{ $attributes->merge(['class' => $classes]) }}>
     {{ $slot }}
 </a>
-  <li>
+  <li class="{{ $classes }}">
     <button id="{{ $menuIconsDropdownButton }}" data-dropdown-toggle="{{ $megaMenuIconsDropdown }}"
-      class="{{ $classes }}">
-      {{ $label }}
+      >
+      {{ __($label) }}
     </button>
     <div id="{{ $megaMenuIconsDropdown }}"
       class="absolute z-10 grid hidden w-auto grid-cols-2 text-sm bg-white border border-gray-100 rounded-lg shadow-md dark:border-gray-700 md:grid-cols-3 dark:bg-gray-700">
@@ -22,7 +22,7 @@ $classes = ($active ?? false)
             <li>
               <a href="{{ $i->route }}"
                 class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group">
-                <span class="sr-only">{{ $i->label }}</span> {{ $i->label }}
+                <span class="sr-only">{{ __($i->label) }}</span> {{ __($i->label) }}
               </a>
             </li>
           @endforeach

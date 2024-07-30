@@ -13,7 +13,7 @@ class Navigation extends Component
 {
     public function render(): View
     {
-        return view('livewire.navigation');
+        return view('livewire.navigation2');
     }
 
     public function logout(Logout $logout): void
@@ -49,6 +49,19 @@ class Navigation extends Component
             UtilitiesNavigation::createNavItem('sales', 'Sales', Permission::SALE_READ, ['sale.create', 'sale.show']),
             UtilitiesNavigation::createNavItem('installments', 'Installments', Permission::INSTALLMENT_READ, ['sale.installments']),
             UtilitiesNavigation::createNavItem('vehicle-expense', 'Expenses', Permission::VEHICLE_EXPENSE_READ),
+        ];
+    }
+
+    /** @return array<object> */
+    #[Computed()]
+    public function itemsMenuDropdownButton()
+    {
+        return [
+            (object)[
+                'route' => route('vtype'),
+                'label' => "Vehicle Type",
+            ],
+
         ];
     }
 }
