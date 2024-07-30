@@ -35,24 +35,26 @@
               class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
               <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
                 x-on:profile-updated.window="name = $event.detail.name"></div>
+
               <div class="ms-1">
                 <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
                   <path fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 011.414 1.414l-4 4a1 1 01-1.414 0l-4-4a1 1 010-1.414z"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                     clip-rule="evenodd" />
                 </svg>
               </div>
             </button>
           </x-slot>
+
           <x-slot name="content">
             @if (session('localization') == 'pt_BR' || !session('localization'))
-            <x-dropdown-link wire:click="setLang('en')" class="cursor-pointer w-full text-start"> English
-            </x-dropdown-link>
+            <x-dropdown-link wire:click="setLang('en')" class="cursor-pointer w-full text-start"> English </x-dropdown-link>
             @else
             <x-dropdown-link wire:click="setLang('pt_BR')" class="cursor-pointer w-full text-start"> Português
             </x-dropdown-link>
             @endif
             <x-dropdown-link :href="route('profile')" wire:navigate> {{ __('Profile') }} </x-dropdown-link>
+
             <x-dropdown-link wire:click="logout" class="cursor-pointer w-full text-start"> {{ __('Log Out') }}
             </x-dropdown-link>
           </x-slot>
@@ -76,18 +78,12 @@
 
   <!-- Responsive Navigation Menu -->
   <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-    @foreach ($this->navs as $nav)
+    @foreach ($this->responsiveNavs as $nav)
     @can($nav->permission)
     <x-responsive-nav-link :href="route($nav->route)" :active="$nav->isActive" wire:navigate> {{ __($nav->label) }}
     </x-responsive-nav-link>
     @endcan
     @endforeach
-
-    <!-- Vehicle Dropdown Responsive -->
-    <div class="py-1 space-y-1">
-      <x-responsive-nav-link-father-son :itemsMenuDropdownButton="$this->vehicleNavs" label="Vehicle"
-        :active="request()->routeIs('brand') || request()->routeIs('vtype') || request()->routeIs('vmodel') || request()->routeIs('vehicle')" />
-    </div>
 
     <!-- Responsive Settings Options -->
     <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -97,6 +93,7 @@
           x-on:profile-updated.window="name = $event.detail.name"></div>
         <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
       </div>
+
       <div class="mt-3 space-y-1">
         @if (session('localization') == 'pt_BR' || !session('localization'))
         <x-responsive-nav-link wire:click="setLang('en')"> English </x-responsive-nav-link>
@@ -104,6 +101,8 @@
         <x-responsive-nav-link wire:click="setLang('pt_BR')"> Português </x-responsive-nav-link>
         @endif
         <x-responsive-nav-link :href="route('profile')" wire:navigate> {{ __('Profile') }} </x-responsive-nav-link>
+
+        <!-- Authentication -->
         <button wire:click="logout" class="w-full text-start">
           <x-responsive-nav-link> {{ __('Log Out') }} </x-responsive-nav-link>
         </button>
