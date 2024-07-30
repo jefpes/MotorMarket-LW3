@@ -26,7 +26,8 @@ class Navigation extends Component
     public function setLang(string $lang): void
     {
         session(['localization' => $lang]);
-        $this->redirect(url()->previous());
+        $url = url(null)->previous();
+        $this->redirect(url(null)->previous());
     }
 
     /** @return array<object> */
