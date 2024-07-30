@@ -11,19 +11,18 @@
 
         <!-- Navigation Links -->
         @foreach ($this->navs as $nav)
-        @can($nav->permission)
-        <div class="hidden sm:-my-px sm:mr-2 sm:flex">
-          <x-nav-link :href="route($nav->route)" :active="$nav->isActive" wire:navigate> {{ __($nav->label) }}
-          </x-nav-link>
-        </div>
-        @endcan
+          @can($nav->permission)
+            <div class="hidden sm:-my-px sm:mr-2 sm:flex">
+              <x-nav-link :href="route($nav->route)" :active="$nav->isActive" wire:navigate> {{ __($nav->label) }} </x-nav-link>
+            </div>
+          @endcan
         @endforeach
 
         <!-- Vehicle Dropdown -->
         <div class="hidden sm:-my-px sm:mr-2 sm:flex">
           <x-nav-link-father-son megaMenuIconsDropdown="vehicle-menu-icon" menuIconsDropdownButton="vehicle-menu-icons"
             :itemsMenuDropdownButton="$this->vehicleNavs" label="Vehicle"
-            :active="request()->routeIs('brand') || request()->routeIs('vtype') || request()->routeIs('vmodel') || request()->routeIs('vehicle')" />
+            :active="request()->routeIs(['vehicle','vehicle.show','vehicle.create','vehicle.edit','vmodel','vtype', 'brand'])" />
         </div>
       </div>
 
