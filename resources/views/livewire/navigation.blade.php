@@ -13,7 +13,7 @@
         @foreach ($this->navs as $nav)
           @can($nav->permission)
             <div class="hidden sm:-my-px sm:mr-2 sm:flex">
-              <x-nav-link :href="route($nav->route)" :active="$nav->isActive" wire:navigate> {{ __($nav->label) }} </x-nav-link>
+              <x-nav-link :href="route($nav->route)" :active="$nav->isActive"> {{ __($nav->label) }} </x-nav-link>
             </div>
           @endcan
         @endforeach
