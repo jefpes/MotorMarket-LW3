@@ -38,10 +38,6 @@ class Navigation extends Component
             UtilitiesNavigation::createNavItem('company', 'Company', Permission::COMPANY_UPDATE),
             UtilitiesNavigation::createNavItem('users', 'Users', Permission::USER_READ, ['user.roles']),
             UtilitiesNavigation::createNavItem('roles', 'Roles', Permission::ADMIN, ['roles', 'ability.role']),
-            UtilitiesNavigation::createNavItem('brand', 'Brands', Permission::BRAND_READ),
-            UtilitiesNavigation::createNavItem('vtype', 'Vehicle Type', Permission::VEHICLE_TYPE_READ),
-            UtilitiesNavigation::createNavItem('vmodel', 'Vehicle Model', Permission::VEHICLE_MODEL_READ),
-            UtilitiesNavigation::createNavItem('vehicle', 'Vehicles', Permission::VEHICLE_READ, ['vehicle.create', 'vehicle.edit', 'vehicle.show']),
             UtilitiesNavigation::createNavItem('city', 'Cities', Permission::CITY_READ),
             UtilitiesNavigation::createNavItem('client', 'Clients', Permission::CLIENT_READ, ['client.create', 'client.edit', 'client.show']),
             UtilitiesNavigation::createNavItem('supplier', 'Suppliers', Permission::SUPPLIER_READ, ['supplier.create', 'supplier.edit', 'supplier.show']),
@@ -54,15 +50,13 @@ class Navigation extends Component
 
     /** @return array<object> */
     #[Computed()]
-    public function itemsMenuDropdownButton()
+    public function vehicleNavs(): array
     {
         return [
-            (object)[
-                'permission' => Permission::VEHICLE_TYPE_READ->value,
-                'route'      => route('vtype'),
-                'label'      => "Vehicle Type",
-            ],
-
+            UtilitiesNavigation::createNavItem('brand', 'Brands', Permission::BRAND_READ),
+            UtilitiesNavigation::createNavItem('vtype', 'Vehicle Type', Permission::VEHICLE_TYPE_READ),
+            UtilitiesNavigation::createNavItem('vmodel', 'Vehicle Model', Permission::VEHICLE_MODEL_READ),
+            UtilitiesNavigation::createNavItem('vehicle', 'Vehicles', Permission::VEHICLE_READ, ['vehicle.create', 'vehicle.edit', 'vehicle.show']),
         ];
     }
 }
