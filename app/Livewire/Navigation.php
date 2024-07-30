@@ -43,9 +43,7 @@ class Navigation extends Component
             UtilitiesNavigation::createNavItem('client', 'Clients', Permission::CLIENT_READ, ['client.create', 'client.edit', 'client.show']),
             UtilitiesNavigation::createNavItem('supplier', 'Suppliers', Permission::SUPPLIER_READ, ['supplier.create', 'supplier.edit', 'supplier.show']),
             UtilitiesNavigation::createNavItem('employee', 'Employees', Permission::EMPLOYEE_READ, ['employee.create', 'employee.edit', 'employee.show']),
-            UtilitiesNavigation::createNavItem('sales', 'Sales', Permission::SALE_READ, ['sale.create', 'sale.show']),
-            UtilitiesNavigation::createNavItem('installments', 'Installments', Permission::INSTALLMENT_READ, ['sale.installments']),
-            UtilitiesNavigation::createNavItem('vehicle-expense', 'Expenses', Permission::VEHICLE_EXPENSE_READ),
+
         ];
     }
 
@@ -57,7 +55,18 @@ class Navigation extends Component
             UtilitiesNavigation::createNavItem('brand', 'Brands', Permission::BRAND_READ),
             UtilitiesNavigation::createNavItem('vtype', 'Type', Permission::VEHICLE_TYPE_READ),
             UtilitiesNavigation::createNavItem('vmodel', 'Model', Permission::VEHICLE_MODEL_READ),
-            UtilitiesNavigation::createNavItem('vehicle', 'Vehicles', Permission::VEHICLE_READ, ['vehicle.create', 'vehicle.edit', 'vehicle.show']),
+            UtilitiesNavigation::createNavItem('vehicle', 'Vehicles', Permission::VEHICLE_READ),
+        ];
+    }
+
+    /** @return array<object> */
+    #[Computed()]
+    public function financialNavs(): array
+    {
+        return [
+            UtilitiesNavigation::createNavItem('sales', 'Sales', Permission::SALE_READ),
+            UtilitiesNavigation::createNavItem('installments', 'Installments', Permission::INSTALLMENT_READ),
+            UtilitiesNavigation::createNavItem('vehicle-expense', 'Expenses', Permission::VEHICLE_EXPENSE_READ),
         ];
     }
 

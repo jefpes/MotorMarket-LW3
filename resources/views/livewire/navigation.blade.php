@@ -24,6 +24,13 @@
             :itemsMenuDropdownButton="$this->vehicleNavs" label="Vehicle"
             :active="request()->routeIs(['vehicle','vehicle.show','vehicle.create','vehicle.edit','vmodel','vtype', 'brand'])" />
         </div>
+
+        <!-- Financial Dropdown -->
+        <div class="hidden sm:-my-px sm:mr-2 sm:flex">
+          <x-nav-link-father-son megaMenuIconsDropdown="financial-menu-icon" menuIconsDropdownButton="financial-menu-icons"
+            :itemsMenuDropdownButton="$this->financialNavs" label="Financial"
+            :active="request()->routeIs(['sale.create', 'sale.show', 'sales', 'sale.installments', 'installments', 'vehicle-expense'])" />
+        </div>
       </div>
 
       <!-- Settings Dropdown -->
