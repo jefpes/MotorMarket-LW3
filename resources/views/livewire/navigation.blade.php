@@ -35,6 +35,7 @@
 
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ms-6">
+        <x-nav-link>
         <x-dropdown>
           <x-slot name="trigger">
             <button
@@ -66,6 +67,7 @@
             </x-dropdown-link>
           </x-slot>
         </x-dropdown>
+        </x-nav-link>
       </div>
 
       <!-- Hamburger -->
