@@ -10,8 +10,7 @@ $classes = ($active ?? false)
     {{ $slot }}
 </a>
   <li class="{{ $classes }}">
-    <button id="{{ $menuIconsDropdownButton }}" data-dropdown-toggle="{{ $megaMenuIconsDropdown }}"
-      >
+    <button id="{{ $menuIconsDropdownButton }}" data-dropdown-toggle="{{ $megaMenuIconsDropdown }}">
       {{ __($label) }}
     </button>
     <div id="{{ $megaMenuIconsDropdown }}"
@@ -19,12 +18,14 @@ $classes = ($active ?? false)
       <div class="p-4 pb-0 text-gray-900 md:pb-4 dark:text-white">
         <ul class="space-y-4" aria-labelledby="{{ $menuIconsDropdownButton }}">
           @foreach ($itemsMenuDropdownButton as $i)
-            <li>
-              <a href="{{ $i->route }}"
-                class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group">
-                <span class="sr-only">{{ __($i->label) }}</span> {{ __($i->label) }}
-              </a>
-            </li>
+            @can($i->permission)
+              <li>
+                <a href="{{ $i->route }}"
+                  class="flex items-center text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-500 group">
+                  <span class="sr-only">{{ __($i->label) }}</span> {{ __($i->label) }}
+                </a>
+              </li>
+            @endcan
           @endforeach
         </ul>
       </div>

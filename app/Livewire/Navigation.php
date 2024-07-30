@@ -58,8 +58,9 @@ class Navigation extends Component
     {
         return [
             (object)[
-                'route' => route('vtype'),
-                'label' => "Vehicle Type",
+                'permission' => Permission::VEHICLE_TYPE_READ->value,
+                'route'      => route('vtype'),
+                'label'      => "Vehicle Type",
             ],
 
         ];
