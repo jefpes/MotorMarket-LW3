@@ -18,6 +18,21 @@
           @endcan
         @endforeach
 
+        <x-dropdown-nav-link :active="request()->routeIs('parent-route.*')" align="right" width="48"
+          contentClasses="py-1 bg-white dark:bg-gray-700">
+          <x-slot name="trigger">
+            <span>Parent Link</span>
+          </x-slot>
+          <x-slot name="content">
+            <x-nav-link :href="route('vehicle')" :active="request()->routeIs('vehicle')">
+              Child Link 1
+            </x-nav-link>
+            <x-nav-link :href="route('vehicle')" :active="request()->routeIs('vehicle')">
+              Child Link 2
+            </x-nav-link>
+            <!-- Add more child links as needed -->
+          </x-slot>
+        </x-dropdown-nav-link>
         <!-- Vehicle Dropdown -->
         <div class="hidden sm:-my-px sm:mr-2 sm:flex">
           <x-nav-link-father-son megaMenuIconsDropdown="vehicle-menu-icon" menuIconsDropdownButton="vehicle-menu-icons"
