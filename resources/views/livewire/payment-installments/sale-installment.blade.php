@@ -1,5 +1,6 @@
 <div>
   <x-slot name="header">{{ __($header) }}</x-slot>
+
   <x-table.table>
     <x-slot:thead>
       @foreach ($theader as $h)

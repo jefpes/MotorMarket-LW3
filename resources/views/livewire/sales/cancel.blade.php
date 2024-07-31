@@ -16,7 +16,7 @@
       @if ($sale->down_payment > 0)
           <li>{{ __('Down Payment') }}: <x-span-money :money="$sale->down_payment" /></li>
       @endif
-      @if ($sale->paymentInstallments)
+      @if ($sale->number_installments > 1)
           <li>{{ __('Installments') }}: {{ $sale->paymentInstallments->count() }}</li>
           <li>{{ __('Installment Value') }}: <x-span-money :money="$sale->paymentInstallments[0]->value" /></li>
           <li>{{ __('Installments Paid') }}: {{ $sale->paymentInstallments->where('status', 'PAGO')->count() }}</li>

@@ -64,6 +64,10 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_UPDATE->value])
         ->name('vehicle.edit');
 
+    Route::get('vehicle/{id}/receipt', Reports\ReceiptPurchase::class)
+    ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_CREATE->value])
+    ->name('receipt.purchase');
+
     Route::get('vehicle/{id}', Vehicle\Show::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::VEHICLE_READ->value])
         ->name('vehicle.show');
@@ -128,9 +132,17 @@ Route::middleware(Localization::class)->group(function () {
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_CREATE->value])
         ->name('sale.create');
 
+    Route::get('sale/{id}', Sales\Show::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value])
+        ->name('sale.show');
+
     Route::get('sale/{id}/contract', Reports\SalesContract::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value, SaleCanceled::class])
         ->name('contract');
+
+    Route::get('sale/{id}/receipt', Reports\ReceiptSale::class)
+        ->middleware(['auth', 'verified', 'can:' . Permission::SALE_READ->value])
+        ->name('receipt.sale');
 
     Route::get('sale/{id}/installments', PaymentInstallments\SaleInstallment::class)
         ->middleware(['auth', 'verified', 'can:' . Permission::INSTALLMENT_READ->value, SaleCanceled::class])

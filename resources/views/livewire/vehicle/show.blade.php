@@ -3,7 +3,7 @@
 
       <div class="flex overflow-x-auto pb-4">
         @forelse ($vehicle->photos as $photo)
-          <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="../{{ $photo->path }}">
+          <img wire:click="actions({{ $photo->id }})" class="cursor-pointer w-full md:max-w-sm mx-auto max-h-[60vh]" src="{{ asset($photo->path) }}">
         @empty
           <p class="text-center text-2xl text-red-400" >{{ __('No photo available') }}</p>
         @endforelse

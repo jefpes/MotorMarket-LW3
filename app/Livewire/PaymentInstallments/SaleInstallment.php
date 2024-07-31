@@ -20,7 +20,10 @@ class SaleInstallment extends Component
 
     public function mount(int $id): void
     {
-        $this->installment = PaymentInstallments::with('sale', 'user')->where('sale_id', $id)->get();
+        $this->installment = PaymentInstallments::join('sales', 'sales.id', '=', 'payment_installments.sale_id')
+            ->where('payment_installments.sale_id', $id)
+            ->select('payment_installments.*')
+            ->get();
     }
 
     #[On('installment::refresh')]

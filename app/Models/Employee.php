@@ -15,9 +15,9 @@ class Employee extends Model
         return $this->hasOne(EmployeeAddress::class);
     }
 
-    public function company(): HasOne
+    public function company(): HasMany
     {
-        return $this->hasOne(Company::class);
+        return $this->hasMany(Company::class);
     }
 
     public function photos(): HasMany

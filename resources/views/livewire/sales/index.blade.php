@@ -54,12 +54,16 @@
           @canany([$permission::SALE_CANCEL->value, $permission::INSTALLMENT_READ->value])
             <x-table.td>
               <div class="flex flex-row gap-2 justify-center">
+                <x-icons.eye class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer" href="{{ route('sale.show', $s->id) }}"
+                  id="show-{{ $s->id }}" wire:navigate />
                 @if (!$s->date_cancel)
                   @if ($s->number_installments > 1)
                     <x-icons.contract class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" wire:click="issueContract({{ $s->id }})" />
 
                     <x-icons.money-receive class="text-2xl flex text-blue-400 w-8 h-8 cursor-pointer"
                       href="{{ route('sale.installments', $s->id) }}" id="installments-{{ $s->id }}" wire:navigate />
+                      @else
+                    <x-icons.contract class="text-2xl flex text-green-400 w-8 h-8 cursor-pointer" wire:click="receipt({{ $s->id }})" />
                   @endif
 
                   @can($permission::SALE_CANCEL->value)
@@ -94,9 +98,9 @@
           wire:model.live="city"/>
       </div>
 
-      <div class="flex-0">
+      {{-- <div class="flex-0">
         <x-form.input type="date" class="w-full" name="date" label="Data" :messages="$errors->get('date')" wire:model.live="date" />
-      </div>
+      </div> --}}
     </div>
 
     <x-slot:footer>
@@ -105,8 +109,34 @@
       </x-secondary-button>
 
       @if ($modal)
-      <a href="{{ route('contract', [$sale_id, 'city' => $city, 'date' => $date ]) }}" id="contract-{{ $s->id }}" target="blank">
+      <a href="{{ route('contract', [$sale_id, 'city' => ($city ?? 'Pentecoste/CE') ]) }}" id="contract-{{ $s->id }}" target="blank">
         <x-primary-button class="ms-3"> {{ __('Issue') }} </x-primary-button>
+      </a>
+      @endif
+    </x-slot:footer>
+  </x-modal>
+
+  <x-modal wire:model="receipt_modal" name="receipt_modal">
+    <x-slot:title> {{ __('Receipt') }} </x-slot:title>
+    <div class="w-full flex gap-2">
+      <div class="flex-1">
+        <x-form.input class="w-full" name="city_receipt" label="City" type="text" placeholder="City" :messages="$errors->get('city')"
+          wire:model.live="city"/>
+      </div>
+
+      {{-- <div class="flex-0">
+        <x-form.input type="date" class="w-full" name="date" label="Data" :messages="$errors->get('date')" wire:model.live="date" />
+      </div> --}}
+    </div>
+
+    <x-slot:footer>
+      <x-secondary-button wire:click="$set('receipt_modal', false)">
+        {{ __('Cancel') }}
+      </x-secondary-button>
+
+      @if ($receipt_modal)
+      <a href="{{ route('receipt.sale', [$sale_id, 'city' => ($city ?? 'Pentecoste/CE') ]) }}" id="receipt-{{ $s->id }}" target="blank">
+        <x-primary-button class="ms-3"> {{ __('Receipt') }} </x-primary-button>
       </a>
       @endif
     </x-slot:footer>

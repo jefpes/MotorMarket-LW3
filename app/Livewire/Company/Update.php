@@ -7,12 +7,14 @@ use App\Models\{Company, Employee};
 use App\Traits\Toast;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\{Storage};
 use Livewire\Attributes\Computed;
-use Livewire\Component;
+use Livewire\{Component, WithFileUploads};
 
 class Update extends Component
 {
     use Toast;
+    use WithFileUploads;
 
     public string $header = "Edit Company";
 
@@ -34,7 +36,8 @@ class Update extends Component
 
     public ?string $about;
 
-    public ?string $logo;
+    /** @var array<Object> */
+    public ?array $logo;
 
     public ?string $x;
 
@@ -60,7 +63,6 @@ class Update extends Component
         $this->address     = $this->company->address;
         $this->cnpj        = $this->company->cnpj;
         $this->about       = $this->company->about;
-        $this->logo        = $this->company->logo;
         $this->x           = $this->company->x;
         $this->instagram   = $this->company->instagram;
         $this->facebook    = $this->company->facebook;
@@ -98,7 +100,6 @@ class Update extends Component
             'address'     => $this->address,
             'cnpj'        => $this->cnpj,
             'about'       => $this->about,
-            'logo'        => $this->logo,
             'x'           => $this->x,
             'instagram'   => $this->instagram,
             'facebook'    => $this->facebook,
@@ -107,6 +108,24 @@ class Update extends Component
             'whatsapp'    => $this->whatsapp,
         ]);
 
+        if ($this->logo) {
+            $this->saveLogo();
+            $this->logo = null;
+        }
+
         $this->toastSuccess('Company updated successfully');
+    }
+
+    public function saveLogo(): void
+    {
+        file_exists('storage/logo/') ?: Storage::makeDirectory('logo/');
+
+        if ($this->company->logo && Storage::exists("/$this->company->logo")) {
+            Storage::delete($this->company->logo);
+        }
+
+        $path = Storage::put('logo', $this->logo[0]);
+
+        $this->company->update(['logo' => $path]);
     }
 }

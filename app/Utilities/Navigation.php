@@ -21,7 +21,7 @@ class Navigation
             'route'      => $route,
             'label'      => $label,
             'permission' => $permission->value,
-            'isActive'   => request()->routeIs(array_merge([$route], $isActive)),
+            'isActive'   => request(null)->routeIs(array_merge([$route], $isActive)),
         ];
     }
 }
