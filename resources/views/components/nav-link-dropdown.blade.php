@@ -20,10 +20,12 @@ x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false
   <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 scale-95"
     x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75"
     x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95"
-    class="absolute flex-col z-50 mt-32 w-{{ $width }} rounded-md shadow-lg "
+    class="absolute flex-col z-50 mt-[40px] xl:mt-[60px]  w-{{ $width }} rounded-md shadow-lg "
     @click="open = false">
-    <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700">
-      {{ $content }}
+    <div class="absolute">
+      <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700">
+        {{ $content }}
+      </div>
     </div>
   </div>
 </div>
