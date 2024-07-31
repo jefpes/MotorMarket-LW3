@@ -18,7 +18,7 @@
           @endcan
         @endforeach
 
-        <x-dropdown-nav-link :active="request()->routeIs('parent-route.*')"  width="48"
+        <x-dropdown-nav-link :active="request()->routeIs('vehicle')"  width="48"
           contentClasses="py-1 bg-white dark:bg-gray-700">
           <x-slot name="trigger">
             <button
