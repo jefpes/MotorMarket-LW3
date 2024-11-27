@@ -16,6 +16,7 @@ class Index extends Component
     public bool $modal = false;
 
     /** @var array<int> */
+    #[Url(except: '', as: 'brands', history: true)]
     public ?array $selectedBrands = [];
 
     #[Url(except: '', as: 'y-i', history: true)]
@@ -25,7 +26,7 @@ class Index extends Component
     public ?string $year_end = '';
 
     #[Url(except: '', history: true)]
-    public ?string $order = 'asc';
+    public ?string $order = 'desc';
 
     #[Url(except: '', history: true)]
     public ?string $max_price = null;
@@ -99,23 +100,26 @@ class Index extends Component
             ->get();
     }
 
-    public function clean(): void
+    public function updatedVehicleTypeId(): void
     {
-        $this->reset(['selectedBrands', 'year_ini', 'year_end', 'order', 'max_price', 'vehicle_type_id']);
+        $this->reset(['selectedBrands', 'order', 'max_price', 'year_ini', 'year_end']);
     }
 
     public function updatedSelectedBrands(): void
     {
+        $this->reset(['order', 'max_price', 'year_ini', 'year_end']);
         $this->resetPage();
     }
 
     public function updatedYearIni(): void
     {
+        $this->reset(['order', 'max_price']);
         $this->resetPage();
     }
 
     public function updatedYearEnd(): void
     {
+        $this->reset(['order', 'max_price']);
         $this->resetPage();
     }
 
@@ -129,9 +133,15 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function updatedType(): void
+    public function clearFilters(): void
     {
-        $this->clean();
-        $this->resetPage();
+        $this->reset([
+            'vehicle_type_id',
+            'selectedBrands',
+            'order',
+            'max_price',
+            'year_ini',
+            'year_end',
+        ]);
     }
 }

@@ -1,117 +1,141 @@
-<section class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-2">
-  <div class="container mx-auto flex items-center flex-wrap">
+<div x-data="{ showFilters: false }" class="space-y-8">
+  <div class="flex justify-between items-center">
+    <h1 class="text-3xl font-bold">{{ __('Store') }}</h1>
+    <button @click="showFilters = !showFilters"
+      class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200">
+      <span>{{ __('Filter') }}</span>
+      <x-icons.filter class="w-5 h-5" />
+    </button>
+  </div>
 
-    <nav id="store" class="w-full px-2 py-3">
-      <div class="w-full container mx-auto flex flex-wrap justify-between mt-0">
+  <!-- Modal de filtros -->
+  <div x-show="showFilters" @click.away="showFilters = false" class="fixed inset-0 z-50 overflow-hidden"
+    x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-300"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+    <div class="absolute inset-0 bg-gray-500 bg-opacity-75" @click="showFilters = false"></div>
+    <div class="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+      <div class="w-screen max-w-md">
+        <div class="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
+          <div class="p-6">
+            <div class="mt-6 space-y-4">
+              <!-- Botão Limpar Filtros -->
+              <button wire:click="clearFilters"
+                class="flex items-center space-x-2 w-full bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors duration-200">
+                <span>{{ __('Clear Filter') }}</span>
+              </button>
+              <div >
+                <x-select wire:model.live="vehicle_type_id" class="w-full" label="Type">
+                  <option value="">{{ __('All') }}</option>
+                  @foreach ($this->types as $t)
+                  <option value="{{ $t->id }}">{{ $t->name }}</option>
+                  @endforeach
+                </x-select>
+              </div>
 
-        <span class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 dark:text-gray-200 text-xl">
-          {{ __('Store') }}
-        </span>
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">{{ __('Brands') }}</h3>
+                <div class="w-full list-decimal list-inside text-gray-500 dark:text-gray-400 space-2">
+                  @foreach ($this->brands as $b)
+                  <div class="inline-flex">
+                    <label class="items-center pr-2">
+                      <input wire:model.live="selectedBrands" :key="'brand-'.$b->id" type="checkbox" value="{{ $b->id }}" class="rounded text-indigo-600 shadow-sm focus:ring-indigo-500">
+                      <span class="ms-1 text-sm">{{ $b->name }}</span>
+                    </label>
+                  </div>
+                  @endforeach
+                </div>
+              </div>
 
-        <x-secondary-button class="hover:text-blue-500 dark:hover:text-blue-500 text-gray-800  dark:text-gray-200" wire:click="$set('modal', true)"> {{ __('Filter') }}
-          <x-icons.filter class="ms-4 w-6 h-6" />
-        </x-secondary-button>
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">{{ __('Price') }}</h3>
+                <x-select wire:model.live="order" label="Order" class="w-full">
+                  <option value="asc">{{ __('Growing') }}</option>
+                  <option value="desc">{{ __('Descending') }}</option>
+                </x-select>
+                <x-select wire:model.live="max_price" class="w-full" label="Max Price">
+                  <option value="">{{ __('All') }}</option>
+                  @foreach ($this->prices as $p)
+                  <option value="{{ (int) round($p->sale_price) }}">
+                    <x-span-money :money="$p->sale_price" />
+                  </option>
+                  @endforeach
+                </x-select>
+              </div>
+
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">{{ __('Year') }}</h3>
+                <x-select wire:model.live="year_ini" class="w-full" label="Year Initial">
+                  <option value="">{{ __('Select') }}</option>
+                  @foreach ($this->years as $y)
+                  <option value="{{ $y->year_one }}">{{ $y->year_one }}</option>
+                  @endforeach
+                </x-select>
+                <x-select wire:model.live="year_end" class="w-full" label="Year Final">
+                  <option value="">{{ __('Select') }}</option>
+                  @foreach ($this->years as $y)
+                  <option value="{{ $y->year_one }}">{{ $y->year_one }}</option>
+                  @endforeach
+                </x-select>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
-    </nav>
-    <div class="flex flex-wrap gap-4 py-2 w-full">
-      @foreach ($this->vehicles as $v)
-        <livewire:home.card :vehicle="$v" :key="$v->id">
-      @endforeach
     </div>
   </div>
 
-  <div class="w-full container mx-auto px-2 justify-between">
+  <!-- Lista de veículos -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    @foreach ($this->vehicles as $v)
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <a href="{{ route('show.v', $v->id) }}" class="block">
+          <div class="h-56 w-full">
+            <img src="{{ asset($v->photos->first()->path) }}" alt="{{ $v->model->name }}" class="object-fill w-full h-full">
+          </div>
+          <div class="p-4 space-y-4">
+            <div class="flex justify-between items-center">
+              <h2 class="text-xl font-semibold">{{ $v->model->name }}</h2>
+              @if($v->promotional_price)
+              <div class="text-right">
+                <p class="text-sm text-gray-500 line-through">
+                  <x-span-money :money="$v->sale_price" />
+                </p>
+                <p class="text-lg font-bold text-green-600">
+                  <x-span-money :money="$v->promotional_price" />
+                </p>
+              </div>
+              @else
+              <p class="text-lg font-bold">
+                <x-span-money :money="$v->sale_price" />
+              </p>
+              @endif
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+              <div>
+                <p class="text-gray-500">{{ __('Brand') }}</p>
+                <p class="font-medium">{{ $v->model->brand->name }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">{{ __('Year') }}</p>
+                <p class="font-medium">{{ $v->year_one.'/'.$v->year_two }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">{{ __('KM') }}</p>
+                <p class="font-medium">{{ number_format($v->km, 0, ',', '.') }}</p>
+              </div>
+              <div>
+                <p class="text-gray-500">{{ __('Fuel') }}</p>
+                <p class="font-medium">{{ $v->fuel }}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    @endforeach
+  </div>
+
+  <div class="mt-8">
     {{ $this->vehicles->onEachSide(1)->links() }}
   </div>
-
-  <x-modal wire:model="modal" name="main_modal">
-    <x-slot:title> {{ __('Filters') }} </x-slot:title>
-    <div class="space-y-4">
-      <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <span
-          class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Type') }}
-        </span>
-
-        <div class="w-full space-y-1 text-gray-500 dark:text-gray-400 px-2 py-4">
-
-          <x-select wire:model.live="vehicle_type_id" class="w-full" label="Type">
-            <option value=""> {{ __('All') }} </option>
-            @foreach ($this->types as $t)
-            <option value="{{ $t->id }}"> {{ $t->name }} </option>
-            @endforeach
-          </x-select>
-        </div>
-      </div>
-
-      <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <span
-          class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Brands') }}
-        </span>
-        <div class="w-full space-y-1 list-decimal list-inside text-gray-500 dark:text-gray-400 px-2 py-4 space-2">
-          @foreach ($this->brands as $b)
-          <label for="{{ $b->name }}" class="inline-flex items-center pr-2">
-            <input id="{{ $b->name }}" wire:model.live="selectedBrands" type="checkbox"
-              class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
-              value="{{ $b->id }}">
-            <span class="ms-1 text-sm text-gray-600 dark:text-gray-400">{{ $b->name }}</span>
-          </label>
-          @endforeach
-        </div>
-      </div>
-      <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <span
-          class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Price') }}
-        </span>
-        <div class="flex w-full text-gray-500 dark:text-gray-400 px-2 py-4 gap-x-2">
-          <div class="flex-1">
-            <x-select wire:model.live="order" id="sold" label="Order" class="w-full">
-              <option value="asc"> {{ __('Growing') }} </option>
-              <option value="desc"> {{ __('Descending') }} </option>
-            </x-select>
-          </div>
-          <div class="flex-1">
-            <x-select wire:model.live="max_price" class="w-full" id="max_price" label="Max Price">
-              <option value=""> {{ __('All') }} </option>
-              @foreach ($this->prices as $p) <option value="{{ (int) round($p->sale_price) }}"> <x-span-money :money="$p->sale_price" /> </option> @endforeach
-            </x-select>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative w-full bg-gray-100 border border-gray-200 rounded-lg dark:bg-gray-800 dark:border-gray-700">
-        <span
-          class="bg-blue-200  font-medium text-blue-800 text-center p-0.5 leading-none rounded-full px-2 dark:bg-blue-900 dark:text-blue-200 absolute -translate-y-1/2 translate-x-1/2 right-1/2">
-          {{ __('Year') }}
-        </span>
-        <div class="w-full space-x-2 text-gray-500 dark:text-gray-400 px-2 py-4 flex">
-          <div class="flex-1">
-            <x-select wire:model.live="year_ini" class="w-full" label="Year Initial">
-              <option value=""> {{__('Select') }} </option>
-              @foreach ($this->years as $y) <option value="{{ $y->year_one }}"> {{ $y->year_one }} </option> @endforeach
-            </x-select>
-          </div>
-          <div class="flex-1">
-            <x-select wire:model.live="year_end" class="w-full" label="Year Final">
-              <option value=""> {{ __('Select') }} </option>
-              @foreach ($this->years as $y) <option value="{{ $y->year_one }}"> {{ $y->year_one }} </option> @endforeach
-            </x-select>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <x-slot:footer>
-      <x-secondary-button type="button" wire:click="$set('modal', false)">
-        {{ __('Close') }}
-      </x-secondary-button>
-      <x-primary-button class="ms-3" type="button" wire:click="clean">
-        {{ __('Reset Filter') }}
-      </x-primary-button>
-    </x-slot:footer>
-  </x-modal>
-
-</section>
+</div>

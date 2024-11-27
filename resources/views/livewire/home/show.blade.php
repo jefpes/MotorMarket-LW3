@@ -1,91 +1,144 @@
-<section class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 py-2">
-  <div class="container mx-auto flex items-center flex-wrap">
-    <div class="w-full mx-auto flex flex-wrap items-center justify-center mt-0 px-2 py-3">
-      <span class="tracking-wide font-bold text-xl">
-        {{ $vehicle->model->name . ' - ' . $vehicle->year_one.'/'.$vehicle->year_two }}
-      </span>
+<div x-data="{
+    currentSlide: 0,
+    slides: {{ $vehicle->photos->count() }},
+    showLargeImage: false,
+    activeImage: ''
+}" class="space-y-8">
+  <h1 class="text-3xl font-bold">{{ $vehicle->model->name . ' - ' . $vehicle->year_one.'/'.$vehicle->year_two }}</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="space-y-4">
+      <!-- Carrossel personalizado -->
+      <div class="relative overflow-hidden rounded-md">
+        <div class="flex transition-transform duration-300 ease-in-out"
+          :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
+          @foreach ($vehicle->photos as $index => $photo)
+          <div class="w-full flex-shrink-0">
+            <div class="aspect-w-16 aspect-h-9">
+              <img src="{{ asset($photo->path) }}"
+                class="object-fill w-full h-full cursor-pointer max-h-[60vh] md:max-h-[50vh]"
+                @click="showLargeImage = true; activeImage = '{{ asset($photo->path) }}'">
+            </div>
+          </div>
+          @endforeach
+        </div>
+        <button @click="currentSlide = (currentSlide - 1 + slides) % slides"
+          class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-r">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button @click="currentSlide = (currentSlide + 1) % slides"
+          class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-l">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+      <!-- Indicadores do carrossel -->
+      <div class="flex justify-center space-x-2">
+        @foreach ($vehicle->photos as $index => $photo)
+        <button @click="currentSlide = {{ $index }}"
+          :class="{'bg-blue-600': currentSlide === {{ $index }}, 'bg-gray-300': currentSlide !== {{ $index }}}"
+          class="w-3 h-3 rounded-full focus:outline-none"></button>
+        @endforeach
+      </div>
     </div>
 
-    @foreach ($vehicle->photos as $v)
-      <div class="w-full md:w-1/3 xl:w-1/4 py-2 md:px-2 flex flex-col">
-        <img class="hover:grow shadow-md shadow-green-300 md:rounded-xl object-fill max-h-[60vh] md:max-h-[50vh]" src="{{ asset($v->path) }}">
+    <div class="bg-white rounded-lg shadow-md p-6 space-y-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold">{{ __('Details') }}</h2>
+        @if($vehicle->promotional_price)
+        <div class="text-right">
+          <p class="text-sm text-gray-500 line-through">
+            <x-span-money :money="$vehicle->sale_price" />
+          </p>
+          <p class="text-2xl font-bold text-green-600">
+            <x-span-money :money="$vehicle->promotional_price" />
+          </p>
+        </div>
+        @else
+        <p class="text-2xl font-bold">
+          <x-span-money :money="$vehicle->sale_price" />
+        </p>
+        @endif
       </div>
-    @endforeach
 
-    <div class="container mx-auto py-2 px-2 border-t border-gray-400">
-      <div class=" bg-white rounded-lg dark:bg-gray-800">
-        <dl class="grid gap-2 sm:gap-6 mx-auto text-gray-900 sm:grid-cols-3 xl:grid-cols-6 dark:text-white p-4">
-          <div class="flex flex-col items-center justify-center">
-            <dd class="text-gray-500 dark:text-gray-400">{{ __('Model') }}</dd>
-            <dt class="text-2xl font-extrabold">{{ $vehicle->model->name }} {{ $vehicle->engine_power }}</dt>
-          </div>
-          <div class="flex flex-col items-center justify-center">
-            <dd class="text-gray-500 dark:text-gray-400">{{ __('Fuel') }}</dd>
-            <dt class="text-2xl font-extrabold">{{ $vehicle->fuel }}</dt>
-          </div>
-          @if ($vehicle->steering)
-            <div class="flex flex-col items-center justify-center">
-              <dd class="text-gray-500 dark:text-gray-400">{{ __('Steering') }}</dd>
-              <dt class="text-2xl font-extrabold">{{ $vehicle->steering }}</dt>
-            </div>
-          @endif
-          @if ($vehicle->transmission)
-            <div class="flex flex-col items-center justify-center">
-              <dd class="text-gray-500 dark:text-gray-400">{{ __('Transmission') }}</dd>
-              <dt class="text-2xl font-extrabold">{{ $vehicle->transmission }}</dt>
-            </div>
-          @endif
-          @if ($vehicle->traction)
-            <div class="flex flex-col items-center justify-center">
-              <dd class="text-gray-500 dark:text-gray-400">{{ __('Traction') }}</dd>
-              <dt class="text-2xl font-extrabold">{{ $vehicle->traction }}</dt>
-            </div>
-          @endif
-          @if ($vehicle->doors)
-            <div class="flex flex-col items-center justify-center">
-              <dd class="text-gray-500 dark:text-gray-400">{{ __('Doors') }}</dd>
-              <dt class="text-2xl font-extrabold">{{ $vehicle->doors }}</dt>
-            </div>
-          @endif
-          @if ($vehicle->seats)
-            <div class="flex flex-col items-center justify-center">
-              <dd class="text-gray-500 dark:text-gray-400">{{ __('Seats') }}</dd>
-              <dt class="text-2xl font-extrabold">{{ $vehicle->seats }}</dt>
-            </div>
-          @endif
-          <div class="flex flex-col items-center justify-center">
-            <dd class="text-gray-500 dark:text-gray-400">{{ __('Year') }}</dd>
-            <dt class="text-2xl font-extrabold">{{ $vehicle->year_one.'/'.$vehicle->year_two }}</dt>
-          </div>
-          <div class="flex flex-col items-center justify-center">
-            <dd class="text-gray-500 dark:text-gray-400">{{ __('KM') }}</dd>
-            <dt class="text-2xl font-extrabold">{{ $vehicle->km }}</dt>
-          </div>
-          @if ($vehicle->promotional_price)
-            <div class="flex flex-col items-center justify-center text-green-500 dark:text-green-400">
-              <dd>{{ __('Promotional Price') }}</dd>
-              <dt class="text-2xl font-extrabold">
-                <x-span-money :money="$vehicle->promotional_price" />
-              </dt>
-            </div>
-            @else
-            <div class="flex flex-col items-center justify-center">
-              <dd class="text-gray-500 dark:text-gray-400">{{ __('Price') }}</dd>
-              <dt class="text-2xl font-extrabold">
-                <x-span-money :money="$vehicle->sale_price" />
-              </dt>
-            </div>
-          @endif
-        </dl>
-        <div class="p-4">
-          <div class="flex flex-col items-center justify-center">
-            <dd class="text-gray-500 dark:text-gray-400">{{ __('Description') }}</dd>
-            <dt class="text-2xl font-extrabold">{{ $vehicle->description }}</dt>
-          </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-gray-500">{{ __('Model') }}</p>
+          <p class="font-medium">{{ $vehicle->model->name }} {{ $vehicle->engine_power }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">{{ __('Fuel') }}</p>
+          <p class="font-medium">{{ $vehicle->fuel }}</p>
+        </div>
+        @if ($vehicle->steering)
+        <div>
+          <p class="text-gray-500">{{ __('Steering') }}</p>
+          <p class="font-medium">{{ $vehicle->steering }}</p>
+        </div>
+        @endif
+        @if ($vehicle->transmission)
+        <div>
+          <p class="text-gray-500">{{ __('Transmission') }}</p>
+          <p class="font-medium">{{ $vehicle->transmission }}</p>
+        </div>
+        @endif
+        @if ($vehicle->traction)
+        <div>
+          <p class="text-gray-500">{{ __('Traction') }}</p>
+          <p class="font-medium">{{ $vehicle->traction }}</p>
+        </div>
+        @endif
+        @if ($vehicle->doors)
+        <div>
+          <p class="text-gray-500">{{ __('Doors') }}</p>
+          <p class="font-medium">{{ $vehicle->doors }}</p>
+        </div>
+        @endif
+        @if ($vehicle->seats)
+        <div>
+          <p class="text-gray-500">{{ __('Seats') }}</p>
+          <p class="font-medium">{{ $vehicle->seats }}</p>
+        </div>
+        @endif
+        <div>
+          <p class="text-gray-500">{{ __('Year') }}</p>
+          <p class="font-medium">{{ $vehicle->year_one.'/'.$vehicle->year_two }}</p>
+        </div>
+        <div>
+          <p class="text-gray-500">{{ __('KM') }}</p>
+          <p class="font-medium">{{ number_format($vehicle->km, 0, ',', '.') }}</p>
         </div>
       </div>
-    </div>
 
+      <div>
+        <h3 class="text-xl font-semibold mb-2">{{ __('Description') }}</h3>
+        <p class="text-gray-600">{{ $vehicle->description }}</p>
+      </div>
+
+      @if (false)
+        <div class="pt-6 border-t border-gray-200">
+          <button
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-200">
+          {{ __('Contact Seller') }}
+          </button>
+        </div>
+      @endif
+    </div>
   </div>
 
-</section>
+  <!-- Modal para imagem ampliada -->
+  <div x-show="showLargeImage" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+    @click.away="showLargeImage = false">
+    <div class="relative max-w-4xl max-h-full">
+      <img :src="activeImage" :alt="'{{ $vehicle->model->name }}'" class="object-contain w-full h-full">
+      <button @click="showLargeImage = false" class="absolute top-4 right-4 text-white hover:text-gray-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
