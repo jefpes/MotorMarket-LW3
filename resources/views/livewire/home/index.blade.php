@@ -1,6 +1,6 @@
 <div x-data="{ showFilters: false }" class="space-y-8">
   <div class="flex justify-between items-center">
-    <h1 class="text-3xl font-bold">{{ __('Store') }}</h1>
+    <h1 class="text-3xl font-bold">{{ $company->name ?? 'Motor Market' }}</h1>
     <button @click="showFilters = !showFilters"
       class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors duration-200">
       <span>{{ __('Filter') }}</span>
