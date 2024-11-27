@@ -35,7 +35,7 @@
 
               <div class="space-y-2">
                 <h3 class="text-lg font-semibold">{{ __('Brands') }}</h3>
-                <div class="w-full list-decimal list-inside text-gray-500 dark:text-gray-400 space-2">
+                <div class="w-full list-decimal list-inside space-2">
                   @foreach ($this->brands as $b)
                   <div class="inline-flex">
                     <label class="items-center pr-2">
