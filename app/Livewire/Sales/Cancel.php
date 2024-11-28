@@ -37,7 +37,7 @@ class Cancel extends Component
     {
         $this->authorize(Permission::SALE_CANCEL->value);
 
-        if($this->sale->date_cancel !== null) {
+        if ($this->sale->date_cancel !== null) {
             $this->toastFail('Sale already cancelled');
 
             $this->modal = false;
