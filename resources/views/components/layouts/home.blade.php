@@ -1,79 +1,27 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{ config('app.name', 'Laravel') }}</title>
-
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-  <!-- Scripts -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-  <style>
-    .work-sans {
-      font-family: 'Work Sans', sans-serif;
-    }
-
-    #menu-toggle:checked+#menu {
-      display: block;
-    }
-
-    .hover\:grow {
-      transition: all 0.3s;
-      transform: scale(1);
-    }
-
-    .hover\:grow:hover {
-      transform: scale(1.02);
-    }
-
-    .carousel-open:checked+.carousel-item {
-      position: static;
-      opacity: 100;
-    }
-
-    .carousel-item {
-      -webkit-transition: opacity 0.6s ease-out;
-      transition: opacity 0.6s ease-out;
-    }
-
-    #carousel-1:checked~.control-1,
-    #carousel-2:checked~.control-2,
-    #carousel-3:checked~.control-3 {
-      display: block;
-    }
-
-    .carousel-indicators {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      position: absolute;
-      bottom: 2%;
-      left: 0;
-      right: 0;
-      text-align: center;
-      z-index: 10;
-    }
-
-    #carousel-1:checked~.control-1~.carousel-indicators li:nth-child(1) .carousel-bullet,
-    #carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
-    #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet {
-      color: #000;
-      /*Set to match the Tailwind colour you want the active one to be */
-    }
-  </style>
-
+  <title>{{ $title ?? 'Motor Market' }}</title>
+  @vite(['resources/css/app.css', 'resources/js/home.js'])
 </head>
 
-<body class="min-h-screen bg-gray-100 dark:bg-gray-900">
-  <livewire:home.navigation />
-  {{ $slot }}
-  <livewire:home.footer />
+<body class="flex flex-col min-h-screen bg-gray-100 text-gray-900 font-sans">
+  <header class="bg-gray-200 shadow-md">
+    <livewire:home.navigation />
+  </header>
+
+  <main class="flex-grow container mx-auto px-4 py-8 ">
+    {{ $slot }}
+  </main>
+
+  <footer class="bg-gray-200 shadow-md mt-auto">
+    <livewire:home.footer />
+  </footer>
+
+  @livewireScripts
 </body>
 
 </html>

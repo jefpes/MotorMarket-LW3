@@ -1,6 +1,7 @@
 {
   "(and :count more error)": "(e mais :count erro)",
   "(and :count more errors)": "(e mais :count erros)",
+  "Clear Filter": "Limpar Filtro",
   "Search": "Buscar",
   "Update": "Atualizar",
   "About": "Sobre",

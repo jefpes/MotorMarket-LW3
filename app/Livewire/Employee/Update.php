@@ -45,12 +45,12 @@ class Update extends Component
         $employee = $this->employee->save();
 
         // Modifica o email do usuário, se houver
-        if($employee->user()->exists() && $employee->user->email !== $this->employee->email) {
+        if ($employee->user()->exists() && $employee->user->email !== $this->employee->email) {
             $employee->user->update(['email' => $this->employee->email, 'email_verified_at' => null]);
         }
 
         // Modifica o nome do usuário, se houver
-        if($employee->user()->exists() && $employee->user->name !== $this->employee->name) {
+        if ($employee->user()->exists() && $employee->user->name !== $this->employee->name) {
             $employee->user->update(['name' => $this->employee->name]);
         }
 

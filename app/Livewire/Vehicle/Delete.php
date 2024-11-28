@@ -40,7 +40,7 @@ class Delete extends Component
         $this->authorize(Permission::VEHICLE_DELETE->value);
         $vehicle = Vehicle::find($this->form->id);
 
-        if($vehicle->photos->isNotEmpty()) {
+        if ($vehicle->photos->isNotEmpty()) {
             foreach ($vehicle->photos as $photo) {
                 Storage::delete("/vehicle_photos/" . $photo->photo_name);
             }
